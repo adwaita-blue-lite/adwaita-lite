@@ -3,8 +3,8 @@ name: Sync upstream image-template
 
 on:
   schedule:
-    # Mondays at 06:00 UTC. Upstream image-template changes slowly.
-    - cron: '0 6 * * 1'
+    # Daily at 06:00 UTC.
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -12,19 +12,22 @@ permissions:
   issues: write
   pull-requests: write
 
-concurrency:
-  group: upstream-sync
-  cancel-in-progress: false
-
 jobs:
   sync:
-    name: Sync ublue-os/image-template
+    name: Sync upstream into ${{ matrix.branch }}
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        branch: [main, dx, testing, beta]
+    concurrency:
+      group: upstream-sync-${{ matrix.branch }}
+      cancel-in-progress: false
     steps:
-      - name: Checkout main
+      - name: Checkout ${{ matrix.branch }}
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
-          ref: main
+          ref: ${{ matrix.branch }}
           fetch-depth: 0
 
       - name: Fetch upstream
@@ -37,18 +40,20 @@ jobs:
       - name: Merge upstream into a sync branch
         id: merge
         shell: bash
+        env:
+          BRANCH: ${{ matrix.branch }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          branch="upstream-sync/$(date -u +%Y%m%d)"
-          echo "branch=${branch}" >> "${GITHUB_OUTPUT}"
-          git switch -C "${branch}"
+          sync_branch="upstream-sync/${BRANCH}/$(date -u +%Y%m%d)"
+          echo "branch=${sync_branch}" >> "${GITHUB_OUTPUT}"
+          git switch -C "${sync_branch}"
 
           if git merge --no-edit upstream/main; then
-            if git diff --quiet origin/main HEAD; then
-              echo "Already aligned with upstream/main."
+            if git diff --quiet "origin/${BRANCH}" HEAD; then
+              echo "${BRANCH} is already aligned with upstream/main."
               echo "changed=false" >> "${GITHUB_OUTPUT}"
               exit 0
             fi
@@ -63,14 +68,15 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-          BRANCH: ${{ steps.merge.outputs.branch }}
+          BASE_BRANCH: ${{ matrix.branch }}
+          SYNC_BRANCH: ${{ steps.merge.outputs.branch }}
         run: |
           set -euo pipefail
-          git push --force -u origin "${BRANCH}"
+          git push --force -u origin "${SYNC_BRANCH}"
 
           existing_url=$(gh pr list \
-            --base main \
-            --head "${BRANCH}" \
+            --base "${BASE_BRANCH}" \
+            --head "${SYNC_BRANCH}" \
             --state open \
             --json url \
             --jq '.[0].url // ""')
@@ -81,16 +87,16 @@ jobs:
           fi
 
           body=$(cat <<'EOF'
-          Automated merge of `ublue-os/image-template` main into Adwaita-Lite.
+          Automated merge of `ublue-os/image-template` main into this stream.
 
-          Review the diff and the image build before merging. This workflow never pushes to `main` directly.
+          Review the diff and the image build before merging. This workflow never pushes directly to the branch.
           EOF
           )
 
           gh pr create \
-            --base main \
-            --head "${BRANCH}" \
-            --title "chore: sync upstream image-template ($(date -u +%Y-%m-%d))" \
+            --base "${BASE_BRANCH}" \
+            --head "${SYNC_BRANCH}" \
+            --title "chore: sync upstream image-template into ${BASE_BRANCH} ($(date -u +%Y-%m-%d))" \
             --body "${body}"
 
       - name: Report a merge conflict
@@ -98,9 +104,10 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ matrix.branch }}
         run: |
           set -euo pipefail
-          title="Upstream image-template sync conflict ($(date -u +%Y-%m-%d))"
+          title="Upstream sync conflict: ${BRANCH} ($(date -u +%Y-%m-%d))"
 
           existing_number=$(gh issue list \
             --state open \
@@ -114,7 +121,7 @@ jobs:
           fi
 
           body=$(cat <<'EOF'
-          The automated sync could not merge `ublue-os/image-template` into `main`.
+          The automated upstream sync could not merge `ublue-os/image-template` into this stream.
 
           Resolve locally:
 
@@ -129,7 +136,7 @@ jobs:
           git push -u origin upstream-sync/manual
           ```
 
-          Then open a PR against `main` from `upstream-sync/manual`.
+          Then open a PR against this branch from `upstream-sync/manual`.
           EOF
           )
 
