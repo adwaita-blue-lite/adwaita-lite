@@ -5,6 +5,11 @@ old or low-end computers. Built on [Universal Blue](https://universal-blue.org/)
 the image updates itself daily and rolls back automatically if anything
 goes wrong. No package manager, no manual maintenance, no surprises.
 
+> Adwaita-Lite is an independent derivative of
+> [Universal Blue's image-template](https://github.com/ublue-os/image-template).
+> Upstream changes are merged through the `upstream` git remote; see
+> [docs/operations/upstream-sync.md](docs/operations/upstream-sync.md).
+
 Designed for the handful of real-world cases where this combination
 actually matters:
 
