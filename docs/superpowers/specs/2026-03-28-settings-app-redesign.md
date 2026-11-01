@@ -2,13 +2,13 @@
 
 ## Overview
 
-Redesign the Universal-Lite settings application from a 3-tab utility into a full sidebar-detail settings app with 9 categories. Goal: ChromeOS-level refinement on constrained hardware, using pure GTK4 (no libadwaita dependency).
+Redesign the Adwaita-Lite settings application from a 3-tab utility into a full sidebar-detail settings app with 9 categories. Goal: ChromeOS-level refinement on constrained hardware, using pure GTK4 (no libadwaita dependency).
 
 ## Architecture
 
-**Single-file rewrite** of `/usr/bin/universal-lite-settings`. Each category is a page class that returns a widget. The main window owns the sidebar and swaps content via `Gtk.Stack`.
+**Single-file rewrite** of `/usr/bin/adwaita-lite-settings`. Each category is a page class that returns a widget. The main window owns the sidebar and swaps content via `Gtk.Stack`.
 
-**Backend unchanged.** All settings flow through the existing pipeline: `settings.json` → `universal-lite-apply-settings` → generated configs. New categories (mouse, keyboard, power) add keys to settings.json and corresponding generation logic to apply-settings. Sound and Default Apps are direct control surfaces that don't use settings.json.
+**Backend unchanged.** All settings flow through the existing pipeline: `settings.json` → `adwaita-lite-apply-settings` → generated configs. New categories (mouse, keyboard, power) add keys to settings.json and corresponding generation logic to apply-settings. Sound and Default Apps are direct control surfaces that don't use settings.json.
 
 ## Window Structure
 

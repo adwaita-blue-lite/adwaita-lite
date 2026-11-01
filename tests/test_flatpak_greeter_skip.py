@@ -4,13 +4,13 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-GREETER = ROOT / "files/usr/bin/universal-lite-greeter"
+GREETER = ROOT / "files/usr/bin/adwaita-lite-greeter"
 
 
 def _load_greeter_module():
-    loader = importlib.machinery.SourceFileLoader("universal_lite_greeter", str(GREETER))
+    loader = importlib.machinery.SourceFileLoader("adwaita_lite_greeter", str(GREETER))
     spec = importlib.util.spec_from_loader(
-        "universal_lite_greeter", loader, origin=str(GREETER)
+        "adwaita_lite_greeter", loader, origin=str(GREETER)
     )
     module = importlib.util.module_from_spec(spec)
     module.__file__ = str(GREETER)

@@ -1,1 +1,0 @@
-%wheel ALL=(root) NOPASSWD: /usr/libexec/universal-lite-app-setup-helper install, /usr/libexec/universal-lite-app-setup-helper skip, /usr/libexec/universal-lite-app-setup-helper status, /usr/libexec/universal-lite-app-setup-helper count

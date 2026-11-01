@@ -3,7 +3,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/universal-lite"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/adwaita-lite"))
 
 from settings.pages import about, appearance, default_apps, keyboard, panel, power_lock  # noqa: E402
 
@@ -131,6 +131,16 @@ def test_panel_sanitize_layout_filters_unknowns_and_duplicates():
     }
 
 
+def test_panel_page_shows_restart_session_notice():
+    source = Path(panel.__file__).read_text(encoding="utf-8")
+    position_body = source.split("def _build_position_group", 1)[1].split(
+        "def _build_density_group", 1
+    )[0]
+
+    assert 'PANEL_RESTART_NOTICE = _("Panel changes apply after you restart your session.")' in source
+    assert "group.set_description(PANEL_RESTART_NOTICE)" in position_body
+
+
 def test_panel_edge_change_saves_and_relabels_sections():
     class Store:
         def __init__(self):
@@ -209,6 +219,16 @@ def test_accent_change_applies_with_waybar_mode():
     source = Path(appearance.__file__).read_text(encoding="utf-8")
 
     assert 'save_and_apply("accent", name, mode="waybar")' in source
+
+
+def test_appearance_accent_shows_panel_restart_session_notice():
+    source = Path(appearance.__file__).read_text(encoding="utf-8")
+    accent_body = source.split("# -- Group 2: Accent color --", 1)[1].split(
+        "# -- Group 3: Font size --", 1
+    )[0]
+
+    assert 'PANEL_RESTART_NOTICE = _("Panel changes apply after you restart your session.")' in source
+    assert "accent_group.set_description(PANEL_RESTART_NOTICE)" in accent_body
 
 
 def test_panel_move_module_defers_refresh_and_applies_layout_with_waybar_mode(monkeypatch):
@@ -503,7 +523,7 @@ def test_power_timeout_sanitizer_matches_apply_defaults():
 
 
 def test_settings_launcher_guards_vm_renderer_before_importing_gtk_app():
-    source = (ROOT / "files/usr/bin/universal-lite-settings").read_text(
+    source = (ROOT / "files/usr/bin/adwaita-lite-settings").read_text(
         encoding="utf-8"
     )
 
@@ -516,7 +536,7 @@ def test_settings_launcher_guards_vm_renderer_before_importing_gtk_app():
 
 def test_power_lock_helper_survives_transient_unmap():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/pages/power_lock.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/pages/power_lock.py"
     ).read_text(encoding="utf-8")
 
     assert 'connect("unrealize", lambda _w: self._teardown_helpers())' in source
@@ -525,7 +545,7 @@ def test_power_lock_helper_survives_transient_unmap():
 
 def test_power_profile_set_uses_async_dbus_call():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/dbus_helpers.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/dbus_helpers.py"
     ).read_text(encoding="utf-8")
     body = source.split("def set_active_profile", 1)[1].split(
         "def _on_props_changed", 1
@@ -538,7 +558,7 @@ def test_power_profile_set_uses_async_dbus_call():
 
 def test_window_close_holds_application_until_apply_work_drains():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/window.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/window.py"
     ).read_text(encoding="utf-8")
 
     assert "if self._store.has_apply_work():" in source
@@ -546,9 +566,43 @@ def test_window_close_holds_application_until_apply_work_drains():
     assert "self._store.wait_for_apply(_release_app)" in source
 
 
+def test_settings_window_uses_adw_banner_for_deferred_restart_prompt():
+    source = (
+        ROOT / "files/usr/lib/adwaita-lite/settings/window.py"
+    ).read_text(encoding="utf-8")
+
+    assert "self._deferred_restart_banner = Adw.Banner()" in source
+    assert '_("Restart your session to apply panel and start menu changes.")' in source
+    assert '_("Restart Session")' in source
+    assert 'connect("button-clicked", self._on_restart_session_clicked)' in source
+    assert "content_toolbar.add_top_bar(self._deferred_restart_banner)" in source
+    assert "store.set_deferred_changes_callback(self._set_deferred_restart_banner_revealed)" in source
+    assert "self._store.set_deferred_changes_callback(None)" in source
+    assert "store.has_deferred_session_changes()" in source
+
+
+def test_settings_window_confirms_and_runs_session_restart():
+    source = (
+        ROOT / "files/usr/lib/adwaita-lite/settings/window.py"
+    ).read_text(encoding="utf-8")
+
+    assert "def _on_restart_session_clicked" in source
+    assert "Adw.AlertDialog.new" in source
+    assert '_("Restart Session?")' in source
+    assert '_("This will close your apps and return you to the sign-in screen.")' in source
+    assert 'dialog.add_response("cancel", _("Cancel"))' in source
+    assert 'dialog.add_response("restart", _("Restart Session"))' in source
+    assert 'dialog.set_response_appearance("restart", Adw.ResponseAppearance.DESTRUCTIVE)' in source
+    assert '["labwc", "--exit"]' in source
+    assert "stdin=subprocess.DEVNULL" in source
+    assert "stdout=subprocess.DEVNULL" in source
+    assert "stderr=subprocess.DEVNULL" in source
+    assert '_("Could not restart session: {detail}")' in source
+
+
 def test_failed_page_build_unsubscribes_partial_subscriptions():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/window.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/window.py"
     ).read_text(encoding="utf-8")
 
     assert "page.unsubscribe_all()" in source

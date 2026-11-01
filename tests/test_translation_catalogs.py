@@ -6,9 +6,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = "am ar de es fa fr ha hi it ja ko nl pl pt ru sv sw th tr vi yo zh".split()
 CATALOGS = [
-    ("wizard", ROOT / "po", "universal-lite-setup-wizard"),
-    ("settings", ROOT / "po/settings", "universal-lite-settings"),
-    ("app-menu", ROOT / "po/app-menu", "universal-lite-app-menu"),
+    ("wizard", ROOT / "po", "adwaita-lite-setup-wizard"),
+    ("settings", ROOT / "po/settings", "adwaita-lite-settings"),
+    ("app-menu", ROOT / "po/app-menu", "adwaita-lite-app-menu"),
 ]
 
 
@@ -124,3 +124,30 @@ def test_all_compiled_mo_files_exist_after_build():
                 missing.append(str(path.relative_to(ROOT)))
 
     assert missing == []
+
+
+def test_settings_deferred_restart_strings_are_translated():
+    required = {
+        "Restart your session to apply panel and start menu changes.": (),
+        "Restart Session": (),
+        "Restart Session?": (),
+        "This will close your apps and return you to the sign-in screen.": (),
+        "Could not restart session: {detail}": ("{detail}",),
+    }
+    pot_entries = {
+        "".join(entry["msgid"])
+        for entry in _parse_po_entries(ROOT / "po/settings/adwaita-lite-settings.pot")
+    }
+    for msgid in required:
+        assert msgid in pot_entries
+
+    for lang in LANGUAGES:
+        entries = {
+            "".join(entry["msgid"]): "".join(entry["msgstr"])
+            for entry in _parse_po_entries(ROOT / "po/settings" / f"{lang}.po")
+        }
+        for msgid, placeholders in required.items():
+            msgstr = entries.get(msgid, "")
+            assert msgstr.strip(), f"{lang} missing translation for {msgid!r}"
+            for placeholder in placeholders:
+                assert placeholder in msgstr, f"{lang} missing {placeholder} in {msgid!r}"

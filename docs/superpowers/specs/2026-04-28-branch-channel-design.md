@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Universal-Lite needs four clearly separated update streams:
+Adwaita-Lite needs four clearly separated update streams:
 
 - `main` for the stable consumer image used by normal installs.
 - `dx` for a stable developer-mode image that follows Universal Blue conventions.
@@ -15,24 +15,24 @@ The streams must still receive same-day base and security updates whenever autom
 
 `main` remains the stable branch and publishes the existing image stream:
 
-- `quay.io/noitatsidem/universal-lite:latest`
-- `quay.io/noitatsidem/universal-lite:latest.YYYYMMDD`
-- `quay.io/noitatsidem/universal-lite:YYYYMMDD`
+- `ghcr.io/adwaita-blue-lite/adwaita-lite:latest`
+- `ghcr.io/adwaita-blue-lite/adwaita-lite:latest.YYYYMMDD`
+- `ghcr.io/adwaita-blue-lite/adwaita-lite:YYYYMMDD`
 
 `dx` is created from `main`. It carries the stable developer-mode foundation and publishes:
 
-- `quay.io/noitatsidem/universal-lite:dx`
-- `quay.io/noitatsidem/universal-lite:dx.YYYYMMDD`
+- `ghcr.io/adwaita-blue-lite/adwaita-lite:dx`
+- `ghcr.io/adwaita-blue-lite/adwaita-lite:dx.YYYYMMDD`
 
 `testing` is created from `dx`. It carries WIP changes on top of stable DX and publishes:
 
-- `quay.io/noitatsidem/universal-lite:testing`
-- `quay.io/noitatsidem/universal-lite:testing.YYYYMMDD`
+- `ghcr.io/adwaita-blue-lite/adwaita-lite:testing`
+- `ghcr.io/adwaita-blue-lite/adwaita-lite:testing.YYYYMMDD`
 
-`beta` is created from `main`. It keeps the stable Universal-Lite payload but changes the base image to the Universal Blue beta stream, which tracks the next Fedora/rawhide-style base rather than promising Fedora Beta release quality. It publishes:
+`beta` is created from `main`. It keeps the stable Adwaita-Lite payload but changes the base image to the Universal Blue beta stream, which tracks the next Fedora/rawhide-style base rather than promising Fedora Beta release quality. It publishes:
 
-- `quay.io/noitatsidem/universal-lite:beta`
-- `quay.io/noitatsidem/universal-lite:beta.YYYYMMDD`
+- `ghcr.io/adwaita-blue-lite/adwaita-lite:beta`
+- `ghcr.io/adwaita-blue-lite/adwaita-lite:beta.YYYYMMDD`
 
 The beta branch name and output tag are not enough by themselves. Beta builds must use the Universal Blue beta base image, currently verified as pullable at `ghcr.io/ublue-os/base-main:beta`. The existing stable build uses `ghcr.io/ublue-os/base-main:latest`.
 

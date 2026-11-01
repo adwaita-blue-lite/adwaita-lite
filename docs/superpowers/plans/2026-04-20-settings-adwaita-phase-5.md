@@ -65,9 +65,9 @@ Before dispatching anything, confirm the audit's assumed state still holds.
 ```bash
 echo "=== Critical sites audit ==="
 grep -nE '^\s*self\.add\((banner|self\._banner|status)\)' \
-    files/usr/lib/universal-lite/settings/pages/{bluetooth,language,network,users}.py
+    files/usr/lib/adwaita-lite/settings/pages/{bluetooth,language,network,users}.py
 grep -nE 'group\.add\(status\)' \
-    files/usr/lib/universal-lite/settings/pages/display.py
+    files/usr/lib/adwaita-lite/settings/pages/display.py
 ```
 
 Expected: 5 hits total, matching the audit.
@@ -76,7 +76,7 @@ Expected: 5 hits total, matching the audit.
 
 ```bash
 grep -nE 'set_size_request\(200, -1\)' \
-    files/usr/lib/universal-lite/settings/pages/*.py
+    files/usr/lib/adwaita-lite/settings/pages/*.py
 ```
 
 Expected: 6 hits (display×1, mouse_touchpad×3, sound×2).
@@ -85,7 +85,7 @@ Expected: 6 hits (display×1, mouse_touchpad×3, sound×2).
 
 ```bash
 grep -nE '_content_scroll|Gtk\.ScrolledWindow' \
-    files/usr/lib/universal-lite/settings/window.py
+    files/usr/lib/adwaita-lite/settings/window.py
 ```
 
 Expected: matches the audit's description.
@@ -218,7 +218,7 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
 
 ### Wave 5A verification (controller, post-agent)
 
-- [ ] `python3 -c "import ast; [ast.parse(open(f).read()) for f in ['files/usr/lib/universal-lite/settings/pages/{bluetooth,language,network,users,display,default_apps}.py'.replace('{', '').replace('}', '')]]; print('OK')"` — six files parse
+- [ ] `python3 -c "import ast; [ast.parse(open(f).read()) for f in ['files/usr/lib/adwaita-lite/settings/pages/{bluetooth,language,network,users,display,default_apps}.py'.replace('{', '').replace('}', '')]]; print('OK')"` — six files parse
 - [ ] No remaining `self\.add\(banner\)` / `self\.add\(status\)` / `group\.add\(status\)` in those six files
 - [ ] Spec reviewer dispatched on the commit (one Sonnet agent against the audit C1–C5 + I1 expectations)
 - [ ] Quality reviewer dispatched on the commit
@@ -233,8 +233,8 @@ All seven agents dispatched together. Dependency: Wave 5A must have landed on ma
 ### Agent B1 — window.py architecture + CSS polish (Sonnet)
 
 **Files:**
-- `files/usr/lib/universal-lite/settings/window.py`
-- `files/usr/lib/universal-lite/settings/css/style.css`
+- `files/usr/lib/adwaita-lite/settings/window.py`
+- `files/usr/lib/adwaita-lite/settings/css/style.css`
 
 **AR1 — remove outer `Gtk.ScrolledWindow`**
 
@@ -356,7 +356,7 @@ self.store.apply()
 
 ### Agent C1 — mouse_touchpad adaptive (Opus)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py`
 
 Three `Gtk.Scale` widgets are each set to `set_size_request(200, -1)` as `AdwActionRow` suffixes. At 360px viewport, the 200px suffix dominates the row and leaves too little room for title/subtitle under translation + Large Text.
 
@@ -399,7 +399,7 @@ row.add_suffix(scale)
 
 ### Agent C2 — sound adaptive (Opus)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/sound.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/sound.py`
 
 Similar to mouse_touchpad: two 200px volume Scales. Volume is 0..100 integer — strong candidate for `Adw.SpinRow` with a % suffix format, OR a relaxed `Gtk.Scale` that flexes.
 
@@ -409,7 +409,7 @@ Also (audit I3): add a one-line clarifying comment above `_refresh` explaining t
 
 ### Agent C3 — display adaptive (Opus)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/display.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/display.py`
 
 One 200px temperature `Gtk.Scale` (3500..6500 step 100). Drop to `set_size_request(150, -1)`. The value-display (`{v:.0f}K`) is important for users setting a specific color temp — keep `set_draw_value(True)`.
 
@@ -419,7 +419,7 @@ Don't touch the revert-dialog logic (Phase 3 work).
 
 ### Agent C4 — appearance adaptive (Opus)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/appearance.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/appearance.py`
 
 **A2 — accent picker HBox → FlowBox**
 
@@ -452,7 +452,7 @@ Preserve all wallpaper methods (`_populate_wallpapers`, `_make_wallpaper_tile`, 
 
 ### Agent C5 — panel adaptive (Opus, biggest single piece)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/panel.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/panel.py`
 
 **A4 — module layout editor vertical collapse**
 
@@ -574,7 +574,7 @@ After all 7 agents report DONE:
 - Architecture AR1 resolved (outer ScrolledWindow removed); AR2 deferred as documentation/tracking.
 - Hardware smoke test passes all 9 scenarios.
 - Settings app renders correctly at 683×384 (Chromebook at 2.0× scale) and at 546×307 (2.5×).
-- No Gtk-CRITICAL warnings in `journalctl --user -b | grep universal-lite-settings` after page rotation.
+- No Gtk-CRITICAL warnings in `journalctl --user -b | grep adwaita-lite-settings` after page rotation.
 
 ---
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <labwc_config>
   <theme>
-    <name>Universal-Lite</name>
+    <name>Adwaita-Lite</name>
     <cornerRadius>8</cornerRadius>
   </theme>
   <core>
@@ -37,21 +37,21 @@
 
     <!-- Audio (Chromebook top row) — with OSD notification -->
     <keybind key="XF86AudioRaiseVolume">
-      <action name="Execute" command="/usr/libexec/universal-lite-volume up"/>
+      <action name="Execute" command="/usr/libexec/adwaita-lite-volume up"/>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
-      <action name="Execute" command="/usr/libexec/universal-lite-volume down"/>
+      <action name="Execute" command="/usr/libexec/adwaita-lite-volume down"/>
     </keybind>
     <keybind key="XF86AudioMute">
-      <action name="Execute" command="/usr/libexec/universal-lite-volume mute"/>
+      <action name="Execute" command="/usr/libexec/adwaita-lite-volume mute"/>
     </keybind>
 
     <!-- Brightness (Chromebook top row) — with OSD notification -->
     <keybind key="XF86MonBrightnessUp">
-      <action name="Execute" command="/usr/libexec/universal-lite-brightness up"/>
+      <action name="Execute" command="/usr/libexec/adwaita-lite-brightness up"/>
     </keybind>
     <keybind key="XF86MonBrightnessDown">
-      <action name="Execute" command="/usr/libexec/universal-lite-brightness down"/>
+      <action name="Execute" command="/usr/libexec/adwaita-lite-brightness down"/>
     </keybind>
 
     <!-- Chromebook function keys -->
@@ -78,10 +78,10 @@
       <action name="Execute" command="xfce4-taskmanager"/>
     </keybind>
     <keybind key="W-comma">
-      <action name="Execute" command="universal-lite-settings"/>
+      <action name="Execute" command="adwaita-lite-settings"/>
     </keybind>
     <keybind key="W-space">
-      <action name="Execute" command="universal-lite-app-menu"/>
+      <action name="Execute" command="adwaita-lite-app-menu"/>
     </keybind>
 
     <!-- Window management -->

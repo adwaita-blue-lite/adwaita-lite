@@ -30,7 +30,7 @@ def test_retranslate_calls_all_setters():
 
 def test_gettext_fallback_returns_english():
     t = gettext.translation(
-        "universal-lite-setup-wizard",
+        "adwaita-lite-setup-wizard",
         localedir="/nonexistent",
         languages=["en"],
         fallback=True,

@@ -15,7 +15,7 @@
 ### Task 1: Rewrite CSS for Adwaita color hierarchy and boxed-list cards
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/css/style.css`
+- Modify: `files/usr/lib/adwaita-lite/settings/css/style.css`
 
 This is the foundation — all other tasks depend on the classes defined here.
 
@@ -176,12 +176,12 @@ This is the foundation — all other tasks depend on the classes defined here.
 
 - [ ] **Step 2: Verify CSS syntax**
 
-Run: `python3 -c "open('files/usr/lib/universal-lite/settings/css/style.css').read(); print('OK')"`
+Run: `python3 -c "open('files/usr/lib/adwaita-lite/settings/css/style.css').read(); print('OK')"`
 
 - [ ] **Step 3: Commit**
 
 ```
-git add files/usr/lib/universal-lite/settings/css/style.css
+git add files/usr/lib/adwaita-lite/settings/css/style.css
 git commit -m "style: rewrite settings CSS for Adwaita color hierarchy and boxed-list cards"
 ```
 
@@ -190,7 +190,7 @@ git commit -m "style: rewrite settings CSS for Adwaita color hierarchy and boxed
 ### Task 2: Update BasePage with `make_group()` and `make_page_box()` changes
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/base.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/base.py`
 
 - [ ] **Step 1: Update `make_page_box()` to use content-page class instead of hardcoded margins**
 
@@ -262,7 +262,7 @@ def make_setting_row(label: str, subtitle: str, control: Gtk.Widget) -> Gtk.Box:
 - [ ] **Step 4: Commit**
 
 ```
-git add files/usr/lib/universal-lite/settings/base.py
+git add files/usr/lib/adwaita-lite/settings/base.py
 git commit -m "feat: add make_group() boxed-list helper and content-page clamping"
 ```
 
@@ -271,7 +271,7 @@ git commit -m "feat: add make_group() boxed-list helper and content-page clampin
 ### Task 3: Add HeaderBar with search toggle to SettingsWindow
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/window.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/window.py`
 
 - [ ] **Step 1: Add HeaderBar and move search bar**
 
@@ -398,7 +398,7 @@ def toggle_search(self) -> None:
 - [ ] **Step 4: Commit**
 
 ```
-git add files/usr/lib/universal-lite/settings/window.py
+git add files/usr/lib/adwaita-lite/settings/window.py
 git commit -m "feat: add CSD headerbar with search toggle to settings app"
 ```
 
@@ -407,7 +407,7 @@ git commit -m "feat: add CSD headerbar with search toggle to settings app"
 ### Task 4: Add `gtk-decoration-layout` to apply-settings
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings` (in `write_gtk_settings()`)
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings` (in `write_gtk_settings()`)
 
 - [ ] **Step 1: Add decoration-layout line to GTK settings output**
 
@@ -434,7 +434,7 @@ The full write block becomes:
 - [ ] **Step 2: Commit**
 
 ```
-git add files/usr/libexec/universal-lite-apply-settings
+git add files/usr/libexec/adwaita-lite-apply-settings
 git commit -m "feat: add minimize/maximize/close buttons to all GTK CSD apps"
 ```
 
@@ -443,9 +443,9 @@ git commit -m "feat: add minimize/maximize/close buttons to all GTK CSD apps"
 ### Task 5: Migrate Appearance, Display, and Network pages
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/appearance.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/display.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/network.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/appearance.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/display.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/network.py`
 
 - [ ] **Step 1: Migrate AppearancePage**
 
@@ -548,9 +548,9 @@ Or use the title parameter and put the switch as the first row.
 - [ ] **Step 4: Commit**
 
 ```
-git add files/usr/lib/universal-lite/settings/pages/appearance.py \
-        files/usr/lib/universal-lite/settings/pages/display.py \
-        files/usr/lib/universal-lite/settings/pages/network.py
+git add files/usr/lib/adwaita-lite/settings/pages/appearance.py \
+        files/usr/lib/adwaita-lite/settings/pages/display.py \
+        files/usr/lib/adwaita-lite/settings/pages/network.py
 git commit -m "style: migrate Appearance, Display, Network pages to boxed-list groups"
 ```
 
@@ -559,9 +559,9 @@ git commit -m "style: migrate Appearance, Display, Network pages to boxed-list g
 ### Task 6: Migrate Bluetooth, Panel, and Mouse/Touchpad pages
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/bluetooth.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/panel.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/bluetooth.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/panel.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py`
 
 - [ ] **Step 1: Migrate BluetoothPage**
 
@@ -625,9 +625,9 @@ page.append(self.make_group(_("Mouse"), [
 - [ ] **Step 4: Commit**
 
 ```
-git add files/usr/lib/universal-lite/settings/pages/bluetooth.py \
-        files/usr/lib/universal-lite/settings/pages/panel.py \
-        files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py
+git add files/usr/lib/adwaita-lite/settings/pages/bluetooth.py \
+        files/usr/lib/adwaita-lite/settings/pages/panel.py \
+        files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py
 git commit -m "style: migrate Bluetooth, Panel, Mouse/Touchpad pages to boxed-list groups"
 ```
 
@@ -636,9 +636,9 @@ git commit -m "style: migrate Bluetooth, Panel, Mouse/Touchpad pages to boxed-li
 ### Task 7: Migrate Keyboard, Sound, and Power/Lock pages
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/keyboard.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/sound.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/power_lock.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/keyboard.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/sound.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/power_lock.py`
 
 - [ ] **Step 1: Migrate KeyboardPage**
 
@@ -709,9 +709,9 @@ page.append(self.make_group(_("Lid Close Behavior"), [
 - [ ] **Step 4: Commit**
 
 ```
-git add files/usr/lib/universal-lite/settings/pages/keyboard.py \
-        files/usr/lib/universal-lite/settings/pages/sound.py \
-        files/usr/lib/universal-lite/settings/pages/power_lock.py
+git add files/usr/lib/adwaita-lite/settings/pages/keyboard.py \
+        files/usr/lib/adwaita-lite/settings/pages/sound.py \
+        files/usr/lib/adwaita-lite/settings/pages/power_lock.py
 git commit -m "style: migrate Keyboard, Sound, Power/Lock pages to boxed-list groups"
 ```
 
@@ -720,12 +720,12 @@ git commit -m "style: migrate Keyboard, Sound, Power/Lock pages to boxed-list gr
 ### Task 8: Migrate remaining pages (Accessibility, Date/Time, Users, Language, Default Apps, About)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/accessibility.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/datetime.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/users.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/language.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/default_apps.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/about.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/accessibility.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/datetime.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/users.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/language.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/default_apps.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/about.py`
 
 - [ ] **Step 1: Migrate AccessibilityPage**
 
@@ -803,12 +803,12 @@ page.append(self.make_group(_("Troubleshooting"), [desc_label, restore_btn]))
 - [ ] **Step 7: Commit**
 
 ```
-git add files/usr/lib/universal-lite/settings/pages/accessibility.py \
-        files/usr/lib/universal-lite/settings/pages/datetime.py \
-        files/usr/lib/universal-lite/settings/pages/users.py \
-        files/usr/lib/universal-lite/settings/pages/language.py \
-        files/usr/lib/universal-lite/settings/pages/default_apps.py \
-        files/usr/lib/universal-lite/settings/pages/about.py
+git add files/usr/lib/adwaita-lite/settings/pages/accessibility.py \
+        files/usr/lib/adwaita-lite/settings/pages/datetime.py \
+        files/usr/lib/adwaita-lite/settings/pages/users.py \
+        files/usr/lib/adwaita-lite/settings/pages/language.py \
+        files/usr/lib/adwaita-lite/settings/pages/default_apps.py \
+        files/usr/lib/adwaita-lite/settings/pages/about.py
 git commit -m "style: migrate remaining pages to boxed-list groups"
 ```
 
@@ -817,14 +817,14 @@ git commit -m "style: migrate remaining pages to boxed-list groups"
 ### Task 9: Remove dead code and final cleanup
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/base.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/base.py`
 
 - [ ] **Step 1: Remove `make_group_label()` if no longer used**
 
 After all pages are migrated, check if `make_group_label()` is still referenced anywhere:
 
 ```bash
-grep -r "make_group_label" files/usr/lib/universal-lite/settings/
+grep -r "make_group_label" files/usr/lib/adwaita-lite/settings/
 ```
 
 If no results, remove the method from `BasePage`. If some pages still use it (e.g. for non-standard layouts), keep it.
@@ -832,9 +832,9 @@ If no results, remove the method from `BasePage`. If some pages still use it (e.
 - [ ] **Step 2: Verify Python syntax across all modified files**
 
 ```bash
-python3 -m py_compile files/usr/lib/universal-lite/settings/base.py
-python3 -m py_compile files/usr/lib/universal-lite/settings/window.py
-for f in files/usr/lib/universal-lite/settings/pages/*.py; do python3 -m py_compile "$f"; done
+python3 -m py_compile files/usr/lib/adwaita-lite/settings/base.py
+python3 -m py_compile files/usr/lib/adwaita-lite/settings/window.py
+for f in files/usr/lib/adwaita-lite/settings/pages/*.py; do python3 -m py_compile "$f"; done
 ```
 
 All should compile with no errors.
@@ -842,7 +842,7 @@ All should compile with no errors.
 - [ ] **Step 3: Commit and push**
 
 ```
-git add -u files/usr/lib/universal-lite/settings/
+git add -u files/usr/lib/adwaita-lite/settings/
 git commit -m "refactor: remove unused make_group_label after boxed-list migration"
 git push
 ```

@@ -1,0 +1,168 @@
+#!/usr/bin/env python3
+"""Reconcile gammastep with night_light settings.
+
+Reads settings.json and starts, stops, or leaves gammastep running to
+match the current schedule. Idempotent: safe to run any number of times.
+
+Called by:
+- adwaita-lite-apply-settings after the user toggles night light
+  settings in the Settings app.
+- The labwc autostart script at session login, so the setting persists
+  across logouts without requiring a re-toggle.
+
+Schedule semantics:
+- "sunset-sunrise": always on while enabled, using sensible evening
+  defaults (19:00-07:00). Real astronomical sunset/sunrise would need
+  geoclue2 + internet, which the offline Chromebook use case can't
+  guarantee. Custom lets the user pick their own window.
+- "custom": honor the user's night_light_start/night_light_end.
+
+gammastep is invoked in oneshot mode (-O TEMP) rather than -t DAY:NIGHT
+because the latter requires a location provider; -O just pins the temp
+and our own time check handles the schedule.
+"""
+import datetime
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+
+SETTINGS_PATH = (
+    Path(os.environ.get("XDG_CONFIG_HOME") or Path.home() / ".config")
+    / "adwaita-lite"
+    / "settings.json"
+)
+
+# Sunset-sunrise defaults when no geoclue data is available.
+DEFAULT_SUNSET_START = "19:00"
+DEFAULT_SUNSET_END = "07:00"
+
+
+def _to_min(hhmm: str) -> int:
+    p = hhmm.split(":")
+    return int(p[0]) * 60 + int(p[1])
+
+
+def _in_range(now_min: int, start_min: int, end_min: int) -> bool:
+    """True if now is between start and end, wrapping past midnight."""
+    if start_min > end_min:
+        return now_min >= start_min or now_min < end_min
+    return start_min <= now_min < end_min
+
+
+def _coerce_bool(value, default: bool = False) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in {"1", "true", "yes", "on"}:
+            return True
+        if lowered in {"0", "false", "no", "off"}:
+            return False
+    return default
+
+
+def _coerce_temp(value) -> int:
+    try:
+        temp = int(value)
+    except (TypeError, ValueError):
+        return 4500
+    return temp if 3500 <= temp <= 6500 else 4500
+
+
+TIMER_UNIT = "adwaita-lite-nightlight.timer"
+
+
+def _reconcile_timer(enable: bool) -> None:
+    """Toggle the user systemd timer that re-invokes this helper.
+
+    The timer fires every 15 minutes so custom schedules kick in and
+    out at their configured boundaries without the user having to
+    touch settings or log out. When night light is disabled, the timer
+    is stopped to avoid waking systemd --user every quarter-hour for
+    nothing. systemctl enable/disable are idempotent, so calling this
+    with the current state is a no-op. If no user systemd session is
+    available (e.g. helper invoked outside a session), the call fails
+    silently - exactly what we want.
+    """
+    subcmd = "enable" if enable else "disable"
+    subprocess.run(
+        ["systemctl", "--user", subcmd, "--now", TIMER_UNIT],
+        check=False,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+
+def _kill_gammastep() -> None:
+    subprocess.run(
+        ["pkill", "-x", "gammastep"],
+        check=False,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+
+def _start_gammastep(temp: int) -> None:
+    _kill_gammastep()
+    # Short delay lets the old process release the wlr-gamma-control
+    # output before the new one re-acquires it; without this the new
+    # instance occasionally starts with no gamma adjustment applied.
+    time.sleep(0.15)
+    subprocess.Popen(
+        ["gammastep", "-O", str(temp)],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        start_new_session=True,
+    )
+
+
+def main() -> int:
+    if shutil.which("gammastep") is None:
+        return 0
+    try:
+        settings = json.loads(SETTINGS_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return 0
+    if not isinstance(settings, dict):
+        return 0
+
+    enabled = _coerce_bool(settings.get("night_light_enabled", False), False)
+    _reconcile_timer(enabled)
+    if not enabled:
+        _kill_gammastep()
+        return 0
+
+    temp = _coerce_temp(settings.get("night_light_temp", 4500))
+    schedule = settings.get("night_light_schedule", "sunset-sunrise")
+
+    if schedule == "custom":
+        start = str(settings.get("night_light_start", "20:00"))
+        end = str(settings.get("night_light_end", "06:00"))
+    else:
+        start = DEFAULT_SUNSET_START
+        end = DEFAULT_SUNSET_END
+
+    try:
+        start_min = _to_min(start)
+        end_min = _to_min(end)
+    except (ValueError, IndexError):
+        start_min = _to_min(DEFAULT_SUNSET_START)
+        end_min = _to_min(DEFAULT_SUNSET_END)
+
+    now = datetime.datetime.now()
+    now_min = now.hour * 60 + now.minute
+
+    if _in_range(now_min, start_min, end_min):
+        _start_gammastep(temp)
+    else:
+        _kill_gammastep()
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -21,22 +21,22 @@
 ### Create
 
 ```
-files/usr/lib/universal-lite/settings/pages/accessibility.py
-files/usr/libexec/universal-lite-lid-action
-files/usr/share/polkit-1/actions/org.universallite.lid-action.policy
+files/usr/lib/adwaita-lite/settings/pages/accessibility.py
+files/usr/libexec/adwaita-lite-lid-action
+files/usr/share/polkit-1/actions/org.adwaitabluelite.lid-action.policy
 ```
 
 ### Modify
 
 ```
-files/usr/share/universal-lite/defaults/settings.json      (add Phase 2 keys)
-files/usr/libexec/universal-lite-apply-settings             (font_size, cursor_size, high_contrast, reduce_motion, night light, suspend)
-files/usr/lib/universal-lite/settings/dbus_helpers.py       (add PowerProfilesHelper, PulseAudioSubscriber)
-files/usr/lib/universal-lite/settings/pages/__init__.py     (register Accessibility)
-files/usr/lib/universal-lite/settings/pages/display.py      (resolution, night light, wdisplays)
-files/usr/lib/universal-lite/settings/pages/sound.py        (live updates)
-files/usr/lib/universal-lite/settings/pages/power_lock.py   (power profiles, suspend, lid close)
-files/usr/lib/universal-lite/settings/pages/panel.py        (app picker, reorder buttons)
+files/usr/share/adwaita-lite/defaults/settings.json      (add Phase 2 keys)
+files/usr/libexec/adwaita-lite-apply-settings             (font_size, cursor_size, high_contrast, reduce_motion, night light, suspend)
+files/usr/lib/adwaita-lite/settings/dbus_helpers.py       (add PowerProfilesHelper, PulseAudioSubscriber)
+files/usr/lib/adwaita-lite/settings/pages/__init__.py     (register Accessibility)
+files/usr/lib/adwaita-lite/settings/pages/display.py      (resolution, night light, wdisplays)
+files/usr/lib/adwaita-lite/settings/pages/sound.py        (live updates)
+files/usr/lib/adwaita-lite/settings/pages/power_lock.py   (power profiles, suspend, lid close)
+files/usr/lib/adwaita-lite/settings/pages/panel.py        (app picker, reorder buttons)
 ```
 
 ---
@@ -44,7 +44,7 @@ files/usr/lib/universal-lite/settings/pages/panel.py        (app picker, reorder
 ### Task 1: Add Phase 2 Settings Keys
 
 **Files:**
-- Modify: `files/usr/share/universal-lite/defaults/settings.json`
+- Modify: `files/usr/share/adwaita-lite/defaults/settings.json`
 
 - [ ] **Step 1: Add new default keys**
 
@@ -68,7 +68,7 @@ Add these keys to the defaults JSON (after the existing `display_off_timeout` ke
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/share/universal-lite/defaults/settings.json
+git add files/usr/share/adwaita-lite/defaults/settings.json
 git commit -m "feat: add Phase 2 settings keys to defaults"
 ```
 
@@ -77,7 +77,7 @@ git commit -m "feat: add Phase 2 settings keys to defaults"
 ### Task 2: Update apply-settings for Accessibility Settings
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 - [ ] **Step 1: Read the apply-settings script**
 
@@ -189,7 +189,7 @@ Add these to the `data.update(...)` dict:
 - [ ] **Step 7: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings
+git add files/usr/libexec/adwaita-lite-apply-settings
 git commit -m "feat: apply-settings handles font_size, cursor_size, reduce_motion, high_contrast"
 ```
 
@@ -198,7 +198,7 @@ git commit -m "feat: apply-settings handles font_size, cursor_size, reduce_motio
 ### Task 3: Update apply-settings for Night Light and Suspend
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 - [ ] **Step 1: Add night light validation to `ensure_settings()`**
 
@@ -277,7 +277,7 @@ Find the swayidle restart block in `main()`. Add suspend_timeout handling. Repla
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings
+git add files/usr/libexec/adwaita-lite-apply-settings
 git commit -m "feat: apply-settings handles night light (gammastep) and suspend timeout"
 ```
 
@@ -286,11 +286,11 @@ git commit -m "feat: apply-settings handles night light (gammastep) and suspend 
 ### Task 4: Add PowerProfilesHelper and PulseAudioSubscriber to dbus_helpers.py
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/dbus_helpers.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/dbus_helpers.py`
 
 - [ ] **Step 1: Read the current dbus_helpers.py**
 
-Read `files/usr/lib/universal-lite/settings/dbus_helpers.py` to understand the existing structure.
+Read `files/usr/lib/adwaita-lite/settings/dbus_helpers.py` to understand the existing structure.
 
 - [ ] **Step 2: Add PowerProfilesHelper class**
 
@@ -409,7 +409,7 @@ Also add `import subprocess` to the top-level imports if not already present.
 
 ```bash
 cd /var/home/race/ublue-mike && python -c "
-import sys; sys.path.insert(0, 'files/usr/lib/universal-lite')
+import sys; sys.path.insert(0, 'files/usr/lib/adwaita-lite')
 from settings.dbus_helpers import PowerProfilesHelper, PulseAudioSubscriber
 print('New helpers imported OK')
 "
@@ -418,7 +418,7 @@ print('New helpers imported OK')
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/dbus_helpers.py
+git add files/usr/lib/adwaita-lite/settings/dbus_helpers.py
 git commit -m "feat: add PowerProfilesHelper and PulseAudioSubscriber to D-Bus helpers"
 ```
 
@@ -427,12 +427,12 @@ git commit -m "feat: add PowerProfilesHelper and PulseAudioSubscriber to D-Bus h
 ### Task 5: Create Lid-Action Helper and Polkit Policy
 
 **Files:**
-- Create: `files/usr/libexec/universal-lite-lid-action`
-- Create: `files/usr/share/polkit-1/actions/org.universallite.lid-action.policy`
+- Create: `files/usr/libexec/adwaita-lite-lid-action`
+- Create: `files/usr/share/polkit-1/actions/org.adwaitabluelite.lid-action.policy`
 
 - [ ] **Step 1: Create the helper script**
 
-Create `files/usr/libexec/universal-lite-lid-action`:
+Create `files/usr/libexec/adwaita-lite-lid-action`:
 
 ```bash
 #!/bin/bash
@@ -469,12 +469,12 @@ systemctl kill -s HUP systemd-logind
 
 Make it executable:
 ```bash
-chmod +x files/usr/libexec/universal-lite-lid-action
+chmod +x files/usr/libexec/adwaita-lite-lid-action
 ```
 
 - [ ] **Step 2: Create the polkit policy**
 
-Create `files/usr/share/polkit-1/actions/org.universallite.lid-action.policy`:
+Create `files/usr/share/polkit-1/actions/org.adwaitabluelite.lid-action.policy`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -482,7 +482,7 @@ Create `files/usr/share/polkit-1/actions/org.universallite.lid-action.policy`:
  "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
  "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
 <policyconfig>
-  <action id="org.universallite.lid-action">
+  <action id="org.adwaitabluelite.lid-action">
     <description>Set lid close behavior</description>
     <message>Authentication is required to change the lid close behavior</message>
     <defaults>
@@ -490,7 +490,7 @@ Create `files/usr/share/polkit-1/actions/org.universallite.lid-action.policy`:
       <allow_inactive>auth_admin</allow_inactive>
       <allow_active>yes</allow_active>
     </defaults>
-    <annotate key="org.freedesktop.policykit.exec.path">/usr/libexec/universal-lite-lid-action</annotate>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/libexec/adwaita-lite-lid-action</annotate>
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 </policyconfig>
@@ -499,7 +499,7 @@ Create `files/usr/share/polkit-1/actions/org.universallite.lid-action.policy`:
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-lid-action files/usr/share/polkit-1/actions/org.universallite.lid-action.policy
+git add files/usr/libexec/adwaita-lite-lid-action files/usr/share/polkit-1/actions/org.adwaitabluelite.lid-action.policy
 git commit -m "feat: lid-action helper script with polkit policy for logind override"
 ```
 
@@ -508,12 +508,12 @@ git commit -m "feat: lid-action helper script with polkit policy for logind over
 ### Task 6: Create Accessibility Page and Register It
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/pages/accessibility.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/__init__.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/accessibility.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/__init__.py`
 
 - [ ] **Step 1: Create accessibility.py**
 
-Create `files/usr/lib/universal-lite/settings/pages/accessibility.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/accessibility.py`:
 
 ```python
 import gi
@@ -598,7 +598,7 @@ class AccessibilityPage(BasePage):
 
 - [ ] **Step 2: Register the page in `__init__.py`**
 
-Read `files/usr/lib/universal-lite/settings/pages/__init__.py`. Add the import and entry:
+Read `files/usr/lib/adwaita-lite/settings/pages/__init__.py`. Add the import and entry:
 
 Add to imports:
 ```python
@@ -614,7 +614,7 @@ Add to `ALL_PAGES` list, after the Power & Lock entry and before Default Apps:
 
 ```bash
 cd /var/home/race/ublue-mike && python -c "
-import sys; sys.path.insert(0, 'files/usr/lib/universal-lite')
+import sys; sys.path.insert(0, 'files/usr/lib/adwaita-lite')
 from settings.pages import ALL_PAGES
 print(f'{len(ALL_PAGES)} pages registered')
 for _, label, _ in ALL_PAGES:
@@ -627,7 +627,7 @@ Expected: 12 pages, including "Accessibility".
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/accessibility.py files/usr/lib/universal-lite/settings/pages/__init__.py
+git add files/usr/lib/adwaita-lite/settings/pages/accessibility.py files/usr/lib/adwaita-lite/settings/pages/__init__.py
 git commit -m "feat: create Accessibility page with large text, cursor size, contrast, motion"
 ```
 
@@ -636,11 +636,11 @@ git commit -m "feat: create Accessibility page with large text, cursor size, con
 ### Task 7: Expand Display Page
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/display.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/display.py`
 
 - [ ] **Step 1: Read current display.py**
 
-Read the full `files/usr/lib/universal-lite/settings/pages/display.py`.
+Read the full `files/usr/lib/adwaita-lite/settings/pages/display.py`.
 
 - [ ] **Step 2: Rewrite with resolution, night light, and advanced button**
 
@@ -749,7 +749,7 @@ def _set_resolution(self, output_name, mode_str):
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/display.py
+git add files/usr/lib/adwaita-lite/settings/pages/display.py
 git commit -m "feat: expand Display page with resolution, night light, and wdisplays"
 ```
 
@@ -758,11 +758,11 @@ git commit -m "feat: expand Display page with resolution, night light, and wdisp
 ### Task 8: Rewrite Sound Page with Live Updates
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/sound.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/sound.py`
 
 - [ ] **Step 1: Read current sound.py**
 
-Read the full `files/usr/lib/universal-lite/settings/pages/sound.py`.
+Read the full `files/usr/lib/adwaita-lite/settings/pages/sound.py`.
 
 - [ ] **Step 2: Rewrite with live D-Bus updates**
 
@@ -848,7 +848,7 @@ Write the complete implementation with all the pactl query methods moved from th
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/sound.py
+git add files/usr/lib/adwaita-lite/settings/pages/sound.py
 git commit -m "feat: rewrite Sound page with live PulseAudio event subscriptions"
 ```
 
@@ -857,11 +857,11 @@ git commit -m "feat: rewrite Sound page with live PulseAudio event subscriptions
 ### Task 9: Expand Power & Lock Page
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/power_lock.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/power_lock.py`
 
 - [ ] **Step 1: Read current power_lock.py**
 
-Read the full `files/usr/lib/universal-lite/settings/pages/power_lock.py`.
+Read the full `files/usr/lib/adwaita-lite/settings/pages/power_lock.py`.
 
 - [ ] **Step 2: Expand with power profiles, suspend, and lid close**
 
@@ -869,7 +869,7 @@ Add three new sections after the existing Lock & Display section:
 
 1. **Power Profile section** — Toggle cards for Balanced/Power Saver/Performance via `PowerProfilesHelper`
 2. **Suspend on idle section** — Dropdown with same timeout options as lock/display
-3. **Lid close behavior section** — Dropdown (Suspend/Lock/Do Nothing), applies via `pkexec /usr/libexec/universal-lite-lid-action`
+3. **Lid close behavior section** — Dropdown (Suspend/Lock/Do Nothing), applies via `pkexec /usr/libexec/adwaita-lite-lid-action`
 
 The page needs to:
 - Import and create `PowerProfilesHelper` in `build()`
@@ -912,7 +912,7 @@ lid_dd.connect("notify::selected", lambda d, _: self._set_lid_action(lid_values[
 def _set_lid_action(self, action):
     self.store.save_and_apply("lid_close_action", action)
     subprocess.Popen(
-        ["pkexec", "/usr/libexec/universal-lite-lid-action", action],
+        ["pkexec", "/usr/libexec/adwaita-lite-lid-action", action],
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
     )
 ```
@@ -922,7 +922,7 @@ Write the complete replacement file.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/power_lock.py
+git add files/usr/lib/adwaita-lite/settings/pages/power_lock.py
 git commit -m "feat: expand Power page with profiles, suspend on idle, lid close"
 ```
 
@@ -931,11 +931,11 @@ git commit -m "feat: expand Power page with profiles, suspend on idle, lid close
 ### Task 10: Panel Improvements — App Picker and Reorder Buttons
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/panel.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/panel.py`
 
 - [ ] **Step 1: Read current panel.py**
 
-Read the full `files/usr/lib/universal-lite/settings/pages/panel.py`.
+Read the full `files/usr/lib/adwaita-lite/settings/pages/panel.py`.
 
 - [ ] **Step 2: Replace pinned apps text entry with app picker**
 
@@ -1107,7 +1107,7 @@ def _reorder_module(self, mod_key, section, direction):
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/panel.py
+git add files/usr/lib/adwaita-lite/settings/pages/panel.py
 git commit -m "feat: panel app picker replaces text entry, context-dependent reorder buttons"
 ```
 
@@ -1127,7 +1127,7 @@ Expected: All tests pass.
 
 ```bash
 cd /var/home/race/ublue-mike && python -c "
-import sys; sys.path.insert(0, 'files/usr/lib/universal-lite')
+import sys; sys.path.insert(0, 'files/usr/lib/adwaita-lite')
 from settings.pages import ALL_PAGES
 print(f'{len(ALL_PAGES)} pages registered:')
 for _, label, cls in ALL_PAGES:
@@ -1142,7 +1142,7 @@ Expected: 12 pages including Accessibility.
 ```bash
 cd /var/home/race/ublue-mike && python -c "
 import json
-data = json.load(open('files/usr/share/universal-lite/defaults/settings.json'))
+data = json.load(open('files/usr/share/adwaita-lite/defaults/settings.json'))
 for key in ['font_size', 'cursor_size', 'high_contrast', 'reduce_motion',
             'night_light_enabled', 'night_light_temp', 'power_profile',
             'suspend_timeout', 'lid_close_action']:
@@ -1154,8 +1154,8 @@ for key in ['font_size', 'cursor_size', 'high_contrast', 'reduce_motion',
 
 ```bash
 python -c "
-import sys; sys.path.insert(0, 'files/usr/lib/universal-lite')
-exec(open('files/usr/libexec/universal-lite-apply-settings').read().split('def main')[0])
+import sys; sys.path.insert(0, 'files/usr/lib/adwaita-lite')
+exec(open('files/usr/libexec/adwaita-lite-apply-settings').read().split('def main')[0])
 print('apply-settings parses OK')
 "
 ```
@@ -1163,8 +1163,8 @@ print('apply-settings parses OK')
 - [ ] **Step 5: Verify new system files exist**
 
 ```bash
-ls -la files/usr/libexec/universal-lite-lid-action
-ls -la files/usr/share/polkit-1/actions/org.universallite.lid-action.policy
+ls -la files/usr/libexec/adwaita-lite-lid-action
+ls -la files/usr/share/polkit-1/actions/org.adwaitabluelite.lid-action.policy
 ```
 
 - [ ] **Step 6: Commit any fixes**

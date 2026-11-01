@@ -5,11 +5,11 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "files/usr/bin/universal-lite-goblin"
+SCRIPT = ROOT / "files/usr/bin/adwaita-lite-goblin"
 
 
 def _load_goblin():
-    loader = importlib.machinery.SourceFileLoader("universal_lite_goblin", str(SCRIPT))
+    loader = importlib.machinery.SourceFileLoader("adwaita_lite_goblin", str(SCRIPT))
     spec = importlib.util.spec_from_loader(loader.name, loader)
     module = importlib.util.module_from_spec(spec)
     sys.modules[loader.name] = module

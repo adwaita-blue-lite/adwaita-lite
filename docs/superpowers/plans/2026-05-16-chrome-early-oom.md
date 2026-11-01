@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add a Universal-Lite early-OOM monitor that proactively closes Chrome Flatpak scopes before low-memory pressure leaves the desktop wedged.
+**Goal:** Add a Adwaita-Lite early-OOM monitor that proactively closes Chrome Flatpak scopes before low-memory pressure leaves the desktop wedged.
 
 **Architecture:** Implement a small Python system daemon with testable pure functions for meminfo parsing, threshold state, user discovery, and Chrome scope cleanup. The daemon reads `/proc/meminfo` every 2 seconds, requires two consecutive critical samples, kills active Chrome Flatpak scopes through each user's systemd user manager, then enters a 60 second cooldown. Existing `systemd-oomd` and Chrome `OnFailure=` cleanup remain as fallback, with OOMD relaxed to `80%` swap and `55%/25s` memory pressure because Chrome now has a targeted earlier safety valve.
 
@@ -12,22 +12,22 @@
 
 ## File Structure
 
-- Create: `files/usr/libexec/universal-lite-chrome-early-oom`
+- Create: `files/usr/libexec/adwaita-lite-chrome-early-oom`
   - Python daemon and reusable functions.
   - Owns `/proc/meminfo` parsing, threshold decision, logged-in user enumeration, user-manager command construction, Chrome scope listing, scope killing, loop/cooldown behavior, and logging.
-- Create: `files/usr/lib/systemd/system/universal-lite-chrome-early-oom.service`
+- Create: `files/usr/lib/systemd/system/adwaita-lite-chrome-early-oom.service`
   - System service that starts the daemon at boot.
 - Modify: `build_files/build.sh`
-  - Enable `universal-lite-chrome-early-oom.service` near existing `systemd-oomd.service` enablement.
-- Modify: `files/usr/lib/systemd/oomd.conf.d/10-universal-lite.conf`
+  - Enable `adwaita-lite-chrome-early-oom.service` near existing `systemd-oomd.service` enablement.
+- Modify: `files/usr/lib/systemd/oomd.conf.d/10-adwaita-lite.conf`
   - Keep `SwapUsedLimit=80%` and relax fallback pressure from `50%/20s` to `55%/25s`.
-- Modify: `files/usr/lib/systemd/system/user@.service.d/10-universal-lite-oomd.conf`
+- Modify: `files/usr/lib/systemd/system/user@.service.d/10-adwaita-lite-oomd.conf`
   - Keep the user-session `ManagedOOMMemoryPressure=kill` opt-in and align its explicit pressure limit to `55%`.
 - Modify: `tests/test_oomd_config.py`
   - Add config tests for service installation, build enablement, and relaxed OOMD fallback thresholds, including the explicit user-session limit.
 - Create: `tests/test_chrome_early_oom.py`
   - Unit tests for parsing, trigger/cooldown behavior, command generation, and Chrome scope cleanup behavior.
-- Keep: `files/usr/lib/systemd/user/app-flatpak-com.google.Chrome-.scope.d/10-universal-lite-oomd.conf`
+- Keep: `files/usr/lib/systemd/user/app-flatpak-com.google.Chrome-.scope.d/10-adwaita-lite-oomd.conf`
   - No removal. Its `OOMPolicy=kill` and `OnFailure=` fallback remain defense-in-depth.
 
 ---
@@ -36,7 +36,7 @@
 
 **Files:**
 - Create: `tests/test_chrome_early_oom.py`
-- Create: `files/usr/libexec/universal-lite-chrome-early-oom`
+- Create: `files/usr/libexec/adwaita-lite-chrome-early-oom`
 
 - [ ] **Step 1: Write failing tests for meminfo parsing and trigger state**
 
@@ -50,7 +50,7 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[1]
-SCRIPT = REPO / "files/usr/libexec/universal-lite-chrome-early-oom"
+SCRIPT = REPO / "files/usr/libexec/adwaita-lite-chrome-early-oom"
 
 
 def load_module():
@@ -122,11 +122,11 @@ def test_pressure_state_resets_after_recovery_and_honors_cooldown():
 
 Run: `pytest tests/test_chrome_early_oom.py -v`
 
-Expected: FAIL because `files/usr/libexec/universal-lite-chrome-early-oom` does not exist.
+Expected: FAIL because `files/usr/libexec/adwaita-lite-chrome-early-oom` does not exist.
 
 - [ ] **Step 3: Implement minimal parser and state logic**
 
-Create `files/usr/libexec/universal-lite-chrome-early-oom`:
+Create `files/usr/libexec/adwaita-lite-chrome-early-oom`:
 
 ```python
 #!/usr/bin/env python3
@@ -205,7 +205,7 @@ class PressureState:
 
 - [ ] **Step 4: Make script executable**
 
-Run: `chmod +x files/usr/libexec/universal-lite-chrome-early-oom`
+Run: `chmod +x files/usr/libexec/adwaita-lite-chrome-early-oom`
 
 Expected: no output.
 
@@ -220,7 +220,7 @@ Expected: PASS for the four tests in this file.
 Run:
 
 ```bash
-git add tests/test_chrome_early_oom.py files/usr/libexec/universal-lite-chrome-early-oom
+git add tests/test_chrome_early_oom.py files/usr/libexec/adwaita-lite-chrome-early-oom
 git commit -m "feat(oom): add Chrome early pressure state"
 ```
 
@@ -232,7 +232,7 @@ Expected: commit succeeds.
 
 **Files:**
 - Modify: `tests/test_chrome_early_oom.py`
-- Modify: `files/usr/libexec/universal-lite-chrome-early-oom`
+- Modify: `files/usr/libexec/adwaita-lite-chrome-early-oom`
 
 - [ ] **Step 1: Write failing tests for systemd user-manager interactions**
 
@@ -331,7 +331,7 @@ Expected: FAIL with missing `list_logged_in_uids`, `list_active_chrome_scopes`, 
 
 - [ ] **Step 3: Add user and Chrome scope functions**
 
-Append to `files/usr/libexec/universal-lite-chrome-early-oom`:
+Append to `files/usr/libexec/adwaita-lite-chrome-early-oom`:
 
 ```python
 def run_command(command: list[str], **kwargs) -> subprocess.CompletedProcess[str]:
@@ -424,7 +424,7 @@ Expected: PASS for all tests in this file.
 Run:
 
 ```bash
-git add tests/test_chrome_early_oom.py files/usr/libexec/universal-lite-chrome-early-oom
+git add tests/test_chrome_early_oom.py files/usr/libexec/adwaita-lite-chrome-early-oom
 git commit -m "feat(oom): kill Chrome Flatpak scopes early"
 ```
 
@@ -436,8 +436,8 @@ Expected: commit succeeds.
 
 **Files:**
 - Modify: `tests/test_chrome_early_oom.py`
-- Modify: `files/usr/libexec/universal-lite-chrome-early-oom`
-- Create: `files/usr/lib/systemd/system/universal-lite-chrome-early-oom.service`
+- Modify: `files/usr/libexec/adwaita-lite-chrome-early-oom`
+- Create: `files/usr/lib/systemd/system/adwaita-lite-chrome-early-oom.service`
 - Modify: `tests/test_oomd_config.py`
 
 - [ ] **Step 1: Write failing tests for service file and daemon wiring**
@@ -486,7 +486,7 @@ Append to `tests/test_oomd_config.py`:
 
 ```python
 CHROME_EARLY_OOM_SERVICE = (
-    REPO / "files/usr/lib/systemd/system/universal-lite-chrome-early-oom.service"
+    REPO / "files/usr/lib/systemd/system/adwaita-lite-chrome-early-oom.service"
 )
 BUILD_SCRIPT = REPO / "build_files/build.sh"
 
@@ -497,7 +497,7 @@ def test_chrome_early_oom_service_runs_monitor():
     assert "[Unit]" in conf
     assert "After=multi-user.target" in conf
     assert "[Service]" in conf
-    assert "ExecStart=/usr/libexec/universal-lite-chrome-early-oom" in conf
+    assert "ExecStart=/usr/libexec/adwaita-lite-chrome-early-oom" in conf
     assert "Restart=always" in conf
     assert "[Install]" in conf
     assert "WantedBy=multi-user.target" in conf
@@ -506,7 +506,7 @@ def test_chrome_early_oom_service_runs_monitor():
 def test_build_enables_chrome_early_oom_service():
     build = BUILD_SCRIPT.read_text(encoding="utf-8")
 
-    assert "systemctl enable universal-lite-chrome-early-oom.service" in build
+    assert "systemctl enable adwaita-lite-chrome-early-oom.service" in build
 ```
 
 - [ ] **Step 2: Run tests to verify they fail**
@@ -517,7 +517,7 @@ Expected: FAIL because `run_once` and the service/build enablement do not exist.
 
 - [ ] **Step 3: Add daemon loop functions**
 
-Append to `files/usr/libexec/universal-lite-chrome-early-oom`:
+Append to `files/usr/libexec/adwaita-lite-chrome-early-oom`:
 
 ```python
 def run_once(
@@ -581,17 +581,17 @@ if __name__ == "__main__":
 
 - [ ] **Step 4: Add systemd service**
 
-Create `files/usr/lib/systemd/system/universal-lite-chrome-early-oom.service`:
+Create `files/usr/lib/systemd/system/adwaita-lite-chrome-early-oom.service`:
 
 ```ini
 [Unit]
-Description=Universal-Lite Chrome early-OOM safety valve
-Documentation=file:/usr/share/doc/universal-lite/chrome-early-oom.md
+Description=Adwaita-Lite Chrome early-OOM safety valve
+Documentation=file:/usr/share/doc/adwaita-lite/chrome-early-oom.md
 After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/usr/libexec/universal-lite-chrome-early-oom
+ExecStart=/usr/libexec/adwaita-lite-chrome-early-oom
 Restart=always
 RestartSec=5s
 
@@ -609,7 +609,7 @@ Modify `build_files/build.sh` near the existing OOMD enablement block to become:
 # the whole machine. Chrome gets an earlier safety valve because Flatpak
 # Chrome can keep a sibling app scope alive after oomd kills one scope.
 systemctl enable systemd-oomd.service
-systemctl enable universal-lite-chrome-early-oom.service
+systemctl enable adwaita-lite-chrome-early-oom.service
 ```
 
 - [ ] **Step 6: Run tests and shell syntax check**
@@ -618,7 +618,7 @@ Run: `pytest tests/test_chrome_early_oom.py tests/test_oomd_config.py -v`
 
 Expected: PASS.
 
-Run: `python -m py_compile files/usr/libexec/universal-lite-chrome-early-oom`
+Run: `python -m py_compile files/usr/libexec/adwaita-lite-chrome-early-oom`
 
 Expected: no output.
 
@@ -627,7 +627,7 @@ Expected: no output.
 Run:
 
 ```bash
-git add files/usr/libexec/universal-lite-chrome-early-oom files/usr/lib/systemd/system/universal-lite-chrome-early-oom.service build_files/build.sh tests/test_chrome_early_oom.py tests/test_oomd_config.py
+git add files/usr/libexec/adwaita-lite-chrome-early-oom files/usr/lib/systemd/system/adwaita-lite-chrome-early-oom.service build_files/build.sh tests/test_chrome_early_oom.py tests/test_oomd_config.py
 git commit -m "feat(oom): enable Chrome early-OOM monitor"
 ```
 
@@ -639,7 +639,7 @@ Expected: commit succeeds.
 
 **Files:**
 - Modify: `tests/test_oomd_config.py`
-- Modify: `files/usr/lib/systemd/oomd.conf.d/10-universal-lite.conf`
+- Modify: `files/usr/lib/systemd/oomd.conf.d/10-adwaita-lite.conf`
 
 - [ ] **Step 1: Write failing test for relaxed OOMD fallback thresholds**
 
@@ -662,14 +662,14 @@ Expected: FAIL because the config still contains `DefaultMemoryPressureLimit=50%
 
 - [ ] **Step 3: Update OOMD config comments and thresholds**
 
-Modify `files/usr/lib/systemd/oomd.conf.d/10-universal-lite.conf` to:
+Modify `files/usr/lib/systemd/oomd.conf.d/10-adwaita-lite.conf` to:
 
 ```ini
 # systemd-oomd tuning for 2 GB hardware.
 #
 # Keep swap protection earlier than Fedora's upstream 90% default because
 # zram-only systems can become unresponsive near exhaustion. Memory pressure
-# is slightly less aggressive than Universal-Lite's original 50%/20s policy
+# is slightly less aggressive than Adwaita-Lite's original 50%/20s policy
 # because Chrome now has a targeted early-OOM safety valve before this broad
 # fallback needs to kill non-Chrome workloads.
 [OOM]
@@ -689,7 +689,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add files/usr/lib/systemd/oomd.conf.d/10-universal-lite.conf tests/test_oomd_config.py
+git add files/usr/lib/systemd/oomd.conf.d/10-adwaita-lite.conf tests/test_oomd_config.py
 git commit -m "fix(oomd): relax fallback memory pressure"
 ```
 
@@ -728,9 +728,9 @@ Expected: the four task commits are visible.
 Use these commands on a built VM after installing the image:
 
 ```bash
-systemctl status universal-lite-chrome-early-oom.service --no-pager
-journalctl -b -u universal-lite-chrome-early-oom.service --no-pager
-/usr/libexec/universal-lite-chrome-early-oom --once
+systemctl status adwaita-lite-chrome-early-oom.service --no-pager
+journalctl -b -u adwaita-lite-chrome-early-oom.service --no-pager
+/usr/libexec/adwaita-lite-chrome-early-oom --once
 ```
 
 Expected service status: active/running.
@@ -746,7 +746,7 @@ grep -R 'SwapUsedLimit\|DefaultMemoryPressure' /usr/lib/systemd/oomd.conf.d /etc
 grep -R 'ManagedOOMMemoryPressureLimit' /usr/lib/systemd/system/user@.service.d /etc/systemd/system/user@.service.d 2>/dev/null
 ```
 
-Expected: `SwapUsedLimit=80%`, `DefaultMemoryPressureLimit=55%`, `ManagedOOMMemoryPressureLimit=55%`, and `DefaultMemoryPressureDurationSec=25s` are present from Universal-Lite's config.
+Expected: `SwapUsedLimit=80%`, `DefaultMemoryPressureLimit=55%`, `ManagedOOMMemoryPressureLimit=55%`, and `DefaultMemoryPressureDurationSec=25s` are present from Adwaita-Lite's config.
 
 - [ ] **Step 4: Commit any verification-only documentation correction if needed**
 

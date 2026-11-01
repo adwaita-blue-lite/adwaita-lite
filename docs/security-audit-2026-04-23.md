@@ -1,12 +1,12 @@
 # Security Audit — 2026-04-23
 
-Six-agent parallel security sweep comparing Universal-Lite against Bluefin
+Six-agent parallel security sweep comparing Adwaita-Lite against Bluefin
 and Fedora Workstation baselines. Scope: kernel/sysctl, network/services,
 PAM/sudo/polkit, shipped systemd units, installer wizard, supply chain.
 
 ## Headline result
 
-Universal-Lite's out-of-the-box security now **meets or exceeds Bluefin's
+Adwaita-Lite's out-of-the-box security now **meets or exceeds Bluefin's
 baseline** across every category audited. Bluefin ships zero custom sysctl
 hardening; we now ship two files (plus stronger network-service masking
 than Bluefin does).
@@ -14,10 +14,10 @@ than Bluefin does).
 ## Fixes applied
 
 ### Kernel / sysctl
-- **`files/etc/sysctl.d/95-universal-lite-hardening.conf`** (new) —
+- **`files/etc/sysctl.d/95-adwaita-lite-hardening.conf`** (new) —
   `kernel.kptr_restrict=2`, `kernel.dmesg_restrict=1`, IPv4/IPv6 redirect
   and source-route hardening, ICMP broadcast/bogus-error suppression.
-- **`files/etc/sysctl.d/91-universal-lite-ipv6-privacy.conf`** (new) —
+- **`files/etc/sysctl.d/91-adwaita-lite-ipv6-privacy.conf`** (new) —
   `use_tempaddr=2` (explicit IPv6 privacy addresses; defense-in-depth
   against NetworkManager drift).
 
@@ -33,7 +33,7 @@ than Bluefin does).
 - **CUPS** socket-activated, bound only to localhost and the UNIX socket.
 
 ### Auth (polkit)
-- **`org.universallite.lid-action.policy`** — `allow_active=yes` →
+- **`org.adwaitabluelite.lid-action.policy`** — `allow_active=yes` →
   `auth_admin_keep`. Previously any active-session process (including
   unprivileged apps) could silently rewrite logind lid behavior via
   pkexec with zero prompt. Now prompts admin credentials once per
@@ -41,21 +41,21 @@ than Bluefin does).
 
 ### Shipped systemd units (all 6)
 Applied per-service least-privilege hardening:
-- `universal-lite-encrypted-swap.service` — `CapabilityBoundingSet=CAP_SYS_ADMIN`
+- `adwaita-lite-encrypted-swap.service` — `CapabilityBoundingSet=CAP_SYS_ADMIN`
   only; full `ProtectSystem=strict` + per-path writability for `/run`;
   `SystemCallFilter` allowlists swap/mount, blocks module/clock/debug.
-- `universal-lite-swap-init.service` — scoped to
+- `adwaita-lite-swap-init.service` — scoped to
   `CAP_LINUX_IMMUTABLE CAP_CHOWN CAP_FOWNER CAP_DAC_OVERRIDE`;
   `PrivateNetwork=yes`.
-- `universal-lite-zswap.service` — `ProtectKernelTunables` explicitly
+- `adwaita-lite-zswap.service` — `ProtectKernelTunables` explicitly
   left off (writes sysfs); whitelist via `ReadWritePaths=/sys/module/
   zswap/parameters`.
-- `universal-lite-first-boot.service` — light-touch hardening
+- `adwaita-lite-first-boot.service` — light-touch hardening
   (calls systemctl/modprobe/sysctl, too broad to lock down fully).
   Also moved two `ConditionPathExists=` directives from `[Service]` to
   `[Unit]` — systemd was ignoring them in the wrong section, so the
   setup-done guard had only been firing via the in-script stamp check.
-- `universal-lite-flatpak-{install,update}.service` — network allowed
+- `adwaita-lite-flatpak-{install,update}.service` — network allowed
   (needed for Flathub); `NoNewPrivileges` intentionally left off
   (flatpak may invoke setuid bwrap); syscall filter omitted (flatpak
   + ostree + bwrap use huge syscall surface).
@@ -77,7 +77,7 @@ verify` post-fix: no remaining warnings.
   a `finally` block after hashing, even on exception paths.
 
 ### Supply chain
-- **`universal-lite-flatpak-setup`** now prefers the build-time-baked
+- **`adwaita-lite-flatpak-setup`** now prefers the build-time-baked
   `/etc/flatpak/remotes.d/flathub.flatpakrepo` shipped by
   `ublue-os/main`, falling back to HTTPS only if absent. Eliminates
   the first-boot TOFU re-download of the Flathub repo metadata.
@@ -86,12 +86,12 @@ verify` post-fix: no remaining warnings.
 
 - Cosign signing in CI (`cosign sign -y --key env://COSIGN_PRIVATE_KEY`
   on every pushed tag); pubkey baked into
-  `/etc/pki/containers/universal-lite.pub`.
+  `/etc/pki/containers/adwaita-lite.pub`.
 - `/etc/containers/policy.json` merged (not replaced) with
   `sigstoreSigned` + `matchRepository` for our namespace; top-level
   `"default": [{"type": "reject"}]` inherited from
   `ublue-os-signing`.
-- `/etc/containers/registries.d/universal-lite.yaml` correctly points
+- `/etc/containers/registries.d/adwaita-lite.yaml` correctly points
   to sigstore attachment store.
 - Wizard password flow: stdin-only, no argv exposure, no tempfile
   plaintext, no logging.

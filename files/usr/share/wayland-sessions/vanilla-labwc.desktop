@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Vanilla labwc
-Comment=Plain labwc Wayland compositor with no Universal-Lite customisations
+Comment=Plain labwc Wayland compositor with no Adwaita-Lite customisations
 Exec=labwc
 Type=Application
 DesktopNames=labwc

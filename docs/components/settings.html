@@ -270,13 +270,13 @@
     <div>
       <p class="eyebrow"><a href="index.html">Component docs</a> / Settings</p>
       <h1>Settings UI Reference</h1>
-      <p class="lede">Dense ownership map for the libadwaita Settings application. Start here before editing navigation, custom picker surfaces, page cleanup, or CSS-backed controls in <code>files/usr/lib/universal-lite/settings/</code>.</p>
+      <p class="lede">Dense ownership map for the libadwaita Settings application. Start here before editing navigation, custom picker surfaces, page cleanup, or CSS-backed controls in <code>files/usr/lib/adwaita-lite/settings/</code>.</p>
     </div>
     <aside class="source-map" aria-label="Settings source map">
-      <article class="source-card"><b>Package</b><code>files/usr/lib/universal-lite/settings/</code></article>
-      <article class="source-card"><b>Window shell</b><code>files/usr/lib/universal-lite/settings/window.py</code></article>
-      <article class="source-card"><b>Page protocol</b><code>files/usr/lib/universal-lite/settings/base.py</code></article>
-      <article class="source-card"><b>CSS exceptions</b><code>files/usr/lib/universal-lite/settings/css/style.css</code></article>
+      <article class="source-card"><b>Package</b><code>files/usr/lib/adwaita-lite/settings/</code></article>
+      <article class="source-card"><b>Window shell</b><code>files/usr/lib/adwaita-lite/settings/window.py</code></article>
+      <article class="source-card"><b>Page protocol</b><code>files/usr/lib/adwaita-lite/settings/base.py</code></article>
+      <article class="source-card"><b>CSS exceptions</b><code>files/usr/lib/adwaita-lite/settings/css/style.css</code></article>
     </aside>
   </header>
 
@@ -325,7 +325,7 @@
     <h2 id="styling-title">Styling Boundary</h2>
     <div class="state-map" aria-label="Settings styling boundaries">
       <article class="state-card wide"><h3>Stock first</h3><p>Most settings UI should be native <code>Adw.PreferencesPage</code>, <code>Adw.PreferencesGroup</code>, <code>Adw.SwitchRow</code>, <code>Adw.ComboRow</code>, <code>Adw.EntryRow</code>, and <code>Adw.ActionRow</code>. Do not add CSS for standard row spacing, headers, toasts, or dialogs.</p></article>
-      <article class="state-card"><h3>Wallpaper CSS</h3><p><code>files/usr/lib/universal-lite/settings/css/style.css</code> owns <code>wallpaper-grid</code>, <code>wallpaper-tile</code>, <code>wallpaper-add</code>, <code>wallpaper-remove</code>, and <code>wallpaper-placeholder</code>.</p></article>
+      <article class="state-card"><h3>Wallpaper CSS</h3><p><code>files/usr/lib/adwaita-lite/settings/css/style.css</code> owns <code>wallpaper-grid</code>, <code>wallpaper-tile</code>, <code>wallpaper-add</code>, <code>wallpaper-remove</code>, and <code>wallpaper-placeholder</code>.</p></article>
       <article class="state-card"><h3>Accent CSS</h3><p><code>accent-swatch-grid</code> and <code>accent-swatch</code> provide only the circular picker chrome; per-accent fill classes are generated at app startup from palette data.</p></article>
       <article class="state-card"><h3>Search focus</h3><p><code>settings-search-entry</code> is a narrow exception for focus ring and selection colors on the global <code>Gtk.SearchEntry</code>.</p></article>
     </div>

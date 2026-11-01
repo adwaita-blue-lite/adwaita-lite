@@ -12,7 +12,7 @@
 
 ## File Structure
 
-- Modify `files/usr/bin/universal-lite-setup-wizard`
+- Modify `files/usr/bin/adwaita-lite-setup-wizard`
   - Add guarded dark preference helper.
   - Add semantic dark palette tokens.
   - Convert the stylesheet to use `string.Template` token substitution.
@@ -175,12 +175,12 @@ git commit -m "test(wizard): define dark theming contract"
 ## Task 2: Add Dark Preference Hook and Palette Tokens
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard`
 - Test: `tests/test_setup_wizard_app_selection.py`
 
 - [ ] **Step 1: Import `Template`**
 
-In `files/usr/bin/universal-lite-setup-wizard`, add this import near the other standard library imports:
+In `files/usr/bin/adwaita-lite-setup-wizard`, add this import near the other standard library imports:
 
 ```python
 from string import Template
@@ -300,7 +300,7 @@ Expected: dark hook and palette tests pass. The comprehensive node coverage test
 Run:
 
 ```bash
-python -m py_compile files/usr/bin/universal-lite-setup-wizard
+python -m py_compile files/usr/bin/adwaita-lite-setup-wizard
 ```
 
 Expected: exits 0 with no output.
@@ -308,14 +308,14 @@ Expected: exits 0 with no output.
 - [ ] **Step 8: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "fix(wizard): force dark GTK preference"
 ```
 
 ## Task 3: Expand CSS Node Coverage
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard`
 - Test: `tests/test_setup_wizard_app_selection.py`
 
 - [ ] **Step 1: Replace existing color literals in the top CSS blocks with palette tokens**
@@ -610,7 +610,7 @@ Expected: pass. The smoke test may skip only if GTK/display runtime is unavailab
 Run:
 
 ```bash
-python -m py_compile files/usr/bin/universal-lite-setup-wizard
+python -m py_compile files/usr/bin/adwaita-lite-setup-wizard
 ```
 
 Expected: exits 0 with no output.
@@ -618,14 +618,14 @@ Expected: exits 0 with no output.
 - [ ] **Step 9: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard tests/test_setup_wizard_app_selection.py
+git add files/usr/bin/adwaita-lite-setup-wizard tests/test_setup_wizard_app_selection.py
 git commit -m "fix(wizard): enforce dark GTK control styling"
 ```
 
 ## Task 4: Review and Final Verification
 
 **Files:**
-- Review: `files/usr/bin/universal-lite-setup-wizard`
+- Review: `files/usr/bin/adwaita-lite-setup-wizard`
 - Review: `tests/test_setup_wizard_app_selection.py`
 - Review: `tests/test_setup_wizard_gtk_smoke.py`
 
@@ -634,7 +634,7 @@ git commit -m "fix(wizard): enforce dark GTK control styling"
 Run:
 
 ```bash
-git diff 7cd6bf1...HEAD -- files/usr/bin/universal-lite-setup-wizard tests/test_setup_wizard_app_selection.py tests/test_setup_wizard_gtk_smoke.py
+git diff 7cd6bf1...HEAD -- files/usr/bin/adwaita-lite-setup-wizard tests/test_setup_wizard_app_selection.py tests/test_setup_wizard_gtk_smoke.py
 ```
 
 Expected: diff includes tests, guarded dark preference, palette tokens, CSS node coverage, and no libadwaita import.
@@ -654,7 +654,7 @@ Expected: pass. The smoke test may skip only for unavailable GTK/display runtime
 Run:
 
 ```bash
-python -m py_compile files/usr/bin/universal-lite-setup-wizard
+python -m py_compile files/usr/bin/adwaita-lite-setup-wizard
 ```
 
 Expected: exits 0 with no output.
@@ -685,14 +685,14 @@ If the reviewer requests Critical or Important changes, fix them with TDD where 
 
 ```bash
 pytest -q tests/test_setup_wizard_app_selection.py tests/test_setup_wizard_gtk_smoke.py
-python -m py_compile files/usr/bin/universal-lite-setup-wizard
+python -m py_compile files/usr/bin/adwaita-lite-setup-wizard
 pytest -q
 ```
 
 Commit review follow-up with:
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard tests/test_setup_wizard_app_selection.py tests/test_setup_wizard_gtk_smoke.py
+git add files/usr/bin/adwaita-lite-setup-wizard tests/test_setup_wizard_app_selection.py tests/test_setup_wizard_gtk_smoke.py
 git commit -m "fix(wizard): address dark theming review"
 ```
 

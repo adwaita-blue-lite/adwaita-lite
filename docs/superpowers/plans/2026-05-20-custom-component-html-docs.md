@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build contributor/agent-oriented static HTML documentation for every known Universal-Lite custom component area, starting with the setup wizard and ending with a complete linked component documentation set with strong visual quality and high information density.
+**Goal:** Build contributor/agent-oriented static HTML documentation for every known Adwaita-Lite custom component area, starting with the setup wizard and ending with a complete linked component documentation set with strong visual quality and high information density.
 
 **Architecture:** Add static files under `docs/components/` with no build system, packaging hook, runtime dependency, or generated output. Use page-specific HTML structures instead of a rigid template: flow strips, cards, source maps, state maps, callouts, and compact tables should be used where they make the component easier to understand. Use a small pytest file to verify the docs exist, link together, reference real source files, and include the source-navigation anchors future agents need.
 
@@ -16,16 +16,16 @@
   - Landing page for future contributors/agents.
   - Owns the coverage table and links to all component docs.
 - Create: `docs/components/setup-wizard.html`
-  - Deep doc for `files/usr/bin/universal-lite-setup-wizard`.
+  - Deep doc for `files/usr/bin/adwaita-lite-setup-wizard`.
   - Owns wizard flow, component map, CSS class map, state hooks, tests, and safe-edit guidance.
 - Create: `docs/components/app-menu.html`
-  - Deep doc for `files/usr/bin/universal-lite-app-menu`.
+  - Deep doc for `files/usr/bin/adwaita-lite-app-menu`.
   - Owns layer-shell behavior, data model, grid/list rendering, sizing modes, search/filtering, power confirmation, and twilight theming.
 - Create: `docs/components/greeter.html`
-  - Deep doc for `files/usr/bin/universal-lite-greeter`.
+  - Deep doc for `files/usr/bin/adwaita-lite-greeter`.
   - Owns kiosk login layout, palette/accent loading, session selector, greetd IPC, login states, and safe-edit guidance.
 - Create: `docs/components/settings.html`
-  - Deep doc for `files/usr/lib/universal-lite/settings/`.
+  - Deep doc for `files/usr/lib/adwaita-lite/settings/`.
   - Owns settings app architecture and custom UI surfaces: wallpaper tiles, accent swatches, panel layout editor, pinned apps picker, keyboard shortcut capture, network sub-pages, display revert dialogs, and page-specific CSS.
 - Create: `docs/components/theme-system.html`
   - Deep doc for shared palette/theme behavior.
@@ -42,7 +42,7 @@ Do not modify runtime source, packaging, service files, `.po` files, or `README.
 
 **Files:**
 - Create: `tests/test_component_docs.py`
-- Read-only references: `files/usr/bin/universal-lite-setup-wizard`, `files/usr/bin/universal-lite-app-menu`, `files/usr/bin/universal-lite-greeter`, `files/usr/lib/universal-lite/settings/`, `files/usr/lib/universal-lite/theme.py`, `files/usr/share/universal-lite/palette.json`
+- Read-only references: `files/usr/bin/adwaita-lite-setup-wizard`, `files/usr/bin/adwaita-lite-app-menu`, `files/usr/bin/adwaita-lite-greeter`, `files/usr/lib/adwaita-lite/settings/`, `files/usr/lib/adwaita-lite/theme.py`, `files/usr/share/adwaita-lite/palette.json`
 
 - [ ] **Step 1: Write the failing docs contract test**
 
@@ -66,26 +66,26 @@ PAGES = {
 }
 
 SOURCE_PATHS = [
-    "files/usr/bin/universal-lite-setup-wizard",
-    "files/usr/bin/universal-lite-app-menu",
-    "files/usr/bin/universal-lite-greeter",
-    "files/usr/lib/universal-lite/settings/",
-    "files/usr/lib/universal-lite/settings/css/style.css",
-    "files/usr/lib/universal-lite/theme.py",
-    "files/usr/share/universal-lite/palette.json",
+    "files/usr/bin/adwaita-lite-setup-wizard",
+    "files/usr/bin/adwaita-lite-app-menu",
+    "files/usr/bin/adwaita-lite-greeter",
+    "files/usr/lib/adwaita-lite/settings/",
+    "files/usr/lib/adwaita-lite/settings/css/style.css",
+    "files/usr/lib/adwaita-lite/theme.py",
+    "files/usr/share/adwaita-lite/palette.json",
 ]
 
 PAGE_SOURCE_PATHS = {
-    "setup-wizard": ["files/usr/bin/universal-lite-setup-wizard"],
-    "app-menu": ["files/usr/bin/universal-lite-app-menu"],
-    "greeter": ["files/usr/bin/universal-lite-greeter"],
+    "setup-wizard": ["files/usr/bin/adwaita-lite-setup-wizard"],
+    "app-menu": ["files/usr/bin/adwaita-lite-app-menu"],
+    "greeter": ["files/usr/bin/adwaita-lite-greeter"],
     "settings": [
-        "files/usr/lib/universal-lite/settings/",
-        "files/usr/lib/universal-lite/settings/css/style.css",
+        "files/usr/lib/adwaita-lite/settings/",
+        "files/usr/lib/adwaita-lite/settings/css/style.css",
     ],
     "theme-system": [
-        "files/usr/share/universal-lite/palette.json",
-        "files/usr/lib/universal-lite/theme.py",
+        "files/usr/share/adwaita-lite/palette.json",
+        "files/usr/lib/adwaita-lite/theme.py",
     ],
 }
 
@@ -252,7 +252,7 @@ def test_settings_doc_covers_major_custom_surfaces():
         "accent-swatch",
         "Adw.NavigationView",
         "Adw.AlertDialog",
-        "files/usr/lib/universal-lite/settings/css/style.css",
+        "files/usr/lib/adwaita-lite/settings/css/style.css",
         "tests/test_settings_css.py",
         "docs/superpowers/specs/2026-04-20-settings-adwaita-reference.md",
     ]
@@ -264,8 +264,8 @@ def test_settings_doc_covers_major_custom_surfaces():
 def test_theme_system_doc_covers_major_theme_anchors():
     html = _text(PAGES["theme-system"])
     required = [
-        "files/usr/share/universal-lite/palette.json",
-        "files/usr/lib/universal-lite/theme.py",
+        "files/usr/share/adwaita-lite/palette.json",
+        "files/usr/lib/adwaita-lite/theme.py",
         "gtk_color_defines",
         "_build_accent_css",
         "_build_twilight_css",
@@ -302,7 +302,7 @@ If the failure is an import error, syntax error, or path error in `tests/test_co
 
 Create `docs/components/index.html`. Use semantic static HTML. Include:
 
-- `<title>Universal-Lite Component Documentation</title>`
+- `<title>Adwaita-Lite Component Documentation</title>`
 - Header text: `Custom Component Documentation`
 - A short explanation that these docs are for contributors and agents, not end users.
 - A coverage table linking to:
@@ -323,7 +323,7 @@ Use this minimal structure and style baseline:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Universal-Lite Component Documentation</title>
+  <title>Adwaita-Lite Component Documentation</title>
   <style>
     :root { color-scheme: light dark; font-family: Inter, system-ui, sans-serif; }
     body { margin: 0; background: #101014; color: #f4f4f5; line-height: 1.55; }
@@ -341,16 +341,16 @@ Use this minimal structure and style baseline:
 <body>
 <main>
   <h1>Custom Component Documentation</h1>
-  <p class="lede">Contributor and agent reference for Universal-Lite's custom UI surfaces. These pages are intentionally HTML so each component can use the diagrams, tables, maps, and dense layouts that fit its structure.</p>
+  <p class="lede">Contributor and agent reference for Adwaita-Lite's custom UI surfaces. These pages are intentionally HTML so each component can use the diagrams, tables, maps, and dense layouts that fit its structure.</p>
   <p class="density-note">Design rule: prefer dense visual structures over prose when they make ownership, flow, state, or safe-edit constraints faster to understand.</p>
   <table>
     <thead><tr><th>Area</th><th>Status</th><th>Source</th></tr></thead>
     <tbody>
-      <tr><td><a href="setup-wizard.html">Setup wizard</a></td><td class="status">Planned</td><td><code>files/usr/bin/universal-lite-setup-wizard</code></td></tr>
-      <tr><td><a href="app-menu.html">App menu</a></td><td class="status">Planned</td><td><code>files/usr/bin/universal-lite-app-menu</code></td></tr>
-      <tr><td><a href="greeter.html">Greeter</a></td><td class="status">Planned</td><td><code>files/usr/bin/universal-lite-greeter</code></td></tr>
-      <tr><td><a href="settings.html">Settings</a></td><td class="status">Planned</td><td><code>files/usr/lib/universal-lite/settings/</code></td></tr>
-      <tr><td><a href="theme-system.html">Theme system</a></td><td class="status">Planned</td><td><code>files/usr/share/universal-lite/palette.json</code></td></tr>
+      <tr><td><a href="setup-wizard.html">Setup wizard</a></td><td class="status">Planned</td><td><code>files/usr/bin/adwaita-lite-setup-wizard</code></td></tr>
+      <tr><td><a href="app-menu.html">App menu</a></td><td class="status">Planned</td><td><code>files/usr/bin/adwaita-lite-app-menu</code></td></tr>
+      <tr><td><a href="greeter.html">Greeter</a></td><td class="status">Planned</td><td><code>files/usr/bin/adwaita-lite-greeter</code></td></tr>
+      <tr><td><a href="settings.html">Settings</a></td><td class="status">Planned</td><td><code>files/usr/lib/adwaita-lite/settings/</code></td></tr>
+      <tr><td><a href="theme-system.html">Theme system</a></td><td class="status">Planned</td><td><code>files/usr/share/adwaita-lite/palette.json</code></td></tr>
     </tbody>
   </table>
 </main>
@@ -370,7 +370,7 @@ Expected: FAIL. `test_component_docs_pages_exist` should now fail on one of the 
 
 **Files:**
 - Create: `docs/components/setup-wizard.html`
-- Reference: `files/usr/bin/universal-lite-setup-wizard`
+- Reference: `files/usr/bin/adwaita-lite-setup-wizard`
 - Reference: `tests/test_setup_wizard_gtk_smoke.py`
 - Reference: `tests/test_setup_wizard_app_selection.py`
 - Reference: `tests/test_wizard_i18n.py`
@@ -381,7 +381,7 @@ Expected: FAIL. `test_component_docs_pages_exist` should now fail on one of the 
 Create `docs/components/setup-wizard.html` with:
 
 - Link back to `index.html`.
-- Source reference: `files/usr/bin/universal-lite-setup-wizard`.
+- Source reference: `files/usr/bin/adwaita-lite-setup-wizard`.
 - Primary class reference: `SetupWizardWindow`.
 - Flow map for all page builders:
   - `_build_language_page`
@@ -430,7 +430,7 @@ Expected: FAIL. Remaining failures should be missing or incomplete `app-menu.htm
 
 **Files:**
 - Create: `docs/components/app-menu.html`
-- Reference: `files/usr/bin/universal-lite-app-menu`
+- Reference: `files/usr/bin/adwaita-lite-app-menu`
 - Reference: `tests/test_app_menu_css.py`
 - Test: `tests/test_component_docs.py`
 
@@ -439,7 +439,7 @@ Expected: FAIL. Remaining failures should be missing or incomplete `app-menu.htm
 Create `docs/components/app-menu.html` with:
 
 - Link back to `index.html`.
-- Source reference: `files/usr/bin/universal-lite-app-menu`.
+- Source reference: `files/usr/bin/adwaita-lite-app-menu`.
 - Architecture section explaining that `AppMenu` is a GTK window that prefers `Gtk4LayerShell` and falls back to a normal toplevel.
 - Component/data map covering:
   - `AppMenu`
@@ -483,7 +483,7 @@ Expected: PASS.
 
 **Files:**
 - Create: `docs/components/greeter.html`
-- Reference: `files/usr/bin/universal-lite-greeter`
+- Reference: `files/usr/bin/adwaita-lite-greeter`
 - Test: `tests/test_component_docs.py`
 
 - [ ] **Step 1: Create `greeter.html`**
@@ -491,7 +491,7 @@ Expected: PASS.
 Create `docs/components/greeter.html` with:
 
 - Link back to `index.html`.
-- Source reference: `files/usr/bin/universal-lite-greeter`.
+- Source reference: `files/usr/bin/adwaita-lite-greeter`.
 - Architecture section explaining the kiosk greetd login flow.
 - Component map covering:
   - `GreeterWindow`
@@ -528,14 +528,14 @@ Expected: PASS.
 
 **Files:**
 - Create: `docs/components/settings.html`
-- Reference: `files/usr/lib/universal-lite/settings/window.py`
-- Reference: `files/usr/lib/universal-lite/settings/base.py`
-- Reference: `files/usr/lib/universal-lite/settings/pages/appearance.py`
-- Reference: `files/usr/lib/universal-lite/settings/pages/panel.py`
-- Reference: `files/usr/lib/universal-lite/settings/pages/keyboard.py`
-- Reference: `files/usr/lib/universal-lite/settings/pages/network.py`
-- Reference: `files/usr/lib/universal-lite/settings/pages/display.py`
-- Reference: `files/usr/lib/universal-lite/settings/css/style.css`
+- Reference: `files/usr/lib/adwaita-lite/settings/window.py`
+- Reference: `files/usr/lib/adwaita-lite/settings/base.py`
+- Reference: `files/usr/lib/adwaita-lite/settings/pages/appearance.py`
+- Reference: `files/usr/lib/adwaita-lite/settings/pages/panel.py`
+- Reference: `files/usr/lib/adwaita-lite/settings/pages/keyboard.py`
+- Reference: `files/usr/lib/adwaita-lite/settings/pages/network.py`
+- Reference: `files/usr/lib/adwaita-lite/settings/pages/display.py`
+- Reference: `files/usr/lib/adwaita-lite/settings/css/style.css`
 - Reference: `docs/superpowers/specs/2026-04-20-settings-adwaita-reference.md`
 - Reference: `tests/test_settings_css.py`
 - Test: `tests/test_component_docs.py`
@@ -545,7 +545,7 @@ Expected: PASS.
 Create `docs/components/settings.html` with:
 
 - Link back to `index.html`.
-- Source reference for the settings package: `files/usr/lib/universal-lite/settings/`.
+- Source reference for the settings package: `files/usr/lib/adwaita-lite/settings/`.
 - Architecture section covering `SettingsWindow`, `BasePage`, lazy page building, `Adw.NavigationSplitView`, `Adw.ToastOverlay`, search, and `BasePage.setup_cleanup`.
 - Page map covering at least:
   - `AppearancePage`
@@ -559,7 +559,7 @@ Create `docs/components/settings.html` with:
   - Keyboard: custom shortcut rows, capture sub-page, reset buttons.
   - Network: `Adw.NavigationView` sub-pages, hidden network form, connect/forget rows.
   - Display: `Adw.AlertDialog` revert flows for scale and resolution.
-- Styling section referencing `files/usr/lib/universal-lite/settings/css/style.css` and explaining that most styling should remain stock libadwaita while CSS is reserved for wallpaper tiles, accent swatches, and search focus.
+- Styling section referencing `files/usr/lib/adwaita-lite/settings/css/style.css` and explaining that most styling should remain stock libadwaita while CSS is reserved for wallpaper tiles, accent swatches, and search focus.
 - Safe-edit section covering event-bus cleanup, no `unmap` cleanup regression, navigation sub-pages, Adw row patterns, and the reference doc `docs/superpowers/specs/2026-04-20-settings-adwaita-reference.md`.
 - Tests section linking to `tests/test_settings_css.py`, `tests/test_settings_app_logic.py`, `tests/test_settings_appearance.py`, `tests/test_settings_store.py`, and `tests/test_event_bus.py`.
 
@@ -577,12 +577,12 @@ Expected: PASS.
 
 **Files:**
 - Create: `docs/components/theme-system.html`
-- Reference: `files/usr/share/universal-lite/palette.json`
-- Reference: `files/usr/lib/universal-lite/theme.py`
-- Reference: `files/usr/lib/universal-lite/settings/app.py`
-- Reference: `files/usr/lib/universal-lite/settings/css/style.css`
-- Reference: `files/usr/bin/universal-lite-app-menu`
-- Reference: `files/usr/bin/universal-lite-greeter`
+- Reference: `files/usr/share/adwaita-lite/palette.json`
+- Reference: `files/usr/lib/adwaita-lite/theme.py`
+- Reference: `files/usr/lib/adwaita-lite/settings/app.py`
+- Reference: `files/usr/lib/adwaita-lite/settings/css/style.css`
+- Reference: `files/usr/bin/adwaita-lite-app-menu`
+- Reference: `files/usr/bin/adwaita-lite-greeter`
 - Test: `tests/test_component_docs.py`
 
 - [ ] **Step 1: Create `theme-system.html`**
@@ -591,12 +591,12 @@ Create `docs/components/theme-system.html` with:
 
 - Link back to `index.html`.
 - Source references:
-  - `files/usr/share/universal-lite/palette.json`
-  - `files/usr/lib/universal-lite/theme.py`
-  - `files/usr/lib/universal-lite/settings/app.py`
-  - `files/usr/lib/universal-lite/settings/css/style.css`
-  - `files/usr/bin/universal-lite-app-menu`
-  - `files/usr/bin/universal-lite-greeter`
+  - `files/usr/share/adwaita-lite/palette.json`
+  - `files/usr/lib/adwaita-lite/theme.py`
+  - `files/usr/lib/adwaita-lite/settings/app.py`
+  - `files/usr/lib/adwaita-lite/settings/css/style.css`
+  - `files/usr/bin/adwaita-lite-app-menu`
+  - `files/usr/bin/adwaita-lite-greeter`
 - Token/data map covering:
   - `gtk_color_defines`
   - `_build_accent_css`

@@ -20,7 +20,7 @@ Primary issues being fixed:
 
 ### What changes
 
-Replace scattered per-function color derivation with a single `_build_tokens(settings: dict) -> dict` function in `universal-lite-apply-settings`. All `write_*` functions receive the token dict and do zero color math themselves.
+Replace scattered per-function color derivation with a single `_build_tokens(settings: dict) -> dict` function in `adwaita-lite-apply-settings`. All `write_*` functions receive the token dict and do zero color math themselves.
 
 `ADWAITA` and `ACCENTS` dicts remain unchanged as the source data.
 
@@ -375,11 +375,11 @@ Replace hardcoded dark theme with Adwaita light values (`ADWAITA["light"]` + blu
 
 | File | Change |
 |------|--------|
-| `files/usr/libexec/universal-lite-apply-settings` | Add `_build_tokens()`, update all `write_*` functions, add pinned launcher generation to `write_waybar_config()`, orientation-aware CSS |
-| `files/usr/bin/universal-lite-setup-wizard` | No change |
-| `files/usr/share/universal-lite/defaults/settings.json` | Add `pinned` array with Chrome + Bazaar defaults |
-| `files/usr/bin/universal-lite-settings` | Add pinned apps UI to Layout tab |
-| `files/etc/xdg/labwc/themes/Universal-Lite/themerc` | Sync with generated output |
+| `files/usr/libexec/adwaita-lite-apply-settings` | Add `_build_tokens()`, update all `write_*` functions, add pinned launcher generation to `write_waybar_config()`, orientation-aware CSS |
+| `files/usr/bin/adwaita-lite-setup-wizard` | No change |
+| `files/usr/share/adwaita-lite/defaults/settings.json` | Add `pinned` array with Chrome + Bazaar defaults |
+| `files/usr/bin/adwaita-lite-settings` | Add pinned apps UI to Layout tab |
+| `files/etc/xdg/labwc/themes/Adwaita-Lite/themerc` | Sync with generated output |
 | `files/etc/xdg/fuzzel/fuzzel.ini` | Sync with generated output |
 | `files/etc/xdg/mako/config` | Sync with generated output, remove swaylock options |
 | `files/etc/xdg/swaylock/config` | Sync with generated output |

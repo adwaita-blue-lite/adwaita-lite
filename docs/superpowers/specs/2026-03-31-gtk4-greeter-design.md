@@ -1,4 +1,4 @@
-# Universal-Lite GTK4 Greeter — Design Spec
+# Adwaita-Lite GTK4 Greeter — Design Spec
 
 ## Context
 
@@ -8,12 +8,12 @@ Replace gtkgreet with a custom GTK4 Python greeter that shares the same Adwaita 
 
 ## Architecture
 
-Single Python/GTK4 script: `/usr/bin/universal-lite-greeter`
+Single Python/GTK4 script: `/usr/bin/adwaita-lite-greeter`
 
 - Communicates with greetd via IPC protocol (length-prefixed JSON over `$GREETD_SOCK` Unix socket)
 - Runs inside cage (kiosk Wayland compositor) launched by greetd
-- Reads optional system config at `/etc/universal-lite/greeter.json` for theme preference
-- Stores last-logged-in username at `/var/lib/universal-lite/last-user`
+- Reads optional system config at `/etc/adwaita-lite/greeter.json` for theme preference
+- Stores last-logged-in username at `/var/lib/adwaita-lite/last-user`
 - ~400-600 lines Python, inline CSS generated from Adwaita palette
 
 ## greetd IPC Protocol
@@ -113,7 +113,7 @@ Vertically centered on screen, stacked top-to-bottom:
 **State C — Session selector revealed (gear clicked):**
 - Dropdown appears below the gear icon
 - Lists sessions from `/usr/share/wayland-sessions/*.desktop`
-- Default: "Universal-Lite"
+- Default: "Adwaita-Lite"
 
 ### Error display
 
@@ -139,7 +139,7 @@ Hardcode both Adwaita palettes (identical to apply-settings):
 
 ### Config file
 
-`/etc/universal-lite/greeter.json` (optional, created by settings app later):
+`/etc/adwaita-lite/greeter.json` (optional, created by settings app later):
 ```json
 {
   "theme": "light"
@@ -154,7 +154,7 @@ Same pattern as the wizard: build a CSS string from the palette at startup, load
 
 ## Session Discovery
 
-Read `/usr/share/wayland-sessions/*.desktop` files at startup. Parse `Name=` and `Exec=` from each. Default to the first entry whose `Name` contains "Universal-Lite", or the first entry if none match.
+Read `/usr/share/wayland-sessions/*.desktop` files at startup. Parse `Name=` and `Exec=` from each. Default to the first entry whose `Name` contains "Adwaita-Lite", or the first entry if none match.
 
 ## Keyboard Navigation
 
@@ -165,10 +165,10 @@ Read `/usr/share/wayland-sessions/*.desktop` files at startup. Parse `Name=` and
 ## File Changes
 
 ### Create
-- `/usr/bin/universal-lite-greeter` — the new GTK4 Python greeter (~400-600 lines)
+- `/usr/bin/adwaita-lite-greeter` — the new GTK4 Python greeter (~400-600 lines)
 
 ### Modify
-- `/usr/libexec/universal-lite-greeter-setup` — change gtkgreet command to `universal-lite-greeter`
+- `/usr/libexec/adwaita-lite-greeter-setup` — change gtkgreet command to `adwaita-lite-greeter`
 - `/build_files/build.sh` — remove `gtkgreet` package, add `chmod` for new greeter
 
 ### Remove
@@ -181,11 +181,11 @@ Read `/usr/share/wayland-sessions/*.desktop` files at startup. Parse `Name=` and
 
 ## Last-User Persistence
 
-- On successful login: write username to `/var/lib/universal-lite/last-user`
+- On successful login: write username to `/var/lib/adwaita-lite/last-user`
 - On startup: read last-user file, if exists → pre-fill and send `create_session`
 - File is plain text, single line, just the username
 - Written by the greeter just before `start_session` succeeds
-- Directory `/var/lib/universal-lite/` already exists (created by wizard)
+- Directory `/var/lib/adwaita-lite/` already exists (created by wizard)
 
 ## Error Handling
 

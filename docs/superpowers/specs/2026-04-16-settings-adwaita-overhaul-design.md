@@ -122,7 +122,7 @@ Minor tweaks to bring the sidebar closer to GNOME Settings:
 
 ## F. System-Wide Window Buttons
 
-**File:** `files/usr/libexec/universal-lite-apply-settings`
+**File:** `files/usr/libexec/adwaita-lite-apply-settings`
 
 In `write_gtk_settings()`, add a line to both GTK 3 and GTK 4 `settings.ini`:
 

@@ -16,7 +16,7 @@
 
 Only one file is modified:
 
-- **Modify:** `files/usr/bin/universal-lite-setup-wizard`
+- **Modify:** `files/usr/bin/adwaita-lite-setup-wizard`
   - Delete: `_mount_sysroot()`, `_unmount_sysroot()`, ostree ref cleanup block, `gi.require_version("OSTree", "1.0")` import
   - Add: `_step_partition_disk()`, `_step_install_system()`
   - Modify: `_step_finalize()` (unmount path changes), `_on_setup_clicked()` (step list)
@@ -30,8 +30,8 @@ No new files. No test files (this is a single-file GTK wizard with no test harne
 Remove the code that will be replaced. Do this first so subsequent tasks start from a clean slate.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard:2214-2301` (delete `_mount_sysroot` and `_unmount_sysroot`)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:2329-2350` (delete ostree ref cleanup block inside `_step_bootc_install`)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:2214-2301` (delete `_mount_sysroot` and `_unmount_sysroot`)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:2329-2350` (delete ostree ref cleanup block inside `_step_bootc_install`)
 
 - [ ] **Step 1: Delete `_mount_sysroot` method**
 
@@ -58,7 +58,7 @@ Search the file for `OSTree` (case-sensitive). The only remaining references sho
 - [ ] **Step 6: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "refactor(wizard): remove to-disk code path and OSTree GI bindings
 
 Removes _mount_sysroot, _unmount_sysroot, _step_bootc_install, and the
@@ -73,7 +73,7 @@ next commits by caller-managed partitioning + bootc to-filesystem."
 Create the new partitioning step that replaces the first half of the old `_step_bootc_install`. This step creates a GPT partition table with sfdisk, formats each partition, mounts them in the correct order, and sets `self._sysroot_deploy`/`self._sysroot_var` path attributes for downstream steps.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` — add new method after the `# Install pipeline steps` comment (around line 2305)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` — add new method after the `# Install pipeline steps` comment (around line 2305)
 
 - [ ] **Step 1: Write `_step_partition_disk` method**
 
@@ -248,7 +248,7 @@ Replace with:
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat(wizard): add _step_partition_disk with sfdisk + mkfs + mount
 
 Creates GPT layout: BIOS boot (1 MiB) + EFI (512 MiB) + XBOOTLDR
@@ -264,7 +264,7 @@ to _run_logged for sfdisk's partition script."
 Create the new bootc install step that replaces the second half of the old `_step_bootc_install`.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` — add new method after `_step_partition_disk`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` — add new method after `_step_partition_disk`
 
 - [ ] **Step 1: Write `_step_install_system` method**
 
@@ -323,7 +323,7 @@ Insert this method immediately after `_step_partition_disk`:
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat(wizard): add _step_install_system with bootc to-filesystem
 
 Calls bootc install to-filesystem with --bootloader grub and
@@ -339,7 +339,7 @@ _sysroot_var for downstream post-install steps."
 Replace the `_unmount_sysroot()` call with a direct `umount -R /mnt/target`.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` — `_step_finalize` method
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` — `_step_finalize` method
 
 - [ ] **Step 1: Replace unmount logic in `_step_finalize`**
 
@@ -378,7 +378,7 @@ Replace with:
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "fix(wizard): finalize step unmounts /mnt/target instead of old sysroot path"
 ```
 
@@ -389,7 +389,7 @@ git commit -m "fix(wizard): finalize step unmounts /mnt/target instead of old sy
 Change the step list from one combined step to two separate steps with updated labels.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` — `_on_setup_clicked` method
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` — `_on_setup_clicked` method
 
 - [ ] **Step 1: Replace the step list definition**
 
@@ -425,7 +425,7 @@ Both partitioning and installing are "fatal" — if either fails, the user needs
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat(wizard): split install into two progress steps for better feedback
 
 'Partitioning and installing' becomes 'Partitioning disk' + 'Installing
@@ -439,7 +439,7 @@ system'. Both are fatal — user can go back to change drive on failure."
 Verify and fix any remaining references to the old code paths.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard`
 
 - [ ] **Step 1: Remove the `Sysroot management` section header comment**
 
@@ -468,7 +468,7 @@ The file's module docstring (lines 1-19) does not mention specific install steps
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "chore(wizard): remove stale section header and verify no dead references"
 ```
 
@@ -479,7 +479,7 @@ git commit -m "chore(wizard): remove stale section header and verify no dead ref
 Do a full read-through of the modified install pipeline to catch any issues.
 
 **Files:**
-- Read: `files/usr/bin/universal-lite-setup-wizard` (the install pipeline section)
+- Read: `files/usr/bin/adwaita-lite-setup-wizard` (the install pipeline section)
 
 - [ ] **Step 1: Read the complete install pipeline**
 
@@ -520,7 +520,7 @@ Confirm:
 If the repository prefers clean history, squash Tasks 1-6 into a single commit:
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat(wizard): switch from bootc to-disk to to-filesystem
 
 Replace the single 'bootc install to-disk --wipe' call with:

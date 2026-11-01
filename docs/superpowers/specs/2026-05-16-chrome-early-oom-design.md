@@ -2,7 +2,7 @@
 
 ## Context
 
-Universal-Lite targets low-memory Chromebooks where Chrome is a required project goal. On 2 GB zram-only systems, forcing Chrome into heavy memory pressure can leave an unresponsive Chrome surface even after `systemd-oomd` frees memory.
+Adwaita-Lite targets low-memory Chromebooks where Chrome is a required project goal. On 2 GB zram-only systems, forcing Chrome into heavy memory pressure can leave an unresponsive Chrome surface even after `systemd-oomd` frees memory.
 
 Recent investigation showed:
 
@@ -26,9 +26,9 @@ Preserve desktop responsiveness on 2 GB systems by proactively closing Chrome Fl
 
 ## Approach
 
-Add a Universal-Lite-specific early-OOM monitor rather than using stock `earlyoom`.
+Add a Adwaita-Lite-specific early-OOM monitor rather than using stock `earlyoom`.
 
-Stock `earlyoom` kills individual processes based on kernel OOM scoring. The observed failure is scope-level: Chrome may have multiple Flatpak scopes, and killing only one process or one scope can leave a hung browser surface. Universal-Lite needs an action that understands the Flatpak/systemd unit boundary and can close all active Chrome Flatpak scopes for the logged-in user.
+Stock `earlyoom` kills individual processes based on kernel OOM scoring. The observed failure is scope-level: Chrome may have multiple Flatpak scopes, and killing only one process or one scope can leave a hung browser surface. Adwaita-Lite needs an action that understands the Flatpak/systemd unit boundary and can close all active Chrome Flatpak scopes for the logged-in user.
 
 ## Components
 

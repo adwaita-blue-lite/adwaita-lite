@@ -1,11 +1,11 @@
-# Chinese translations for universal-lite-setup-wizard package.
-# Copyright (C) 2026 THE universal-lite-setup-wizard'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the universal-lite-setup-wizard package.
+# Chinese translations for adwaita-lite-setup-wizard package.
+# Copyright (C) 2026 THE adwaita-lite-setup-wizard'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the adwaita-lite-setup-wizard package.
 # Automatically generated, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: universal-lite-setup-wizard\n"
+"Project-Id-Version: adwaita-lite-setup-wizard\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-27 06:12-0400\n"
 "PO-Revision-Date: 2026-04-03 13:32-0400\n"
@@ -16,799 +16,799 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:481
+#: ../files/usr/bin/adwaita-lite-setup-wizard:481
 msgid "Compressed RAM only (zram) — fast, but apps may close if memory fills"
 msgstr "仅压缩内存 (zram) — 速度快，但内存不足时应用可能会被关闭"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:482
+#: ../files/usr/bin/adwaita-lite-setup-wizard:482
 msgid ""
 "Compressed RAM + disk backup (zswap) — slower overflow to disk, apps stay "
 "open"
 msgstr "压缩内存 + 磁盘备份 (zswap) — 溢出到磁盘速度较慢，但应用会保持运行"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:485
+#: ../files/usr/bin/adwaita-lite-setup-wizard:485
 msgid "Custom"
 msgstr "自定义"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:530
+#: ../files/usr/bin/adwaita-lite-setup-wizard:530
 msgid "Web browser"
 msgstr "网页浏览器"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:531
+#: ../files/usr/bin/adwaita-lite-setup-wizard:531
 msgid "Browse and install apps"
 msgstr "浏览和安装应用"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:532
+#: ../files/usr/bin/adwaita-lite-setup-wizard:532
 msgid "Modern styling for classic apps"
 msgstr "经典应用的现代样式"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:533
+#: ../files/usr/bin/adwaita-lite-setup-wizard:533
 msgid "Dark variant for classic apps"
 msgstr "经典应用的深色样式"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:902
-#: ../files/usr/bin/universal-lite-setup-wizard:1946
+#: ../files/usr/bin/adwaita-lite-setup-wizard:902
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1946
 msgid "Back"
 msgstr "返回"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:909
-#: ../files/usr/bin/universal-lite-setup-wizard:2567
+#: ../files/usr/bin/adwaita-lite-setup-wizard:909
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2567
 msgid "Next"
 msgstr "下一步"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:970
+#: ../files/usr/bin/adwaita-lite-setup-wizard:970
 msgid "Install in progress"
 msgstr "正在安装"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:972
+#: ../files/usr/bin/adwaita-lite-setup-wizard:972
 msgid ""
 "An install is running. Wait for it to finish before closing this window."
 msgstr "安装正在运行。请等待其完成后再关闭此窗口。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1057
-#: ../files/usr/bin/universal-lite-setup-wizard:1840
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1057
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1840
 msgid "Language"
 msgstr "语言"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1063
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1063
 msgid "Select your language."
 msgstr "请选择您的语言。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1167
-#: ../files/usr/bin/universal-lite-setup-wizard:1261
-#: ../files/usr/bin/universal-lite-setup-wizard:1276
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1167
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1261
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1276
 #, python-brace-format
 msgid "Keyboard layout: {layout}"
 msgstr "键盘布局：{layout}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1189
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1189
 msgid ""
 "Auto-selected from your language. Override if your physical keyboard differs."
 msgstr "已根据您的语言自动选择。如果实体键盘不同，请手动更改。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1334
-msgid "Welcome to Universal-Lite"
-msgstr "欢迎使用 Universal-Lite"
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1334
+msgid "Welcome to Adwaita-Lite"
+msgstr "欢迎使用 Adwaita-Lite"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1340
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1340
 msgid "Create your account to get started."
 msgstr "创建您的账户以开始使用。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1346
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1346
 msgid "Full Name"
 msgstr "全名"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1349
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1349
 msgid "Jane Doe"
 msgstr "张三"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1359
-#: ../files/usr/bin/universal-lite-setup-wizard:1846
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1359
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1846
 msgid "Username"
 msgstr "用户名"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1370
-#: ../files/usr/bin/universal-lite-setup-wizard:1520
-#: ../files/usr/bin/universal-lite-setup-wizard:2258
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1370
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1520
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2258
 msgid "Password"
 msgstr "密码"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1381
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1381
 msgid "Confirm Password"
 msgstr "确认密码"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1394
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1394
 msgid "Administrator account (sudo)"
 msgstr "管理员账户 (sudo)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1402
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1402
 msgid "Root Password (optional)"
 msgstr "root 密码（可选）"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1433
-#: ../files/usr/bin/universal-lite-setup-wizard:1841
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1433
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1841
 msgid "Network"
 msgstr "网络"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1439
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1439
 msgid "Connect to the internet to continue."
 msgstr "请连接互联网以继续。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1449
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1449
 msgid "Wired"
 msgstr "有线"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1458
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1458
 msgid "Checking..."
 msgstr "检查中..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1462
-#: ../files/usr/bin/universal-lite-setup-wizard:1530
-#: ../files/usr/bin/universal-lite-setup-wizard:2102
-#: ../files/usr/bin/universal-lite-setup-wizard:2109
-#: ../files/usr/bin/universal-lite-setup-wizard:2261
-#: ../files/usr/bin/universal-lite-setup-wizard:2267
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1462
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1530
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2102
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2109
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2261
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2267
 msgid "Connect"
 msgstr "连接"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1474
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1474
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1490
-#: ../files/usr/bin/universal-lite-setup-wizard:2154
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1490
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2154
 msgid "Scanning for networks..."
 msgstr "正在搜索网络..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1498
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1498
 msgid "Rescan"
 msgstr "重新搜索"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1511
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1511
 msgid "Network Name (SSID)"
 msgstr "网络名称 (SSID)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1541
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1541
 msgid "Join hidden network..."
 msgstr "加入隐藏网络..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1578
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1578
 msgid "Choose Installation Disk"
 msgstr "选择安装磁盘"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1584
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1584
 msgid "Select the target drive and installation options."
 msgstr "选择目标驱动器和安装选项。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1591
-#: ../files/usr/bin/universal-lite-setup-wizard:1842
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1591
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1842
 msgid "Target drive"
 msgstr "目标驱动器"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1595
-#: ../files/usr/bin/universal-lite-setup-wizard:2890
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1595
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2890
 msgid "Unknown"
 msgstr "未知"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1603
-#: ../files/usr/bin/universal-lite-setup-wizard:2484
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1603
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2484
 msgid "No eligible drives found"
 msgstr "未找到可用的驱动器"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1610
-#: ../files/usr/bin/universal-lite-setup-wizard:1843
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1610
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1843
 msgid "Filesystem"
 msgstr "文件系统"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1618
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1618
 msgid "Memory management"
 msgstr "内存管理"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1628
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1628
 msgid "Disk swap size"
 msgstr "磁盘交换空间大小"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1636
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1636
 msgid "Custom size (GB)"
 msgstr "自定义大小 (GB)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1652
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1652
 msgid ""
 "zswap uses compressed RAM as a cache and spills to a disk swap file when "
 "full."
 msgstr "zswap 使用压缩内存作为缓存，当缓存满时会将数据转移到磁盘上的交换文件。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1669
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1669
 msgid "All data on the selected drive will be erased."
 msgstr "所选驱动器上的所有数据将被清除。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1692
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1692
 msgid "System Setup"
 msgstr "系统设置"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1699
-#: ../files/usr/bin/universal-lite-setup-wizard:1849
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1699
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1849
 msgid "Timezone"
 msgstr "时区"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1728
-#: ../files/usr/bin/universal-lite-setup-wizard:1850
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1728
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1850
 msgid "Hostname"
 msgstr "主机名"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1738
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1738
 msgid "Your computer's name on the network. Leave blank to auto-generate."
 msgstr "您的计算机在网络上的名称。留空将自动生成。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1764
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1764
 msgid "Install Apps"
 msgstr "安装应用"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1771
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1771
 msgid "These apps will be installed on first boot. Uncheck any you don't want."
 msgstr "这些应用将在首次启动时安装。请取消勾选您不需要的应用。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1828
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1828
 msgid "Ready to Install"
 msgstr "准备安装"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1834
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1834
 msgid "Review your settings and click Install to begin."
 msgstr "请检查您的设置，然后点击“安装”开始。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1844
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1844
 msgid "Memory"
 msgstr "内存"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1845
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1845
 msgid "Name"
 msgstr "名称"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1847
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1847
 msgid "Administrator"
 msgstr "管理员"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1848
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1848
 msgid "Root password"
 msgstr "root 密码"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1851
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1851
 msgid "Keyboard layout"
 msgstr "键盘布局"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1852
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1852
 msgid "Apps"
 msgstr "应用"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1857
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1857
 msgid "I understand this will erase the selected drive."
 msgstr "我了解这会擦除所选驱动器。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1892
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1892
 msgid "Installing..."
 msgstr "正在安装..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1904
-#: ../files/usr/bin/universal-lite-setup-wizard:1934
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1904
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1934
 msgid "Show details ▼"
 msgstr "显示详情 ▼"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1934
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1934
 msgid "Hide details ▲"
 msgstr "隐藏详情 ▲"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1953
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1953
 msgid "Skip"
 msgstr "跳过"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1960
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1960
 msgid "Retry"
 msgstr "重试"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1967
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1967
 msgid "Reboot"
 msgstr "重启"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1994
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1994
 msgid "NetworkManager unavailable — install requires internet."
 msgstr "NetworkManager 不可用 — 安装需要互联网。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2085
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2085
 msgid "No wired adapter detected"
 msgstr "未检测到有线适配器"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2092
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2092
 msgid "Connected"
 msgstr "已连接"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2093
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2093
 msgid "Disconnect"
 msgstr "断开连接"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2098
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2098
 msgid "Connecting..."
 msgstr "正在连接..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2101
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2101
 msgid "Disconnected"
 msgstr "已断开"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2105
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2105
 msgid "Cable unplugged"
 msgstr "网线未连接"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2108
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2108
 msgid "Not connected"
 msgstr "未连接"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2195
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2195
 msgid "No networks found."
 msgstr "未找到网络。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2223
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2223
 msgid "Strong"
 msgstr "强"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2225
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2225
 msgid "Medium"
 msgstr "中"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2227
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2227
 msgid "Weak"
 msgstr "弱"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2233
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2233
 msgid "WPA3"
 msgstr "WPA3"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2235
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2235
 msgid "Secured"
 msgstr "加密"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2237
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2237
 msgid "Open"
 msgstr "开放"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2303
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2303
 #, python-brace-format
 msgid "Connecting to {ssid}..."
 msgstr "正在连接 {ssid}..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2373
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2373
 msgid "Enter a network name."
 msgstr "请输入网络名称。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2391
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2391
 msgid "Wrong password"
 msgstr "密码错误"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2393
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2393
 msgid "Connection timed out"
 msgstr "连接超时"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2395
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2395
 msgid "Network not found"
 msgstr "未找到网络"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2396
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2396
 msgid "Could not connect to the network"
 msgstr "无法连接到网络"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2407
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2407
 #, python-brace-format
 msgid "Connected to {ssid}!"
 msgstr "已连接到 {ssid}！"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2412
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2412
 msgid "Connected, but no internet access detected."
 msgstr "已连接，但未检测到互联网访问。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2512
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2512
 #, python-brace-format
 msgid "Install failed: {err}"
 msgstr "安装失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2558
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2558
 #, python-brace-format
 msgid "Step {n} of {total}"
 msgstr "第 {n} 步，共 {total} 步"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2567
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2567
 msgid "Install"
 msgstr "安装"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2604
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2604
 msgid "Please confirm you understand the drive will be erased."
 msgstr "请确认您了解驱动器将被擦除。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2612
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2612
 msgid "No target drives found. Connect a drive and restart the installer."
 msgstr "未找到目标驱动器。请连接驱动器并重新启动安装程序。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2627
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2627
 #, python-brace-format
 msgid "Selected drive is too small ({size} GB). Minimum required: 16 GB."
 msgstr "所选驱动器太小（{size} GB）。最低要求：16 GB。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2634
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2634
 msgid "Custom swap size must be a positive whole number (in GB, up to 256)."
 msgstr "自定义交换大小必须是正整数（单位 GB，最大 256）。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2642
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2642
 #, python-brace-format
 msgid ""
 "Swap size ({swap} GB) is too large for this drive. Maximum recommended: "
 "{max} GB."
 msgstr "交换大小（{swap} GB）对于此驱动器过大。建议最大值：{max} GB。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2672
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2672
 msgid "Full name is required."
 msgstr "必须填写全名。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2679
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2679
 msgid "Full name contains invalid characters."
 msgstr "全名包含无效字符。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2683
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2683
 msgid "Username is required."
 msgstr "必须填写用户名。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2687
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2687
 msgid "Username must be 32 characters or fewer."
 msgstr "用户名不能超过 32 个字符。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2692
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2692
 msgid ""
 "Username must start with a lowercase letter or underscore, contain only "
 "lowercase letters, numbers, underscores, and hyphens, and cannot end with a "
 "hyphen."
 msgstr "用户名必须以小写字母或下划线开头，只能包含小写字母、数字、下划线和连字符，并且不能以连字符结尾。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2699
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2699
 msgid "This username is reserved for the system."
 msgstr "此用户名已被系统保留。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2703
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2703
 msgid "Password is required."
 msgstr "必须填写密码。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2707
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2707
 msgid "Password must be at least 6 characters."
 msgstr "密码必须至少包含 6 个字符。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2713
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2713
 msgid "Password must be 256 characters or fewer."
 msgstr "密码不能超过 256 个字符。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2717
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2717
 msgid "Passwords do not match."
 msgstr "两次输入的密码不一致。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2724
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2724
 msgid ""
 "Either enable administrator access or set a root password. Without one of "
 "these you will be locked out of system management."
 msgstr ""
 "请启用管理员权限或设置 root 密码。如果两者都未设置，您将无法进行系统管理。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2731
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2731
 msgid "Root password must be at least 6 characters."
 msgstr "root 密码必须至少包含 6 个字符。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2735
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2735
 msgid "Root password must be 256 characters or fewer."
 msgstr "root 密码不能超过 256 个字符。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2744
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2744
 msgid "Hostname must be 63 characters or fewer."
 msgstr "主机名不能超过 63 个字符。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2749
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2749
 msgid ""
 "Hostname must contain only letters, numbers, and hyphens, and cannot start "
 "or end with a hyphen."
 msgstr "主机名只能包含字母、数字和连字符，并且不能以连字符开头或结尾。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2759
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2759
 msgid ""
 "Network is not available. An internet connection is required to install."
 msgstr "网络不可用。安装需要互联网连接。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2763
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2763
 msgid "No internet connection. Connect to a network and try again."
 msgstr "没有互联网连接。请连接到网络后重试。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2779
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2779
 msgid "Wired connection"
 msgstr "有线连接"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2782
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2782
 #, python-brace-format
 msgid "Connected to {ssid}"
 msgstr "已连接到 {ssid}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2785
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2785
 msgid "No network (offline install)"
 msgstr "无网络（离线安装）"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2795
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2795
 #, python-brace-format
 msgid "zswap with {swap_gb} GB disk swap"
 msgstr "zswap（磁盘交换空间 {swap_gb} GB）"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2798
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2798
 msgid "zram only (compressed RAM)"
 msgstr "仅 zram（压缩内存）"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2803
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2803
 msgid "Yes"
 msgstr "是"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2803
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2803
 msgid "No"
 msgstr "否"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2805
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2805
 msgid "Set"
 msgstr "已设置"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2805
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2805
 msgid "Not set"
 msgstr "未设置"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2826
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2826
 msgid "No apps selected"
 msgstr "未选择任何应用"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2885
-#: ../files/usr/bin/universal-lite-setup-wizard:2888
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2885
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2888
 msgid "None"
 msgstr "无"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2942
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2942
 #, python-brace-format
 msgid "Cannot unmount {mnt}: {err}"
 msgstr "无法卸载 {mnt}：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2945
-#: ../files/usr/bin/universal-lite-setup-wizard:2959
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2945
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2959
 #, python-brace-format
 msgid "Could not list target partitions: {err}"
 msgstr "无法列出目标分区：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2947
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2947
 msgid "Could not unmount target partitions (command timed out)"
 msgstr "无法卸载目标分区（命令超时）"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2949
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2949
 #, python-brace-format
 msgid "Could not unmount target partitions: {err}"
 msgstr "无法卸载目标分区：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2956
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2956
 #, python-brace-format
 msgid "Cannot proceed: partitions still mounted: {mounts}"
 msgstr "无法继续：分区仍处于挂载状态：{mounts}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2963
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2963
 msgid "Could not verify partitions are unmounted (findmnt timeout)"
 msgstr "无法验证分区是否已卸载（findmnt 超时）"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2965
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2965
 #, python-brace-format
 msgid "Could not verify partitions are unmounted: {err}"
 msgstr "无法验证分区是否已卸载：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3000
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3000
 #, python-brace-format
 msgid "Partitioning failed: {tail}"
 msgstr "分区失败：{tail}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3002
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3002
 msgid "Partitioning timed out"
 msgstr "分区超时"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3020
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3020
 #, python-brace-format
 msgid "Expected {expected} partitions, found {found}: {parts}"
 msgstr "应有 {expected} 个分区，但找到 {found} 个：{parts}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3023
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3023
 #, python-brace-format
 msgid "Failed to list partitions: {err}"
 msgstr "列出分区失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3053
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3053
 #, python-brace-format
 msgid "Failed to format {label} partition: {err}"
 msgstr "格式化 {label} 分区失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3056
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3056
 #, python-brace-format
 msgid "Formatting {label} partition timed out"
 msgstr "格式化 {label} 分区超时"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3079
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3079
 #, python-brace-format
 msgid "Failed to mount {mnt}: {err}"
 msgstr "挂载 {mnt} 失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3115
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3115
 #, python-brace-format
 msgid "Failed to remount {mnt}: {err}"
 msgstr "重新挂载 {mnt} 失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3120
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3120
 #, python-brace-format
 msgid "Remounting {mnt} timed out"
 msgstr "重新挂载 {mnt} 超时"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3127
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3127
 msgid ""
 "Cannot resolve ghcr.io — check your network connection. The container "
 "registry must be reachable to install."
 msgstr "无法解析 ghcr.io — 请检查网络连接。安装时必须能够访问容器注册表。"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3135
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3135
 msgid "Target disk too small (need 6 GB free after partitioning)"
 msgstr "目标磁盘太小（分区后需要 6 GB 可用空间）"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3137
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3137
 #, python-brace-format
 msgid "Could not check target disk free space: {err}"
 msgstr "无法检查目标磁盘可用空间：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3148
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3148
 #, python-brace-format
 msgid "bootc status failed: {err}"
 msgstr "bootc status 失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3151
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3151
 msgid "bootc status timed out after 30 seconds"
 msgstr "bootc status 在 30 秒后超时"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3153
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3153
 #, python-brace-format
 msgid "Could not parse bootc status output: {err}"
 msgstr "无法解析 bootc status 输出：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3155
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3155
 msgid ""
 "Could not determine the booted image reference. Is this system booted from a "
 "bootc image?"
 msgstr "无法确定已启动的镜像引用。此系统是否从 bootc 镜像启动？"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3178
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3178
 #, python-brace-format
 msgid "Failed to prepare install environment: {err}"
 msgstr "准备安装环境失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3271
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3271
 msgid "bootc install failed to start"
 msgstr "bootc install 启动失败"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3275
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3275
 #, python-brace-format
 msgid "bootc install failed (exit {code}); full log at {path}"
 msgstr "bootc install 失败（退出 {code}）；完整日志位于 {path}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3292
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3292
 #, python-brace-format
 msgid "Failed to remount target read-write: {err}"
 msgstr "无法将目标重新挂载为读写模式：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3419
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3419
 #, python-brace-format
 msgid "User {user} found in passwd but entry is missing"
 msgstr "在 passwd 中找到用户 {user}，但条目缺失"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3423
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3423
 #, python-brace-format
 msgid "Malformed passwd entry for {user}"
 msgstr "{user} 的 passwd 条目格式不正确"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3560
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3560
 #, python-brace-format
 msgid "Failed to set home directory ownership: {err}"
 msgstr "设置主目录所有权失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3577
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3577
 #, python-brace-format
 msgid "Failed to set root password: {err}"
 msgstr "设置 root 密码失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3595
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3595
 #, python-brace-format
 msgid "Failed to configure timezone/locale: {err}"
 msgstr "配置时区/区域设置失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3607
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3607
 #, python-brace-format
 msgid "Failed to set hostname: {err}"
 msgstr "设置主机名失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3629
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3629
 #, python-brace-format
 msgid "Failed to configure keyboard layout: {err}"
 msgstr "配置键盘布局失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3663
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3663
 #, python-brace-format
 msgid "Failed to copy network configuration: {err}"
 msgstr "复制网络配置失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3875
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3875
 #, python-brace-format
 msgid "SELinux relabeling /etc failed: {err}"
 msgstr "SELinux 重新标记 /etc 失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3899
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3899
 #, python-brace-format
 msgid "SELinux relabeling /var failed: {err}"
 msgstr "SELinux 重新标记 /var 失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3931
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3931
 #, python-brace-format
 msgid "Failed to unmount target: {err}"
 msgstr "卸载目标失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4115
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4115
 #, python-brace-format
 msgid "Failed to hash password: {err}"
 msgstr "哈希密码失败：{err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4151
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4151
 msgid "Partitioning disk"
 msgstr "正在分区磁盘"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4152
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4152
 msgid "Installing system"
 msgstr "正在安装系统"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4153
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4153
 msgid "Configuring user account"
 msgstr "正在配置用户账户"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4154
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4154
 msgid "Copying network configuration"
 msgstr "正在复制网络配置"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4157
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4157
 msgid "Saving app selection"
 msgstr "正在保存应用选择"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4161
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4161
 msgid "Configuring memory management"
 msgstr "正在配置内存管理"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4162
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4162
 msgid "Finalizing"
 msgstr "正在完成"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4235
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4235
 #, python-brace-format
 msgid "Unexpected error: {type}: {msg}"
 msgstr "意外错误：{type}：{msg}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4282
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4282
 msgid "(skipped)"
 msgstr "（已跳过）"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4305
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4305
 #, python-brace-format
 msgid "Full log: {path}"
 msgstr "完整日志：{path}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4308
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4308
 #, python-brace-format
 msgid "Install step failed. See details; full log at {path}"
 msgstr "安装步骤失败。请查看详细信息；完整日志位于 {path}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4325
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4325
 msgid "Installation Complete!"
 msgstr "安装完成！"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4356
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4356
 msgid "Reboot failed — please restart manually."
 msgstr "重启失败 — 请手动重新启动。"
 

@@ -1,7 +1,7 @@
 [customizations.installer.kickstart]
 contents = """
 %post --interpreter=/bin/bash --erroronfail
-# Seed the first-boot config that universal-lite-first-boot.service
+# Seed the first-boot config that adwaita-lite-first-boot.service
 # expects. The DD/USB wizard writes this file itself; anaconda doesn't
 # know about it, so without this seed the service is gated off by
 # ConditionPathExists and never runs - which cascades through
@@ -15,31 +15,31 @@ contents = """
 # doing on this front. swap_size_gb=null means no disk swap size applies.
 #
 # The Flatpak app list is written explicitly to match the wizard's default
-# selection. universal-lite-flatpak-setup still has fallback defaults for
+# selection. adwaita-lite-flatpak-setup still has fallback defaults for
 # recovery and hand-rolled images, but the normal ISO path should not depend
 # on that fallback.
 #
 # username comes from anaconda's Users module, which always assigns
 # UID 1000 to the first interactively-created user.
-mkdir -p /var/lib/universal-lite
+mkdir -p /var/lib/adwaita-lite
 username=$(getent passwd 1000 | cut -d: -f1)
-cat > /var/lib/universal-lite/install-config.json <<EOF
+cat > /var/lib/adwaita-lite/install-config.json <<EOF
 {
   "memory_strategy": "zram",
   "swap_size_gb": null,
   "username": "${username}"
 }
 EOF
-chmod 0600 /var/lib/universal-lite/install-config.json
+chmod 0600 /var/lib/adwaita-lite/install-config.json
 
-cat > /var/lib/universal-lite/flatpak-apps <<'EOF'
+cat > /var/lib/adwaita-lite/flatpak-apps <<'EOF'
 com.google.Chrome
 io.github.kolunmi.Bazaar
 org.gtk.Gtk3theme.adw-gtk3
 org.gtk.Gtk3theme.adw-gtk3-dark
 EOF
 
-bootc switch --mutate-in-place --transport registry quay.io/noitatsidem/universal-lite:latest
+bootc switch --mutate-in-place --transport registry ghcr.io/adwaita-blue-lite/adwaita-lite:latest
 %end
 """
 

@@ -9,7 +9,7 @@ The setup wizard currently puts all fields on a single scrolling page, which is 
 ### Page Structure
 
 **Page 1: Welcome + Account**
-- Title: "Welcome to Universal-Lite"
+- Title: "Welcome to Adwaita-Lite"
 - Subtitle: "Create your account to get started"
 - Fields: Full Name, Username, Password, Confirm Password
 - Button: **Next**
@@ -83,4 +83,4 @@ Custom CSS, no libadwaita. Adwaita-inspired:
 
 ### File Changes
 
-- `files/usr/bin/universal-lite-setup-wizard` — rewrite UI layout to multi-page; business logic (useradd, chpasswd, swap config, timezone) unchanged
+- `files/usr/bin/adwaita-lite-setup-wizard` — rewrite UI layout to multi-page; business logic (useradd, chpasswd, swap config, timezone) unchanged

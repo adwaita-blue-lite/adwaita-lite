@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[1]
-SCRIPT = REPO / "files/usr/libexec/universal-lite-chrome-early-oom"
+SCRIPT = REPO / "files/usr/libexec/adwaita-lite-chrome-early-oom"
 
 
 def load_module():

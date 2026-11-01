@@ -16,21 +16,21 @@
 
 | File | Fixes | Action |
 |------|-------|--------|
-| `files/usr/lib/universal-lite/settings/events.py` | I6 | Modify |
-| `files/usr/lib/universal-lite/settings/settings_store.py` | M1 | Modify |
-| `files/usr/lib/universal-lite/settings/dbus_helpers.py` | I1, M2, M11 | Modify |
-| `files/usr/lib/universal-lite/settings/pages/display.py` | C1, C2, C3, C5, I4, I14, I16 | Modify |
-| `files/usr/lib/universal-lite/settings/pages/about.py` | C4, M6, M7 | Modify |
-| `files/usr/lib/universal-lite/settings/pages/keyboard.py` | I5, I9 | Modify |
-| `files/usr/lib/universal-lite/settings/pages/sound.py` | I2 | Modify |
-| `files/usr/lib/universal-lite/settings/pages/bluetooth.py` | I13, I14 | Modify |
-| `files/usr/lib/universal-lite/settings/pages/network.py` | I14, M3, M4, M9 | Modify |
-| `files/usr/lib/universal-lite/settings/pages/users.py` | I1, I8 | Modify |
-| `files/usr/lib/universal-lite/settings/pages/datetime.py` | I7 | Modify |
-| `files/usr/lib/universal-lite/settings/pages/power_lock.py` | I17 | Modify |
-| `files/usr/lib/universal-lite/settings/pages/default_apps.py` | I15, M10 | Modify |
-| `files/usr/lib/universal-lite/settings/pages/language.py` | M8 | Modify |
-| `files/usr/libexec/universal-lite-apply-settings` | C2, I10, I11, I12 | Modify |
+| `files/usr/lib/adwaita-lite/settings/events.py` | I6 | Modify |
+| `files/usr/lib/adwaita-lite/settings/settings_store.py` | M1 | Modify |
+| `files/usr/lib/adwaita-lite/settings/dbus_helpers.py` | I1, M2, M11 | Modify |
+| `files/usr/lib/adwaita-lite/settings/pages/display.py` | C1, C2, C3, C5, I4, I14, I16 | Modify |
+| `files/usr/lib/adwaita-lite/settings/pages/about.py` | C4, M6, M7 | Modify |
+| `files/usr/lib/adwaita-lite/settings/pages/keyboard.py` | I5, I9 | Modify |
+| `files/usr/lib/adwaita-lite/settings/pages/sound.py` | I2 | Modify |
+| `files/usr/lib/adwaita-lite/settings/pages/bluetooth.py` | I13, I14 | Modify |
+| `files/usr/lib/adwaita-lite/settings/pages/network.py` | I14, M3, M4, M9 | Modify |
+| `files/usr/lib/adwaita-lite/settings/pages/users.py` | I1, I8 | Modify |
+| `files/usr/lib/adwaita-lite/settings/pages/datetime.py` | I7 | Modify |
+| `files/usr/lib/adwaita-lite/settings/pages/power_lock.py` | I17 | Modify |
+| `files/usr/lib/adwaita-lite/settings/pages/default_apps.py` | I15, M10 | Modify |
+| `files/usr/lib/adwaita-lite/settings/pages/language.py` | M8 | Modify |
+| `files/usr/libexec/adwaita-lite-apply-settings` | C2, I10, I11, I12 | Modify |
 | `tests/test_event_bus.py` | I6 | Modify (add thread-safety test) |
 | `tests/test_settings_store.py` | M1 | Modify (add missing-defaults test) |
 
@@ -39,7 +39,7 @@
 ### Task 1: Fix EventBus thread safety (I6)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/events.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/events.py`
 - Modify: `tests/test_event_bus.py`
 
 - [ ] **Step 1: Add thread-safety test**
@@ -86,7 +86,7 @@ Expected: May pass or fail depending on timing (race condition). The point is it
 
 - [ ] **Step 3: Add threading.Lock to EventBus**
 
-Replace the entire content of `files/usr/lib/universal-lite/settings/events.py`:
+Replace the entire content of `files/usr/lib/adwaita-lite/settings/events.py`:
 
 ```python
 import threading
@@ -128,7 +128,7 @@ Expected: All tests PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/events.py tests/test_event_bus.py
+git add files/usr/lib/adwaita-lite/settings/events.py tests/test_event_bus.py
 git commit -m "fix: add threading lock to EventBus for thread-safe publish/subscribe"
 ```
 
@@ -137,7 +137,7 @@ git commit -m "fix: add threading lock to EventBus for thread-safe publish/subsc
 ### Task 2: Fix SettingsStore crash on missing defaults (M1)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/settings_store.py:29-40`
+- Modify: `files/usr/lib/adwaita-lite/settings/settings_store.py:29-40`
 - Modify: `tests/test_settings_store.py`
 
 - [ ] **Step 1: Add test for missing defaults file**
@@ -165,7 +165,7 @@ Expected: FAIL with `FileNotFoundError`.
 
 - [ ] **Step 3: Fix _load to handle missing defaults**
 
-In `files/usr/lib/universal-lite/settings/settings_store.py`, replace the `_load` method (lines 29-40):
+In `files/usr/lib/adwaita-lite/settings/settings_store.py`, replace the `_load` method (lines 29-40):
 
 ```python
     def _load(self) -> dict:
@@ -194,7 +194,7 @@ Expected: All tests PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/settings_store.py tests/test_settings_store.py
+git add files/usr/lib/adwaita-lite/settings/settings_store.py tests/test_settings_store.py
 git commit -m "fix: handle missing defaults file in SettingsStore without crashing"
 ```
 
@@ -203,7 +203,7 @@ git commit -m "fix: handle missing defaults file in SettingsStore without crashi
 ### Task 3: Fix dbus_helpers — timeouts, stale events, async init (I1, M2, M11)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/dbus_helpers.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/dbus_helpers.py`
 
 This is a large change. The three fixes are:
 
@@ -213,7 +213,7 @@ This is a large change. The three fixes are:
 
 - [ ] **Step 1: Replace all infinite D-Bus timeouts with 5000ms**
 
-In `files/usr/lib/universal-lite/settings/dbus_helpers.py`, replace every occurrence of `, -1, None)` inside BlueZHelper methods and PowerProfilesHelper methods with `, 5000, None)`.
+In `files/usr/lib/adwaita-lite/settings/dbus_helpers.py`, replace every occurrence of `, -1, None)` inside BlueZHelper methods and PowerProfilesHelper methods with `, 5000, None)`.
 
 The affected lines are in these methods:
 - `BlueZHelper._find_adapter` (line 247): `Gio.DBusCallFlags.NONE, -1, None,` → `Gio.DBusCallFlags.NONE, 5000, None,`
@@ -354,14 +354,14 @@ class PowerProfilesHelper:
 
 - [ ] **Step 5: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/dbus_helpers.py').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/dbus_helpers.py').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/dbus_helpers.py
+git add files/usr/lib/adwaita-lite/settings/dbus_helpers.py
 git commit -m "fix: finite D-Bus timeouts, stale event guard, async bus init for BlueZ/PowerProfiles"
 ```
 
@@ -370,7 +370,7 @@ git commit -m "fix: finite D-Bus timeouts, stale event guard, async bus init for
 ### Task 4: Fix display.py — 7 bugs (C1, C2, C3, C5, I4, I14, I16)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/display.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/display.py`
 
 This is the largest single-file change. All fixes are localized within display.py.
 
@@ -550,14 +550,14 @@ Replace the wdisplays Popen (lines 157-158):
 
 - [ ] **Step 11: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/display.py').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/display.py').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 12: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/display.py
+git add files/usr/lib/adwaita-lite/settings/pages/display.py
 git commit -m "fix: resolution command, persistence, scale revert loop, stale mode, time validation"
 ```
 
@@ -566,7 +566,7 @@ git commit -m "fix: resolution command, persistence, scale revert loop, stale mo
 ### Task 5: Fix about.py — segfault, multi-thread, multi-GPU (C4, M6, M7)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/about.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/about.py`
 
 - [ ] **Step 1: Add instance variables**
 
@@ -642,14 +642,14 @@ Replace the entire `_check_updates` method (lines 103-120):
 
 - [ ] **Step 5: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/about.py').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/about.py').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/about.py
+git add files/usr/lib/adwaita-lite/settings/pages/about.py
 git commit -m "fix: about page — prevent segfault on destroyed widget, multi-thread guard, multi-GPU"
 ```
 
@@ -658,7 +658,7 @@ git commit -m "fix: about page — prevent segfault on destroyed widget, multi-t
 ### Task 6: Fix keyboard.py — capture leak, shallow copy (I5, I9)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/keyboard.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/keyboard.py`
 
 - [ ] **Step 1: Fix I9 — Deep copy default bindings in constructor**
 
@@ -698,14 +698,14 @@ At the end of `build()`, before `return page` (line 338), add:
 
 - [ ] **Step 4: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/keyboard.py').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/keyboard.py').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/keyboard.py
+git add files/usr/lib/adwaita-lite/settings/pages/keyboard.py
 git commit -m "fix: keyboard — deep copy default bindings, cleanup capture controller on unmap"
 ```
 
@@ -714,7 +714,7 @@ git commit -m "fix: keyboard — deep copy default bindings, cleanup capture con
 ### Task 7: Fix sound.py — debounce refresh (I2)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/sound.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/sound.py`
 
 - [ ] **Step 1: Add refresh timer instance variable**
 
@@ -765,14 +765,14 @@ from gi.repository import GLib, Gtk
 
 - [ ] **Step 5: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/sound.py').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/sound.py').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/sound.py
+git add files/usr/lib/adwaita-lite/settings/pages/sound.py
 git commit -m "fix: debounce sound page refresh to prevent event storm lag"
 ```
 
@@ -783,7 +783,7 @@ git commit -m "fix: debounce sound page refresh to prevent event storm lag"
 **Depends on:** Task 3 (BlueZHelper now publishes `bluetooth-ready` event)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/bluetooth.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/bluetooth.py`
 
 - [ ] **Step 1: Restructure build() for async BlueZ init**
 
@@ -871,14 +871,14 @@ Replace the entire `build()` method (lines 30-91):
 
 - [ ] **Step 2: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/bluetooth.py').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/bluetooth.py').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/bluetooth.py
+git add files/usr/lib/adwaita-lite/settings/pages/bluetooth.py
 git commit -m "fix: bluetooth — async init, hide toggle when no adapter, prevent zombie processes"
 ```
 
@@ -887,8 +887,8 @@ git commit -m "fix: bluetooth — async init, hide toggle when no adapter, preve
 ### Task 9: Fix network.py — zombies, hidden dialog, NM error feedback (I14, M3, M4, M9)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/network.py`
-- Modify: `files/usr/lib/universal-lite/settings/dbus_helpers.py` (minor: publish nm-error event)
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/network.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/dbus_helpers.py` (minor: publish nm-error event)
 
 - [ ] **Step 1: Fix I14 — Add start_new_session to nm-connection-editor Popen**
 
@@ -932,7 +932,7 @@ In `_do_connect` (line 248), add password validation:
 
 - [ ] **Step 3: Fix M9 — NM error feedback**
 
-In `files/usr/lib/universal-lite/settings/dbus_helpers.py`, in `NetworkManagerHelper._on_client_ready` (line 60-63), replace:
+In `files/usr/lib/adwaita-lite/settings/dbus_helpers.py`, in `NetworkManagerHelper._on_client_ready` (line 60-63), replace:
 
 ```python
     def _on_client_ready(self, _source: object, result: Gio.AsyncResult) -> None:
@@ -943,7 +943,7 @@ In `files/usr/lib/universal-lite/settings/dbus_helpers.py`, in `NetworkManagerHe
             return
 ```
 
-In `files/usr/lib/universal-lite/settings/pages/network.py`, subscribe to nm-error in `build()`, after line 90:
+In `files/usr/lib/adwaita-lite/settings/pages/network.py`, subscribe to nm-error in `build()`, after line 90:
 
 ```python
         self.event_bus.subscribe("nm-error", self._on_nm_error)
@@ -959,14 +959,14 @@ Add the handler:
 
 - [ ] **Step 4: Verify syntax for both files**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/network.py').read()); print('OK')"` and same for dbus_helpers.py.
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/network.py').read()); print('OK')"` and same for dbus_helpers.py.
 
 Expected: Both `OK`.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/network.py files/usr/lib/universal-lite/settings/dbus_helpers.py
+git add files/usr/lib/adwaita-lite/settings/pages/network.py files/usr/lib/adwaita-lite/settings/dbus_helpers.py
 git commit -m "fix: network — zombie processes, hidden network validation, NM error feedback"
 ```
 
@@ -975,7 +975,7 @@ git commit -m "fix: network — zombie processes, hidden network validation, NM 
 ### Task 10: Fix users.py — D-Bus timeouts, Escape key (I1, I8)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/users.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/users.py`
 
 - [ ] **Step 1: Fix I1 — Replace all infinite D-Bus timeouts**
 
@@ -1008,14 +1008,14 @@ In `_on_change_password`, after `dialog.set_child(box)` (line 205), add:
 
 - [ ] **Step 3: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/users.py').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/users.py').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/users.py
+git add files/usr/lib/adwaita-lite/settings/pages/users.py
 git commit -m "fix: users — finite D-Bus timeouts, Escape key for password dialog"
 ```
 
@@ -1024,7 +1024,7 @@ git commit -m "fix: users — finite D-Bus timeouts, Escape key for password dia
 ### Task 11: Fix datetime.py — timezone validation feedback (I7)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/datetime.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/datetime.py`
 
 - [ ] **Step 1: Update timezone entry handler to pass entry ref**
 
@@ -1051,14 +1051,14 @@ Replace `_set_timezone` (lines 87-89):
 
 - [ ] **Step 3: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/datetime.py').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/datetime.py').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/datetime.py
+git add files/usr/lib/adwaita-lite/settings/pages/datetime.py
 git commit -m "fix: reset timezone entry on invalid input instead of silently failing"
 ```
 
@@ -1069,7 +1069,7 @@ git commit -m "fix: reset timezone entry on invalid input instead of silently fa
 **Depends on:** Task 3 (PowerProfilesHelper now publishes `power-profiles-ready` event)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/power_lock.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/power_lock.py`
 
 - [ ] **Step 1: Fix I17 — Wrap pkexec in try/except**
 
@@ -1080,7 +1080,7 @@ Replace `_on_lid_action_changed` (lines 132-136):
         self.store.save_and_apply("lid_close_action", action)
         try:
             subprocess.Popen(
-                ["pkexec", "/usr/libexec/universal-lite-lid-action", action],
+                ["pkexec", "/usr/libexec/adwaita-lite-lid-action", action],
                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                 start_new_session=True,
             )
@@ -1134,14 +1134,14 @@ Add the ready handler:
 
 - [ ] **Step 3: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/power_lock.py').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/power_lock.py').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/power_lock.py
+git add files/usr/lib/adwaita-lite/settings/pages/power_lock.py
 git commit -m "fix: power_lock — pkexec error handling, async power profiles init"
 ```
 
@@ -1150,7 +1150,7 @@ git commit -m "fix: power_lock — pkexec error handling, async power profiles i
 ### Task 13: Fix default_apps.py — terminal default, sanitize desktop file (I15, M10)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/default_apps.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/default_apps.py`
 
 - [ ] **Step 1: Fix I15 — Detect current terminal from wrapper**
 
@@ -1207,14 +1207,14 @@ Replace `_set_terminal` (lines 64-71):
 
 - [ ] **Step 3: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/default_apps.py').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/default_apps.py').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/default_apps.py
+git add files/usr/lib/adwaita-lite/settings/pages/default_apps.py
 git commit -m "fix: default apps — detect current terminal, sanitize desktop file commands"
 ```
 
@@ -1223,7 +1223,7 @@ git commit -m "fix: default apps — detect current terminal, sanitize desktop f
 ### Task 14: Fix language.py — empty locales fallback (M8)
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/language.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/language.py`
 
 - [ ] **Step 1: Ensure locales list is never empty for lambda closures**
 
@@ -1261,14 +1261,14 @@ And simplify the lambdas (lines 42-43, 54-55) by removing the `if locales` guard
 
 - [ ] **Step 2: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/language.py').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/language.py').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/language.py
+git add files/usr/lib/adwaita-lite/settings/pages/language.py
 git commit -m "fix: ensure locales list is never empty for dropdown callbacks"
 ```
 
@@ -1277,7 +1277,7 @@ git commit -m "fix: ensure locales list is never empty for dropdown callbacks"
 ### Task 15: Fix apply-settings — resolution persistence, restart race, validation (C2, I10, I11, I12)
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 - [ ] **Step 1: Fix I10 — Add sleep to restart_program**
 
@@ -1431,14 +1431,14 @@ Replace the night light start/end validation (lines 305-306):
 
 - [ ] **Step 6: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/libexec/universal-lite-apply-settings').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/libexec/adwaita-lite-apply-settings').read()); print('OK')"`
 
 Expected: `OK`
 
 - [ ] **Step 7: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings
+git add files/usr/libexec/adwaita-lite-apply-settings
 git commit -m "fix: apply-settings — restart race, validate timeouts/input/time, persist resolution"
 ```
 
@@ -1450,8 +1450,8 @@ After all tasks are complete, verify end-to-end:
 
 1. **Syntax check all modified files:**
    ```bash
-   find files/usr/lib/universal-lite/settings -name "*.py" -exec python3 -c "import ast; ast.parse(open('{}').read()); print('{}: OK')" \;
-   python3 -c "import ast; ast.parse(open('files/usr/libexec/universal-lite-apply-settings').read()); print('apply-settings: OK')"
+   find files/usr/lib/adwaita-lite/settings -name "*.py" -exec python3 -c "import ast; ast.parse(open('{}').read()); print('{}: OK')" \;
+   python3 -c "import ast; ast.parse(open('files/usr/libexec/adwaita-lite-apply-settings').read()); print('apply-settings: OK')"
    ```
 
 2. **Run all tests:**

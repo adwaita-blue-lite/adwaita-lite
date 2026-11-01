@@ -112,7 +112,7 @@ Without these, Intel iGPU sat idle and CPU did 100% video decode
   `xdg-desktop-portal-gtk` all present. Bluefin's `-gnome` backend
   would actually be wrong for labwc.
 - `toolbox` inherited from `base-main`. `distrobox` is deliberately
-  removed (planned for a forthcoming universal-lite-dx variant with
+  removed (planned for a forthcoming adwaita-lite-dx variant with
   distrobox + brew) — we also delete `30-distrobox.just` so `ujust`
   doesn't list unreachable commands.
 - Container runtime defaults unchanged — `/etc/containers/*.conf`
@@ -148,7 +148,7 @@ policy.json, flatpak build-time remote, etc. all clean.
 ## Verification
 
 - `bash -n build_files/build.sh` → OK.
-- `python -m py_compile files/usr/libexec/universal-lite-apply-settings` → OK.
+- `python -m py_compile files/usr/libexec/adwaita-lite-apply-settings` → OK.
 - Added 29 packages to `dnf5 install` across four agent work streams;
   no removals.
 - Service changes: unmasked 4 D-Bus/socket-activated services;

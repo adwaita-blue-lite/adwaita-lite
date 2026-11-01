@@ -95,7 +95,7 @@ systemctl enable podman.socket
 systemctl enable swtpm-workaround.service
 systemctl enable libvirt-workaround.service
 systemctl enable incus-workaround.service
-systemctl enable universal-lite-dx-groups.service
+systemctl enable adwaita-lite-dx-groups.service
 
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/fedora-cisco-openh264.repo
 

@@ -8,7 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 
-_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/bin/universal-lite-setup-wizard"
+_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/bin/adwaita-lite-setup-wizard"
 _loader = importlib.machinery.SourceFileLoader("setup_wizard", str(_SCRIPT))
 _spec = importlib.util.spec_from_loader("setup_wizard", _loader, origin=str(_SCRIPT))
 setup_wizard = importlib.util.module_from_spec(_spec)
@@ -21,9 +21,9 @@ class _DummyWindow:
 
 
 _SWAP_UNITS = (
-    "universal-lite-swap-init.service",
-    "universal-lite-zswap.service",
-    "universal-lite-encrypted-swap.service",
+    "adwaita-lite-swap-init.service",
+    "adwaita-lite-zswap.service",
+    "adwaita-lite-encrypted-swap.service",
 )
 
 
@@ -172,9 +172,9 @@ def test_configure_memory_enables_zswap_units_in_sysroot(tmp_path):
     assert err is None
     deploy = Path(window._sysroot_deploy)
     var_dir = Path(window._sysroot_var)
-    assert (var_dir / "lib/universal-lite/swap-size").read_text() == "8"
+    assert (var_dir / "lib/adwaita-lite/swap-size").read_text() == "8"
     assert (
-        deploy / "etc/sysctl.d/91-universal-lite-zswap.conf"
+        deploy / "etc/sysctl.d/91-adwaita-lite-zswap.conf"
     ).read_text() == "vm.swappiness = 100\n"
     assert (
         deploy / "etc/systemd/zram-generator.conf"
@@ -195,18 +195,18 @@ def test_configure_memory_zram_removes_zswap_units_from_sysroot(tmp_path):
     wants_dir.mkdir(parents=True)
     for unit in _SWAP_UNITS:
         (wants_dir / unit).symlink_to(f"/usr/lib/systemd/system/{unit}")
-    (var_dir / "lib/universal-lite").mkdir(parents=True)
-    (var_dir / "lib/universal-lite/swap-size").write_text("8")
+    (var_dir / "lib/adwaita-lite").mkdir(parents=True)
+    (var_dir / "lib/adwaita-lite/swap-size").write_text("8")
     (deploy / "etc/sysctl.d").mkdir(parents=True)
-    (deploy / "etc/sysctl.d/91-universal-lite-zswap.conf").write_text(
+    (deploy / "etc/sysctl.d/91-adwaita-lite-zswap.conf").write_text(
         "vm.swappiness = 100\n"
     )
 
     err = setup_wizard.SetupWizardWindow._step_configure_memory(window)
 
     assert err is None
-    assert not (var_dir / "lib/universal-lite/swap-size").exists()
-    assert not (deploy / "etc/sysctl.d/91-universal-lite-zswap.conf").exists()
+    assert not (var_dir / "lib/adwaita-lite/swap-size").exists()
+    assert not (deploy / "etc/sysctl.d/91-adwaita-lite-zswap.conf").exists()
     assert (
         deploy / "etc/systemd/zram-generator.conf"
     ).read_text() == (
@@ -246,7 +246,7 @@ def test_setup_hash_failure_does_not_leave_installing_stuck(monkeypatch):
     window._root_password_entry = _FakeButton(text="")
     window._fullname_entry = _FakeButton(text="Jane Doe")
     window._username_entry = _FakeButton(text="jane")
-    window._hostname_entry = _FakeButton(text="universal-lite")
+    window._hostname_entry = _FakeButton(text="adwaita-lite")
     window._admin_check = _FakeButton(active=True)
     statuses = []
     window._set_status = lambda message, error=True: statuses.append((message, error))

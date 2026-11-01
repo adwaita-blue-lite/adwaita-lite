@@ -117,10 +117,10 @@ Step runner executes the install pipeline:
    dependencies are copied.
 
 5. **"Configuring memory management..."** — write swap strategy (zram or
-   zswap) and swap-size file to sysroot's `/var/lib/universal-lite/`.
+   zswap) and swap-size file to sysroot's `/var/lib/adwaita-lite/`.
    If zram: write zram-generator config to sysroot's `/etc/`.
    If zswap: write config so first-boot service will enable
-   `universal-lite-encrypted-swap.service` (dm-crypt with random per-boot
+   `adwaita-lite-encrypted-swap.service` (dm-crypt with random per-boot
    key), create the swap file, mask zram-generator, and apply zswap kernel
    args via grubby.  The encrypted swap architecture (loop device →
    dm-crypt → mkswap → swapon, fresh random key each boot) must be
@@ -134,10 +134,10 @@ Step runner executes the install pipeline:
 
 ## First-Boot Service (on installed system)
 
-A headless service reads `/var/lib/universal-lite/install-config.json` and
+A headless service reads `/var/lib/adwaita-lite/install-config.json` and
 handles operations that require the running system:
 
-- Create swap file at configured size (`/usr/libexec/universal-lite-swap-init`)
+- Create swap file at configured size (`/usr/libexec/adwaita-lite-swap-init`)
 - Enable encrypted-swap service (if zswap selected)
 - Mask zram-generator (if zswap selected) or configure it (if zram selected)
 - Apply kernel args via grubby (zswap enable, etc.)
@@ -151,8 +151,8 @@ their account ready and apps installed.
 
 The existing encrypted swap architecture is preserved unchanged:
 
-- `universal-lite-swap-init` creates `/var/swap` at the specified size
-- `universal-lite-encrypted-swap` opens it with dm-crypt using a random
+- `adwaita-lite-swap-init` creates `/var/swap` at the specified size
+- `adwaita-lite-encrypted-swap` opens it with dm-crypt using a random
   per-boot key from `/dev/urandom`, runs `mkswap`, and activates it
 - Every boot gets a fresh key; previous boot's data is unrecoverable
 

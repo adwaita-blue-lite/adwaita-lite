@@ -6,7 +6,7 @@ Add a DX-only easter egg that rewards discovery without affecting normal system 
 
 ## User Entry Point
 
-`ujust goblin` launches `/usr/bin/universal-lite-goblin` on the DX stream. The command is intentionally DX-only; `latest` and `beta` do not include it, while `testing` inherits it from `dx`.
+`ujust goblin` launches `/usr/bin/adwaita-lite-goblin` on the DX stream. The command is intentionally DX-only; `latest` and `beta` do not include it, while `testing` inherits it from `dx`.
 
 ## Game Scope
 
@@ -34,4 +34,4 @@ Each floor uses compact classic room generation.
 
 ## Testing
 
-Static tests should verify that the DX payload includes `/usr/bin/universal-lite-goblin`, exposes `ujust goblin`, and keeps the feature branch-local to DX payload expectations. The game should also expose enough pure functions for lightweight tests of map reachability and floor generation without requiring an interactive terminal.
+Static tests should verify that the DX payload includes `/usr/bin/adwaita-lite-goblin`, exposes `ujust goblin`, and keeps the feature branch-local to DX payload expectations. The game should also expose enough pure functions for lightweight tests of map reachability and floor generation without requiring an interactive terminal.

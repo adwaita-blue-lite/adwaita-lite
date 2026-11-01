@@ -157,12 +157,25 @@ def test_container_workflow_uses_upstream_only_for_scheduled_refreshes():
     upstream_block = stream_script.split(upstream_marker, maxsplit=1)[1].split(
         "\n          fi", maxsplit=1
     )[0]
-    case_routing_without_upstream = stream_script.replace(upstream_block, "")
+    bootstrap_marker = "# Bootstrap guard:"
+    assert bootstrap_marker in stream_script
+    bootstrap_block = stream_script.split(bootstrap_marker, maxsplit=1)[1]
+    case_routing = stream_script.replace(upstream_block, "").replace(bootstrap_block, "")
 
     assert 'case "${tag}" in' in upstream_block
     assert 'latest) base_image="ghcr.io/ublue-os/base-main:latest" ;;' in upstream_block
     assert 'beta) base_image="ghcr.io/ublue-os/base-main:beta" ;;' in upstream_block
-    assert "ghcr.io/ublue-os/base-main" not in case_routing_without_upstream
+    assert "ghcr.io/ublue-os/base-main" not in case_routing
+
+
+def test_container_workflow_bootstraps_missing_stream_bases():
+    workflow = _read(".github/workflows/build.yml")
+    stream_script = _resolve_stream_script(workflow)
+    bootstrap_block = stream_script.split("# Bootstrap guard:", maxsplit=1)[1]
+
+    assert 'skopeo inspect "docker://${base_image}"' in bootstrap_block
+    assert 'beta) base_image="ghcr.io/ublue-os/base-main:beta" ;;' in bootstrap_block
+    assert '*) base_image="ghcr.io/ublue-os/base-main:latest" ;;' in bootstrap_block
 
 
 def test_container_workflow_tags_are_branch_aware():
@@ -377,7 +390,7 @@ def test_sync_one_stream_dispatches_target_build_after_alignment():
 
 
 def test_latest_stream_exposes_devmode_rebase_recipe():
-    justfile = _read("files/usr/share/ublue-os/just/90-universal-lite.just")
+    justfile = _read("files/usr/share/ublue-os/just/90-adwaita-lite.just")
 
     assert "devmode:" in justfile
     assert "toggle-devmode:" in justfile
@@ -385,17 +398,17 @@ def test_latest_stream_exposes_devmode_rebase_recipe():
     assert "gum confirm \"Would you like to enable developer mode?\"" in justfile
     assert "gum confirm \"Would you like to disable developer mode?\"" in justfile
     assert "pkexec bootc switch --enforce-container-sigpolicy" in justfile
-    assert "quay.io/noitatsidem/universal-lite:dx" in justfile
-    assert "quay.io/noitatsidem/universal-lite:latest" in justfile
-    assert "ostree-image-signed:docker://quay.io/noitatsidem/universal-lite:dx" not in justfile
-    assert "ostree-image-signed:docker://quay.io/noitatsidem/universal-lite:latest" not in justfile
+    assert "ghcr.io/adwaita-blue-lite/adwaita-lite:dx" in justfile
+    assert "ghcr.io/adwaita-blue-lite/adwaita-lite:latest" in justfile
+    assert "ostree-image-signed:docker://ghcr.io/adwaita-blue-lite/adwaita-lite:dx" not in justfile
+    assert "ostree-image-signed:docker://ghcr.io/adwaita-blue-lite/adwaita-lite:latest" not in justfile
     assert "rpm-ostree rebase" not in justfile
-    assert "ghcr.io/universal-lite/universal-lite" not in justfile
+    assert "quay.io/" not in justfile
 
 
 def test_devmode_installs_upstream_dialog_dependency():
     build_script = _read("build_files/build.sh")
-    justfile = _read("files/usr/share/ublue-os/just/90-universal-lite.just")
+    justfile = _read("files/usr/share/ublue-os/just/90-adwaita-lite.just")
 
     assert "gum confirm" in justfile
     assert "    gum \\" in build_script
@@ -403,7 +416,7 @@ def test_devmode_installs_upstream_dialog_dependency():
 
 def test_dx_group_uses_image_managed_group_entries():
     build_script = _read("build_files/build.sh")
-    justfile = _read("files/usr/share/ublue-os/just/90-universal-lite.just")
+    justfile = _read("files/usr/share/ublue-os/just/90-adwaita-lite.just")
 
     assert "dx-group:" in justfile
     assert "groupadd --system" not in justfile
@@ -419,7 +432,7 @@ def test_readme_stream_switches_use_bootc_registry_refs():
         "## Installer wizard", maxsplit=1
     )[0]
 
-    assert "pkexec bootc switch --enforce-container-sigpolicy quay.io/noitatsidem/universal-lite:dx" in stream_switch_docs
+    assert "pkexec bootc switch --enforce-container-sigpolicy ghcr.io/adwaita-blue-lite/adwaita-lite:dx" in stream_switch_docs
     assert "bootc switch --enforce-container-sigpolicy ostree-image-signed" not in stream_switch_docs
 
 

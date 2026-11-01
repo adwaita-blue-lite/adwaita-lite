@@ -13,7 +13,7 @@
 ### Task 1: Add guard flags to PanelPage.__init__
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/panel.py:69-78`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/panel.py:69-78`
 
 - [ ] **Step 1: Add `_updating` and `_built` flags to `__init__`**
 
@@ -36,13 +36,13 @@ In `panel.py`, in the `PanelPage.__init__` method, add two new guard flags after
 
 - [ ] **Step 2: Verify syntax**
 
-Run: `python3 -m py_compile files/usr/lib/universal-lite/settings/pages/panel.py`
+Run: `python3 -m py_compile files/usr/lib/adwaita-lite/settings/pages/panel.py`
 Expected: no output (success)
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/panel.py
+git add files/usr/lib/adwaita-lite/settings/pages/panel.py
 git commit -m "fix(panel): add _updating and _built guard flags to PanelPage"
 ```
 
@@ -51,7 +51,7 @@ git commit -m "fix(panel): add _updating and _built guard flags to PanelPage"
 ### Task 2: Guard the position ComboRow handler
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/panel.py:131-137`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/panel.py:131-137`
 
 - [ ] **Step 1: Wrap `_on_selected` in the position group with re-entrancy guard**
 
@@ -81,7 +81,7 @@ New code:
 
 - [ ] **Step 2: Verify syntax**
 
-Run: `python3 -m py_compile files/usr/lib/universal-lite/settings/pages/panel.py`
+Run: `python3 -m py_compile files/usr/lib/adwaita-lite/settings/pages/panel.py`
 Expected: no output (success)
 
 ---
@@ -89,7 +89,7 @@ Expected: no output (success)
 ### Task 3: Guard the density ComboRow handler
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/panel.py:154-159`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/panel.py:154-159`
 
 - [ ] **Step 1: Wrap `_on_selected` in the density group with re-entrancy guard**
 
@@ -119,7 +119,7 @@ New code:
 
 - [ ] **Step 2: Verify syntax**
 
-Run: `python3 -m py_compile files/usr/lib/universal-lite/settings/pages/panel.py`
+Run: `python3 -m py_compile files/usr/lib/adwaita-lite/settings/pages/panel.py`
 Expected: no output (success)
 
 ---
@@ -127,7 +127,7 @@ Expected: no output (success)
 ### Task 4: Guard the twilight SwitchRow handler
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/panel.py:172-175`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/panel.py:172-175`
 
 - [ ] **Step 1: Wrap `_on_active` in the twilight group with re-entrancy guard**
 
@@ -153,7 +153,7 @@ New code:
 
 - [ ] **Step 2: Verify syntax**
 
-Run: `python3 -m py_compile files/usr/lib/universal-lite/settings/pages/panel.py`
+Run: `python3 -m py_compile files/usr/lib/adwaita-lite/settings/pages/panel.py`
 Expected: no output (success)
 
 ---
@@ -161,8 +161,8 @@ Expected: no output (success)
 ### Task 5: Guard `_on_edge_changed` and set `_built` flag
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/panel.py:216-219`
-- Modify: `files/usr/lib/universal-lite/settings/pages/panel.py:90-113`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/panel.py:216-219`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/panel.py:90-113`
 
 - [ ] **Step 1: Wrap `_on_edge_changed` body with the `_updating` guard**
 
@@ -211,7 +211,7 @@ New code:
 
 - [ ] **Step 3: Verify syntax**
 
-Run: `python3 -m py_compile files/usr/lib/universal-lite/settings/pages/panel.py`
+Run: `python3 -m py_compile files/usr/lib/adwaita-lite/settings/pages/panel.py`
 Expected: no output (success)
 
 - [ ] **Step 4: Run existing tests**
@@ -222,6 +222,6 @@ Expected: all tests pass
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/panel.py
+git add files/usr/lib/adwaita-lite/settings/pages/panel.py
 git commit -m "fix(panel): add re-entrancy + construction guards to prevent GTK segfault"
 ```

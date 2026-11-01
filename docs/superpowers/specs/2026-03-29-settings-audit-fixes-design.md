@@ -300,7 +300,7 @@ def _on_lid_action_changed(self, action):
     self.store.save_and_apply("lid_close_action", action)
     try:
         subprocess.Popen(
-            ["pkexec", "/usr/libexec/universal-lite-lid-action", action],
+            ["pkexec", "/usr/libexec/adwaita-lite-lid-action", action],
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
         )
     except FileNotFoundError:

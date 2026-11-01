@@ -116,11 +116,11 @@ All user-facing strings in the wizard are wrapped in `gettext.gettext()`
 
 ### Translation Files
 
-- `po/universal-lite-setup-wizard.pot` — source template extracted from Python
+- `po/adwaita-lite-setup-wizard.pot` — source template extracted from Python
   source via `xgettext`
 - `po/<lang>.po` — one per language, containing translated strings
 - Compiled `.mo` files installed to
-  `/usr/share/locale/<lang>/LC_MESSAGES/universal-lite-setup-wizard.mo`
+  `/usr/share/locale/<lang>/LC_MESSAGES/adwaita-lite-setup-wizard.mo`
 
 The `.po` files are generated via AI translation (Claude for high/medium
 confidence languages, web-assisted tools for Amharic, Hausa, Swahili, Yoruba).
@@ -130,7 +130,7 @@ Community review is sought for the low-confidence languages.
 
 When the user selects a language:
 
-1. `gettext.translation('universal-lite-setup-wizard', languages=[lang]).install()`
+1. `gettext.translation('adwaita-lite-setup-wizard', languages=[lang]).install()`
    sets the active translation catalog
 2. A `_retranslate()` method on `SetupWizardWindow` re-sets every widget's
    text by re-calling `_()` on the original English string

@@ -2,7 +2,7 @@
 
 ## Goal
 
-Replace fragile first-boot Flatpak installation with a reliable post-login app setup experience that matches Universal Lite's Adwaita-inspired and ChromeOS-inspired design language.
+Replace fragile first-boot Flatpak installation with a reliable post-login app setup experience that matches Adwaita Lite's Adwaita-inspired and ChromeOS-inspired design language.
 
 ## Problem
 
@@ -10,7 +10,7 @@ Installing Flatpaks before login depends on first-boot systemd ordering, VM netw
 
 ## User Experience
 
-After the user logs in for the first time, Universal Lite shows a centered welcome card over the desktop.
+After the user logs in for the first time, Adwaita Lite shows a centered welcome card over the desktop.
 
 Title:
 
@@ -36,10 +36,10 @@ The UI must not call this "first boot". To users, it is app setup.
 
 ## Visual Design Requirements
 
-The card must fit the current Universal Lite visual system:
+The card must fit the current Adwaita Lite visual system:
 
 - Adwaita-style rounded card with subtle border or elevation.
-- Shared Universal Lite palette tokens and dark/light theme behavior.
+- Shared Adwaita Lite palette tokens and dark/light theme behavior.
 - Typography hierarchy consistent with the greeter and Settings surfaces.
 - Centered card, not full-screen, with a maximum width around 420-480 px.
 - Text wraps safely on small laptop displays.
@@ -118,9 +118,9 @@ Action: `Done`.
 
 Continue using these existing state files:
 
-- `/var/lib/universal-lite/flatpak-apps`: selected app IDs written by the wizard or ISO seed.
-- `/var/lib/universal-lite/flatpak-setup.done`: app setup completed successfully.
-- `/var/lib/universal-lite/flatpak-setup.skip`: user chose `Don't ask again`.
+- `/var/lib/adwaita-lite/flatpak-apps`: selected app IDs written by the wizard or ISO seed.
+- `/var/lib/adwaita-lite/flatpak-setup.done`: app setup completed successfully.
+- `/var/lib/adwaita-lite/flatpak-setup.skip`: user chose `Don't ask again`.
 
 `Not now` does not write either durable stamp. The prompt can return on the next login.
 
@@ -185,7 +185,7 @@ Manual verification after image rebuild:
 ## Acceptance Criteria
 
 - First login is not blocked by Flatpak installation.
-- The app setup prompt visually fits the existing Adwaita/ChromeOS-inspired Universal Lite UI.
+- The app setup prompt visually fits the existing Adwaita/ChromeOS-inspired Adwaita Lite UI.
 - Users can install now, defer, or opt out permanently.
 - Failures are visible and retryable.
 - The system no longer depends on live Flathub installs during the pre-login boot path.

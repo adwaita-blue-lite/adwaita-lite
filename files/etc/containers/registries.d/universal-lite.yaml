@@ -1,3 +1,0 @@
-docker:
-  quay.io/noitatsidem:
-    use-sigstore-attachments: true

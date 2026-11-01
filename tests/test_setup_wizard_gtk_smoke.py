@@ -7,7 +7,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "files/usr/bin/universal-lite-setup-wizard"
+SCRIPT = ROOT / "files/usr/bin/adwaita-lite-setup-wizard"
 
 
 def _load_wizard_module():
@@ -37,8 +37,8 @@ def test_setup_wizard_window_constructs_with_real_gtk(monkeypatch, tmp_path):
     original_path = module.Path
 
     def sandbox_path(value, *args, **kwargs):
-        if str(value) == "/tmp/universal-lite-installer.log":
-            return tmp_path / "universal-lite-installer.log"
+        if str(value) == "/tmp/adwaita-lite-installer.log":
+            return tmp_path / "adwaita-lite-installer.log"
         return original_path(value, *args, **kwargs)
 
     monkeypatch.setattr(module, "Path", sandbox_path)
@@ -58,7 +58,7 @@ def test_setup_wizard_window_constructs_with_real_gtk(monkeypatch, tmp_path):
             stderr = ""
         return Result()
 
-    app = Gtk.Application(application_id="org.universallite.SetupWizard.Test")
+    app = Gtk.Application(application_id="org.adwaitabluelite.SetupWizard.Test")
     try:
         app.register(None)
     except Exception as exc:

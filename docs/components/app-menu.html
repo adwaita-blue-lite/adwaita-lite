@@ -261,11 +261,11 @@
     <div>
       <p class="eyebrow"><a href="index.html">Component docs</a> / launcher surface</p>
       <h1>App Menu</h1>
-      <p class="lede">Contributor map for <code>AppMenu</code> in <code>files/usr/bin/universal-lite-app-menu</code>. Use this page to locate layer-shell setup, GTK model boundaries, tile CSS ownership, sizing modes, and power-action state before changing the launcher.</p>
+      <p class="lede">Contributor map for <code>AppMenu</code> in <code>files/usr/bin/adwaita-lite-app-menu</code>. Use this page to locate layer-shell setup, GTK model boundaries, tile CSS ownership, sizing modes, and power-action state before changing the launcher.</p>
       <p class="density-note">HTML is used here because the launcher is a compact intersection of surface geometry, metadata models, filters, and CSS tokens; dense grids make those ownership boundaries visible at once.</p>
     </div>
     <aside class="source-map" aria-label="Source anchors">
-      <div class="source-card"><b>Runtime source</b><code>files/usr/bin/universal-lite-app-menu</code></div>
+      <div class="source-card"><b>Runtime source</b><code>files/usr/bin/adwaita-lite-app-menu</code></div>
       <div class="source-card"><b>Primary class</b><code>AppMenu</code> extends <code>Gtk.Window</code>, not <code>Gtk.ApplicationWindow</code>.</div>
       <div class="source-card"><b>CSS entry</b><code>_build_css</code> combines theme tokens, <code>BASE_CSS</code>, and <code>_build_twilight_css</code>.</div>
     </aside>
@@ -319,7 +319,7 @@
   <section aria-labelledby="behavior-title">
     <h2 id="behavior-title">Behavior and State Map</h2>
     <div class="state-map">
-      <article class="state-card"><h3>PID Toggle</h3><p><code>_toggle_or_lock</code> writes <code>universal-lite-app-menu.pid</code>. A second verified instance sends <code>SIGTERM</code> and exits; stale or foreign locks are replaced.</p></article>
+      <article class="state-card"><h3>PID Toggle</h3><p><code>_toggle_or_lock</code> writes <code>adwaita-lite-app-menu.pid</code>. A second verified instance sends <code>SIGTERM</code> and exits; stale or foreign locks are replaced.</p></article>
       <article class="state-card"><h3>VM Renderer Guard</h3><p><code>_detect_virtualized_session</code> runs before the GTK import and sets <code>GSK_RENDERER=gl</code> by default for virtualized sessions.</p></article>
       <article class="state-card"><h3>App Metadata Loading</h3><p><code>_populate</code> collects visible <code>Gio.AppInfo</code> entries, wraps them as <code>AppItem</code>, sorts by <code>sort_key</code>, and splices the list store.</p></article>
       <article class="state-card"><h3>Frequent Apps</h3><p><code>_load_launches</code> reads launch history; <code>_populate_frequent</code> shows up to one row of installed desktop ids ranked by count and recency.</p></article>

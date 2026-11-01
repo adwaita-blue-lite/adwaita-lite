@@ -2,5 +2,5 @@
 vt = 7
 
 [default_session]
-command = "/usr/libexec/universal-lite-greeter-launch"
+command = "/usr/libexec/adwaita-lite-greeter-launch"
 user = "greetd"

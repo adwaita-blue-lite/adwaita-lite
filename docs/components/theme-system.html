@@ -258,16 +258,16 @@
     <div>
       <p class="eyebrow"><a href="index.html">Components</a> / Theme System</p>
       <h1>Theme System</h1>
-      <p class="lede">Universal-Lite themes are data-first: <code>palette.json</code> defines light, dark, and accent values; runtime helpers apply those values to shell surfaces, persisted greeter state, and component CSS. This page maps that path across settings, app-menu, greeter, apply-settings, and twilight panel behavior.</p>
+      <p class="lede">Adwaita-Lite themes are data-first: <code>palette.json</code> defines light, dark, and accent values; runtime helpers apply those values to shell surfaces, persisted greeter state, and component CSS. This page maps that path across settings, app-menu, greeter, apply-settings, and twilight panel behavior.</p>
     </div>
     <aside class="source-map" aria-label="Theme system source map">
-      <article class="source-card"><b>Palette data</b><code>files/usr/share/universal-lite/palette.json</code></article>
-      <article class="source-card"><b>GTK token builder</b><code>files/usr/lib/universal-lite/theme.py</code></article>
-      <article class="source-card"><b>Settings app CSS loader</b><code>files/usr/lib/universal-lite/settings/app.py</code></article>
-      <article class="source-card"><b>Settings CSS consumers</b><code>files/usr/lib/universal-lite/settings/css/style.css</code></article>
-      <article class="source-card"><b>App-menu shell CSS</b><code>files/usr/bin/universal-lite-app-menu</code></article>
-      <article class="source-card"><b>Greeter pre-login CSS</b><code>files/usr/bin/universal-lite-greeter</code></article>
-      <article class="source-card"><b>Session theme applier</b><code>files/usr/libexec/universal-lite-apply-settings</code></article>
+      <article class="source-card"><b>Palette data</b><code>files/usr/share/adwaita-lite/palette.json</code></article>
+      <article class="source-card"><b>GTK token builder</b><code>files/usr/lib/adwaita-lite/theme.py</code></article>
+      <article class="source-card"><b>Settings app CSS loader</b><code>files/usr/lib/adwaita-lite/settings/app.py</code></article>
+      <article class="source-card"><b>Settings CSS consumers</b><code>files/usr/lib/adwaita-lite/settings/css/style.css</code></article>
+      <article class="source-card"><b>App-menu shell CSS</b><code>files/usr/bin/adwaita-lite-app-menu</code></article>
+      <article class="source-card"><b>Greeter pre-login CSS</b><code>files/usr/bin/adwaita-lite-greeter</code></article>
+      <article class="source-card"><b>Session theme applier</b><code>files/usr/libexec/adwaita-lite-apply-settings</code></article>
     </aside>
   </header>
 
@@ -283,7 +283,7 @@
       <div class="arrow">-&gt;</div>
       <article class="state-card generated"><h3>Twilight override</h3><p><code>_build_twilight_css</code> generates <code>app-menu-shell-dark</code> and <code>app-menu-shell-light</code> palettes so menu tint matches panel twilight.</p></article>
       <div class="arrow">-&gt;</div>
-      <article class="state-card surface"><h3>Pre-login mirror</h3><p><code>universal-lite-apply-settings</code> writes <code>/var/lib/universal-lite/greeter-theme</code> and <code>/var/lib/universal-lite/greeter-accent</code>; greeter reads those paths before login.</p></article>
+      <article class="state-card surface"><h3>Pre-login mirror</h3><p><code>adwaita-lite-apply-settings</code> writes <code>/var/lib/adwaita-lite/greeter-theme</code> and <code>/var/lib/adwaita-lite/greeter-accent</code>; greeter reads those paths before login.</p></article>
     </div>
     <p class="density-note">Ordering matters: app-menu CSS expects generated <code>@accent_color</code>, <code>@accent_fg_color</code>, <code>@window_bg_color</code>, <code>@window_fg_color</code>, and <code>@borders</code> to exist before its token-consuming rules load; settings loads base Adwaita/GTK token consumers plus generated accent swatch rules.</p>
   </section>
@@ -294,7 +294,7 @@
       <article class="token-card"><strong><code>gtk_color_defines</code></strong><p>Returns one GTK CSS string of <code>@define-color</code> declarations for app-menu, selecting palette colors through <code>normalize_theme</code>, <code>normalize_accent</code>, and <code>accent_foreground</code>.</p></article>
       <article class="token-card"><strong><code>_build_accent_css</code></strong><p>Settings app runtime CSS: sets active <code>accent_color</code>, <code>accent_fg_color</code>, then generates swatch fill and checked-icon contrast rules from each accent.</p></article>
       <article class="token-card"><strong><code>_build_twilight_css</code></strong><p>App-menu runtime CSS: converts light and dark palette entries to translucent shell tokens for <code>app-menu-shell-*</code> classes.</p></article>
-      <article class="token-card"><strong><code>DARK_THEME_COLORS</code></strong><p>Setup-wizard-local dark CSS map used by <code>files/usr/bin/universal-lite-setup-wizard</code>; do not treat it as the source of current shared palette truth.</p></article>
+      <article class="token-card"><strong><code>DARK_THEME_COLORS</code></strong><p>Setup-wizard-local dark CSS map used by <code>files/usr/bin/adwaita-lite-setup-wizard</code>; do not treat it as the source of current shared palette truth.</p></article>
       <article class="token-card"><strong><code>@accent_color</code> / <code>@accent_fg_color</code></strong><p>Accent fill and readable foreground pair used by focus, selection, wallpaper checks, and active accent states; destructive power affordances use error/destructive colors instead.</p></article>
       <article class="token-card"><strong><code>@window_bg_color</code> / <code>@window_fg_color</code> / <code>@borders</code></strong><p>Core surface, foreground, and edge tokens consumed by settings CSS and app-menu CSS; <code>high_contrast</code> forces black, white, and white border definitions.</p></article>
     </div>
@@ -306,8 +306,8 @@
       <article class="behavior-card"><h3>Light / Dark Palette</h3><p><code>palette.json</code> provides <code>window_bg</code>, <code>view_bg</code>, <code>headerbar_bg</code>, <code>card_bg</code>, <code>fg</code>, <code>secondary_fg</code>, <code>border</code>, and <code>inactive_fg</code> for both modes.</p></article>
       <article class="behavior-card"><h3>Accent Selection</h3><p><code>normalize_accent</code> falls back to <code>blue</code>; settings swatches use generated <code>.accent-blue</code> through <code>.accent-slate</code> classes from palette data.</p></article>
       <article class="behavior-card"><h3>High Contrast</h3><p><code>high_contrast</code> in <code>theme.py</code> normalizes theme to dark and emits black background, white foreground, and white borders for GTK token consumers.</p></article>
-      <article class="behavior-card"><h3>Panel Twilight</h3><p><code>universal-lite-apply-settings</code> applies <code>panel_twilight</code> by drawing panel tokens from the opposite palette; app-menu mirrors this with <code>_shell_theme_class</code> returning the inverse shell class.</p></article>
-      <article class="behavior-card"><h3>Greeter Propagation</h3><p><code>universal-lite-apply-settings</code> owns propagation to <code>/var/lib/universal-lite/greeter-theme</code> and <code>/var/lib/universal-lite/greeter-accent</code>; greeter reads them and calls <code>_build_css(PALETTES[theme])</code>.</p></article>
+      <article class="behavior-card"><h3>Panel Twilight</h3><p><code>adwaita-lite-apply-settings</code> applies <code>panel_twilight</code> by drawing panel tokens from the opposite palette; app-menu mirrors this with <code>_shell_theme_class</code> returning the inverse shell class.</p></article>
+      <article class="behavior-card"><h3>Greeter Propagation</h3><p><code>adwaita-lite-apply-settings</code> owns propagation to <code>/var/lib/adwaita-lite/greeter-theme</code> and <code>/var/lib/adwaita-lite/greeter-accent</code>; greeter reads them and calls <code>_build_css(PALETTES[theme])</code>.</p></article>
       <article class="behavior-card"><h3>App-menu Inversion</h3><p><code>app-menu-shell-dark</code> is used over a light user theme when twilight is on; <code>app-menu-shell-light</code> is used over a dark user theme.</p></article>
       <article class="behavior-card"><h3>Settings CSS Tokens</h3><p><code>style.css</code> consumes Adwaita/GTK <code>@window_fg_color</code>, <code>@window_bg_color</code>, <code>@accent_color</code>, <code>@accent_fg_color</code>, and <code>@error_color</code>; <code>_build_accent_css</code> generates active <code>@define-color accent_color</code> / <code>@define-color accent_fg_color</code> values plus per-accent swatch rules.</p></article>
       <article class="behavior-card"><h3>Fallback Paths</h3><p><code>load_palette</code> tries supplied paths before <code>FALLBACK_PALETTE</code>; app-menu also checks a repo palette path before disabling twilight CSS.</p></article>
@@ -322,7 +322,7 @@
         <tr><td data-label="Consumer">Settings</td><td data-label="Input"><code>SettingsApp.do_activate</code> loads <code>style.css</code> and <code>_build_accent_css</code>.</td><td data-label="Generated / Consumed Tokens">Adwaita/GTK tokens in <code>style.css</code> plus generated <code>.accent-swatch</code>, <code>@accent_color</code>, and <code>@accent_fg_color</code> swatch CSS.</td><td data-label="Primary Risk">Provider order can leave swatches blank or active accents stale.</td></tr>
         <tr><td data-label="Consumer">App menu</td><td data-label="Input"><code>_build_css</code> prepends <code>gtk_color_defines</code> to <code>BASE_CSS</code> and twilight CSS.</td><td data-label="Generated / Consumed Tokens"><code>@window_bg_color</code>, <code>@window_fg_color</code>, <code>@borders</code>, <code>@error_color</code>; power confirmation buttons use <code>@error_color</code> with white text.</td><td data-label="Primary Risk">Moving generated defines after consumers breaks GTK token resolution.</td></tr>
         <tr><td data-label="Consumer">Greeter</td><td data-label="Input"><code>_load_palettes</code>, <code>_load_theme</code>, and <code>_build_css</code> run before app activation.</td><td data-label="Generated / Consumed Tokens">Direct CSS values: <code>accent</code>, <code>accent_fg</code>, <code>card_shadow</code>, <code>entry_bg</code>.</td><td data-label="Primary Risk">Pre-login paths must work without user config access.</td></tr>
-        <tr><td data-label="Consumer">Apply settings</td><td data-label="Input"><code>files/usr/libexec/universal-lite-apply-settings</code> reads user settings and palette-derived tokens.</td><td data-label="Generated / Consumed Tokens">Writes greeter theme/accent state and applies panel palette tokens, including <code>panel_twilight</code> opposite-palette surfaces.</td><td data-label="Primary Risk">Broken writes to <code>/var/lib/universal-lite</code> make greeter pre-login theme stale.</td></tr>
+        <tr><td data-label="Consumer">Apply settings</td><td data-label="Input"><code>files/usr/libexec/adwaita-lite-apply-settings</code> reads user settings and palette-derived tokens.</td><td data-label="Generated / Consumed Tokens">Writes greeter theme/accent state and applies panel palette tokens, including <code>panel_twilight</code> opposite-palette surfaces.</td><td data-label="Primary Risk">Broken writes to <code>/var/lib/adwaita-lite</code> make greeter pre-login theme stale.</td></tr>
         <tr><td data-label="Consumer">Setup wizard</td><td data-label="Input"><code>DARK_THEME_COLORS</code> fills a template-local CSS map.</td><td data-label="Generated / Consumed Tokens">Wizard-only names such as <code>control_bg</code>, <code>accent_bg</code>, and <code>focus_border</code>.</td><td data-label="Primary Risk">Hardcoded map can drift from shared palette if copied into new surfaces.</td></tr>
       </tbody>
     </table>

@@ -1,7 +1,7 @@
 # Settings App (post-Adwaita migration) — Comprehensive Audit
 
 **Date:** 2026-04-20
-**Scope:** Every file in `files/usr/lib/universal-lite/settings/`, post-Phase-4. Focus on **adaptive layout at low resolution + high scale + Large Text**, plus runtime correctness.
+**Scope:** Every file in `files/usr/lib/adwaita-lite/settings/`, post-Phase-4. Focus on **adaptive layout at low resolution + high scale + Large Text**, plus runtime correctness.
 
 ---
 

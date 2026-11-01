@@ -4,7 +4,7 @@
 
 **Goal:** Replace pre-login Flatpak installation with a post-login Adwaita/ChromeOS-style app setup card that lets users install, defer, or opt out after the desktop is usable.
 
-**Architecture:** Disable the pre-login Flatpak install gate and move user-visible installation into a new GTK4 session app launched from labwc autostart. The app reads `/var/lib/universal-lite/flatpak-apps`, respects existing done/skip stamps, uses a small root helper for system Flatpak operations, and owns all progress/error UI.
+**Architecture:** Disable the pre-login Flatpak install gate and move user-visible installation into a new GTK4 session app launched from labwc autostart. The app reads `/var/lib/adwaita-lite/flatpak-apps`, respects existing done/skip stamps, uses a small root helper for system Flatpak operations, and owns all progress/error UI.
 
 **Tech Stack:** Python 3, GTK4/PyGObject, Bash root helper, sudoers, labwc autostart, pytest static/method tests, Flatpak CLI.
 
@@ -12,26 +12,26 @@
 
 ## File Structure
 
-- Create `files/usr/bin/universal-lite-app-setup`
+- Create `files/usr/bin/adwaita-lite-app-setup`
   - GTK4 post-login app setup card.
   - Reads selected app IDs and state stamps.
   - Shows Ready, Installing, No Network, Partial Failure, and Complete states.
   - Runs a privileged helper for system Flatpak work.
-- Create `files/usr/libexec/universal-lite-app-setup-helper`
+- Create `files/usr/libexec/adwaita-lite-app-setup-helper`
   - Root-only Bash helper for `install`, `skip`, and `status` actions.
-  - Installs selected refs idempotently and writes `/var/lib/universal-lite/flatpak-setup.done` only when all selected refs are present.
-  - Writes `/var/lib/universal-lite/flatpak-setup.skip` for permanent opt-out.
-- Create `files/etc/sudoers.d/universal-lite-app-setup`
-  - Allows all normal users to run only `/usr/libexec/universal-lite-app-setup-helper` as root without a password.
+  - Installs selected refs idempotently and writes `/var/lib/adwaita-lite/flatpak-setup.done` only when all selected refs are present.
+  - Writes `/var/lib/adwaita-lite/flatpak-setup.skip` for permanent opt-out.
+- Create `files/etc/sudoers.d/adwaita-lite-app-setup`
+  - Allows all normal users to run only `/usr/libexec/adwaita-lite-app-setup-helper` as root without a password.
 - Modify `files/etc/xdg/labwc/autostart`
-  - Launches `/usr/bin/universal-lite-app-setup` in normal Universal Lite sessions after desktop services start.
+  - Launches `/usr/bin/adwaita-lite-app-setup` in normal Adwaita Lite sessions after desktop services start.
 - Modify `build_files/build.sh`
   - Marks the new app and helper executable.
-  - Disables `universal-lite-flatpak-install.service` so app setup no longer blocks pre-login first boot.
-  - Keeps `universal-lite-flatpak-update.service` enabled for systems with the done stamp.
-- Modify `files/usr/lib/systemd/system/universal-lite-flatpak-install.service`
+  - Disables `adwaita-lite-flatpak-install.service` so app setup no longer blocks pre-login first boot.
+  - Keeps `adwaita-lite-flatpak-update.service` enabled for systems with the done stamp.
+- Modify `files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service`
   - Leave the unit file available for recovery/manual use but remove its install target so new builds do not pull it into `graphical.target`.
-- Modify `files/usr/libexec/universal-lite-flatpak-setup`
+- Modify `files/usr/libexec/adwaita-lite-flatpak-setup`
   - Keep the script for manual/recovery use, but remove greeter-oriented progress assumptions from comments if needed.
 - Add `tests/test_post_login_flatpak_setup.py`
   - Static and method-level tests for prompt gating, copy, helper invocation, and CSS contract.
@@ -52,11 +52,11 @@ Append these tests to `tests/test_flatpak_setup_contract.py`:
 
 ```python
 
-APP_SETUP = ROOT / "files/usr/bin/universal-lite-app-setup"
-APP_SETUP_HELPER = ROOT / "files/usr/libexec/universal-lite-app-setup-helper"
-APP_SETUP_SUDOERS = ROOT / "files/etc/sudoers.d/universal-lite-app-setup"
+APP_SETUP = ROOT / "files/usr/bin/adwaita-lite-app-setup"
+APP_SETUP_HELPER = ROOT / "files/usr/libexec/adwaita-lite-app-setup-helper"
+APP_SETUP_SUDOERS = ROOT / "files/etc/sudoers.d/adwaita-lite-app-setup"
 LABWC_AUTOSTART = ROOT / "files/etc/xdg/labwc/autostart"
-APP_SETUP_HELPER_PATH = "/usr/libexec/universal-lite-app-setup-helper"
+APP_SETUP_HELPER_PATH = "/usr/libexec/adwaita-lite-app-setup-helper"
 
 
 def test_prelogin_flatpak_install_is_not_enabled_by_default():
@@ -64,15 +64,15 @@ def test_prelogin_flatpak_install_is_not_enabled_by_default():
     build = BUILD_SCRIPT.read_text()
 
     assert "WantedBy=graphical.target" not in service
-    assert "systemctl enable universal-lite-flatpak-install.service" not in build
+    assert "systemctl enable adwaita-lite-flatpak-install.service" not in build
 
 
 def test_post_login_app_setup_is_autostarted_and_executable():
     autostart = LABWC_AUTOSTART.read_text()
     build = BUILD_SCRIPT.read_text()
 
-    assert "/usr/bin/universal-lite-app-setup" in autostart
-    assert "/usr/bin/universal-lite-app-setup" in build
+    assert "/usr/bin/adwaita-lite-app-setup" in autostart
+    assert "/usr/bin/adwaita-lite-app-setup" in build
     assert APP_SETUP.exists()
 
 
@@ -86,11 +86,11 @@ def test_post_login_app_setup_helper_and_sudoers_contract():
     assert "install)" in helper
     assert "skip)" in helper
     assert "status)" in helper
-    assert "/var/lib/universal-lite/flatpak-apps" in helper
-    assert "/var/lib/universal-lite/flatpak-setup.done" in helper
-    assert "/var/lib/universal-lite/flatpak-setup.skip" in helper
+    assert "/var/lib/adwaita-lite/flatpak-apps" in helper
+    assert "/var/lib/adwaita-lite/flatpak-setup.done" in helper
+    assert "/var/lib/adwaita-lite/flatpak-setup.skip" in helper
     assert "flatpak install --or-update --system --noninteractive" in helper
-    assert "ALL ALL=(root) NOPASSWD: /usr/libexec/universal-lite-app-setup-helper" in sudoers
+    assert "ALL ALL=(root) NOPASSWD: /usr/libexec/adwaita-lite-app-setup-helper" in sudoers
     assert APP_SETUP_HELPER_PATH in build
 ```
 
@@ -118,14 +118,14 @@ git commit -m "test(flatpak): define post-login setup contract"
 ### Task 2: Disable Pre-Login Install And Wire Session Autostart
 
 **Files:**
-- Modify: `files/usr/lib/systemd/system/universal-lite-flatpak-install.service`
+- Modify: `files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service`
 - Modify: `build_files/build.sh`
 - Modify: `files/etc/xdg/labwc/autostart`
 - Test: `tests/test_flatpak_setup_contract.py`
 
 - [ ] **Step 1: Remove install target from pre-login Flatpak install service**
 
-In `files/usr/lib/systemd/system/universal-lite-flatpak-install.service`, delete the final install section:
+In `files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service`, delete the final install section:
 
 ```ini
 [Install]
@@ -139,27 +139,27 @@ Leave the `[Unit]` and `[Service]` sections intact for manual recovery use.
 In `build_files/build.sh`, replace:
 
 ```bash
-systemctl enable universal-lite-flatpak-install.service
-systemctl enable universal-lite-flatpak-update.service
+systemctl enable adwaita-lite-flatpak-install.service
+systemctl enable adwaita-lite-flatpak-update.service
 ```
 
 with:
 
 ```bash
-systemctl disable universal-lite-flatpak-install.service 2>/dev/null || true
-systemctl enable universal-lite-flatpak-update.service
+systemctl disable adwaita-lite-flatpak-install.service 2>/dev/null || true
+systemctl enable adwaita-lite-flatpak-update.service
 ```
 
 - [ ] **Step 3: Add future executable paths to build chmod block**
 
-In the `chmod 0755 \` block in `build_files/build.sh`, add these entries after `/usr/bin/universal-lite-greeter \` and `/usr/libexec/universal-lite-flatpak-skip \` respectively:
+In the `chmod 0755 \` block in `build_files/build.sh`, add these entries after `/usr/bin/adwaita-lite-greeter \` and `/usr/libexec/adwaita-lite-flatpak-skip \` respectively:
 
 ```bash
-    /usr/bin/universal-lite-app-setup \
+    /usr/bin/adwaita-lite-app-setup \
 ```
 
 ```bash
-    /usr/libexec/universal-lite-app-setup-helper \
+    /usr/libexec/adwaita-lite-app-setup-helper \
 ```
 
 - [ ] **Step 4: Launch app setup from labwc autostart**
@@ -169,7 +169,7 @@ In `files/etc/xdg/labwc/autostart`, after the `apply-settings --mode=live` block
 ```sh
 # Offer post-login installation for apps selected during setup. This is
 # intentionally after the desktop is usable; Flatpak setup must never block login.
-/usr/bin/universal-lite-app-setup \
+/usr/bin/adwaita-lite-app-setup \
   >/dev/null 2>"$_logdir/app-setup.log" &
 ```
 
@@ -188,7 +188,7 @@ Expected: `test_prelogin_flatpak_install_is_not_enabled_by_default` passes. Test
 Run:
 
 ```bash
-git add files/usr/lib/systemd/system/universal-lite-flatpak-install.service \
+git add files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service \
         build_files/build.sh \
         files/etc/xdg/labwc/autostart
 git commit -m "refactor(flatpak): move app setup out of pre-login boot"
@@ -199,21 +199,21 @@ git commit -m "refactor(flatpak): move app setup out of pre-login boot"
 ### Task 3: Root Helper For Post-Login Setup
 
 **Files:**
-- Create: `files/usr/libexec/universal-lite-app-setup-helper`
-- Create: `files/etc/sudoers.d/universal-lite-app-setup`
+- Create: `files/usr/libexec/adwaita-lite-app-setup-helper`
+- Create: `files/etc/sudoers.d/adwaita-lite-app-setup`
 - Test: `tests/test_flatpak_setup_contract.py`
 
 - [ ] **Step 1: Create helper script**
 
-Create `files/usr/libexec/universal-lite-app-setup-helper`:
+Create `files/usr/libexec/adwaita-lite-app-setup-helper`:
 
 ```bash
 #!/bin/bash
 set -euo pipefail
 
-APPS_FILE=/var/lib/universal-lite/flatpak-apps
-STAMP=/var/lib/universal-lite/flatpak-setup.done
-SKIP_STAMP=/var/lib/universal-lite/flatpak-setup.skip
+APPS_FILE=/var/lib/adwaita-lite/flatpak-apps
+STAMP=/var/lib/adwaita-lite/flatpak-setup.done
+SKIP_STAMP=/var/lib/adwaita-lite/flatpak-setup.skip
 FLATHUB_REPO_FILE=/etc/flatpak/remotes.d/flathub.flatpakrepo
 FLATHUB_URL=https://dl.flathub.org/repo/flathub.flatpakrepo
 
@@ -319,10 +319,10 @@ esac
 
 - [ ] **Step 2: Create sudoers drop-in**
 
-Create `files/etc/sudoers.d/universal-lite-app-setup`:
+Create `files/etc/sudoers.d/adwaita-lite-app-setup`:
 
 ```sudoers
-ALL ALL=(root) NOPASSWD: /usr/libexec/universal-lite-app-setup-helper
+ALL ALL=(root) NOPASSWD: /usr/libexec/adwaita-lite-app-setup-helper
 ```
 
 - [ ] **Step 3: Run helper contract and syntax tests**
@@ -331,8 +331,8 @@ Run:
 
 ```bash
 pytest -q tests/test_flatpak_setup_contract.py
-bash -n files/usr/libexec/universal-lite-app-setup-helper
-visudo -c -f files/etc/sudoers.d/universal-lite-app-setup
+bash -n files/usr/libexec/adwaita-lite-app-setup-helper
+visudo -c -f files/etc/sudoers.d/adwaita-lite-app-setup
 ```
 
 Expected: helper/sudoers contract passes. The app setup file contract still fails until Task 4. Bash syntax passes. `visudo` reports the sudoers file parsed OK.
@@ -342,8 +342,8 @@ Expected: helper/sudoers contract passes. The app setup file contract still fail
 Run:
 
 ```bash
-git add files/usr/libexec/universal-lite-app-setup-helper \
-        files/etc/sudoers.d/universal-lite-app-setup
+git add files/usr/libexec/adwaita-lite-app-setup-helper \
+        files/etc/sudoers.d/adwaita-lite-app-setup
 git commit -m "feat(flatpak): add post-login app setup helper"
 ```
 
@@ -366,8 +366,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "files/usr/bin/universal-lite-app-setup"
-HELPER = "/usr/libexec/universal-lite-app-setup-helper"
+SCRIPT = ROOT / "files/usr/bin/adwaita-lite-app-setup"
+HELPER = "/usr/libexec/adwaita-lite-app-setup-helper"
 
 
 def _load_module():
@@ -461,7 +461,7 @@ Run:
 pytest -q tests/test_post_login_flatpak_setup.py
 ```
 
-Expected: tests fail because `files/usr/bin/universal-lite-app-setup` does not exist yet.
+Expected: tests fail because `files/usr/bin/adwaita-lite-app-setup` does not exist yet.
 
 - [ ] **Step 3: Commit failing tests**
 
@@ -477,13 +477,13 @@ git commit -m "test(flatpak): define post-login app setup UI contract"
 ### Task 5: Implement App Setup Card Shell And Helpers
 
 **Files:**
-- Create: `files/usr/bin/universal-lite-app-setup`
+- Create: `files/usr/bin/adwaita-lite-app-setup`
 - Test: `tests/test_post_login_flatpak_setup.py`
 - Test: `tests/test_flatpak_setup_contract.py`
 
 - [ ] **Step 1: Create the app setup script**
 
-Create `files/usr/bin/universal-lite-app-setup` with:
+Create `files/usr/bin/adwaita-lite-app-setup` with:
 
 ```python
 #!/usr/bin/env python3
@@ -503,12 +503,12 @@ gi.require_version("Gdk", "4.0")
 from gi.repository import Gdk, GLib, Gtk, Pango  # noqa: E402
 
 
-APP_ID = "org.universallite.AppSetup"
-APPS_FILE = Path("/var/lib/universal-lite/flatpak-apps")
-DONE_STAMP = Path("/var/lib/universal-lite/flatpak-setup.done")
-SKIP_STAMP = Path("/var/lib/universal-lite/flatpak-setup.skip")
-HELPER = "/usr/libexec/universal-lite-app-setup-helper"
-PALETTE_PATH = Path("/usr/share/universal-lite/palette.json")
+APP_ID = "org.adwaitabluelite.AppSetup"
+APPS_FILE = Path("/var/lib/adwaita-lite/flatpak-apps")
+DONE_STAMP = Path("/var/lib/adwaita-lite/flatpak-setup.done")
+SKIP_STAMP = Path("/var/lib/adwaita-lite/flatpak-setup.skip")
+HELPER = "/usr/libexec/adwaita-lite-app-setup-helper"
+PALETTE_PATH = Path("/usr/share/adwaita-lite/palette.json")
 
 APP_NAMES = {
     "com.google.Chrome": "Google Chrome",
@@ -792,7 +792,7 @@ Run:
 
 ```bash
 pytest -q tests/test_post_login_flatpak_setup.py tests/test_flatpak_setup_contract.py
-python -m py_compile files/usr/bin/universal-lite-app-setup
+python -m py_compile files/usr/bin/adwaita-lite-app-setup
 ```
 
 Expected: all tests pass except any contract that still requires autostart/build files from Task 2 if Task 2 was not completed. `py_compile` exits with no output.
@@ -802,7 +802,7 @@ Expected: all tests pass except any contract that still requires autostart/build
 Run:
 
 ```bash
-git add files/usr/bin/universal-lite-app-setup tests/test_post_login_flatpak_setup.py
+git add files/usr/bin/adwaita-lite-app-setup tests/test_post_login_flatpak_setup.py
 git commit -m "feat(flatpak): add post-login app setup card"
 ```
 
@@ -811,7 +811,7 @@ git commit -m "feat(flatpak): add post-login app setup card"
 ### Task 6: Polish Install Progress And Background Behavior
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-app-setup`
+- Modify: `files/usr/bin/adwaita-lite-app-setup`
 - Test: `tests/test_post_login_flatpak_setup.py`
 
 - [ ] **Step 1: Add test for non-blocking install worker**
@@ -840,7 +840,7 @@ Expected: fails because install still runs from a GLib idle callback in the UI t
 
 - [ ] **Step 3: Implement background thread import and button copy**
 
-In `files/usr/bin/universal-lite-app-setup`, add:
+In `files/usr/bin/adwaita-lite-app-setup`, add:
 
 ```python
 import threading
@@ -914,7 +914,7 @@ Run:
 
 ```bash
 pytest -q tests/test_post_login_flatpak_setup.py
-python -m py_compile files/usr/bin/universal-lite-app-setup
+python -m py_compile files/usr/bin/adwaita-lite-app-setup
 ```
 
 Expected: all tests pass and syntax check exits with no output.
@@ -924,7 +924,7 @@ Expected: all tests pass and syntax check exits with no output.
 Run:
 
 ```bash
-git add files/usr/bin/universal-lite-app-setup tests/test_post_login_flatpak_setup.py
+git add files/usr/bin/adwaita-lite-app-setup tests/test_post_login_flatpak_setup.py
 git commit -m "fix(flatpak): run app setup install in background"
 ```
 
@@ -960,10 +960,10 @@ Expected: all tests pass.
 Run:
 
 ```bash
-python -m py_compile files/usr/bin/universal-lite-app-setup
-bash -n files/usr/libexec/universal-lite-app-setup-helper
-bash -n files/usr/libexec/universal-lite-flatpak-setup
-visudo -c -f files/etc/sudoers.d/universal-lite-app-setup
+python -m py_compile files/usr/bin/adwaita-lite-app-setup
+bash -n files/usr/libexec/adwaita-lite-app-setup-helper
+bash -n files/usr/libexec/adwaita-lite-flatpak-setup
+visudo -c -f files/etc/sudoers.d/adwaita-lite-app-setup
 ```
 
 Expected: Python and Bash checks exit with no output. `visudo` reports parsed OK.
@@ -994,11 +994,11 @@ Expected: only intended files are modified or untracked. Do not include unrelate
 If verification required code changes, commit only the relevant files:
 
 ```bash
-git add files/usr/bin/universal-lite-app-setup \
-        files/usr/libexec/universal-lite-app-setup-helper \
-        files/etc/sudoers.d/universal-lite-app-setup \
+git add files/usr/bin/adwaita-lite-app-setup \
+        files/usr/libexec/adwaita-lite-app-setup-helper \
+        files/etc/sudoers.d/adwaita-lite-app-setup \
         files/etc/xdg/labwc/autostart \
-        files/usr/lib/systemd/system/universal-lite-flatpak-install.service \
+        files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service \
         build_files/build.sh \
         tests/test_flatpak_setup_contract.py \
         tests/test_post_login_flatpak_setup.py
@@ -1017,7 +1017,7 @@ Do not create a commit if no files changed.
 - Click `Not now`, log out/in, and confirm the card returns.
 - Click `Don't ask again`, log out/in, and confirm it does not return.
 - With networking disabled, click `Install apps` and confirm the no-network state appears.
-- With networking enabled, click `Install apps` and confirm progress appears and completion writes `/var/lib/universal-lite/flatpak-setup.done`.
+- With networking enabled, click `Install apps` and confirm progress appears and completion writes `/var/lib/adwaita-lite/flatpak-setup.done`.
 
 ---
 

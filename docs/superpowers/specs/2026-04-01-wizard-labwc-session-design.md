@@ -3,7 +3,7 @@
 ## Problem
 
 The setup wizard runs inside cage launched by a standalone systemd service
-(`universal-lite-first-boot.service`).  Cage requires a logind session with
+(`adwaita-lite-first-boot.service`).  Cage requires a logind session with
 proper seat assignment, POSIX session leadership, and controlling-terminal
 setup — all of which greetd provides automatically but a raw systemd service
 does not.  This results in a blank screen with a visible cursor in VMs and
@@ -39,7 +39,7 @@ has_users=$(getent passwd \
 
 ## greetd Configuration
 
-`/usr/libexec/universal-lite-greeter-setup` (runs as `ExecStartPre` for
+`/usr/libexec/adwaita-lite-greeter-setup` (runs as `ExecStartPre` for
 greetd) generates `/etc/greetd/config.toml` dynamically.
 
 **No users (DD path) — wizard mode:**
@@ -49,11 +49,11 @@ greetd) generates `/etc/greetd/config.toml` dynamically.
 vt = 7
 
 [default_session]
-command = "/usr/libexec/universal-lite-greeter-launch"
+command = "/usr/libexec/adwaita-lite-greeter-launch"
 user = "greetd"
 
 [initial_session]
-command = "/usr/libexec/universal-lite-wizard-session"
+command = "/usr/libexec/adwaita-lite-wizard-session"
 user = "root"
 ```
 
@@ -68,7 +68,7 @@ so the device is not bricked.
 vt = 7
 
 [default_session]
-command = "/usr/libexec/universal-lite-greeter-launch"
+command = "/usr/libexec/adwaita-lite-greeter-launch"
 user = "greetd"
 ```
 
@@ -76,9 +76,9 @@ No `initial_session` block.
 
 ## Wizard Session Script
 
-New file: `/usr/libexec/universal-lite-wizard-session`
+New file: `/usr/libexec/adwaita-lite-wizard-session`
 
-- Sets `UNIVERSAL_LITE_WIZARD=1` (tells autostart to launch the wizard)
+- Sets `ADWAITA_LITE_WIZARD=1` (tells autostart to launch the wizard)
 - Detects VM via `systemd-detect-virt -q` → exports `WLR_NO_HARDWARE_CURSORS=1`
   (fixes wlroots hardware cursor rendering upside-down/misplaced in VMs)
 - Conditional `GSK_RENDERER=gl` when Vulkan is unavailable (VMs, Bay Trail)
@@ -92,8 +92,8 @@ invisible to session selectors in the login greeter.
 At the very top of `/etc/xdg/labwc/autostart`, before any other logic:
 
 ```sh
-if [ "${UNIVERSAL_LITE_WIZARD:-}" = "1" ]; then
-    /usr/bin/universal-lite-setup-wizard &
+if [ "${ADWAITA_LITE_WIZARD:-}" = "1" ]; then
+    /usr/bin/adwaita-lite-setup-wizard &
     exit 0
 fi
 ```
@@ -112,7 +112,7 @@ does not need nm-applet or any other desktop infrastructure.
 
 The VM cursor fix (`WLR_NO_HARDWARE_CURSORS=1`) must also apply to regular
 labwc sessions, not just the wizard.  The normal session script
-(`/usr/libexec/universal-lite-session`) gets the same `systemd-detect-virt`
+(`/usr/libexec/adwaita-lite-session`) gets the same `systemd-detect-virt`
 check:
 
 ```sh
@@ -121,12 +121,12 @@ if systemd-detect-virt -q; then
 fi
 ```
 
-The greeter launcher (`/usr/libexec/universal-lite-greeter-launch`) gets
+The greeter launcher (`/usr/libexec/adwaita-lite-greeter-launch`) gets
 the same check for cage running the login greeter in VMs.
 
 ## setup-done Flag
 
-The wizard still creates `/var/lib/universal-lite/setup-done` on completion.
+The wizard still creates `/var/lib/adwaita-lite/setup-done` on completion.
 Boot-time services (zswap, swap-init, etc.) may check this flag.  It is no
 longer used for the greetd launch decision — that is based solely on user
 detection.
@@ -135,11 +135,11 @@ detection.
 
 Remove files that are no longer needed:
 
-- `files/etc/systemd/system/universal-lite-first-boot.service`
-- `files/etc/pam.d/universal-lite-first-boot`
-- `files/usr/libexec/universal-lite-wizard-launch`
-- `systemctl enable universal-lite-first-boot.service` line in `build.sh`
-- `chmod` entry for `universal-lite-wizard-launch` in `build.sh`
+- `files/etc/systemd/system/adwaita-lite-first-boot.service`
+- `files/etc/pam.d/adwaita-lite-first-boot`
+- `files/usr/libexec/adwaita-lite-wizard-launch`
+- `systemctl enable adwaita-lite-first-boot.service` line in `build.sh`
+- `chmod` entry for `adwaita-lite-wizard-launch` in `build.sh`
 
 ## Flow Summary
 
@@ -147,8 +147,8 @@ Remove files that are no longer needed:
 
 1. greetd starts → `greeter-setup` detects no users
 2. Config includes `initial_session` pointing at wizard session as root
-3. greetd auto-logs in root → `universal-lite-wizard-session` runs
-4. labwc starts → autostart sees `UNIVERSAL_LITE_WIZARD=1` → launches wizard
+3. greetd auto-logs in root → `adwaita-lite-wizard-session` runs
+4. labwc starts → autostart sees `ADWAITA_LITE_WIZARD=1` → launches wizard
 5. Wizard creates user, configures system, installs Flatpaks
 6. Wizard reboots
 7. Next boot: `greeter-setup` detects user → normal greeter config
