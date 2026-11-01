@@ -157,12 +157,25 @@ def test_container_workflow_uses_upstream_only_for_scheduled_refreshes():
     upstream_block = stream_script.split(upstream_marker, maxsplit=1)[1].split(
         "\n          fi", maxsplit=1
     )[0]
-    case_routing_without_upstream = stream_script.replace(upstream_block, "")
+    bootstrap_marker = "# Bootstrap guard:"
+    assert bootstrap_marker in stream_script
+    bootstrap_block = stream_script.split(bootstrap_marker, maxsplit=1)[1]
+    case_routing = stream_script.replace(upstream_block, "").replace(bootstrap_block, "")
 
     assert 'case "${tag}" in' in upstream_block
     assert 'latest) base_image="ghcr.io/ublue-os/base-main:latest" ;;' in upstream_block
     assert 'beta) base_image="ghcr.io/ublue-os/base-main:beta" ;;' in upstream_block
-    assert "ghcr.io/ublue-os/base-main" not in case_routing_without_upstream
+    assert "ghcr.io/ublue-os/base-main" not in case_routing
+
+
+def test_container_workflow_bootstraps_missing_stream_bases():
+    workflow = _read(".github/workflows/build.yml")
+    stream_script = _resolve_stream_script(workflow)
+    bootstrap_block = stream_script.split("# Bootstrap guard:", maxsplit=1)[1]
+
+    assert 'skopeo inspect "docker://${base_image}"' in bootstrap_block
+    assert 'beta) base_image="ghcr.io/ublue-os/base-main:beta" ;;' in bootstrap_block
+    assert '*) base_image="ghcr.io/ublue-os/base-main:latest" ;;' in bootstrap_block
 
 
 def test_container_workflow_tags_are_branch_aware():

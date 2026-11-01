@@ -60,6 +60,12 @@ jobs:
           echo "IMAGE_REGISTRY=${IMAGE_REGISTRY,,}" >> ${GITHUB_ENV}
           echo "IMAGE_NAME=${IMAGE_NAME,,}" >> ${GITHUB_ENV}
 
+      - name: Login to GHCR
+        shell: bash
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | podman login ghcr.io \
+            --username "${{ github.actor }}" --password-stdin
+
       - name: Resolve stream configuration
         id: stream
         shell: bash
@@ -109,6 +115,18 @@ jobs:
               latest) base_image="ghcr.io/ublue-os/base-main:latest" ;;
               beta) base_image="ghcr.io/ublue-os/base-main:beta" ;;
             esac
+          fi
+
+          # Bootstrap guard: routine builds layer on a previously published
+          # image. A brand-new repo or stream has none yet, so fall back to
+          # the matching upstream base instead of failing the registry pull.
+          if [[ "${base_image}" == "${IMAGE_REGISTRY}/"* ]] \
+             && ! skopeo inspect "docker://${base_image}" >/dev/null 2>&1; then
+            case "${tag}" in
+              beta) base_image="ghcr.io/ublue-os/base-main:beta" ;;
+              *) base_image="ghcr.io/ublue-os/base-main:latest" ;;
+            esac
+            echo "Base ${IMAGE_REGISTRY}/${IMAGE_NAME}:${tag} is not published yet; bootstrapping from ${base_image}"
           fi
 
           if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
@@ -219,12 +237,7 @@ jobs:
 
       # Authenticate before building so stream builds can pull their own
       # previously published base image from GHCR (dx <- latest, testing <- dx).
-      - name: Login to GHCR
-        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      # Login happens once in the "Login to GHCR" step before stream resolution.
 
       - name: Build Image
         id: build_image
