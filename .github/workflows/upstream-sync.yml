@@ -1,0 +1,136 @@
+---
+name: Sync upstream image-template
+
+on:
+  schedule:
+    # Mondays at 06:00 UTC. Upstream image-template changes slowly.
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: upstream-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync ublue-os/image-template
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Fetch upstream
+        shell: bash
+        run: |
+          set -euo pipefail
+          git remote add upstream https://github.com/ublue-os/image-template.git
+          git fetch --no-tags upstream main
+
+      - name: Merge upstream into a sync branch
+        id: merge
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          branch="upstream-sync/$(date -u +%Y%m%d)"
+          echo "branch=${branch}" >> "${GITHUB_OUTPUT}"
+          git switch -C "${branch}"
+
+          if git merge --no-edit upstream/main; then
+            if git diff --quiet origin/main HEAD; then
+              echo "Already aligned with upstream/main."
+              echo "changed=false" >> "${GITHUB_OUTPUT}"
+              exit 0
+            fi
+            echo "changed=true" >> "${GITHUB_OUTPUT}"
+          else
+            git merge --abort
+            echo "conflict=true" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Open or update sync pull request
+        if: steps.merge.outputs.changed == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.merge.outputs.branch }}
+        run: |
+          set -euo pipefail
+          git push --force -u origin "${BRANCH}"
+
+          existing_url=$(gh pr list \
+            --base main \
+            --head "${BRANCH}" \
+            --state open \
+            --json url \
+            --jq '.[0].url // ""')
+
+          if [[ -n "${existing_url}" ]]; then
+            echo "Sync PR already open: ${existing_url}"
+            exit 0
+          fi
+
+          body=$(cat <<'EOF'
+          Automated merge of `ublue-os/image-template` main into Adwaita-Lite.
+
+          Review the diff and the image build before merging. This workflow never pushes to `main` directly.
+          EOF
+          )
+
+          gh pr create \
+            --base main \
+            --head "${BRANCH}" \
+            --title "chore: sync upstream image-template ($(date -u +%Y-%m-%d))" \
+            --body "${body}"
+
+      - name: Report a merge conflict
+        if: steps.merge.outputs.conflict == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          title="Upstream image-template sync conflict ($(date -u +%Y-%m-%d))"
+
+          existing_number=$(gh issue list \
+            --state open \
+            --search "${title} in:title" \
+            --json number \
+            --jq '.[0].number // ""')
+
+          if [[ -n "${existing_number}" ]]; then
+            echo "Conflict issue already open: #${existing_number}"
+            exit 0
+          fi
+
+          body=$(cat <<'EOF'
+          The automated sync could not merge `ublue-os/image-template` into `main`.
+
+          Resolve locally:
+
+          ```bash
+          git remote add upstream https://github.com/ublue-os/image-template.git
+          git fetch upstream main
+          git switch -C upstream-sync/manual
+          git merge upstream/main
+          # resolve conflicts, then:
+          python3 -m pytest -q
+          just check
+          git push -u origin upstream-sync/manual
+          ```
+
+          Then open a PR against `main` from `upstream-sync/manual`.
+          EOF
+          )
+
+          gh issue create --title "${title}" --body "${body}"
