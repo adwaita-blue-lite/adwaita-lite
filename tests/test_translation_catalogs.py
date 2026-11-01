@@ -6,9 +6,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = "am ar de es fa fr ha hi it ja ko nl pl pt ru sv sw th tr vi yo zh".split()
 CATALOGS = [
-    ("wizard", ROOT / "po", "universal-lite-setup-wizard"),
-    ("settings", ROOT / "po/settings", "universal-lite-settings"),
-    ("app-menu", ROOT / "po/app-menu", "universal-lite-app-menu"),
+    ("wizard", ROOT / "po", "adwaita-lite-setup-wizard"),
+    ("settings", ROOT / "po/settings", "adwaita-lite-settings"),
+    ("app-menu", ROOT / "po/app-menu", "adwaita-lite-app-menu"),
 ]
 
 
@@ -136,7 +136,7 @@ def test_settings_deferred_restart_strings_are_translated():
     }
     pot_entries = {
         "".join(entry["msgid"])
-        for entry in _parse_po_entries(ROOT / "po/settings/universal-lite-settings.pot")
+        for entry in _parse_po_entries(ROOT / "po/settings/adwaita-lite-settings.pot")
     }
     for msgid in required:
         assert msgid in pot_entries

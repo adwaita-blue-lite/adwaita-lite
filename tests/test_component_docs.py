@@ -15,26 +15,26 @@ PAGES = {
 }
 
 SOURCE_PATHS = [
-    "files/usr/bin/universal-lite-setup-wizard",
-    "files/usr/bin/universal-lite-app-menu",
-    "files/usr/bin/universal-lite-greeter",
-    "files/usr/lib/universal-lite/settings/",
-    "files/usr/lib/universal-lite/settings/css/style.css",
-    "files/usr/lib/universal-lite/theme.py",
-    "files/usr/share/universal-lite/palette.json",
+    "files/usr/bin/adwaita-lite-setup-wizard",
+    "files/usr/bin/adwaita-lite-app-menu",
+    "files/usr/bin/adwaita-lite-greeter",
+    "files/usr/lib/adwaita-lite/settings/",
+    "files/usr/lib/adwaita-lite/settings/css/style.css",
+    "files/usr/lib/adwaita-lite/theme.py",
+    "files/usr/share/adwaita-lite/palette.json",
 ]
 
 PAGE_SOURCE_PATHS = {
-    "setup-wizard": ["files/usr/bin/universal-lite-setup-wizard"],
-    "app-menu": ["files/usr/bin/universal-lite-app-menu"],
-    "greeter": ["files/usr/bin/universal-lite-greeter"],
+    "setup-wizard": ["files/usr/bin/adwaita-lite-setup-wizard"],
+    "app-menu": ["files/usr/bin/adwaita-lite-app-menu"],
+    "greeter": ["files/usr/bin/adwaita-lite-greeter"],
     "settings": [
-        "files/usr/lib/universal-lite/settings/",
-        "files/usr/lib/universal-lite/settings/css/style.css",
+        "files/usr/lib/adwaita-lite/settings/",
+        "files/usr/lib/adwaita-lite/settings/css/style.css",
     ],
     "theme-system": [
-        "files/usr/share/universal-lite/palette.json",
-        "files/usr/lib/universal-lite/theme.py",
+        "files/usr/share/adwaita-lite/palette.json",
+        "files/usr/lib/adwaita-lite/theme.py",
     ],
 }
 
@@ -201,7 +201,7 @@ def test_settings_doc_covers_major_custom_surfaces():
         "accent-swatch",
         "Adw.NavigationView",
         "Adw.AlertDialog",
-        "files/usr/lib/universal-lite/settings/css/style.css",
+        "files/usr/lib/adwaita-lite/settings/css/style.css",
         "tests/test_settings_css.py",
         "docs/superpowers/specs/2026-04-20-settings-adwaita-reference.md",
     ]
@@ -213,8 +213,8 @@ def test_settings_doc_covers_major_custom_surfaces():
 def test_theme_system_doc_covers_major_theme_anchors():
     html = _text(PAGES["theme-system"])
     required = [
-        "files/usr/share/universal-lite/palette.json",
-        "files/usr/lib/universal-lite/theme.py",
+        "files/usr/share/adwaita-lite/palette.json",
+        "files/usr/lib/adwaita-lite/theme.py",
         "gtk_color_defines",
         "_build_accent_css",
         "_build_twilight_css",

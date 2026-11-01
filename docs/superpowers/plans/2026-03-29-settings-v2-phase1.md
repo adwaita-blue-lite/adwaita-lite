@@ -8,7 +8,7 @@
 
 **Goal:** Refactor the monolithic settings app into a proper Python package and add Network + Bluetooth pages with live D-Bus event subscriptions.
 
-**Architecture:** Package at `/usr/lib/universal-lite/settings/` with `BasePage`, `SettingsStore`, `EventBus`, and `ToastWidget` infrastructure. NM integration via `gi.repository.NM` (matching the setup wizard's pattern). BlueZ via `Gio.DBusProxy`. Thin launcher at `/usr/bin/universal-lite-settings`.
+**Architecture:** Package at `/usr/lib/adwaita-lite/settings/` with `BasePage`, `SettingsStore`, `EventBus`, and `ToastWidget` infrastructure. NM integration via `gi.repository.NM` (matching the setup wizard's pattern). BlueZ via `Gio.DBusProxy`. Thin launcher at `/usr/bin/adwaita-lite-settings`.
 
 **Tech Stack:** Python 3, GTK 4 (PyGObject), NM 1.0 GI bindings, Gio D-Bus, GLib event loop
 
@@ -21,26 +21,26 @@
 ### Create
 
 ```
-files/usr/lib/universal-lite/settings/__init__.py
-files/usr/lib/universal-lite/settings/app.py
-files/usr/lib/universal-lite/settings/window.py
-files/usr/lib/universal-lite/settings/base.py
-files/usr/lib/universal-lite/settings/settings_store.py
-files/usr/lib/universal-lite/settings/events.py
-files/usr/lib/universal-lite/settings/dbus_helpers.py
-files/usr/lib/universal-lite/settings/css/style.css
-files/usr/lib/universal-lite/settings/pages/__init__.py
-files/usr/lib/universal-lite/settings/pages/appearance.py
-files/usr/lib/universal-lite/settings/pages/display.py
-files/usr/lib/universal-lite/settings/pages/network.py
-files/usr/lib/universal-lite/settings/pages/bluetooth.py
-files/usr/lib/universal-lite/settings/pages/panel.py
-files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py
-files/usr/lib/universal-lite/settings/pages/keyboard.py
-files/usr/lib/universal-lite/settings/pages/sound.py
-files/usr/lib/universal-lite/settings/pages/power_lock.py
-files/usr/lib/universal-lite/settings/pages/default_apps.py
-files/usr/lib/universal-lite/settings/pages/about.py
+files/usr/lib/adwaita-lite/settings/__init__.py
+files/usr/lib/adwaita-lite/settings/app.py
+files/usr/lib/adwaita-lite/settings/window.py
+files/usr/lib/adwaita-lite/settings/base.py
+files/usr/lib/adwaita-lite/settings/settings_store.py
+files/usr/lib/adwaita-lite/settings/events.py
+files/usr/lib/adwaita-lite/settings/dbus_helpers.py
+files/usr/lib/adwaita-lite/settings/css/style.css
+files/usr/lib/adwaita-lite/settings/pages/__init__.py
+files/usr/lib/adwaita-lite/settings/pages/appearance.py
+files/usr/lib/adwaita-lite/settings/pages/display.py
+files/usr/lib/adwaita-lite/settings/pages/network.py
+files/usr/lib/adwaita-lite/settings/pages/bluetooth.py
+files/usr/lib/adwaita-lite/settings/pages/panel.py
+files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py
+files/usr/lib/adwaita-lite/settings/pages/keyboard.py
+files/usr/lib/adwaita-lite/settings/pages/sound.py
+files/usr/lib/adwaita-lite/settings/pages/power_lock.py
+files/usr/lib/adwaita-lite/settings/pages/default_apps.py
+files/usr/lib/adwaita-lite/settings/pages/about.py
 tests/test_settings_store.py
 tests/test_event_bus.py
 ```
@@ -48,7 +48,7 @@ tests/test_event_bus.py
 ### Modify
 
 ```
-files/usr/bin/universal-lite-settings          (replace with thin launcher)
+files/usr/bin/adwaita-lite-settings          (replace with thin launcher)
 build_files/build.sh                           (add nm-connection-editor, wdisplays, gammastep)
 ```
 
@@ -62,25 +62,25 @@ build_files/build.sh                           (add nm-connection-editor, wdispl
 - [ ] **Step 1: Create directory tree**
 
 ```bash
-mkdir -p files/usr/lib/universal-lite/settings/css
-mkdir -p files/usr/lib/universal-lite/settings/pages
+mkdir -p files/usr/lib/adwaita-lite/settings/css
+mkdir -p files/usr/lib/adwaita-lite/settings/pages
 mkdir -p tests
 ```
 
 - [ ] **Step 2: Create empty __init__.py files**
 
-Create `files/usr/lib/universal-lite/settings/__init__.py`:
+Create `files/usr/lib/adwaita-lite/settings/__init__.py`:
 ```python
 ```
 
-Create `files/usr/lib/universal-lite/settings/pages/__init__.py` (placeholder, populated in Task 15):
+Create `files/usr/lib/adwaita-lite/settings/pages/__init__.py` (placeholder, populated in Task 15):
 ```python
 ```
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/ tests/
+git add files/usr/lib/adwaita-lite/settings/ tests/
 git commit -m "chore: create settings v2 package directory structure"
 ```
 
@@ -89,7 +89,7 @@ git commit -m "chore: create settings v2 package directory structure"
 ### Task 2: Implement and Test SettingsStore
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/settings_store.py`
+- Create: `files/usr/lib/adwaita-lite/settings/settings_store.py`
 - Create: `tests/test_settings_store.py`
 
 - [ ] **Step 1: Write failing tests**
@@ -104,7 +104,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/universal-lite"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/adwaita-lite"))
 from settings.settings_store import SettingsStore
 
 
@@ -185,7 +185,7 @@ Expected: `ModuleNotFoundError: No module named 'settings.settings_store'`
 
 - [ ] **Step 3: Implement SettingsStore**
 
-Create `files/usr/lib/universal-lite/settings/settings_store.py`:
+Create `files/usr/lib/adwaita-lite/settings/settings_store.py`:
 
 ```python
 import json
@@ -203,14 +203,14 @@ class SettingsStore:
     def __init__(self, settings_path=None, defaults_path=None, apply_script=None):
         self._path = Path(
             settings_path
-            or Path.home() / ".config/universal-lite/settings.json"
+            or Path.home() / ".config/adwaita-lite/settings.json"
         )
         self._defaults_path = Path(
             defaults_path
-            or "/usr/share/universal-lite/defaults/settings.json"
+            or "/usr/share/adwaita-lite/defaults/settings.json"
         )
         self._apply_script = str(
-            apply_script or "/usr/libexec/universal-lite-apply-settings"
+            apply_script or "/usr/libexec/adwaita-lite-apply-settings"
         )
         self._debounce_timers: dict[str, int] = {}
         self._toast_callback = None
@@ -302,7 +302,7 @@ Expected: All 7 tests pass.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/settings_store.py tests/test_settings_store.py
+git add files/usr/lib/adwaita-lite/settings/settings_store.py tests/test_settings_store.py
 git commit -m "feat: implement SettingsStore with atomic writes and debounce"
 ```
 
@@ -311,7 +311,7 @@ git commit -m "feat: implement SettingsStore with atomic writes and debounce"
 ### Task 3: Implement and Test EventBus
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/events.py`
+- Create: `files/usr/lib/adwaita-lite/settings/events.py`
 - Create: `tests/test_event_bus.py`
 
 - [ ] **Step 1: Write failing tests**
@@ -323,7 +323,7 @@ import sys
 from pathlib import Path
 from unittest.mock import patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/universal-lite"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/adwaita-lite"))
 from settings.events import EventBus
 
 
@@ -376,7 +376,7 @@ Expected: `ModuleNotFoundError`
 
 - [ ] **Step 3: Implement EventBus**
 
-Create `files/usr/lib/universal-lite/settings/events.py`:
+Create `files/usr/lib/adwaita-lite/settings/events.py`:
 
 ```python
 from gi.repository import GLib
@@ -413,7 +413,7 @@ Expected: All 4 tests pass.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/events.py tests/test_event_bus.py
+git add files/usr/lib/adwaita-lite/settings/events.py tests/test_event_bus.py
 git commit -m "feat: implement EventBus with thread-safe publish/subscribe"
 ```
 
@@ -422,11 +422,11 @@ git commit -m "feat: implement EventBus with thread-safe publish/subscribe"
 ### Task 4: Implement BasePage
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/base.py`
+- Create: `files/usr/lib/adwaita-lite/settings/base.py`
 
 - [ ] **Step 1: Create BasePage with widget factories**
 
-Create `files/usr/lib/universal-lite/settings/base.py`:
+Create `files/usr/lib/adwaita-lite/settings/base.py`:
 
 ```python
 import gi
@@ -530,7 +530,7 @@ class BasePage:
 
 ```bash
 cd /var/home/race/ublue-mike && python -c "
-import sys; sys.path.insert(0, 'files/usr/lib/universal-lite')
+import sys; sys.path.insert(0, 'files/usr/lib/adwaita-lite')
 from settings.base import BasePage
 print('BasePage imported OK')
 "
@@ -541,7 +541,7 @@ Expected: `BasePage imported OK`
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/base.py
+git add files/usr/lib/adwaita-lite/settings/base.py
 git commit -m "feat: implement BasePage with shared widget factories"
 ```
 
@@ -550,12 +550,12 @@ git commit -m "feat: implement BasePage with shared widget factories"
 ### Task 5: Implement ToastWidget and Extract CSS
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/toast.py`
-- Create: `files/usr/lib/universal-lite/settings/css/style.css`
+- Create: `files/usr/lib/adwaita-lite/settings/toast.py`
+- Create: `files/usr/lib/adwaita-lite/settings/css/style.css`
 
 - [ ] **Step 1: Create ToastWidget**
 
-Create `files/usr/lib/universal-lite/settings/toast.py`:
+Create `files/usr/lib/adwaita-lite/settings/toast.py`:
 
 ```python
 import gi
@@ -616,7 +616,7 @@ class ToastWidget(Gtk.Revealer):
 
 - [ ] **Step 2: Extract CSS from the existing monolith**
 
-Create `files/usr/lib/universal-lite/settings/css/style.css`:
+Create `files/usr/lib/adwaita-lite/settings/css/style.css`:
 
 ```css
 .sidebar {
@@ -696,7 +696,7 @@ Create `files/usr/lib/universal-lite/settings/css/style.css`:
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/toast.py files/usr/lib/universal-lite/settings/css/style.css
+git add files/usr/lib/adwaita-lite/settings/toast.py files/usr/lib/adwaita-lite/settings/css/style.css
 git commit -m "feat: implement ToastWidget and extract CSS to style.css"
 ```
 
@@ -705,11 +705,11 @@ git commit -m "feat: implement ToastWidget and extract CSS to style.css"
 ### Task 6: Implement Window
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/window.py`
+- Create: `files/usr/lib/adwaita-lite/settings/window.py`
 
 - [ ] **Step 1: Create SettingsWindow with sidebar, stack, search, and toast overlay**
 
-Create `files/usr/lib/universal-lite/settings/window.py`:
+Create `files/usr/lib/adwaita-lite/settings/window.py`:
 
 ```python
 import gi
@@ -725,7 +725,7 @@ from .toast import ToastWidget
 class SettingsWindow(Gtk.ApplicationWindow):
     def __init__(self, app: Gtk.Application, store: SettingsStore, event_bus: EventBus) -> None:
         super().__init__(application=app)
-        self.set_title("Universal-Lite Settings")
+        self.set_title("Adwaita-Lite Settings")
         self.set_default_size(900, 600)
         self.set_size_request(700, 500)
 
@@ -857,7 +857,7 @@ class SettingsWindow(Gtk.ApplicationWindow):
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/window.py
+git add files/usr/lib/adwaita-lite/settings/window.py
 git commit -m "feat: implement SettingsWindow with sidebar, search, and toast overlay"
 ```
 
@@ -866,12 +866,12 @@ git commit -m "feat: implement SettingsWindow with sidebar, search, and toast ov
 ### Task 7: Implement App Entry Point and Thin Launcher
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/app.py`
-- Modify: `files/usr/bin/universal-lite-settings`
+- Create: `files/usr/lib/adwaita-lite/settings/app.py`
+- Modify: `files/usr/bin/adwaita-lite-settings`
 
 - [ ] **Step 1: Create app.py**
 
-Create `files/usr/lib/universal-lite/settings/app.py`:
+Create `files/usr/lib/adwaita-lite/settings/app.py`:
 
 ```python
 from pathlib import Path
@@ -886,7 +886,7 @@ from .events import EventBus
 from .settings_store import SettingsStore
 from .window import SettingsWindow
 
-APP_ID = "org.universallite.Settings"
+APP_ID = "org.adwaitabluelite.Settings"
 CSS_PATH = Path(__file__).parent / "css" / "style.css"
 
 
@@ -919,12 +919,12 @@ def main() -> None:
 
 - [ ] **Step 2: Replace the monolith with a thin launcher**
 
-Replace the entire contents of `files/usr/bin/universal-lite-settings` with:
+Replace the entire contents of `files/usr/bin/adwaita-lite-settings` with:
 
 ```python
 #!/usr/bin/env python3
 import sys
-sys.path.insert(0, "/usr/lib/universal-lite")
+sys.path.insert(0, "/usr/lib/adwaita-lite")
 from settings.app import main
 main()
 ```
@@ -932,7 +932,7 @@ main()
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/app.py files/usr/bin/universal-lite-settings
+git add files/usr/lib/adwaita-lite/settings/app.py files/usr/bin/adwaita-lite-settings
 git commit -m "feat: create app entry point and replace monolith with thin launcher"
 ```
 
@@ -941,13 +941,13 @@ git commit -m "feat: create app entry point and replace monolith with thin launc
 ### Task 8: Implement NetworkManager D-Bus Helper
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/dbus_helpers.py`
+- Create: `files/usr/lib/adwaita-lite/settings/dbus_helpers.py`
 
-This task uses the same `NM.Client` GI bindings pattern as the setup wizard (`files/usr/bin/universal-lite-setup-wizard`). Reference it for consistency.
+This task uses the same `NM.Client` GI bindings pattern as the setup wizard (`files/usr/bin/adwaita-lite-setup-wizard`). Reference it for consistency.
 
 - [ ] **Step 1: Create dbus_helpers.py with NetworkManagerHelper**
 
-Create `files/usr/lib/universal-lite/settings/dbus_helpers.py`:
+Create `files/usr/lib/adwaita-lite/settings/dbus_helpers.py`:
 
 ```python
 from __future__ import annotations
@@ -1383,7 +1383,7 @@ class BlueZHelper:
 
 ```bash
 cd /var/home/race/ublue-mike && python -c "
-import sys; sys.path.insert(0, 'files/usr/lib/universal-lite')
+import sys; sys.path.insert(0, 'files/usr/lib/adwaita-lite')
 from settings.dbus_helpers import NetworkManagerHelper, BlueZHelper
 print('D-Bus helpers imported OK')
 "
@@ -1394,7 +1394,7 @@ Expected: `D-Bus helpers imported OK`
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/dbus_helpers.py
+git add files/usr/lib/adwaita-lite/settings/dbus_helpers.py
 git commit -m "feat: implement NetworkManager and BlueZ D-Bus helpers with event publishing"
 ```
 
@@ -1403,9 +1403,9 @@ git commit -m "feat: implement NetworkManager and BlueZ D-Bus helpers with event
 ### Task 9: Migrate Appearance Page
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/pages/appearance.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/appearance.py`
 
-Reference: `files/usr/bin/universal-lite-settings` lines 183–297 (original `AppearancePage`).
+Reference: `files/usr/bin/adwaita-lite-settings` lines 183–297 (original `AppearancePage`).
 
 Migration pattern (same for all pages):
 1. Inherit `BasePage` instead of standalone class
@@ -1418,7 +1418,7 @@ Migration pattern (same for all pages):
 
 - [ ] **Step 1: Create appearance.py**
 
-Create `files/usr/lib/universal-lite/settings/pages/appearance.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/appearance.py`:
 
 ```python
 from pathlib import Path
@@ -1559,7 +1559,7 @@ class AppearancePage(BasePage):
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/appearance.py
+git add files/usr/lib/adwaita-lite/settings/pages/appearance.py
 git commit -m "feat: migrate AppearancePage to new package structure"
 ```
 
@@ -1568,13 +1568,13 @@ git commit -m "feat: migrate AppearancePage to new package structure"
 ### Task 10: Migrate Display Page
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/pages/display.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/display.py`
 
-Reference: `files/usr/bin/universal-lite-settings` lines 300–436.
+Reference: `files/usr/bin/adwaita-lite-settings` lines 300–436.
 
 - [ ] **Step 1: Create display.py**
 
-Create `files/usr/lib/universal-lite/settings/pages/display.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/display.py`:
 
 ```python
 import subprocess
@@ -1703,7 +1703,7 @@ class DisplayPage(BasePage):
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/display.py
+git add files/usr/lib/adwaita-lite/settings/pages/display.py
 git commit -m "feat: migrate DisplayPage to new package structure"
 ```
 
@@ -1712,13 +1712,13 @@ git commit -m "feat: migrate DisplayPage to new package structure"
 ### Task 11: Migrate Panel Page
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/pages/panel.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/panel.py`
 
-Reference: `files/usr/bin/universal-lite-settings` lines 438–703. This is the most complex migration due to module layout and pinned apps state.
+Reference: `files/usr/bin/adwaita-lite-settings` lines 438–703. This is the most complex migration due to module layout and pinned apps state.
 
 - [ ] **Step 1: Create panel.py**
 
-Create `files/usr/lib/universal-lite/settings/pages/panel.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/panel.py`:
 
 ```python
 import copy
@@ -1964,7 +1964,7 @@ class PanelPage(BasePage):
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/panel.py
+git add files/usr/lib/adwaita-lite/settings/pages/panel.py
 git commit -m "feat: migrate PanelPage to new package structure"
 ```
 
@@ -1973,13 +1973,13 @@ git commit -m "feat: migrate PanelPage to new package structure"
 ### Task 12: Migrate Mouse/Touchpad, Keyboard, and Sound Pages
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py`
-- Create: `files/usr/lib/universal-lite/settings/pages/keyboard.py`
-- Create: `files/usr/lib/universal-lite/settings/pages/sound.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/keyboard.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/sound.py`
 
 - [ ] **Step 1: Create mouse_touchpad.py**
 
-Create `files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py`:
 
 ```python
 import gi
@@ -2058,7 +2058,7 @@ class MouseTouchpadPage(BasePage):
 
 - [ ] **Step 2: Create keyboard.py**
 
-Create `files/usr/lib/universal-lite/settings/pages/keyboard.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/keyboard.py`:
 
 ```python
 import subprocess
@@ -2190,7 +2190,7 @@ class KeyboardPage(BasePage):
 
 - [ ] **Step 3: Create sound.py**
 
-Create `files/usr/lib/universal-lite/settings/pages/sound.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/sound.py`:
 
 ```python
 import json
@@ -2340,7 +2340,7 @@ class SoundPage(BasePage):
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py files/usr/lib/universal-lite/settings/pages/keyboard.py files/usr/lib/universal-lite/settings/pages/sound.py
+git add files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py files/usr/lib/adwaita-lite/settings/pages/keyboard.py files/usr/lib/adwaita-lite/settings/pages/sound.py
 git commit -m "feat: migrate Mouse/Touchpad, Keyboard, and Sound pages"
 ```
 
@@ -2349,13 +2349,13 @@ git commit -m "feat: migrate Mouse/Touchpad, Keyboard, and Sound pages"
 ### Task 13: Migrate Power/Lock, Default Apps, and About Pages
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/pages/power_lock.py`
-- Create: `files/usr/lib/universal-lite/settings/pages/default_apps.py`
-- Create: `files/usr/lib/universal-lite/settings/pages/about.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/power_lock.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/default_apps.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/about.py`
 
 - [ ] **Step 1: Create power_lock.py**
 
-Create `files/usr/lib/universal-lite/settings/pages/power_lock.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/power_lock.py`:
 
 ```python
 import gi
@@ -2406,7 +2406,7 @@ class PowerLockPage(BasePage):
 
 - [ ] **Step 2: Create default_apps.py**
 
-Create `files/usr/lib/universal-lite/settings/pages/default_apps.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/default_apps.py`:
 
 ```python
 import subprocess
@@ -2488,7 +2488,7 @@ class DefaultAppsPage(BasePage):
 
 - [ ] **Step 3: Create about.py**
 
-Create `files/usr/lib/universal-lite/settings/pages/about.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/about.py`:
 
 ```python
 import os
@@ -2516,7 +2516,7 @@ class AboutPage(BasePage):
         page = self.make_page_box()
         page.append(self.make_group_label("About"))
 
-        os_name = "Universal-Lite"
+        os_name = "Adwaita-Lite"
         os_version = ""
         try:
             for line in Path("/etc/os-release").read_text().splitlines():
@@ -2567,7 +2567,7 @@ class AboutPage(BasePage):
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/power_lock.py files/usr/lib/universal-lite/settings/pages/default_apps.py files/usr/lib/universal-lite/settings/pages/about.py
+git add files/usr/lib/adwaita-lite/settings/pages/power_lock.py files/usr/lib/adwaita-lite/settings/pages/default_apps.py files/usr/lib/adwaita-lite/settings/pages/about.py
 git commit -m "feat: migrate Power/Lock, Default Apps, and About pages"
 ```
 
@@ -2576,11 +2576,11 @@ git commit -m "feat: migrate Power/Lock, Default Apps, and About pages"
 ### Task 14: Register All Pages
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/__init__.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/__init__.py`
 
 - [ ] **Step 1: Write the page registry**
 
-Replace `files/usr/lib/universal-lite/settings/pages/__init__.py` with:
+Replace `files/usr/lib/adwaita-lite/settings/pages/__init__.py` with:
 
 ```python
 from .about import AboutPage
@@ -2612,7 +2612,7 @@ ALL_PAGES = [
 
 Note: This imports `NetworkPage` and `BluetoothPage` which don't exist yet. They will be created in Tasks 15 and 16. **Create stub files first** so the import doesn't fail:
 
-Create `files/usr/lib/universal-lite/settings/pages/network.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/network.py`:
 ```python
 import gi
 
@@ -2634,7 +2634,7 @@ class NetworkPage(BasePage):
         return page
 ```
 
-Create `files/usr/lib/universal-lite/settings/pages/bluetooth.py`:
+Create `files/usr/lib/adwaita-lite/settings/pages/bluetooth.py`:
 ```python
 import gi
 
@@ -2660,7 +2660,7 @@ class BluetoothPage(BasePage):
 
 ```bash
 cd /var/home/race/ublue-mike && python -c "
-import sys; sys.path.insert(0, 'files/usr/lib/universal-lite')
+import sys; sys.path.insert(0, 'files/usr/lib/adwaita-lite')
 from settings.pages import ALL_PAGES
 print(f'{len(ALL_PAGES)} pages registered')
 for icon, label, cls in ALL_PAGES:
@@ -2673,7 +2673,7 @@ Expected: 11 pages listed.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/
+git add files/usr/lib/adwaita-lite/settings/pages/
 git commit -m "feat: register all pages including Network and Bluetooth stubs"
 ```
 
@@ -2682,11 +2682,11 @@ git commit -m "feat: register all pages including Network and Bluetooth stubs"
 ### Task 15: Build Network Page
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/network.py` (replace stub)
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/network.py` (replace stub)
 
 - [ ] **Step 1: Implement full NetworkPage**
 
-Replace `files/usr/lib/universal-lite/settings/pages/network.py` with:
+Replace `files/usr/lib/adwaita-lite/settings/pages/network.py` with:
 
 ```python
 import subprocess
@@ -2984,7 +2984,7 @@ class NetworkPage(BasePage):
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/network.py
+git add files/usr/lib/adwaita-lite/settings/pages/network.py
 git commit -m "feat: implement Network page with WiFi scan, connect, and hidden network support"
 ```
 
@@ -2993,11 +2993,11 @@ git commit -m "feat: implement Network page with WiFi scan, connect, and hidden 
 ### Task 16: Build Bluetooth Page
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/bluetooth.py` (replace stub)
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/bluetooth.py` (replace stub)
 
 - [ ] **Step 1: Implement full BluetoothPage**
 
-Replace `files/usr/lib/universal-lite/settings/pages/bluetooth.py` with:
+Replace `files/usr/lib/adwaita-lite/settings/pages/bluetooth.py` with:
 
 ```python
 import subprocess
@@ -3178,7 +3178,7 @@ class BluetoothPage(BasePage):
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/bluetooth.py
+git add files/usr/lib/adwaita-lite/settings/pages/bluetooth.py
 git commit -m "feat: implement Bluetooth page with device discovery, pairing, and management"
 ```
 
@@ -3202,7 +3202,7 @@ Add these packages to the existing `dnf5 install` command (in alphabetical order
 
 - [ ] **Step 3: Add the settings package directory to the file copy section**
 
-Find where the build script copies files from `files/` into the image. Ensure `files/usr/lib/universal-lite/` is included. If the build uses a broad copy like `cp -r files/* /`, this is already handled. If it copies specific directories, add `/usr/lib/universal-lite/`.
+Find where the build script copies files from `files/` into the image. Ensure `files/usr/lib/adwaita-lite/` is included. If the build uses a broad copy like `cp -r files/* /`, this is already handled. If it copies specific directories, add `/usr/lib/adwaita-lite/`.
 
 - [ ] **Step 4: Commit**
 
@@ -3227,10 +3227,10 @@ Expected: All tests pass (SettingsStore + EventBus).
 
 ```bash
 cd /var/home/race/ublue-mike && python -c "
-import sys; sys.path.insert(0, 'files/usr/lib/universal-lite')
+import sys; sys.path.insert(0, 'files/usr/lib/adwaita-lite')
 from settings.app import SettingsApp
 print('Full app import chain OK')
-print('App ID:', 'org.universallite.Settings')
+print('App ID:', 'org.adwaitabluelite.Settings')
 from settings.pages import ALL_PAGES
 print(f'{len(ALL_PAGES)} pages registered:')
 for _, label, cls in ALL_PAGES:
@@ -3245,7 +3245,7 @@ Expected: 11 pages listed, no import errors.
 - [ ] **Step 3: Verify old monolith is replaced**
 
 ```bash
-head -5 files/usr/bin/universal-lite-settings
+head -5 files/usr/bin/adwaita-lite-settings
 ```
 
 Expected: The thin launcher (5 lines), not the old 1609-line monolith.
@@ -3253,7 +3253,7 @@ Expected: The thin launcher (5 lines), not the old 1609-line monolith.
 - [ ] **Step 4: Verify all page files exist**
 
 ```bash
-ls -la files/usr/lib/universal-lite/settings/pages/*.py | wc -l
+ls -la files/usr/lib/adwaita-lite/settings/pages/*.py | wc -l
 ```
 
 Expected: 12 files (11 pages + `__init__.py`).

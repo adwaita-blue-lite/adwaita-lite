@@ -17,11 +17,11 @@
 ### File Structure
 
 **New files:**
-- `files/usr/libexec/universal-lite-first-boot` — Headless first-boot config script (reads `install-config.json`, creates swap, enables services, applies kernel args)
-- `files/etc/systemd/system/universal-lite-first-boot.service` — Systemd unit: runs once on first boot, guarded by `ConditionPathExists`
+- `files/usr/libexec/adwaita-lite-first-boot` — Headless first-boot config script (reads `install-config.json`, creates swap, enables services, applies kernel args)
+- `files/etc/systemd/system/adwaita-lite-first-boot.service` — Systemd unit: runs once on first boot, guarded by `ConditionPathExists`
 
 **Modified files:**
-- `files/usr/bin/universal-lite-setup-wizard` — Major rewrite:
+- `files/usr/bin/adwaita-lite-setup-wizard` — Major rewrite:
   - New Disk page (Page 1): drive selector, filesystem, memory management, swap size
   - Simplified System page: timezone, admin toggle, root password only
   - Rewritten progress page: bootc install pipeline with sysroot configuration
@@ -64,27 +64,27 @@ git commit -m "feat: reduce default zram size from 150% to 125% of RAM"
 ### Task 2: Create first-boot service
 
 **Files:**
-- Create: `files/usr/libexec/universal-lite-first-boot`
-- Create: `files/etc/systemd/system/universal-lite-first-boot.service`
+- Create: `files/usr/libexec/adwaita-lite-first-boot`
+- Create: `files/etc/systemd/system/adwaita-lite-first-boot.service`
 
 - [ ] **Step 1: Create the first-boot script**
 
-Create `files/usr/libexec/universal-lite-first-boot`:
+Create `files/usr/libexec/adwaita-lite-first-boot`:
 
 ```bash
 #!/bin/bash
-# First-boot configuration for installer-deployed Universal-Lite systems.
-# Reads /var/lib/universal-lite/install-config.json and performs operations
+# First-boot configuration for installer-deployed Adwaita-Lite systems.
+# Reads /var/lib/adwaita-lite/install-config.json and performs operations
 # that require the running target system: swap file creation, service
 # enablement, grubby kernel args.
 #
-# Called by universal-lite-first-boot.service.
+# Called by adwaita-lite-first-boot.service.
 # Guards: runs only when install-config.json exists and setup-done does not.
 
 set -euo pipefail
 
-CONFIG=/var/lib/universal-lite/install-config.json
-STATE_DIR=/var/lib/universal-lite
+CONFIG=/var/lib/adwaita-lite/install-config.json
+STATE_DIR=/var/lib/adwaita-lite
 
 # --- Read config via Python (already available in the image) ---
 read_config() {
@@ -102,16 +102,16 @@ if [ "$strategy" = "zswap" ] && [ -n "$swap_gb" ] && [ "$swap_gb" != "None" ]; t
     echo "$swap_gb" > "$STATE_DIR/swap-size"
 
     # Create the swap file
-    /usr/libexec/universal-lite-swap-init
+    /usr/libexec/adwaita-lite-swap-init
 
     # Enable swap services for future boots
     systemctl enable \
-        universal-lite-swap-init.service \
-        universal-lite-encrypted-swap.service \
-        universal-lite-zswap.service
+        adwaita-lite-swap-init.service \
+        adwaita-lite-encrypted-swap.service \
+        adwaita-lite-zswap.service
 
     # Activate encrypted swap for this boot
-    /usr/libexec/universal-lite-encrypted-swap start
+    /usr/libexec/adwaita-lite-encrypted-swap start
 
     # Mask zram-generator so it doesn't compete with disk swap
     systemctl mask systemd-zram-setup@.service
@@ -121,7 +121,7 @@ if [ "$strategy" = "zswap" ] && [ -n "$swap_gb" ] && [ "$swap_gb" != "None" ]; t
         --args="zswap.enabled=1 zswap.compressor=zstd zswap.max_pool_percent=25"
 
     # Persist swappiness for disk-backed swap
-    echo "vm.swappiness = 100" > /etc/sysctl.d/91-universal-lite-zswap.conf
+    echo "vm.swappiness = 100" > /etc/sysctl.d/91-adwaita-lite-zswap.conf
     sysctl -w vm.swappiness=100 || true
 fi
 # zram: no action needed — zram-generator.conf (125%) is already in the image
@@ -137,19 +137,19 @@ touch "$STATE_DIR/setup-done"
 
 - [ ] **Step 2: Create the systemd service unit**
 
-Create `files/etc/systemd/system/universal-lite-first-boot.service`:
+Create `files/etc/systemd/system/adwaita-lite-first-boot.service`:
 
 ```ini
 [Unit]
-Description=First-boot configuration for installer-deployed Universal-Lite
+Description=First-boot configuration for installer-deployed Adwaita-Lite
 After=local-fs.target
 Before=greetd.service swap.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/libexec/universal-lite-first-boot
-ConditionPathExists=/var/lib/universal-lite/install-config.json
-ConditionPathExists=!/var/lib/universal-lite/setup-done
+ExecStart=/usr/libexec/adwaita-lite-first-boot
+ConditionPathExists=/var/lib/adwaita-lite/install-config.json
+ConditionPathExists=!/var/lib/adwaita-lite/setup-done
 
 [Install]
 WantedBy=multi-user.target
@@ -158,8 +158,8 @@ WantedBy=multi-user.target
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-first-boot \
-        files/etc/systemd/system/universal-lite-first-boot.service
+git add files/usr/libexec/adwaita-lite-first-boot \
+        files/etc/systemd/system/adwaita-lite-first-boot.service
 git commit -m "feat: add first-boot service for installer-deployed systems"
 ```
 
@@ -168,7 +168,7 @@ git commit -m "feat: add first-boot service for installer-deployed systems"
 ### Task 3: Add Disk page and update page constants
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard`
 
 This task adds the new Disk page (Page 1) and updates all page constants and navigation to support 7 pages.
 
@@ -644,7 +644,7 @@ to:
 - [ ] **Step 9: Verify syntax**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read()); print('OK')"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read()); print('OK')"
 ```
 
 Expected: `OK`
@@ -652,7 +652,7 @@ Expected: `OK`
 - [ ] **Step 10: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat: add Disk page (drive, filesystem, memory management) and 7-page layout"
 ```
 
@@ -661,7 +661,7 @@ git commit -m "feat: add Disk page (drive, filesystem, memory management) and 7-
 ### Task 4: Simplify System page
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard`
 
 Remove memory management and partition expansion from the System page (they moved to the Disk page in Task 3).
 
@@ -745,7 +745,7 @@ Replace the entire method:
 - [ ] **Step 3: Verify syntax**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read()); print('OK')"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read()); print('OK')"
 ```
 
 Expected: `OK`
@@ -753,7 +753,7 @@ Expected: `OK`
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "refactor: simplify System page — memory management moved to Disk page"
 ```
 
@@ -762,7 +762,7 @@ git commit -m "refactor: simplify System page — memory management moved to Dis
 ### Task 5: Implement install pipeline step functions
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard`
 
 Replace the old step functions (AccountsService user creation, direct swap/zswap setup) with the new `bootc install to-disk` pipeline that writes configuration directly to the mounted sysroot.
 
@@ -1028,7 +1028,7 @@ Add these methods to `SetupWizardWindow`, in the step functions section (before 
             return f"Failed to copy: {', '.join(failed)}"
 
         # Write app list for boot-time fallback service
-        state_dir = Path(var_dir) / "lib" / "universal-lite"
+        state_dir = Path(var_dir) / "lib" / "adwaita-lite"
         state_dir.mkdir(parents=True, exist_ok=True)
         (state_dir / "flatpak-apps").write_text("\n".join(selected_ids) + "\n")
 
@@ -1046,7 +1046,7 @@ Add these methods to `SetupWizardWindow`, in the step functions section (before 
         deploy = self._sysroot_deploy
         var_dir = self._sysroot_var
 
-        state_dir = Path(var_dir) / "lib" / "universal-lite"
+        state_dir = Path(var_dir) / "lib" / "adwaita-lite"
         state_dir.mkdir(parents=True, exist_ok=True)
 
         if self._setup_use_zswap:
@@ -1056,7 +1056,7 @@ Add these methods to `SetupWizardWindow`, in the step functions section (before 
             # Persist swappiness for disk-backed swap
             sysctl_dir = Path(deploy) / "etc" / "sysctl.d"
             sysctl_dir.mkdir(parents=True, exist_ok=True)
-            (sysctl_dir / "91-universal-lite-zswap.conf").write_text(
+            (sysctl_dir / "91-adwaita-lite-zswap.conf").write_text(
                 "vm.swappiness = 100\n"
             )
         else:
@@ -1082,7 +1082,7 @@ Add these methods to `SetupWizardWindow`, in the step functions section (before 
         var_dir = self._sysroot_var
 
         # Write install config for first-boot service
-        state_dir = Path(var_dir) / "lib" / "universal-lite"
+        state_dir = Path(var_dir) / "lib" / "adwaita-lite"
         state_dir.mkdir(parents=True, exist_ok=True)
 
         config = {
@@ -1116,7 +1116,7 @@ Also remove the `FLATHUB_URL` constant (line 271) — it was only used by `_step
 - [ ] **Step 9: Verify syntax**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read()); print('OK')"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read()); print('OK')"
 ```
 
 Expected: `OK`
@@ -1124,7 +1124,7 @@ Expected: `OK`
 - [ ] **Step 10: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat: replace wizard step functions with bootc install-to-disk pipeline"
 ```
 
@@ -1133,7 +1133,7 @@ git commit -m "feat: replace wizard step functions with bootc install-to-disk pi
 ### Task 6: Wire up step runner and form capture
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard`
 
 Connect the new step functions to the step runner, update form value capture, and update error handling for the three-behavior model (fatal / retry / skippable).
 
@@ -1287,7 +1287,7 @@ The installer writes `setup-done` and `last-user` via the first-boot service on 
 - [ ] **Step 6: Verify syntax**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read()); print('OK')"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read()); print('OK')"
 ```
 
 Expected: `OK`
@@ -1295,7 +1295,7 @@ Expected: `OK`
 - [ ] **Step 7: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat: wire up bootc install pipeline with three-behavior error handling"
 ```
 
@@ -1304,7 +1304,7 @@ git commit -m "feat: wire up bootc install pipeline with three-behavior error ha
 ### Task 7: Update Confirm page, Apps page, and docstring
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard`
 
 - [ ] **Step 1: Update `_build_confirm_page()`**
 
@@ -1456,7 +1456,7 @@ Replace lines 1–16 (the module docstring) with:
 
 ```python
 #!/usr/bin/env python3
-"""Universal-Lite USB installer wizard.
+"""Adwaita-Lite USB installer wizard.
 
 Launched by greetd's initial_session inside a labwc desktop session on
 the USB live environment when no user accounts exist.  Installs the OS
@@ -1492,7 +1492,7 @@ to:
 - [ ] **Step 8: Verify syntax**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read()); print('OK')"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read()); print('OK')"
 ```
 
 Expected: `OK`
@@ -1500,7 +1500,7 @@ Expected: `OK`
 - [ ] **Step 9: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat: update confirm/apps/progress pages for installer mode"
 ```
 
@@ -1523,12 +1523,12 @@ In the main `dnf5 install` block (line 15), add `rsync` to the package list. Ins
 
 - [ ] **Step 2: Add first-boot script to chmod block**
 
-In the chmod block (line 136), add `universal-lite-first-boot`. Insert after `universal-lite-encrypted-swap`:
+In the chmod block (line 136), add `adwaita-lite-first-boot`. Insert after `adwaita-lite-encrypted-swap`:
 
 ```
-    /usr/libexec/universal-lite-encrypted-swap \
-    /usr/libexec/universal-lite-first-boot \
-    /usr/libexec/universal-lite-flatpak-setup \
+    /usr/libexec/adwaita-lite-encrypted-swap \
+    /usr/libexec/adwaita-lite-first-boot \
+    /usr/libexec/adwaita-lite-flatpak-setup \
 ```
 
 - [ ] **Step 3: Enable first-boot and flatpak-setup services**
@@ -1536,8 +1536,8 @@ In the chmod block (line 136), add `universal-lite-first-boot`. Insert after `un
 After the existing `systemctl enable` block (after line 159), add:
 
 ```bash
-systemctl enable universal-lite-first-boot.service
-systemctl enable universal-lite-flatpak-setup.service
+systemctl enable adwaita-lite-first-boot.service
+systemctl enable adwaita-lite-flatpak-setup.service
 ```
 
 The first-boot service uses `ConditionPathExists` guards so it only runs when `install-config.json` exists and `setup-done` does not. The flatpak-setup service similarly checks for `flatpak-apps` and `flatpak-setup.done`.
@@ -1556,7 +1556,7 @@ git commit -m "build: add rsync, first-boot service, flatpak-setup enablement"
 - [ ] **Step 1: Python syntax check**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read()); print('OK')"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read()); print('OK')"
 ```
 
 Expected: `OK`
@@ -1564,7 +1564,7 @@ Expected: `OK`
 - [ ] **Step 2: Verify no dangling references to removed features**
 
 ```bash
-grep -rn "AccountsService\|_expand_root\|systemd-repart\|_step_create_user\|_step_configure_system\|_step_configure_zswap\|_step_create_swap_file\|_step_install_flatpaks\|import pwd\|FLATHUB_URL" files/usr/bin/universal-lite-setup-wizard
+grep -rn "AccountsService\|_expand_root\|systemd-repart\|_step_create_user\|_step_configure_system\|_step_configure_zswap\|_step_create_swap_file\|_step_install_flatpaks\|import pwd\|FLATHUB_URL" files/usr/bin/adwaita-lite-setup-wizard
 ```
 
 Expected: no output. If any matches found, remove them.
@@ -1572,7 +1572,7 @@ Expected: no output. If any matches found, remove them.
 - [ ] **Step 3: Verify new references are consistent**
 
 ```bash
-grep -rn "PAGE_DISK\|_build_disk_page\|_step_bootc_install\|_step_configure_user\|_step_copy_network\|_step_copy_flatpaks\|_step_configure_memory\|_step_finalize\|_mount_sysroot\|_unmount_sysroot\|install-config.json" files/usr/bin/universal-lite-setup-wizard
+grep -rn "PAGE_DISK\|_build_disk_page\|_step_bootc_install\|_step_configure_user\|_step_copy_network\|_step_copy_flatpaks\|_step_configure_memory\|_step_finalize\|_mount_sysroot\|_unmount_sysroot\|install-config.json" files/usr/bin/adwaita-lite-setup-wizard
 ```
 
 Expected: matches for all new functions and references.
@@ -1580,18 +1580,18 @@ Expected: matches for all new functions and references.
 - [ ] **Step 4: Verify first-boot service references**
 
 ```bash
-grep -rn "universal-lite-first-boot" files/ build_files/
+grep -rn "adwaita-lite-first-boot" files/ build_files/
 ```
 
 Expected: matches in:
-- `files/usr/libexec/universal-lite-first-boot` (the script itself)
-- `files/etc/systemd/system/universal-lite-first-boot.service` (the unit)
+- `files/usr/libexec/adwaita-lite-first-boot` (the script itself)
+- `files/etc/systemd/system/adwaita-lite-first-boot.service` (the unit)
 - `build_files/build.sh` (chmod + systemctl enable)
 
 - [ ] **Step 5: Verify bash scripts are syntactically valid**
 
 ```bash
-bash -n files/usr/libexec/universal-lite-first-boot && echo "OK"
+bash -n files/usr/libexec/adwaita-lite-first-boot && echo "OK"
 ```
 
 Expected: `OK`
@@ -1605,6 +1605,6 @@ git diff --stat
 If there are unstaged changes from cleanup:
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "cleanup: remove dead code from pre-installer wizard"
 ```

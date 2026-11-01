@@ -14,8 +14,8 @@
 
 | File | Action | Purpose |
 |------|--------|---------|
-| `files/usr/bin/universal-lite-greeter` | Create | The GTK4 greeter (~500 lines) |
-| `files/usr/libexec/universal-lite-greeter-setup` | Modify | Point at new greeter instead of gtkgreet |
+| `files/usr/bin/adwaita-lite-greeter` | Create | The GTK4 greeter (~500 lines) |
+| `files/usr/libexec/adwaita-lite-greeter-setup` | Modify | Point at new greeter instead of gtkgreet |
 | `build_files/build.sh` | Modify | Remove gtkgreet package, add chmod for new greeter |
 | `files/etc/greetd/gtkgreet.css` | Delete | No longer needed — CSS is inline |
 
@@ -24,17 +24,17 @@
 ### Task 1: Create the greeter — IPC + theme + CSS foundation
 
 **Files:**
-- Create: `files/usr/bin/universal-lite-greeter`
+- Create: `files/usr/bin/adwaita-lite-greeter`
 
 This task creates the complete greeter file. It's one file, and splitting it across tasks would create non-functional intermediate states.
 
 - [ ] **Step 1: Create the greeter script**
 
-Write the full file to `files/usr/bin/universal-lite-greeter`:
+Write the full file to `files/usr/bin/adwaita-lite-greeter`:
 
 ```python
 #!/usr/bin/env python3
-"""Universal-Lite login greeter for greetd.
+"""Adwaita-Lite login greeter for greetd.
 
 GTK4 greeter communicating with greetd via its IPC protocol.
 Runs inside cage (Wayland kiosk compositor) launched by greetd.
@@ -57,10 +57,10 @@ import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gdk, GLib, Gtk, Pango  # noqa: E402
 
-APP_ID = "org.universallite.Greeter"
+APP_ID = "org.adwaitabluelite.Greeter"
 
-LAST_USER_PATH = Path("/var/lib/universal-lite/last-user")
-GREETER_CONFIG_PATH = Path("/etc/universal-lite/greeter.json")
+LAST_USER_PATH = Path("/var/lib/adwaita-lite/last-user")
+GREETER_CONFIG_PATH = Path("/etc/adwaita-lite/greeter.json")
 SESSIONS_DIR = Path("/usr/share/wayland-sessions")
 
 # ---------------------------------------------------------------------------
@@ -334,9 +334,9 @@ class GreeterWindow(Gtk.ApplicationWindow):
 
         self._sessions = _discover_sessions()
         self._selected_session = 0
-        # Pick Universal-Lite as default
+        # Pick Adwaita-Lite as default
         for i, (name, _) in enumerate(self._sessions):
-            if "Universal-Lite" in name:
+            if "Adwaita-Lite" in name:
                 self._selected_session = i
                 break
 
@@ -679,7 +679,7 @@ class GreeterApp(Gtk.Application):
 
 def main() -> None:
     if "GREETD_SOCK" not in os.environ:
-        sys.exit("universal-lite-greeter: GREETD_SOCK not set. Must be launched by greetd.")
+        sys.exit("adwaita-lite-greeter: GREETD_SOCK not set. Must be launched by greetd.")
     theme = _load_theme()
     css = _build_css(PALETTES[theme])
     app = GreeterApp(css)
@@ -692,13 +692,13 @@ if __name__ == "__main__":
 
 - [ ] **Step 2: Verify syntax**
 
-Run: `python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-greeter').read()); print('OK')"`
+Run: `python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-greeter').read()); print('OK')"`
 Expected: `OK`
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-greeter
+git add files/usr/bin/adwaita-lite-greeter
 git commit -m "feat: custom GTK4 greeter for greetd
 
 Adwaita-themed, ChromeOS-inspired login screen:
@@ -706,7 +706,7 @@ Adwaita-themed, ChromeOS-inspired login screen:
 - Single-user optimised: last username pre-filled
 - Password-only view with 'Not user?' to switch
 - Gear icon reveals session selector
-- Light/dark theme via /etc/universal-lite/greeter.json
+- Light/dark theme via /etc/adwaita-lite/greeter.json
 - greetd IPC over Unix socket with proper error handling"
 ```
 
@@ -715,16 +715,16 @@ Adwaita-themed, ChromeOS-inspired login screen:
 ### Task 2: Update greeter-setup to launch the new greeter
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-greeter-setup`
+- Modify: `files/usr/libexec/adwaita-lite-greeter-setup`
 
-- [ ] **Step 1: Replace gtkgreet command with universal-lite-greeter**
+- [ ] **Step 1: Replace gtkgreet command with adwaita-lite-greeter**
 
 Change the `cat > "$CONFIG"` block. Full new file contents:
 
 ```bash
 #!/bin/bash
 # Ensure greetd config always points to the normal login greeter.
-# First-boot wizard is handled by universal-lite-first-boot.service.
+# First-boot wizard is handled by adwaita-lite-first-boot.service.
 
 set -euo pipefail
 
@@ -735,7 +735,7 @@ cat > "$CONFIG" <<EOF
 vt = 7
 
 [default_session]
-command = "env WLR_NO_HARDWARE_CURSORS=1 cage -s -- /usr/bin/universal-lite-greeter"
+command = "env WLR_NO_HARDWARE_CURSORS=1 cage -s -- /usr/bin/adwaita-lite-greeter"
 user = "greetd"
 EOF
 ```
@@ -743,7 +743,7 @@ EOF
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-greeter-setup
+git add files/usr/libexec/adwaita-lite-greeter-setup
 git commit -m "refactor: greeter-setup launches GTK4 greeter instead of gtkgreet"
 ```
 
@@ -760,25 +760,25 @@ Delete the line `    gtkgreet \` from the `dnf5 install` block (currently line 6
 
 - [ ] **Step 2: Add new greeter to chmod block**
 
-Add `    /usr/bin/universal-lite-greeter \` to the `chmod 0755` block, after the existing `universal-lite-setup-wizard` line.
+Add `    /usr/bin/adwaita-lite-greeter \` to the `chmod 0755` block, after the existing `adwaita-lite-setup-wizard` line.
 
 The chmod block should look like:
 
 ```bash
 chmod 0755 \
     /etc/xdg/labwc/autostart \
-    /usr/bin/universal-lite-settings \
-    /usr/bin/universal-lite-setup-wizard \
-    /usr/bin/universal-lite-greeter \
-    /usr/libexec/universal-lite-apply-settings \
-    /usr/libexec/universal-lite-encrypted-swap \
-    /usr/libexec/universal-lite-flatpak-setup \
-    /usr/libexec/universal-lite-swap-init \
-    /usr/libexec/universal-lite-greeter-setup \
-    /usr/libexec/universal-lite-session \
-    /usr/libexec/universal-lite-volume \
-    /usr/libexec/universal-lite-brightness \
-    /usr/bin/universal-lite-power-menu
+    /usr/bin/adwaita-lite-settings \
+    /usr/bin/adwaita-lite-setup-wizard \
+    /usr/bin/adwaita-lite-greeter \
+    /usr/libexec/adwaita-lite-apply-settings \
+    /usr/libexec/adwaita-lite-encrypted-swap \
+    /usr/libexec/adwaita-lite-flatpak-setup \
+    /usr/libexec/adwaita-lite-swap-init \
+    /usr/libexec/adwaita-lite-greeter-setup \
+    /usr/libexec/adwaita-lite-session \
+    /usr/libexec/adwaita-lite-volume \
+    /usr/libexec/adwaita-lite-brightness \
+    /usr/bin/adwaita-lite-power-menu
 ```
 
 - [ ] **Step 3: Commit**
@@ -818,7 +818,7 @@ Write to `files/etc/greetd/config.toml`:
 vt = 7
 
 [default_session]
-command = "env WLR_NO_HARDWARE_CURSORS=1 cage -s -- /usr/bin/universal-lite-greeter"
+command = "env WLR_NO_HARDWARE_CURSORS=1 cage -s -- /usr/bin/adwaita-lite-greeter"
 user = "greetd"
 ```
 
@@ -836,7 +836,7 @@ git commit -m "chore: remove gtkgreet.css, update static config.toml fallback"
 - [ ] **Step 1: Verify Python syntax**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-greeter').read()); print('OK')"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-greeter').read()); print('OK')"
 ```
 
 - [ ] **Step 2: Verify no orphaned gtkgreet references**

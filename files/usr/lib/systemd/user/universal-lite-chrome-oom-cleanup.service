@@ -1,6 +1,0 @@
-[Unit]
-Description=Clean up remaining Chrome Flatpak scopes after OOM
-
-[Service]
-Type=oneshot
-ExecStart=/usr/libexec/universal-lite-chrome-oom-cleanup

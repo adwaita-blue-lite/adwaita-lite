@@ -5,7 +5,7 @@ import importlib.util
 from pathlib import Path
 
 
-_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/bin/universal-lite-setup-wizard"
+_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/bin/adwaita-lite-setup-wizard"
 _loader = importlib.machinery.SourceFileLoader("setup_wizard_wifi", str(_SCRIPT))
 _spec = importlib.util.spec_from_loader("setup_wizard_wifi", _loader, origin=str(_SCRIPT))
 setup_wizard = importlib.util.module_from_spec(_spec)

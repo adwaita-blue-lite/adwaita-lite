@@ -1,0 +1,1 @@
+%wheel ALL=(root) NOPASSWD: /usr/libexec/adwaita-lite-app-setup-helper install, /usr/libexec/adwaita-lite-app-setup-helper skip, /usr/libexec/adwaita-lite-app-setup-helper status, /usr/libexec/adwaita-lite-app-setup-helper count

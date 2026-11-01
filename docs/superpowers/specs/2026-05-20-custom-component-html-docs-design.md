@@ -2,13 +2,13 @@
 
 ## Context
 
-Universal-Lite has substantial custom UI code across the setup wizard, settings app, app menu, greeter, and shared theming layer. Existing documentation is useful but uneven for future contributors and agents:
+Adwaita-Lite has substantial custom UI code across the setup wizard, settings app, app menu, greeter, and shared theming layer. Existing documentation is useful but uneven for future contributors and agents:
 
 - `README.md` is a user-facing project overview.
 - `docs/superpowers/specs/2026-04-20-settings-adwaita-reference.md` is the closest thing to a component pattern library, but it is specific to the settings app's libadwaita migration.
 - There are no existing `.html` documentation pages.
-- The largest bespoke UI surface is `files/usr/bin/universal-lite-setup-wizard` at roughly 4.7k lines.
-- Other custom UI surfaces include `universal-lite-app-menu`, `universal-lite-greeter`, settings pages such as `appearance`, `panel`, `keyboard`, `display`, and `network`, plus shared palette/CSS behavior.
+- The largest bespoke UI surface is `files/usr/bin/adwaita-lite-setup-wizard` at roughly 4.7k lines.
+- Other custom UI surfaces include `adwaita-lite-app-menu`, `adwaita-lite-greeter`, settings pages such as `appearance`, `panel`, `keyboard`, `display`, and `network`, plus shared palette/CSS behavior.
 
 The goal is to document custom components for future contributors and agents, not end users. HTML is preferred over Markdown because each component area can use whichever presentation best communicates its structure: flow diagrams, annotated layouts, state tables, styling maps, or dense source-linked cards.
 
@@ -16,7 +16,7 @@ Visual quality and information density are first-class requirements. These pages
 
 ## Goal
 
-Create contributor/agent-oriented static HTML documentation for Universal-Lite custom components. The work should proceed area-first, starting with the setup wizard, but the implementation is not complete until all known custom component areas have HTML documentation.
+Create contributor/agent-oriented static HTML documentation for Adwaita-Lite custom components. The work should proceed area-first, starting with the setup wizard, but the implementation is not complete until all known custom component areas have HTML documentation.
 
 The setup wizard page should prove the documentation format early. The same implementation effort should then continue through the remaining custom UI areas so the final result is a complete component documentation set, not just a starter index.
 
@@ -33,7 +33,7 @@ The setup wizard page should prove the documentation format early. The same impl
 
 Use an area-first, template-light rollout.
 
-Start with `universal-lite-setup-wizard` because it has the highest concentration of bespoke UI: multi-page flow, card layout, custom dark CSS, language and keyboard selection, network rows, disk and memory-management controls, app rows, confirmation, progress, log display, install state, validation, and skip behavior.
+Start with `adwaita-lite-setup-wizard` because it has the highest concentration of bespoke UI: multi-page flow, card layout, custom dark CSS, language and keyboard selection, network rows, disk and memory-management controls, app rows, confirmation, progress, log display, install state, validation, and skip behavior.
 
 The setup wizard doc should establish only minimal shared conventions. Future pages should not be forced into the wizard's layout; each HTML page should be shaped around the component being documented.
 
@@ -62,11 +62,11 @@ docs/components/theme-system.html
 
 ## Setup Wizard Page Content
 
-The setup wizard doc should help a contributor or agent safely locate and edit wizard UI without rereading all of `universal-lite-setup-wizard` first.
+The setup wizard doc should help a contributor or agent safely locate and edit wizard UI without rereading all of `adwaita-lite-setup-wizard` first.
 
 It should include:
 
-- Source reference: `files/usr/bin/universal-lite-setup-wizard`.
+- Source reference: `files/usr/bin/adwaita-lite-setup-wizard`.
 - Purpose: USB installer wizard launched in the live environment when no user accounts exist.
 - Flow map: language, network, disk, account, system setup, apps, summary/confirmation, progress.
 - Component map: card shell, step indicator, status label, navigation buttons, form entries, dark list rows, Wi-Fi rows, keyboard panel, disk/memory controls, app rows, confirmation acknowledgement, progress controls, details/log view.
@@ -131,7 +131,7 @@ Verification should include:
 - Confirm `docs/components/index.html` links to every component page.
 - Confirm every component page links back to `index.html`.
 - Confirm referenced source paths exist.
-- Confirm the setup wizard page covers the major page builders and CSS classes currently present in `universal-lite-setup-wizard`.
+- Confirm the setup wizard page covers the major page builders and CSS classes currently present in `adwaita-lite-setup-wizard`.
 - Confirm the app menu, greeter, settings, and theme-system pages cover their major custom component surfaces at a comparable source-navigation level.
 - Confirm each page uses an HTML structure that improves scan speed or visual understanding for that component area, rather than merely wrapping Markdown-like prose in HTML.
 - If an existing HTML checker is available, use it. Do not introduce a new dependency solely for this first documentation pass.

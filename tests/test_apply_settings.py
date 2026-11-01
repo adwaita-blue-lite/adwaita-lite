@@ -1,4 +1,4 @@
-"""Tests for waybar-related functions in universal-lite-apply-settings."""
+"""Tests for waybar-related functions in adwaita-lite-apply-settings."""
 
 import importlib.machinery
 import importlib.util
@@ -15,7 +15,7 @@ from unittest.mock import patch
 import pytest
 
 # Import the apply-settings script as a module (no .py extension).
-_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/libexec/universal-lite-apply-settings"
+_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/libexec/adwaita-lite-apply-settings"
 _loader = importlib.machinery.SourceFileLoader("apply_settings", str(_SCRIPT))
 _spec = importlib.util.spec_from_loader("apply_settings", _loader, origin=str(_SCRIPT))
 apply_settings = importlib.util.module_from_spec(_spec)
@@ -124,7 +124,7 @@ def _make_settings(**overrides):
         "theme": "light",
         "accent": "blue",
         "scale": 1.0,
-        "wallpaper": "/usr/share/backgrounds/universal-lite/chrome-dawn.svg",
+        "wallpaper": "/usr/share/backgrounds/adwaita-lite/chrome-dawn.svg",
         "layout": {
             "start": ["custom/launcher"],
             "center": ["wlr/taskbar"],
@@ -490,45 +490,45 @@ def test_write_gtk_settings_resets_window_button_layout_for_chrome(
 
 def test_session_startup_uses_config_then_autostart_uses_live_mode():
     root = Path(__file__).resolve().parents[1]
-    session = (root / "files/usr/libexec/universal-lite-session").read_text(
+    session = (root / "files/usr/libexec/adwaita-lite-session").read_text(
         encoding="utf-8"
     )
     autostart = (root / "files/etc/xdg/labwc/autostart").read_text(
         encoding="utf-8"
     )
 
-    assert "universal-lite-apply-settings --mode=config" in session
-    assert "universal-lite-apply-settings --mode=live" in autostart
+    assert "adwaita-lite-apply-settings --mode=config" in session
+    assert "adwaita-lite-apply-settings --mode=live" in autostart
 
 
 def test_session_exports_app_menu_settings_snapshot_after_config_apply():
     root = Path(__file__).resolve().parents[1]
-    session = (root / "files/usr/libexec/universal-lite-session").read_text(
+    session = (root / "files/usr/libexec/adwaita-lite-session").read_text(
         encoding="utf-8"
     )
 
-    config_idx = session.index("universal-lite-apply-settings --mode=config")
+    config_idx = session.index("adwaita-lite-apply-settings --mode=config")
     snapshot_path_idx = session.index(
-        '_session_settings="${XDG_RUNTIME_DIR:-/run/user/$UID}/universal-lite/session-settings.json"'
+        '_session_settings="${XDG_RUNTIME_DIR:-/run/user/$UID}/adwaita-lite/session-settings.json"'
     )
     copy_idx = session.index('cp "$_settings_file" "$_session_settings"')
-    export_idx = session.index("export UNIVERSAL_LITE_SESSION_SETTINGS")
+    export_idx = session.index("export ADWAITA_LITE_SESSION_SETTINGS")
     exec_idx = session.index("exec labwc")
 
     assert config_idx < snapshot_path_idx < copy_idx < export_idx < exec_idx
-    assert '_settings_file="$HOME/.config/universal-lite/settings.json"' in session
+    assert '_settings_file="$HOME/.config/adwaita-lite/settings.json"' in session
     assert 'mkdir -p "$_session_settings_dir"' in session
-    assert 'UNIVERSAL_LITE_SESSION_SETTINGS="$_session_settings"' in session
+    assert 'ADWAITA_LITE_SESSION_SETTINGS="$_session_settings"' in session
 
 
 def test_session_invalidates_stale_app_menu_settings_snapshot_before_refresh():
     root = Path(__file__).resolve().parents[1]
-    session = (root / "files/usr/libexec/universal-lite-session").read_text(
+    session = (root / "files/usr/libexec/adwaita-lite-session").read_text(
         encoding="utf-8"
     )
 
     snapshot_path_idx = session.index(
-        '_session_settings="${XDG_RUNTIME_DIR:-/run/user/$UID}/universal-lite/session-settings.json"'
+        '_session_settings="${XDG_RUNTIME_DIR:-/run/user/$UID}/adwaita-lite/session-settings.json"'
     )
     invalidate_idx = session.index('rm -f "$_session_settings"')
     exists_idx = session.index('[ -f "$_settings_file" ]')
@@ -539,7 +539,7 @@ def test_session_invalidates_stale_app_menu_settings_snapshot_before_refresh():
 
 def test_session_renderer_policy_is_conditional_not_global_gl():
     root = Path(__file__).resolve().parents[1]
-    session = (root / "files/usr/libexec/universal-lite-session").read_text(
+    session = (root / "files/usr/libexec/adwaita-lite-session").read_text(
         encoding="utf-8"
     )
 
@@ -551,7 +551,7 @@ def test_session_renderer_policy_is_conditional_not_global_gl():
 
 def test_session_makes_libadwaita_use_gsettings_for_color_scheme():
     root = Path(__file__).resolve().parents[1]
-    session = (root / "files/usr/libexec/universal-lite-session").read_text(
+    session = (root / "files/usr/libexec/adwaita-lite-session").read_text(
         encoding="utf-8"
     )
     autostart = (root / "files/etc/xdg/labwc/autostart").read_text(
@@ -575,7 +575,7 @@ def test_system_labwc_rc_includes_generated_input_defaults():
 def test_wizard_session_forces_gl_renderer_even_when_vulkan_probe_succeeds():
     root = Path(__file__).resolve().parents[1]
     wizard_session = (
-        root / "files/usr/libexec/universal-lite-wizard-session"
+        root / "files/usr/libexec/adwaita-lite-wizard-session"
     ).read_text(encoding="utf-8")
 
     assert "timeout 3s vulkaninfo --summary" not in wizard_session
@@ -920,7 +920,7 @@ class TestSettingsRecovery:
         assert result["night_light_end"] == "06:00"
 
     def test_invalid_wallpaper_falls_back_to_bundled_background(self, tmp_path):
-        bundled = tmp_path / "backgrounds/universal-lite"
+        bundled = tmp_path / "backgrounds/adwaita-lite"
         bundled.mkdir(parents=True)
         light = bundled / "chrome-dawn.svg"
         dark = bundled / "chrome-sky.svg"
@@ -939,7 +939,7 @@ class TestSettingsRecovery:
 
         assert result["wallpaper"] == str(dark)
         written = json.loads((tmp_path / "settings.json").read_text())
-        assert written["wallpaper"] == "universal-lite"
+        assert written["wallpaper"] == "adwaita-lite"
 
 
 class TestWallpaperSwap:
@@ -1010,7 +1010,7 @@ class TestApplyLock:
             handle = apply_settings._open_apply_lock()
             try:
                 assert handle is not None
-                assert (tmp_path / "universal-lite-apply-settings.lock").exists()
+                assert (tmp_path / "adwaita-lite-apply-settings.lock").exists()
             finally:
                 apply_settings._close_apply_lock(handle)
 
@@ -1261,7 +1261,7 @@ class TestHorizontalCss:
         )
         css = apply_settings._waybar_css_horizontal(tokens)
         assert "#image.pin-0" in css
-        assert "universal-lite-pin-launch" not in css
+        assert "adwaita-lite-pin-launch" not in css
 
     def test_pinned_app_css_validation_survives_gtk4_loaded_first(self):
         gi = pytest.importorskip("gi")
@@ -1481,7 +1481,7 @@ class TestHighContrastShellConfigs:
         settings_file = tmp_path / "settings.json"
         settings_file.write_text(json.dumps(_make_settings(
             high_contrast=True,
-            wallpaper="universal-lite",
+            wallpaper="adwaita-lite",
         )))
         light = tmp_path / "light.svg"
         dark = tmp_path / "dark.svg"
@@ -1489,7 +1489,7 @@ class TestHighContrastShellConfigs:
         dark.write_text("<svg/>")
 
         def fake_resolve(value, theme):
-            assert value == "universal-lite"
+            assert value == "adwaita-lite"
             return str(dark if theme == "dark" else light)
 
         monkeypatch.setattr(apply_settings, "_resolve_wallpaper", fake_resolve)

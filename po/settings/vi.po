@@ -1,11 +1,11 @@
-# Vietnamese translations for universal-lite-settings package.
-# Copyright (C) 2026 THE universal-lite-settings'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the universal-lite-settings package.
+# Vietnamese translations for adwaita-lite-settings package.
+# Copyright (C) 2026 THE adwaita-lite-settings'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the adwaita-lite-settings package.
 # Automatically generated, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: universal-lite-settings\n"
+"Project-Id-Version: adwaita-lite-settings\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-02 12:03-0400\n"
 "PO-Revision-Date: 2026-04-05 13:06-0400\n"
@@ -17,1429 +17,1429 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../files/usr/bin/universal-lite-greeter:413
+#: ../files/usr/bin/adwaita-lite-greeter:413
 msgid "Login"
 msgstr "Đăng nhập"
 
-#: ../files/usr/bin/universal-lite-greeter:471
+#: ../files/usr/bin/adwaita-lite-greeter:471
 msgid "Session"
 msgstr "Phiên"
 
-#: ../files/usr/bin/universal-lite-greeter:497
+#: ../files/usr/bin/adwaita-lite-greeter:497
 msgid "Username"
 msgstr "Tên người dùng"
 
-#: ../files/usr/bin/universal-lite-greeter:506
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:68
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:439
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:507
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:107
+#: ../files/usr/bin/adwaita-lite-greeter:506
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:68
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:439
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:507
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:107
 msgid "Password"
 msgstr "Mật khẩu"
 
-#: ../files/usr/bin/universal-lite-greeter:568
+#: ../files/usr/bin/adwaita-lite-greeter:568
 #, python-brace-format
 msgid "Welcome back, {username}"
 msgstr "Chào mừng trở lại, {username}"
 
-#: ../files/usr/bin/universal-lite-greeter:574
+#: ../files/usr/bin/adwaita-lite-greeter:574
 msgid "Log In"
 msgstr "Đăng nhập"
 
-#: ../files/usr/bin/universal-lite-greeter:575
+#: ../files/usr/bin/adwaita-lite-greeter:575
 #, python-brace-format
 msgid "Not {username}?"
 msgstr "Không phải {username}?"
 
-#: ../files/usr/bin/universal-lite-greeter:591
+#: ../files/usr/bin/adwaita-lite-greeter:591
 msgid "Log in"
 msgstr "Đăng nhập"
 
-#: ../files/usr/bin/universal-lite-greeter:597
+#: ../files/usr/bin/adwaita-lite-greeter:597
 msgid "Next"
 msgstr "Tiếp theo"
 
-#: ../files/usr/bin/universal-lite-greeter:610
-#: ../files/usr/bin/universal-lite-greeter:625
-#: ../files/usr/bin/universal-lite-greeter:674
+#: ../files/usr/bin/adwaita-lite-greeter:610
+#: ../files/usr/bin/adwaita-lite-greeter:625
+#: ../files/usr/bin/adwaita-lite-greeter:674
 #, python-brace-format
 msgid "Connection error: {exc}"
 msgstr "Lỗi kết nối: {exc}"
 
-#: ../files/usr/bin/universal-lite-greeter:634
-#: ../files/usr/bin/universal-lite-greeter:639
+#: ../files/usr/bin/adwaita-lite-greeter:634
+#: ../files/usr/bin/adwaita-lite-greeter:639
 msgid "Authentication error"
 msgstr "Lỗi xác thực"
 
-#: ../files/usr/bin/universal-lite-greeter:649
+#: ../files/usr/bin/adwaita-lite-greeter:649
 msgid "Unknown error"
 msgstr "Lỗi không xác định"
 
-#: ../files/usr/bin/universal-lite-greeter:658
+#: ../files/usr/bin/adwaita-lite-greeter:658
 msgid "Enter a username."
 msgstr "Nhập tên người dùng."
 
-#: ../files/usr/bin/universal-lite-greeter:666
+#: ../files/usr/bin/adwaita-lite-greeter:666
 msgid "Enter your password."
 msgstr "Nhập mật khẩu của bạn."
 
-#: ../files/usr/bin/universal-lite-greeter:685
+#: ../files/usr/bin/adwaita-lite-greeter:685
 msgid "Authentication failed"
 msgstr "Xác thực thất bại"
 
-#: ../files/usr/bin/universal-lite-greeter:696
+#: ../files/usr/bin/adwaita-lite-greeter:696
 msgid "Unexpected authentication response."
 msgstr "Phản hồi xác thực không mong đợi."
 
-#: ../files/usr/bin/universal-lite-greeter:700
+#: ../files/usr/bin/adwaita-lite-greeter:700
 msgid "Multi-step auth not supported."
 msgstr "Không hỗ trợ xác thực nhiều bước."
 
-#: ../files/usr/bin/universal-lite-greeter:705
+#: ../files/usr/bin/adwaita-lite-greeter:705
 msgid "Incorrect password."
 msgstr "Sai mật khẩu."
 
-#: ../files/usr/bin/universal-lite-greeter:707
+#: ../files/usr/bin/adwaita-lite-greeter:707
 msgid "Login failed."
 msgstr "Đăng nhập thất bại."
 
-#: ../files/usr/bin/universal-lite-greeter:710
+#: ../files/usr/bin/adwaita-lite-greeter:710
 msgid "Unexpected response from login service."
 msgstr "Phản hồi không mong đợi từ dịch vụ đăng nhập."
 
-#: ../files/usr/bin/universal-lite-greeter:719
+#: ../files/usr/bin/adwaita-lite-greeter:719
 #, python-brace-format
 msgid "Failed to start session: {exc}"
 msgstr "Không thể khởi động phiên: {exc}"
 
-#: ../files/usr/bin/universal-lite-greeter:727
+#: ../files/usr/bin/adwaita-lite-greeter:727
 msgid "Failed to start session."
 msgstr "Không thể khởi động phiên."
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:186
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:187
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:188
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:186
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:187
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:188
 msgid "N/A"
 msgstr "N/A"
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:219
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:219
 msgid "Unsupported WiFi security"
 msgstr "Bảo mật WiFi không được hỗ trợ"
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:224
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:462
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:553
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:252
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:224
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:462
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:553
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:252
 msgid "Password cannot be empty"
 msgstr "Mật khẩu không được để trống"
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:262
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:274
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:262
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:274
 msgid "Wrong password."
 msgstr "Sai mật khẩu."
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:264
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:276
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:264
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:276
 msgid "Could not connect to network"
 msgstr "Không thể kết nối với mạng"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:355
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:355
 #, python-brace-format
 msgid "Could not save settings: {reason}"
 msgstr "Không thể lưu cài đặt: {reason}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:385
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:385
 #, python-brace-format
 msgid "Panel changes saved, but panel files could not be updated: {detail}"
 msgstr ""
 "Đã lưu các thay đổi bảng điều khiển, nhưng không thể cập nhật tệp bảng điều "
 "khiển: {detail}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:393
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:393
 msgid "Panel changes saved. Restart your session to apply them."
 msgstr ""
 "Đã lưu các thay đổi bảng điều khiển. Khởi động lại phiên của bạn để áp dụng "
 "chúng."
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:441
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:441
 #, python-brace-format
 msgid "Failed to apply settings: {detail}"
 msgstr "Áp dụng cài đặt thất bại: {detail}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:472
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:472
 msgid "Settings applied"
 msgstr "Đã áp dụng cài đặt"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:474
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:474
 #, python-brace-format
 msgid "Apply timed out after {n}s"
 msgstr "Hết thời gian chờ áp dụng sau {n}s"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:479
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:479
 #, python-brace-format
 msgid "Failed to apply: {err}"
 msgstr "Áp dụng thất bại: {err}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:481
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:481
 msgid "Failed to apply settings"
 msgstr "Áp dụng cài đặt thất bại"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:50
-#: ../files/usr/lib/universal-lite/settings/window.py:81
-#: ../files/usr/lib/universal-lite/settings/window.py:127
+#: ../files/usr/lib/adwaita-lite/settings/window.py:50
+#: ../files/usr/lib/adwaita-lite/settings/window.py:81
+#: ../files/usr/lib/adwaita-lite/settings/window.py:127
 msgid "Settings"
 msgstr "Cài đặt"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:93
+#: ../files/usr/lib/adwaita-lite/settings/window.py:93
 msgid "Search settings"
 msgstr "Tìm kiếm cài đặt"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:97
+#: ../files/usr/lib/adwaita-lite/settings/window.py:97
 msgid "Search settings…"
 msgstr "Tìm kiếm cài đặt…"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:113
+#: ../files/usr/lib/adwaita-lite/settings/window.py:113
 msgid "Restart your session to apply panel and start menu changes."
 msgstr "Khởi động lại phiên để áp dụng các thay đổi cho bảng điều khiển và menu bắt đầu."
 
-#: ../files/usr/lib/universal-lite/settings/window.py:115
-#: ../files/usr/lib/universal-lite/settings/window.py:229
+#: ../files/usr/lib/adwaita-lite/settings/window.py:115
+#: ../files/usr/lib/adwaita-lite/settings/window.py:229
 msgid "Restart Session"
 msgstr "Khởi động lại phiên"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:225
+#: ../files/usr/lib/adwaita-lite/settings/window.py:225
 msgid "Restart Session?"
 msgstr "Khởi động lại phiên?"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:226
+#: ../files/usr/lib/adwaita-lite/settings/window.py:226
 msgid "This will close your apps and return you to the sign-in screen."
 msgstr "Thao tác này sẽ đóng ứng dụng của bạn và đưa bạn về màn hình đăng nhập."
 
-#: ../files/usr/lib/universal-lite/settings/window.py:228
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:797
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:867
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:905
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:407
+#: ../files/usr/lib/adwaita-lite/settings/window.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:797
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:867
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:905
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:407
 msgid "Cancel"
 msgstr "Hủy"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:251
+#: ../files/usr/lib/adwaita-lite/settings/window.py:251
 #, python-brace-format
 msgid "Could not restart session: {detail}"
 msgstr "Không thể khởi động lại phiên: {detail}"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:298
+#: ../files/usr/lib/adwaita-lite/settings/window.py:298
 #, python-brace-format
 msgid "Failed to load {label}"
 msgstr "Không thể tải {label}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:26
 msgid "Appearance"
 msgstr "Diện mạo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:27
 msgid "Display"
 msgstr "Màn hình"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:28
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:67
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:100
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:602
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:67
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:100
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:602
 msgid "Network"
 msgstr "Mạng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:40
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:40
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:115
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:115
 msgid "Panel"
 msgstr "Bảng điều khiển"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:31
 msgid "Mouse & Touchpad"
 msgstr "Chuột và bàn di chuột"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:32
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:339
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:339
 msgid "Keyboard"
 msgstr "Bàn phím"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:33
 msgid "Sound"
 msgstr "Âm thanh"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:34
 msgid "Power & Lock"
 msgstr "Nguồn và khóa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:35
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:27
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:28
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:35
 msgid "Accessibility"
 msgstr "Trợ năng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:36
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:31
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:32
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:37
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:36
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:37
 msgid "Date & Time"
 msgstr "Ngày và giờ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:37
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:43
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:132
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:37
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:43
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:132
 msgid "Users"
 msgstr "Người dùng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:38
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:23
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:24
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:25
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:64
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:38
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:64
 msgid "Language & Region"
 msgstr "Ngôn ngữ và vùng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:39
 msgid "Default Apps"
 msgstr "Ứng dụng mặc định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:40
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:87
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:88
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:108
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:117
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:40
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:87
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:88
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:108
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:117
 msgid "About"
 msgstr "Giới thiệu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:191
 msgid "Operating System"
 msgstr "Hệ điều hành"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:192
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:192
 msgid "Hostname"
 msgstr "Tên máy chủ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:193
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:193
 msgid "Processor"
 msgstr "Bộ xử lý"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:194
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:194
 msgid "Memory"
 msgstr "Bộ nhớ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:196
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:196
 msgid "Disk"
 msgstr "Ổ đĩa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:198
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:198
 msgid "Desktop"
 msgstr "Màn hình nền"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:197
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:197
 msgid "Graphics"
 msgstr "Đồ họa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
 msgid "GPU"
 msgstr "GPU"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:87
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:221
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:87
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:221
 msgid "Updates"
 msgstr "Cập nhật"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:88
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:252
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:344
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:88
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:252
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:344
 msgid "Restore Defaults"
 msgstr "Khôi phục mặc định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:133
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:140
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:146
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:151
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:171
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:594
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:133
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:140
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:146
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:151
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:171
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:594
 msgid "Unknown"
 msgstr "Không xác định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:165
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:165
 #, python-brace-format
 msgid "{used:.1f} GB used of {total:.1f} GB"
 msgstr "Đã dùng {used:.1f} GB trong tổng số {total:.1f} GB"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:224
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:224
 msgid "Status"
 msgstr "Trạng thái"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:225
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:225
 msgid "Click to check for updates"
 msgstr "Nhấp để kiểm tra cập nhật"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:229
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:229
 msgid "Check for Updates"
 msgstr "Kiểm tra cập nhật"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:234
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:234
 msgid "Update now..."
 msgstr "Cập nhật ngay..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:249
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:249
 msgid "Troubleshooting"
 msgstr "Khắc phục sự cố"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:253
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:253
 msgid "Reset settings to factory defaults"
 msgstr "Đặt lại cài đặt về mặc định gốc"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:271
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:175
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:271
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:175
 msgid "Checking..."
 msgstr "Đang kiểm tra..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:280
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:280
 msgid "Update check timed out"
 msgstr "Hết thời gian chờ kiểm tra cập nhật"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:283
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:283
 msgid "Update system not available"
 msgstr "Hệ thống cập nhật không khả dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:286
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:286
 msgid "Update check failed"
 msgstr "Kiểm tra cập nhật thất bại"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:289
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:289
 msgid "Update available"
 msgstr "Đã có bản cập nhật"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:292
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:292
 msgid "System is up to date"
 msgstr "Hệ thống đã được cập nhật"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:295
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:295
 msgid "Could not check for updates"
 msgstr "Không thể kiểm tra cập nhật"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:326
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:326
 msgid "Terminal not available"
 msgstr "Cửa sổ dòng lệnh không khả dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:356
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:356
 msgid "Select which settings to reset to factory defaults."
 msgstr "Chọn cài đặt nào để đặt lại về mặc định gốc."
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:363
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:363
 msgid "Categories"
 msgstr "Danh mục"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:366
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:366
 msgid "Select All"
 msgstr "Chọn tất cả"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:406
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:406
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:228
 msgid "Reset"
 msgstr "Đặt lại"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:439
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:439
 msgid "Could not read defaults file"
 msgstr "Không thể đọc tệp mặc định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:467
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:467
 msgid "Could not reset keyboard shortcuts"
 msgstr "Không thể đặt lại phím tắt bàn phím"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:472
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:472
 msgid "Could not remove a custom wallpaper"
 msgstr "Could not remove a custom wallpaper"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:12
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:12
 msgid "Default (24px)"
 msgstr "Mặc định (24px)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:13
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:13
 msgid "Large (32px)"
 msgstr "Lớn (32px)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:14
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:14
 msgid "Larger (48px)"
 msgstr "Lớn hơn (48px)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:27
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:39
 msgid "Large text"
 msgstr "Chữ lớn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:28
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:64
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:64
 msgid "Cursor size"
 msgstr "Kích thước con trỏ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:81
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:81
 msgid "High contrast"
 msgstr "Độ tương phản cao"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:93
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:93
 msgid "Reduce motion"
 msgstr "Giảm chuyển động"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:40
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:40
 msgid "Increases font size for better readability"
 msgstr "Tăng cỡ chữ để dễ đọc hơn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:82
 msgid "Forces dark theme with stronger borders"
 msgstr "Bắt buộc giao diện tối với đường viền đậm hơn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:94
 msgid "Disables animations throughout the interface"
 msgstr "Tắt hiệu ứng chuyển động trong toàn bộ giao diện"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:48
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:48
 msgid "Blue"
 msgstr "Xanh dương"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:49
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:49
 msgid "Teal"
 msgstr "Xanh mòng két"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:50
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:50
 msgid "Green"
 msgstr "Xanh lá"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:51
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:51
 msgid "Yellow"
 msgstr "Vàng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:52
 msgid "Orange"
 msgstr "Cam"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:53
 msgid "Red"
 msgstr "Đỏ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:54
 msgid "Pink"
 msgstr "Hồng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:55
 msgid "Purple"
 msgstr "Tím"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:56
 msgid "Slate"
 msgstr "Xám đá"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:204
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:62
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:204
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:62
 msgid "Panel changes apply after you restart your session."
 msgstr ""
 "Các thay đổi bảng điều khiển sẽ áp dụng sau khi bạn khởi động lại phiên."
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:226
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:235
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:235
 msgid "Theme"
 msgstr "Chủ đề"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:226
 msgid "Light"
 msgstr "Sáng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:226
 msgid "Dark"
 msgstr "Tối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:227
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:267
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:227
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:267
 msgid "Accent color"
 msgstr "Màu nhấn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:227
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:227
 msgid "Color"
 msgstr "Màu sắc"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:228
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:347
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:354
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:347
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:354
 msgid "Font size"
 msgstr "Cỡ chữ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:228
 msgid "Font"
 msgstr "Phông chữ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:229
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:378
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:229
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:378
 msgid "Wallpaper"
 msgstr "Hình nền"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:229
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:229
 msgid "Background"
 msgstr "Nền"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:239
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:239
 msgid "Dark mode"
 msgstr "Chế độ tối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:258
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:258
 msgid "Theme is set to Dark by High Contrast mode"
 msgstr "Chủ đề được đặt thành Tối bởi chế độ tương phản cao"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
 msgid "Small"
 msgstr "Nhỏ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:30
 msgid "Default"
 msgstr "Mặc định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
 msgid "Large"
 msgstr "Lớn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
 msgid "Larger"
 msgstr "Lớn hơn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:355
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:355
 msgid "Affects all text throughout the interface"
 msgstr "Ảnh hưởng đến toàn bộ chữ trong giao diện"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:404
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:404
 msgid "Wallpaper picker unavailable"
 msgstr "Công cụ chọn hình nền không khả dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:542
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:601
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:542
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:601
 msgid "Remove"
 msgstr "Xóa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:546
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:546
 #, python-brace-format
 msgid "Remove {name}"
 msgstr "Remove {name}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:557
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:563
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:557
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:563
 msgid "Add picture…"
 msgstr "Thêm hình ảnh…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:600
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:600
 msgid "Choose Wallpaper"
 msgstr "Chọn hình nền"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:602
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:602
 msgid "Images"
 msgstr "Hình ảnh"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:645
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:645
 msgid "Picture not found"
 msgstr "Không tìm thấy hình ảnh"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:647
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:647
 msgid "Picture is too large (50 MB limit)"
 msgstr "Hình ảnh quá lớn (giới hạn 50 MB)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:649
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:649
 msgid "Picture format not supported"
 msgstr "Định dạng hình ảnh không được hỗ trợ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:651
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:654
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:651
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:654
 msgid "Could not add wallpaper"
 msgstr "Không thể thêm hình nền"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:228
 msgid "Pair"
 msgstr "Ghép nối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:67
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:67
 msgid "Wireless"
 msgstr "Không dây"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:30
 msgid "Device"
 msgstr "Thiết bị"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:47
 msgid "No Bluetooth adapter found"
 msgstr "Không tìm thấy bộ chuyển đổi Bluetooth"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:52
 msgid "Paired Devices"
 msgstr "Thiết bị đã ghép nối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:53
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:185
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:185
 msgid "No paired devices"
 msgstr "Chưa có thiết bị nào được ghép nối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:58
 msgid "Available Devices"
 msgstr "Thiết bị khả dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:136
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:136
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:191
 msgid "Tap 'Search' to find nearby devices"
 msgstr "Chạm 'Tìm kiếm' để tìm các thiết bị gần đó"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:61
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:134
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:265
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:61
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:134
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:265
 msgid "Search for devices"
 msgstr "Tìm kiếm thiết bị"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:80
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:245
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:183
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:80
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:245
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:183
 msgid "Advanced"
 msgstr "Nâng cao"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:112
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:112
 msgid "Bluetooth manager not available"
 msgstr "Trình quản lý Bluetooth không khả dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:126
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:126
 msgid "Scanning..."
 msgstr "Đang quét..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:127
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:127
 msgid "Scanning for devices..."
 msgstr "Đang quét thiết bị..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:198
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:198
 msgid "Unknown device"
 msgstr "Thiết bị không xác định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:201
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:201
 msgid "Bluetooth device"
 msgstr "Thiết bị Bluetooth"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:211
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:306
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:341
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:627
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:211
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:306
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:341
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:627
 msgid "Connected"
 msgstr "Đã kết nối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:212
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:212
 msgid "Disconnect"
 msgstr "Ngắt kết nối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:217
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:376
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:445
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:514
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:217
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:376
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:445
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:514
 msgid "Connect"
 msgstr "Kết nối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:222
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:370
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:408
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:222
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:370
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:408
 msgid "Forget"
 msgstr "Quên"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:239
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:239
 msgid "Pairing..."
 msgstr "Đang ghép nối..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:244
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:244
 msgid "Paired successfully"
 msgstr "Ghép nối thành công"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:252
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:252
 #, python-brace-format
 msgid "Pairing failed: {message}"
 msgstr "Ghép nối thất bại: {message}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:66
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:66
 msgid "Timezone"
 msgstr "Múi giờ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:74
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:74
 msgid "Automatic time"
 msgstr "Thời gian tự động"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:31
 msgid "NTP"
 msgstr "NTP"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:32
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:91
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:91
 msgid "24-hour clock"
 msgstr "Đồng hồ 24 giờ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:75
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:75
 msgid "Sync clock via network (NTP)"
 msgstr "Đồng bộ đồng hồ qua mạng (NTP)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:92
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:92
 msgid "Use 24-hour time format"
 msgstr "Sử dụng định dạng giờ 24"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:157
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:157
 msgid "Failed to set timezone"
 msgstr "Không thể đặt múi giờ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:161
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:161
 msgid "Invalid timezone"
 msgstr "Múi giờ không hợp lệ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:220
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:220
 msgid "Automatic time change timed out"
 msgstr "Hết thời gian chờ thay đổi thời gian tự động"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:225
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:225
 msgid "Time settings are unavailable on this system"
 msgstr "Cài đặt thời gian không khả dụng trên hệ thống này"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:230
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:235
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:230
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:235
 msgid "Failed to change automatic time"
 msgstr "Không thể thay đổi thời gian tự động"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:18
 msgid "Web Browser"
 msgstr "Trình duyệt web"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:23
 msgid "File Manager"
 msgstr "Trình quản lý tệp"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:24
 msgid "Terminal"
 msgstr "Thiết bị đầu cuối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:25
 msgid "Text Editor"
 msgstr "Trình soạn thảo văn bản"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:26
 msgid "Image Viewer"
 msgstr "Trình xem ảnh"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:32
 msgid "PDF Viewer"
 msgstr "Trình xem PDF"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:33
 msgid "Media Player"
 msgstr "Trình phát đa phương tiện"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:39
 msgid "Email Client"
 msgstr "Ứng dụng email"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:50
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:50
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:54
 msgid "Default Applications"
 msgstr "Ứng dụng mặc định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:83
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:83
 msgid "Could not change default terminal"
 msgstr "Không thể thay đổi terminal mặc định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:107
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:113
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:107
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:113
 msgid "Could not change default app"
 msgstr "Không thể thay đổi ứng dụng mặc định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:16
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:16
 msgid "Sunset to Sunrise"
 msgstr "Hoàng hôn đến bình minh"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:16
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:16
 msgid "Custom"
 msgstr "Tùy chỉnh"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:54
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:55
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:108
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:108
 msgid "Display Scale"
 msgstr "Tỷ lệ màn hình"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:54
 msgid "Scale"
 msgstr "Tỷ lệ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:55
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:56
 msgid "Resolution"
 msgstr "Độ phân giải"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:56
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:57
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:114
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:57
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:114
 msgid "Resolution & Refresh Rate"
 msgstr "Độ phân giải và tần số quét"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:57
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:57
 msgid "Refresh"
 msgstr "Tần số quét"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:58
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:60
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:147
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:151
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:60
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:147
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:151
 msgid "Night Light"
 msgstr "Ánh sáng đêm"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:163
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:163
 msgid "Temperature"
 msgstr "Nhiệt độ màu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:60
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:60
 msgid "Blue light"
 msgstr "Ánh sáng xanh"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:70
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:70
 msgid "No displays detected"
 msgstr "Không phát hiện màn hình nào"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:71
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:71
 msgid "Connect a display and reopen Settings."
 msgstr "Hãy kết nối màn hình và mở lại Cài đặt."
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:92
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:92
 msgid "Display scale"
 msgstr "Tỷ lệ màn hình"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:127
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:127
 msgid "Resolution and refresh rate"
 msgstr "Độ phân giải và tần số quét"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:131
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:131
 msgid "Mode"
 msgstr "Chế độ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:152
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:152
 msgid "Reduce blue light to help with sleep"
 msgstr "Giảm ánh sáng xanh để hỗ trợ giấc ngủ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:164
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:164
 msgid "3500K (warm) to 6500K (cool)"
 msgstr "3500K (ấm) đến 6500K (lạnh)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:177
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:177
 msgid "Night Light temperature"
 msgstr "Night Light temperature"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:191
 msgid "Schedule"
 msgstr "Lịch trình"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:203
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:203
 msgid "Custom schedule"
 msgstr "Lịch trình tùy chỉnh"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:204
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:204
 msgid "Times snap to 15-minute increments"
 msgstr "Thời gian được làm tròn theo bước 15 phút"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:208
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:208
 msgid "Start time"
 msgstr "Giờ bắt đầu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:218
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:218
 msgid "End time"
 msgstr "Giờ kết thúc"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:248
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:248
 msgid "Advanced display settings"
 msgstr "Cài đặt màn hình nâng cao"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:249
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:249
 msgid "Arrange and configure displays visually"
 msgstr "Sắp xếp và cấu hình màn hình trực quan"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:273
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:273
 msgid "Advanced display tool not available"
 msgstr "Công cụ hiển thị nâng cao không khả dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:411
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:411
 #, python-brace-format
 msgid "Failed to set display scale on {output}"
 msgstr "Đặt tỷ lệ hiển thị trên {output} thất bại"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:417
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:417
 msgid "Confirm display scale"
 msgstr "Xác nhận tỷ lệ màn hình"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:420
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:600
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:420
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:600
 msgid "Revert"
 msgstr "Hoàn tác"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:421
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:601
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:421
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:601
 msgid "Keep"
 msgstr "Giữ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:436
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:462
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:436
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:462
 #, python-brace-format
 msgid "Keep this display scale? Reverting in {seconds}s…"
 msgstr "Giữ tỷ lệ màn hình này? Hoàn tác sau {seconds} giây…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:597
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:597
 msgid "Confirm resolution"
 msgstr "Xác nhận độ phân giải"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:612
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:634
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:612
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:634
 #, python-brace-format
 msgid "Keep this resolution? Reverting in {seconds}s…"
 msgstr "Giữ độ phân giải này? Hoàn tác sau {seconds} giây…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:17
 msgid "English (US)"
 msgstr "Tiếng Anh (Mỹ)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:17
 msgid "English (UK)"
 msgstr "Tiếng Anh (Anh)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:17
 msgid "German"
 msgstr "Tiếng Đức"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:18
 msgid "French"
 msgstr "Tiếng Pháp"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:18
 msgid "Spanish"
 msgstr "Tiếng Tây Ban Nha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:18
 msgid "Italian"
 msgstr "Tiếng Ý"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:19
 msgid "Portuguese"
 msgstr "Tiếng Bồ Đào Nha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:20
 msgid "Russian"
 msgstr "Tiếng Nga"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:20
 msgid "Japanese"
 msgstr "Tiếng Nhật"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:20
 msgid "Korean"
 msgstr "Tiếng Hàn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:21
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:21
 msgid "Chinese"
 msgstr "Tiếng Trung"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:22
 msgid "Arabic"
 msgstr "Tiếng Ả Rập"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:22
 msgid "Portuguese (Brazil)"
 msgstr "Tiếng Bồ Đào Nha (Brazil)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:22
 msgid "Canadian"
 msgstr "Canada"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:23
 msgid "Danish"
 msgstr "Tiếng Đan Mạch"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:23
 msgid "Finnish"
 msgstr "Tiếng Phần Lan"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:23
 msgid "Dutch"
 msgstr "Tiếng Hà Lan"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:24
 msgid "Norwegian"
 msgstr "Tiếng Na Uy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:25
 msgid "Polish"
 msgstr "Tiếng Ba Lan"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:25
 msgid "Swedish"
 msgstr "Tiếng Thụy Điển"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:25
 msgid "Swiss"
 msgstr "Thụy Sĩ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:26
 msgid "Turkish"
 msgstr "Tiếng Thổ Nhĩ Kỳ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:27
 msgid "Ukrainian"
 msgstr "Tiếng Ukraina"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:27
 msgid "Indian"
 msgstr "Ấn Độ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:27
 msgid "Hebrew"
 msgstr "Tiếng Hebrew"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:28
 msgid "Thai"
 msgstr "Tiếng Thái"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:29
 msgid "Czech"
 msgstr "Tiếng Séc"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:29
 msgid "Hungarian"
 msgstr "Tiếng Hungary"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:29
 msgid "Romanian"
 msgstr "Tiếng Romania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:30
 msgid "Slovak"
 msgstr "Tiếng Slovak"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:31
 msgid "Croatian"
 msgstr "Tiếng Croatia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:31
 msgid "Slovenian"
 msgstr "Tiếng Slovenia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:31
 msgid "Bulgarian"
 msgstr "Tiếng Bulgaria"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:32
 msgid "Greek"
 msgstr "Tiếng Hy Lạp"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:33
 msgid "Persian"
 msgstr "Tiếng Ba Tư"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:33
 msgid "Amharic"
 msgstr "Tiếng Amharic"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:33
 msgid "Vietnamese"
 msgstr "Tiếng Việt"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:34
 msgid "Swahili (Kenya)"
 msgstr "Tiếng Swahili (Kenya)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:34
 msgid "Swahili (Tanzania)"
 msgstr "Tiếng Swahili (Tanzania)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:35
 msgid "Nigerian"
 msgstr "Nigeria"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:52
 msgid "Open Terminal"
 msgstr "Mở Terminal"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:53
 msgid "Open File Manager"
 msgstr "Mở trình quản lý tệp"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:54
 msgid "App Launcher"
 msgstr "Trình khởi chạy ứng dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:55
 msgid "Open Settings"
 msgstr "Mở Cài đặt"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:56
 msgid "Lock Screen"
 msgstr "Khóa màn hình"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:57
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:57
 msgid "System Monitor"
 msgstr "Trình giám sát hệ thống"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:58
 msgid "Switch Windows"
 msgstr "Chuyển cửa sổ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:59
 msgid "Switch Windows (Reverse)"
 msgstr "Chuyển cửa sổ (ngược)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:60
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:60
 msgid "Close Window"
 msgstr "Đóng cửa sổ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:61
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:61
 msgid "Maximize / Restore"
 msgstr "Phóng to / Khôi phục"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:62
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:62
 msgid "Minimize"
 msgstr "Thu nhỏ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:63
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:63
 msgid "Toggle Fullscreen"
 msgstr "Bật/tắt toàn màn hình"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:64
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:64
 msgid "Snap Left"
 msgstr "Ghép sang trái"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:65
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:65
 msgid "Snap Right"
 msgstr "Ghép sang phải"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:115
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:115
 #, python-brace-format
 msgid "Snap {direction}"
 msgstr "Ghép sang {direction}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:133
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:133
 msgid "Volume Up"
 msgstr "Tăng âm lượng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:135
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:135
 msgid "Volume Down"
 msgstr "Giảm âm lượng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:137
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:91
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:140
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:137
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:91
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:140
 msgid "Mute"
 msgstr "Tắt tiếng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:139
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:139
 msgid "Brightness Up"
 msgstr "Tăng độ sáng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:141
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:141
 msgid "Brightness Down"
 msgstr "Giảm độ sáng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:143
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:143
 msgid "Screenshot (Region)"
 msgstr "Ảnh chụp màn hình (vùng)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:145
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:145
 msgid "Screenshot"
 msgstr "Ảnh chụp màn hình"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:147
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:147
 #, python-brace-format
 msgid "Run: {command}"
 msgstr "Chạy: {command}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:319
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:354
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:319
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:354
 msgid "Layout"
 msgstr "Bố cục"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:319
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:365
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:319
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:365
 msgid "Keyboard layout"
 msgstr "Bố cục bàn phím"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:319
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:372
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:319
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:372
 msgid "Variant"
 msgstr "Biến thể"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:320
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:447
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:320
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:447
 msgid "Repeat"
 msgstr "Lặp lại"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:320
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:450
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:320
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:450
 msgid "Repeat delay"
 msgstr "Độ trễ lặp lại"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:320
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:462
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:320
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:462
 msgid "Repeat rate"
 msgstr "Tốc độ lặp lại"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:321
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:321
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:321
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:321
 msgid "Caps Lock behavior"
 msgstr "Hành vi Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:321
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:321
 msgid "Remap"
 msgstr "Gán lại"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:322
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:323
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:322
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:323
 msgid "Shortcuts"
 msgstr "Phím tắt"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:322
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:322
 msgid "Keyboard shortcuts"
 msgstr "Phím tắt bàn phím"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:322
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:322
 msgid "Keybinding"
 msgstr "Gán phím"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:323
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:323
 msgid "Hotkey"
 msgstr "Phím nóng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:323
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:323
 msgid "Key combo"
 msgstr "Tổ hợp phím"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:373
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:429
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:373
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:429
 msgid "(Default)"
 msgstr "(Mặc định)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:451
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:451
 msgid "Milliseconds before keys begin repeating"
 msgstr "Mili giây trước khi phím bắt đầu lặp lại"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:463
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:463
 msgid "Keys per second when held"
 msgstr "Số phím mỗi giây khi giữ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:476
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:476
 msgid "Caps Lock Behavior"
 msgstr "Hành vi Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
 msgid "Ctrl"
 msgstr "Ctrl"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
 msgid "Escape"
 msgstr "Escape"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
 msgid "Disabled"
 msgstr "Đã tắt"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:482
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:482
 msgid "Caps Lock key"
 msgstr "Phím Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:483
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:483
 msgid "Remap Caps Lock to another function"
 msgstr "Gán lại Caps Lock sang chức năng khác"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:503
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:503
 msgid "Keyboard Shortcuts"
 msgstr "Phím tắt bàn phím"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:517
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:517
 msgid "Reset all shortcuts"
 msgstr "Đặt lại tất cả phím tắt"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:518
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:518
 msgid "Restore every shortcut to its default"
 msgstr "Khôi phục mọi phím tắt về mặc định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:520
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:906
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:520
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:906
 msgid "Reset All"
 msgstr "Đặt lại tất cả"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:547
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:553
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:597
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:600
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:547
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:553
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:597
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:600
 msgid "Reset to default"
 msgstr "Đặt lại về mặc định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:640
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:640
 msgid "Press new shortcut"
 msgstr "Nhấn phím tắt mới"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:649
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:649
 msgid "Press the new shortcut"
 msgstr "Nhấn phím tắt mới"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:651
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:651
 msgid "Press the desired key combination. Press Escape to cancel."
 msgstr "Nhấn tổ hợp phím mong muốn. Nhấn Escape để hủy."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:715
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:715
 msgid "Reserved key combination"
 msgstr "Tổ hợp phím được dành riêng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:716
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:716
 #, python-brace-format
 msgid "{key} is reserved by the system and can't be reassigned."
 msgstr "{key} được hệ thống dành riêng và không thể gán lại."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:718
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:718
 msgid "OK"
 msgstr "OK"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:789
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:789
 msgid "Shortcut Conflict"
 msgstr "Xung đột phím tắt"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:790
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:790
 #, python-brace-format
 msgid ""
 "\"{key}\" is already assigned to \"{conflict}\".\n"
@@ -1450,20 +1450,20 @@ msgstr ""
 "\n"
 "Gán lại cho \"{target}\"?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:798
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:798
 msgid "Reassign"
 msgstr "Gán lại"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:821
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:821
 #, python-brace-format
 msgid "No default key for {action}; please rebind it."
 msgstr "Không có phím mặc định cho {action}; vui lòng gán lại."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:862
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:862
 msgid "Reset would affect another shortcut"
 msgstr "Việc đặt lại sẽ ảnh hưởng đến phím tắt khác"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:863
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:863
 #, python-brace-format
 msgid ""
 "{key} is currently assigned to {name}. Reset this shortcut and also reset "
@@ -1472,15 +1472,15 @@ msgstr ""
 "{key} hiện được gán cho {name}. Đặt lại phím tắt này và cũng đặt lại {name} "
 "về mặc định?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:868
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:868
 msgid "Reset Both"
 msgstr "Đặt lại cả hai"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:901
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:901
 msgid "Reset all shortcuts?"
 msgstr "Đặt lại tất cả phím tắt?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:902
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:902
 msgid ""
 "This will restore every shortcut to its system default. This cannot be "
 "undone."
@@ -1488,758 +1488,758 @@ msgstr ""
 "Thao tác này sẽ khôi phục mọi phím tắt về mặc định của hệ thống. Không thể "
 "hoàn tác."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:949
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:949
 #, python-brace-format
 msgid "Failed to save shortcuts: {msg}"
 msgstr "Không thể lưu phím tắt: {msg}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:23
 msgid "Language"
 msgstr "Ngôn ngữ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:24
 msgid "Locale"
 msgstr "Ngôn ngữ hệ thống"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:25
 msgid "Regional format"
 msgstr "Định dạng vùng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:30
 msgid "Changes take effect after logging out"
 msgstr "Thay đổi có hiệu lực sau khi đăng xuất"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:42
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:42
 msgid "System language"
 msgstr "Ngôn ngữ hệ thống"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:53
 msgid "Regional formats"
 msgstr "Định dạng vùng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:54
 msgid "Date, number, and currency format"
 msgstr "Định dạng ngày, số và tiền tệ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:158
 msgid "Failed to set language"
 msgstr "Không thể đặt ngôn ngữ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:159
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:159
 msgid "Language change timed out"
 msgstr "Thay đổi ngôn ngữ đã hết thời gian"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:173
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:173
 msgid "Failed to set regional format"
 msgstr "Không thể đặt định dạng vùng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:174
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:174
 msgid "Format change timed out"
 msgstr "Thay đổi định dạng đã hết thời gian"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:188
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:188
 msgid "Language settings are unavailable on this system"
 msgstr "Cài đặt ngôn ngữ không khả dụng trên hệ thống này"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:192
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:192
 #, python-brace-format
 msgid "Language change failed: {reason}"
 msgstr "Thay đổi ngôn ngữ thất bại: {reason}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:12
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:12
 msgid "Adaptive"
 msgstr "Thích ứng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:13
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:13
 msgid "Flat"
 msgstr "Phẳng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:26
 msgid "Slowest"
 msgstr "Chậm nhất"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:28
 msgid "Slow"
 msgstr "Chậm"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:32
 msgid "Fast"
 msgstr "Nhanh"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:33
 msgid "Fastest"
 msgstr "Nhanh nhất"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:61
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:61
 msgid "Touchpad"
 msgstr "Bàn di chuột"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:65
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:65
 msgid "Tap to click"
 msgstr "Chạm để nhấp"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:72
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:125
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:72
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:125
 msgid "Natural scrolling"
 msgstr "Cuộn tự nhiên"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:101
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:152
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:101
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:152
 msgid "Pointer speed"
 msgstr "Tốc độ con trỏ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:107
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:107
 msgid "Scroll speed"
 msgstr "Tốc độ cuộn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:48
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:121
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:48
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:121
 msgid "Mouse"
 msgstr "Chuột"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:48
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:48
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:158
 msgid "Acceleration"
 msgstr "Gia tốc"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:73
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:73
 msgid "Content moves with your fingers"
 msgstr "Nội dung di chuyển theo ngón tay của bạn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:94
 msgid "Touchpad pointer speed"
 msgstr "Touchpad pointer speed"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:145
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:145
 msgid "Mouse pointer speed"
 msgstr "Mouse pointer speed"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:34
 msgid "Signal: excellent"
 msgstr "Tín hiệu: tuyệt vời"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:36
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:36
 msgid "Signal: good"
 msgstr "Tín hiệu: tốt"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:38
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:38
 msgid "Signal: fair"
 msgstr "Tín hiệu: khá"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:39
 msgid "Signal: weak"
 msgstr "Tín hiệu: yếu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:67
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:68
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:123
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:141
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:67
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:68
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:123
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:141
 msgid "WiFi"
 msgstr "WiFi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:68
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:68
 msgid "Hidden network"
 msgstr "Mạng ẩn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:171
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:171
 msgid "Wired"
 msgstr "Có dây"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:174
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:174
 msgid "Ethernet"
 msgstr "Ethernet"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
 msgid "Connection"
 msgstr "Kết nối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
 msgid "IP address"
 msgstr "Địa chỉ IP"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:82
 msgid "No network adapter"
 msgstr "Không có bộ chuyển đổi mạng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:128
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:131
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:128
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:131
 msgid "Scan for networks"
 msgstr "Quét tìm mạng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:147
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:147
 msgid "Connect to hidden network"
 msgstr "Kết nối với mạng ẩn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:157
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:157
 msgid "Available Networks"
 msgstr "Mạng khả dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:158
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:268
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:274
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:268
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:274
 msgid "No networks found"
 msgstr "Không tìm thấy mạng nào"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:164
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:164
 msgid "Active Connection"
 msgstr "Kết nối đang hoạt động"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:165
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:597
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:165
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:597
 msgid "Not connected"
 msgstr "Chưa kết nối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:186
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:186
 msgid "Advanced network settings"
 msgstr "Cài đặt mạng nâng cao"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:204
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:204
 msgid "Connection editor not found"
 msgstr "Không tìm thấy trình chỉnh sửa kết nối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:227
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:227
 msgid "NetworkManager is not available"
 msgstr "NetworkManager không khả dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:360
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:364
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:360
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:364
 msgid "Password protected"
 msgstr "Được bảo vệ bằng mật khẩu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:390
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:390
 msgid "Another connection attempt is already running"
 msgstr "Một lần kết nối khác đang chạy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:397
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:397
 #, python-brace-format
 msgid "Connecting to {ssid}…"
 msgstr "Đang kết nối tới {ssid}…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:403
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:403
 msgid "Forget network?"
 msgstr "Quên mạng?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:404
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:404
 #, python-brace-format
 msgid "This will remove the saved password for {ssid}."
 msgstr "Thao tác này sẽ xóa mật khẩu đã lưu cho {ssid}."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:426
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:426
 #, python-brace-format
 msgid "Connect to {ssid}"
 msgstr "Kết nối đến {ssid}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:436
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:436
 msgid "Enter the Wi-Fi password."
 msgstr "Nhập mật khẩu Wi-Fi."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:466
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:557
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:466
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:557
 msgid "Password must be at least 8 characters"
 msgstr "Mật khẩu phải có ít nhất 8 ký tự"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:469
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:560
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:469
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:560
 #, python-brace-format
 msgid "Connecting to {ssid}..."
 msgstr "Đang kết nối đến {ssid}..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:480
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:480
 msgid "Connect to Hidden Network"
 msgstr "Kết nối mạng ẩn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:491
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:491
 msgid "Enter the network name and security details."
 msgstr "Nhập tên mạng và thông tin bảo mật."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:495
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:495
 msgid "Network name (SSID)"
 msgstr "Tên mạng (SSID)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:499
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:499
 msgid "Security"
 msgstr "Bảo mật"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:501
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:501
 msgid "None"
 msgstr "Không"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:501
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:501
 msgid "WPA/WPA2"
 msgstr "WPA/WPA2"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:532
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:532
 msgid "Network name cannot be empty"
 msgstr "Tên mạng không được để trống"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:537
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:537
 msgid "Network name is invalid"
 msgstr "Tên mạng không hợp lệ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:540
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:540
 msgid "Network name must be 32 bytes or less"
 msgstr "Tên mạng phải không quá 32 byte"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:572
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:572
 msgid "Connected successfully"
 msgstr "Kết nối thành công"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:603
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:603
 msgid "Type"
 msgstr "Loại"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:604
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:604
 msgid "IP Address"
 msgstr "Địa chỉ IP"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:605
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:605
 msgid "Gateway"
 msgstr "Cổng mặc định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:606
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:606
 msgid "DNS"
 msgstr "DNS"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:625
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:625
 msgid "No wired adapter detected"
 msgstr "Không phát hiện bộ chuyển đổi có dây"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:629
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:629
 msgid "Disconnected"
 msgstr "Đã ngắt kết nối"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:17
 msgid "Apps"
 msgstr "Ứng dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:17
 msgid "Window list"
 msgstr "Danh sách cửa sổ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:18
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:72
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:121
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:72
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:121
 msgid "Volume"
 msgstr "Âm lượng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:18
 msgid "Brightness"
 msgstr "Độ sáng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:18
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:83
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:83
 msgid "Battery"
 msgstr "Pin"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:19
 msgid "Clock"
 msgstr "Đồng hồ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:19
 msgid "System tray"
 msgstr "Khay hệ thống"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:53
 msgid "Left"
 msgstr "Trái"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:47
 msgid "Center"
 msgstr "Giữa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:54
 msgid "Right"
 msgstr "Phải"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:52
 msgid "Top"
 msgstr "Trên"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:51
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:51
 msgid "Bottom"
 msgstr "Dưới"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:58
 msgid "Normal"
 msgstr "Bình thường"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
 msgid "Compact"
 msgstr "Thu gọn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:132
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:132
 msgid "Position"
 msgstr "Vị trí"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:158
 msgid "Density"
 msgstr "Mật độ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:95
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:183
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:186
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:95
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:183
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:186
 msgid "Twilight"
 msgstr "Hoàng hôn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:95
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:95
 msgid "Invert"
 msgstr "Đảo ngược"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
 msgid "Module Layout"
 msgstr "Bố cục mô-đun"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
 msgid "Modules"
 msgstr "Mô-đun"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:535
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:535
 msgid "Pinned Apps"
 msgstr "Ứng dụng đã ghim"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
 msgid "Pinned"
 msgstr "Đã ghim"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:136
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:136
 msgid "Panel position"
 msgstr "Vị trí bảng điều khiển"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:161
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:161
 msgid "Panel density"
 msgstr "Mật độ bảng điều khiển"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:187
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:187
 msgid "Invert panel colors from the system theme"
 msgstr "Đảo ngược màu thanh tác vụ so với chủ đề hệ thống"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:226
 msgid "Reset layout to defaults"
 msgstr "Đặt lại bố cục về mặc định"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:413
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:413
 msgid "Move up in section"
 msgstr "Di chuyển lên trong phần"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:431
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:431
 msgid "Move down in section"
 msgstr "Di chuyển xuống trong phần"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:447
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:466
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:447
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:466
 #, python-brace-format
 msgid "Move to {section}"
 msgstr "Di chuyển đến {section}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:539
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:542
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:539
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:542
 msgid "Add pinned app"
 msgstr "Thêm ứng dụng đã ghim"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:565
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:565
 msgid "No pinned apps"
 msgstr "Chưa có ứng dụng nào được ghim"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:621
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:621
 msgid "Add Pinned App"
 msgstr "Thêm ứng dụng đã ghim"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:635
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:635
 msgid "Search apps"
 msgstr "Tìm kiếm ứng dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:643
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:643
 msgid "Applications"
 msgstr "Ứng dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:665
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:665
 msgid "Add"
 msgstr "Thêm"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:696
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:696
 #, python-brace-format
 msgid "{app} has no launch command"
 msgstr "{app} không có lệnh khởi chạy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:17
 msgid "1 minute"
 msgstr "1 phút"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:18
 msgid "2 minutes"
 msgstr "2 phút"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:19
 msgid "5 minutes"
 msgstr "5 phút"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:20
 msgid "10 minutes"
 msgstr "10 phút"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:21
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:21
 msgid "15 minutes"
 msgstr "15 phút"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:22
 msgid "30 minutes"
 msgstr "30 phút"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:23
 msgid "Never"
 msgstr "Không bao giờ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:28
 msgid "Balanced"
 msgstr "Cân bằng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:29
 msgid "Power Saver"
 msgstr "Tiết kiệm pin"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:30
 msgid "Performance"
 msgstr "Hiệu năng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:34
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:84
 msgid "Suspend"
 msgstr "Tạm ngưng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:35
 msgid "Lock"
 msgstr "Khóa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:36
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:36
 msgid "Do Nothing"
 msgstr "Không làm gì"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:80
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:81
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:120
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:80
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:81
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:120
 msgid "Lock & Display"
 msgstr "Khóa và màn hình"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:80
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:80
 msgid "Lock screen"
 msgstr "Màn hình khóa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:81
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:81
 msgid "Display off"
 msgstr "Tắt màn hình"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:82
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:83
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:180
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:83
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:180
 msgid "Power Profile"
 msgstr "Hồ sơ nguồn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:82
 msgid "Power"
 msgstr "Nguồn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:186
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:186
 msgid "Suspend on Idle"
 msgstr "Tạm ngưng khi nhàn rỗi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:85
 msgid "Idle"
 msgstr "Nhàn rỗi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:269
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:269
 msgid "Lid Close Behavior"
 msgstr "Hành vi khi gập nắp"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:86
 msgid "Lid"
 msgstr "Nắp"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:123
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:123
 msgid "Lock screen after"
 msgstr "Khóa màn hình sau"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:128
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:128
 msgid "Turn off display after"
 msgstr "Tắt màn hình sau"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:145
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:145
 msgid "Power profile"
 msgstr "Hồ sơ nguồn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:146
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:146
 msgid "Balance between performance and battery life"
 msgstr "Cân bằng giữa hiệu năng và thời lượng pin"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:158
 msgid "Power profiles are unavailable on this system"
 msgstr "Power profiles are unavailable on this system"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:188
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:188
 msgid "Put the computer to sleep after a period of inactivity."
 msgstr "Đưa máy tính vào chế độ ngủ sau một khoảng thời gian không hoạt động."
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:201
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:201
 msgid "Suspend after"
 msgstr "Tạm ngưng sau"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:222
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:222
 msgid "Suspend delay must be at least as long as the lock delay."
 msgstr "Thời gian chờ tạm ngưng phải ít nhất bằng thời gian chờ khóa."
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:241
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:241
 msgid "When lid is closed"
 msgstr "Khi gập nắp"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:364
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:364
 msgid "Lid action change timed out"
 msgstr "Hết thời gian chờ thay đổi hành động gập nắp"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:369
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:369
 msgid "Authentication tool not available"
 msgstr "Công cụ xác thực không khả dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:384
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:384
 msgid "Failed to change lid close action"
 msgstr "Không thể thay đổi hành động gập nắp"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:51
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:51
 msgid "Output"
 msgstr "Đầu ra"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:63
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:63
 msgid "Output device"
 msgstr "Thiết bị đầu ra"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:100
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:100
 msgid "Input"
 msgstr "Đầu vào"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:112
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:112
 msgid "Input device"
 msgstr "Thiết bị đầu vào"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:45
 msgid "Microphone"
 msgstr "Micrô"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:65
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:359
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:65
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:359
 msgid "(No output devices)"
 msgstr "(Không có thiết bị đầu ra)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:82
 msgid "Output volume"
 msgstr "Output volume"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:114
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:377
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:114
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:377
 msgid "(No input devices)"
 msgstr "(Không có thiết bị đầu vào)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:131
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:131
 msgid "Input volume"
 msgstr "Input volume"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:43
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:99
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:43
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:99
 msgid "Display name"
 msgstr "Tên hiển thị"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:45
 msgid "Auto-login"
 msgstr "Đăng nhập tự động"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:90
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:90
 msgid "Account"
 msgstr "Tài khoản"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:84
 msgid "Could not connect to AccountsService"
 msgstr "Không thể kết nối đến AccountsService"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:85
 msgid "User account settings are unavailable."
 msgstr "Cài đặt tài khoản người dùng không khả dụng."
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:108
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:108
 msgid "Set a new password for your account"
 msgstr "Đặt mật khẩu mới cho tài khoản của bạn"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:121
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:121
 msgid "Automatic login"
 msgstr "Đăng nhập tự động"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:122
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:122
 msgid "Log in without a password at startup"
 msgstr "Đăng nhập không cần mật khẩu khi khởi động"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:162
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:162
 #, python-brace-format
 msgid "Could not save name: {msg}"
 msgstr "Không thể lưu tên: {msg}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:191
 msgid "Could not change auto-login"
 msgstr "Không thể thay đổi đăng nhập tự động"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:208
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:208
 msgid "Change Password"
 msgstr "Đổi mật khẩu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:217
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:217
 msgid "Enter a new password for your account."
 msgstr "Nhập mật khẩu mới cho tài khoản của bạn."
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:220
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:220
 msgid "New password"
 msgstr "Mật khẩu mới"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:224
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:224
 msgid "Confirm password"
 msgstr "Xác nhận mật khẩu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:232
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:232
 msgid "Apply"
 msgstr "Áp dụng"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:255
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:255
 msgid "Passwords do not match"
 msgstr "Mật khẩu không khớp"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:293
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:293
 msgid "Password changed"
 msgstr "Đã đổi mật khẩu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:299
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:299
 msgid "Failed to set password"
 msgstr "Không thể đặt mật khẩu"
 
@@ -2326,8 +2326,8 @@ msgstr "Không thể đặt mật khẩu"
 #~ msgid "Search apps…"
 #~ msgstr "Tìm kiếm ứng dụng…"
 
-#~ msgid "Universal-Lite Settings"
-#~ msgstr "Cài đặt Universal-Lite"
+#~ msgid "Adwaita-Lite Settings"
+#~ msgstr "Cài đặt Adwaita-Lite"
 
 #~ msgid "Search settings..."
 #~ msgstr "Tìm kiếm cài đặt..."

@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "files/usr/bin/universal-lite-app-menu"
+SCRIPT = ROOT / "files/usr/bin/adwaita-lite-app-menu"
 MAKEFILE = ROOT / "po/Makefile"
 
 
@@ -16,7 +16,7 @@ def test_app_menu_declares_separate_gettext_domain():
     source = _source()
 
     assert "import gettext" in source
-    assert 'TEXTDOMAIN = "universal-lite-app-menu"' in source
+    assert 'TEXTDOMAIN = "adwaita-lite-app-menu"' in source
     assert 'LOCALEDIR = "/usr/share/locale"' in source
     assert 'gettext.bindtextdomain(TEXTDOMAIN, LOCALEDIR)' in source
     assert 'gettext.textdomain(TEXTDOMAIN)' in source
@@ -75,8 +75,8 @@ def test_makefile_has_app_menu_gettext_targets():
     makefile = MAKEFILE.read_text(encoding="utf-8")
 
     expected_lines = [
-        "APP_MENU_DOMAIN = universal-lite-app-menu",
-        "APP_MENU_SOURCE = ../files/usr/bin/universal-lite-app-menu",
+        "APP_MENU_DOMAIN = adwaita-lite-app-menu",
+        "APP_MENU_SOURCE = ../files/usr/bin/adwaita-lite-app-menu",
         "APP_MENU_POT = app-menu/$(APP_MENU_DOMAIN).pot",
         "APP_MENU_PO = $(LANGUAGES:%=app-menu/%.po)",
         "APP_MENU_MO = $(LANGUAGES:%=$(LOCALEDIR)/%/LC_MESSAGES/$(APP_MENU_DOMAIN).mo)",
@@ -104,6 +104,6 @@ def test_makefile_dry_runs_app_menu_targets():
 
     assert result.returncode == 0, result.stderr
     assert "xgettext" in result.stdout
-    assert "universal-lite-app-menu" in result.stdout
+    assert "adwaita-lite-app-menu" in result.stdout
     assert "msgmerge" in result.stdout or "msginit" in result.stdout
     assert "msgfmt" in result.stdout

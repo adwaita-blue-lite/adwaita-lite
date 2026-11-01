@@ -268,11 +268,11 @@
     <div>
       <p class="eyebrow"><a href="index.html">Component docs</a> / installer surface</p>
       <h1>Setup Wizard</h1>
-      <p class="lede">Contributor map for <code>SetupWizardWindow</code> in <code>files/usr/bin/universal-lite-setup-wizard</code>. Use this page to locate GTK page builders, CSS class ownership, state transitions, and installer safety boundaries before touching the 4k+ line wizard.</p>
+      <p class="lede">Contributor map for <code>SetupWizardWindow</code> in <code>files/usr/bin/adwaita-lite-setup-wizard</code>. Use this page to locate GTK page builders, CSS class ownership, state transitions, and installer safety boundaries before touching the 4k+ line wizard.</p>
       <p class="density-note">HTML is used here for scan speed: page flow, CSS ownership, mutable state, and safe-edit constraints are grouped visually instead of buried in prose.</p>
     </div>
     <aside class="source-map" aria-label="Source anchors">
-      <div class="source-card"><b>Runtime source</b><code>files/usr/bin/universal-lite-setup-wizard</code></div>
+      <div class="source-card"><b>Runtime source</b><code>files/usr/bin/adwaita-lite-setup-wizard</code></div>
       <div class="source-card"><b>Primary class</b><code>SetupWizardWindow</code></div>
       <div class="source-card"><b>App wrapper</b><code>SetupWizardApp</code> loads <code>CSS</code> and presents the window.</div>
     </aside>
@@ -322,7 +322,7 @@
   <section aria-labelledby="state-title">
     <h2 id="state-title">State and Data Map</h2>
     <div class="state-map">
-      <article class="state-card"><h3>Install Config</h3><p><code>_step_finalize</code> writes <code>/var/lib/universal-lite/install-config.json</code> with <code>memory_strategy</code>, <code>swap_size_gb</code>, and <code>username</code> via <code>_atomic_write_text</code> mode <code>0o600</code>.</p></article>
+      <article class="state-card"><h3>Install Config</h3><p><code>_step_finalize</code> writes <code>/var/lib/adwaita-lite/install-config.json</code> with <code>memory_strategy</code>, <code>swap_size_gb</code>, and <code>username</code> via <code>_atomic_write_text</code> mode <code>0o600</code>.</p></article>
       <article class="state-card"><h3>Flatpak Selection</h3><p><code>_get_selected_apps</code> feeds <code>_step_save_app_selection</code>. <code>_flatpak_app_list_contents</code> writes a deterministic newline list or zero-byte file; pinned defaults follow <code>_pinned_apps_for_selected_flatpaks</code>.</p></article>
       <article class="state-card"><h3>Disk and Filesystem</h3><p><code>_setup_target_drive</code> and <code>_setup_filesystem</code> drive <code>_step_partition_disk</code>, which wipes, partitions, formats <code>ext4</code>/<code>xfs</code>/<code>btrfs</code>, mounts root, boot, and EFI.</p></article>
       <article class="state-card"><h3>Memory Strategy</h3><p><code>_get_swap_config</code> selects zram only or zswap with 2/4/8/custom GB. <code>_step_configure_memory</code> writes zram-generator config or enables the zswap/encrypted swap units.</p></article>

@@ -2,7 +2,7 @@
 
 ## Goal
 
-Ensure same-day automatic updates for every published Universal-Lite stream after real `main` updates, while keeping manual builds targeted.
+Ensure same-day automatic updates for every published Adwaita-Lite stream after real `main` updates, while keeping manual builds targeted.
 
 The intended update graph is:
 

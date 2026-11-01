@@ -2,7 +2,7 @@
 
 ## Goal
 
-Ensure every published Universal-Lite stream image receives daily base-image and security refreshes while preserving the branch promotion model:
+Ensure every published Adwaita-Lite stream image receives daily base-image and security refreshes while preserving the branch promotion model:
 
 - `latest` is built from `main`.
 - `dx` is built from `dx` after `main` successfully syncs into it.

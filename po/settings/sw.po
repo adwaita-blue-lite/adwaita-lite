@@ -1,11 +1,11 @@
-# Swahili translations for universal-lite-settings package.
-# Copyright (C) 2026 THE universal-lite-settings'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the universal-lite-settings package.
+# Swahili translations for adwaita-lite-settings package.
+# Copyright (C) 2026 THE adwaita-lite-settings'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the adwaita-lite-settings package.
 # Automatically generated, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: universal-lite-settings\n"
+"Project-Id-Version: adwaita-lite-settings\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-02 12:03-0400\n"
 "PO-Revision-Date: 2026-04-05 13:06-0400\n"
@@ -16,1427 +16,1427 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../files/usr/bin/universal-lite-greeter:413
+#: ../files/usr/bin/adwaita-lite-greeter:413
 msgid "Login"
 msgstr "Ingia"
 
-#: ../files/usr/bin/universal-lite-greeter:471
+#: ../files/usr/bin/adwaita-lite-greeter:471
 msgid "Session"
 msgstr "Kipindi"
 
-#: ../files/usr/bin/universal-lite-greeter:497
+#: ../files/usr/bin/adwaita-lite-greeter:497
 msgid "Username"
 msgstr "Jina la mtumiaji"
 
-#: ../files/usr/bin/universal-lite-greeter:506
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:68
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:439
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:507
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:107
+#: ../files/usr/bin/adwaita-lite-greeter:506
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:68
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:439
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:507
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:107
 msgid "Password"
 msgstr "Nenosiri"
 
-#: ../files/usr/bin/universal-lite-greeter:568
+#: ../files/usr/bin/adwaita-lite-greeter:568
 #, python-brace-format
 msgid "Welcome back, {username}"
 msgstr "Karibu tena, {username}"
 
-#: ../files/usr/bin/universal-lite-greeter:574
+#: ../files/usr/bin/adwaita-lite-greeter:574
 msgid "Log In"
 msgstr "Ingia"
 
-#: ../files/usr/bin/universal-lite-greeter:575
+#: ../files/usr/bin/adwaita-lite-greeter:575
 #, python-brace-format
 msgid "Not {username}?"
 msgstr "Si {username}?"
 
-#: ../files/usr/bin/universal-lite-greeter:591
+#: ../files/usr/bin/adwaita-lite-greeter:591
 msgid "Log in"
 msgstr "Ingia"
 
-#: ../files/usr/bin/universal-lite-greeter:597
+#: ../files/usr/bin/adwaita-lite-greeter:597
 msgid "Next"
 msgstr "Ifuatayo"
 
-#: ../files/usr/bin/universal-lite-greeter:610
-#: ../files/usr/bin/universal-lite-greeter:625
-#: ../files/usr/bin/universal-lite-greeter:674
+#: ../files/usr/bin/adwaita-lite-greeter:610
+#: ../files/usr/bin/adwaita-lite-greeter:625
+#: ../files/usr/bin/adwaita-lite-greeter:674
 #, python-brace-format
 msgid "Connection error: {exc}"
 msgstr "Hitilafu ya muunganisho: {exc}"
 
-#: ../files/usr/bin/universal-lite-greeter:634
-#: ../files/usr/bin/universal-lite-greeter:639
+#: ../files/usr/bin/adwaita-lite-greeter:634
+#: ../files/usr/bin/adwaita-lite-greeter:639
 msgid "Authentication error"
 msgstr "Hitilafu ya uthibitishaji"
 
-#: ../files/usr/bin/universal-lite-greeter:649
+#: ../files/usr/bin/adwaita-lite-greeter:649
 msgid "Unknown error"
 msgstr "Hitilafu isiyojulikana"
 
-#: ../files/usr/bin/universal-lite-greeter:658
+#: ../files/usr/bin/adwaita-lite-greeter:658
 msgid "Enter a username."
 msgstr "Ingiza jina la mtumiaji."
 
-#: ../files/usr/bin/universal-lite-greeter:666
+#: ../files/usr/bin/adwaita-lite-greeter:666
 msgid "Enter your password."
 msgstr "Ingiza nenosiri yako."
 
-#: ../files/usr/bin/universal-lite-greeter:685
+#: ../files/usr/bin/adwaita-lite-greeter:685
 msgid "Authentication failed"
 msgstr "Uthibitishaji umeshindwa"
 
-#: ../files/usr/bin/universal-lite-greeter:696
+#: ../files/usr/bin/adwaita-lite-greeter:696
 msgid "Unexpected authentication response."
 msgstr "Jibu la uthibitishaji lisilotarajiwa."
 
-#: ../files/usr/bin/universal-lite-greeter:700
+#: ../files/usr/bin/adwaita-lite-greeter:700
 msgid "Multi-step auth not supported."
 msgstr "Uthibitishaji wa hatua nyingi hauhusaidiwi."
 
-#: ../files/usr/bin/universal-lite-greeter:705
+#: ../files/usr/bin/adwaita-lite-greeter:705
 msgid "Incorrect password."
 msgstr "Nenosiri si sahihi."
 
-#: ../files/usr/bin/universal-lite-greeter:707
+#: ../files/usr/bin/adwaita-lite-greeter:707
 msgid "Login failed."
 msgstr "Kuingia kumeshindwa."
 
-#: ../files/usr/bin/universal-lite-greeter:710
+#: ../files/usr/bin/adwaita-lite-greeter:710
 msgid "Unexpected response from login service."
 msgstr "Jibu lisilotarajiwa kutoka huduma ya kuingia."
 
-#: ../files/usr/bin/universal-lite-greeter:719
+#: ../files/usr/bin/adwaita-lite-greeter:719
 #, python-brace-format
 msgid "Failed to start session: {exc}"
 msgstr "Imeshindwa kuanzisha kipindi: {exc}"
 
-#: ../files/usr/bin/universal-lite-greeter:727
+#: ../files/usr/bin/adwaita-lite-greeter:727
 msgid "Failed to start session."
 msgstr "Imeshindwa kuanzisha kipindi."
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:186
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:187
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:188
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:186
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:187
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:188
 msgid "N/A"
 msgstr "N/A"
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:219
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:219
 msgid "Unsupported WiFi security"
 msgstr "Usalama wa WiFi hauauniwi"
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:224
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:462
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:553
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:252
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:224
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:462
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:553
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:252
 msgid "Password cannot be empty"
 msgstr "Nenosiri haliwezi kuwa tupu"
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:262
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:274
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:262
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:274
 msgid "Wrong password."
 msgstr "Nenosiri si sahihi."
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:264
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:276
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:264
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:276
 msgid "Could not connect to network"
 msgstr "Haikuweza kuunganishwa na mtandao"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:355
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:355
 #, python-brace-format
 msgid "Could not save settings: {reason}"
 msgstr "Imeshindwa kuhifadhi mipangilio: {reason}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:385
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:385
 #, python-brace-format
 msgid "Panel changes saved, but panel files could not be updated: {detail}"
 msgstr ""
 "Mabadiliko ya paneli yamehifadhiwa, lakini faili za paneli hazikuweza "
 "kusasishwa: {detail}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:393
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:393
 msgid "Panel changes saved. Restart your session to apply them."
 msgstr ""
 "Mabadiliko ya paneli yamehifadhiwa. Anzisha upya kipindi chako ili kuyatumia."
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:441
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:441
 #, python-brace-format
 msgid "Failed to apply settings: {detail}"
 msgstr "Imeshindwa kutumia mipangilio: {detail}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:472
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:472
 msgid "Settings applied"
 msgstr "Mipangilio imetumika"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:474
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:474
 #, python-brace-format
 msgid "Apply timed out after {n}s"
 msgstr "Muda wa kutumia umekwisha baada ya {n}s"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:479
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:479
 #, python-brace-format
 msgid "Failed to apply: {err}"
 msgstr "Imeshindwa kutumia: {err}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:481
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:481
 msgid "Failed to apply settings"
 msgstr "Imeshindwa kutumia mipangilio"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:50
-#: ../files/usr/lib/universal-lite/settings/window.py:81
-#: ../files/usr/lib/universal-lite/settings/window.py:127
+#: ../files/usr/lib/adwaita-lite/settings/window.py:50
+#: ../files/usr/lib/adwaita-lite/settings/window.py:81
+#: ../files/usr/lib/adwaita-lite/settings/window.py:127
 msgid "Settings"
 msgstr "Mipangilio"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:93
+#: ../files/usr/lib/adwaita-lite/settings/window.py:93
 msgid "Search settings"
 msgstr "Tafuta mipangilio"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:97
+#: ../files/usr/lib/adwaita-lite/settings/window.py:97
 msgid "Search settings…"
 msgstr "Tafuta mipangilio…"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:113
+#: ../files/usr/lib/adwaita-lite/settings/window.py:113
 msgid "Restart your session to apply panel and start menu changes."
 msgstr "Anzisha upya kikao chako ili kutumia mabadiliko ya paneli na menyu ya kuanza."
 
-#: ../files/usr/lib/universal-lite/settings/window.py:115
-#: ../files/usr/lib/universal-lite/settings/window.py:229
+#: ../files/usr/lib/adwaita-lite/settings/window.py:115
+#: ../files/usr/lib/adwaita-lite/settings/window.py:229
 msgid "Restart Session"
 msgstr "Anzisha Upya Kikao"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:225
+#: ../files/usr/lib/adwaita-lite/settings/window.py:225
 msgid "Restart Session?"
 msgstr "Uanzishe upya kikao?"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:226
+#: ../files/usr/lib/adwaita-lite/settings/window.py:226
 msgid "This will close your apps and return you to the sign-in screen."
 msgstr "Hii itafunga programu zako na kukurudisha kwenye skrini ya kuingia."
 
-#: ../files/usr/lib/universal-lite/settings/window.py:228
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:797
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:867
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:905
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:407
+#: ../files/usr/lib/adwaita-lite/settings/window.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:797
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:867
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:905
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:407
 msgid "Cancel"
 msgstr "Ghairi"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:251
+#: ../files/usr/lib/adwaita-lite/settings/window.py:251
 #, python-brace-format
 msgid "Could not restart session: {detail}"
 msgstr "Imeshindwa kuanzisha upya kikao: {detail}"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:298
+#: ../files/usr/lib/adwaita-lite/settings/window.py:298
 #, python-brace-format
 msgid "Failed to load {label}"
 msgstr "Imeshindwa kupakia {label}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:26
 msgid "Appearance"
 msgstr "Muonekano"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:27
 msgid "Display"
 msgstr "Onyesho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:28
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:67
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:100
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:602
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:67
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:100
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:602
 msgid "Network"
 msgstr "Mtandao"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:40
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:40
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:115
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:115
 msgid "Panel"
 msgstr "Paneli"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:31
 msgid "Mouse & Touchpad"
 msgstr "Kipanya na Padi ya kugusa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:32
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:339
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:339
 msgid "Keyboard"
 msgstr "Kibodi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:33
 msgid "Sound"
 msgstr "Sauti"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:34
 msgid "Power & Lock"
 msgstr "Nguvu na Kufunga"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:35
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:27
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:28
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:35
 msgid "Accessibility"
 msgstr "Ufikivu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:36
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:31
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:32
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:37
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:36
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:37
 msgid "Date & Time"
 msgstr "Tarehe na Saa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:37
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:43
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:132
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:37
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:43
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:132
 msgid "Users"
 msgstr "Watumiaji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:38
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:23
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:24
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:25
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:64
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:38
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:64
 msgid "Language & Region"
 msgstr "Lugha na Eneo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:39
 msgid "Default Apps"
 msgstr "Programu chaguomsingi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:40
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:87
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:88
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:108
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:117
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:40
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:87
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:88
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:108
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:117
 msgid "About"
 msgstr "Kuhusu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:191
 msgid "Operating System"
 msgstr "Mfumo wa uendeshaji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:192
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:192
 msgid "Hostname"
 msgstr "Jina la mwenyeji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:193
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:193
 msgid "Processor"
 msgstr "Kichakataji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:194
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:194
 msgid "Memory"
 msgstr "Kumbukumbu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:196
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:196
 msgid "Disk"
 msgstr "Diski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:198
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:198
 msgid "Desktop"
 msgstr "Eneo-kazi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:197
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:197
 msgid "Graphics"
 msgstr "Michoro"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
 msgid "GPU"
 msgstr "GPU"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:87
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:221
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:87
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:221
 msgid "Updates"
 msgstr "Masasisho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:88
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:252
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:344
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:88
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:252
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:344
 msgid "Restore Defaults"
 msgstr "Rejesha chaguo-msingi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:133
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:140
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:146
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:151
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:171
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:594
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:133
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:140
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:146
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:151
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:171
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:594
 msgid "Unknown"
 msgstr "Haijulikani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:165
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:165
 #, python-brace-format
 msgid "{used:.1f} GB used of {total:.1f} GB"
 msgstr "{used:.1f} GB zimetumika kati ya {total:.1f} GB"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:224
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:224
 msgid "Status"
 msgstr "Hali"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:225
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:225
 msgid "Click to check for updates"
 msgstr "Bofya kuangalia masasisho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:229
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:229
 msgid "Check for Updates"
 msgstr "Angalia masasisho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:234
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:234
 msgid "Update now..."
 msgstr "Sasisha sasa..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:249
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:249
 msgid "Troubleshooting"
 msgstr "Utatuzi wa matatizo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:253
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:253
 msgid "Reset settings to factory defaults"
 msgstr "Weka upya mipangilio kwa chaguo-msingi za kiwanda"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:271
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:175
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:271
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:175
 msgid "Checking..."
 msgstr "Inakagua..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:280
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:280
 msgid "Update check timed out"
 msgstr "Ukaguzi wa masasisho umekwisha muda"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:283
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:283
 msgid "Update system not available"
 msgstr "Mfumo wa masasisho haupatikani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:286
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:286
 msgid "Update check failed"
 msgstr "Ukaguzi wa masasisho umeshindwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:289
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:289
 msgid "Update available"
 msgstr "Sasisho linapatikana"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:292
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:292
 msgid "System is up to date"
 msgstr "Mfumo umesasishwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:295
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:295
 msgid "Could not check for updates"
 msgstr "Imeshindwa kuangalia masasisho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:326
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:326
 msgid "Terminal not available"
 msgstr "Terminal haipatikani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:356
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:356
 msgid "Select which settings to reset to factory defaults."
 msgstr "Chagua mipangilio ipi ya kurudishwa kwa chaguo-msingi za kiwanda."
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:363
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:363
 msgid "Categories"
 msgstr "Aina"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:366
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:366
 msgid "Select All"
 msgstr "Chagua yote"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:406
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:406
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:228
 msgid "Reset"
 msgstr "Weka upya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:439
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:439
 msgid "Could not read defaults file"
 msgstr "Haiwezi kusoma faili ya chaguo-msingi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:467
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:467
 msgid "Could not reset keyboard shortcuts"
 msgstr "Imeshindwa kuweka upya njia za mkato za kibodi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:472
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:472
 msgid "Could not remove a custom wallpaper"
 msgstr "Could not remove a custom wallpaper"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:12
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:12
 msgid "Default (24px)"
 msgstr "Chaguomsingi (24px)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:13
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:13
 msgid "Large (32px)"
 msgstr "Kubwa (32px)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:14
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:14
 msgid "Larger (48px)"
 msgstr "Kubwa zaidi (48px)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:27
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:39
 msgid "Large text"
 msgstr "Maandishi makubwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:28
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:64
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:64
 msgid "Cursor size"
 msgstr "Ukubwa wa kielekezi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:81
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:81
 msgid "High contrast"
 msgstr "Utofautishaji mkubwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:93
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:93
 msgid "Reduce motion"
 msgstr "Punguza mwendo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:40
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:40
 msgid "Increases font size for better readability"
 msgstr "Huongeza ukubwa wa fonti kwa usomaji bora"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:82
 msgid "Forces dark theme with stronger borders"
 msgstr "Hulazimisha mandhari meusi na mipaka imara zaidi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:94
 msgid "Disables animations throughout the interface"
 msgstr "Huzima uhuishaji katika kiolesura chote"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:48
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:48
 msgid "Blue"
 msgstr "Buluu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:49
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:49
 msgid "Teal"
 msgstr "Kijani kibichi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:50
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:50
 msgid "Green"
 msgstr "Kijani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:51
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:51
 msgid "Yellow"
 msgstr "Njano"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:52
 msgid "Orange"
 msgstr "Rangi ya chungwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:53
 msgid "Red"
 msgstr "Nyekundu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:54
 msgid "Pink"
 msgstr "Waridi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:55
 msgid "Purple"
 msgstr "Zambarau"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:56
 msgid "Slate"
 msgstr "Kijivu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:204
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:62
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:204
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:62
 msgid "Panel changes apply after you restart your session."
 msgstr "Mabadiliko ya paneli hutumika baada ya kuanzisha upya kipindi chako."
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:226
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:235
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:235
 msgid "Theme"
 msgstr "Mandhari"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:226
 msgid "Light"
 msgstr "Mwanga"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:226
 msgid "Dark"
 msgstr "Giza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:227
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:267
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:227
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:267
 msgid "Accent color"
 msgstr "Rangi ya msisitizo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:227
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:227
 msgid "Color"
 msgstr "Rangi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:228
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:347
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:354
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:347
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:354
 msgid "Font size"
 msgstr "Ukubwa wa fonti"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:228
 msgid "Font"
 msgstr "Fonti"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:229
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:378
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:229
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:378
 msgid "Wallpaper"
 msgstr "Mandhari ya ukuta"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:229
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:229
 msgid "Background"
 msgstr "Mandhari ya nyuma"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:239
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:239
 msgid "Dark mode"
 msgstr "Hali ya giza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:258
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:258
 msgid "Theme is set to Dark by High Contrast mode"
 msgstr "Mandhari imewekwa Giza na hali ya Utofautishaji mkubwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
 msgid "Small"
 msgstr "Ndogo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:30
 msgid "Default"
 msgstr "Chaguomsingi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
 msgid "Large"
 msgstr "Kubwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
 msgid "Larger"
 msgstr "Kubwa zaidi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:355
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:355
 msgid "Affects all text throughout the interface"
 msgstr "Huathiri maandishi yote katika kiolesura chote"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:404
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:404
 msgid "Wallpaper picker unavailable"
 msgstr "Kichaguzi cha mandhari hakipatikani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:542
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:601
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:542
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:601
 msgid "Remove"
 msgstr "Ondoa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:546
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:546
 #, python-brace-format
 msgid "Remove {name}"
 msgstr "Remove {name}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:557
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:563
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:557
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:563
 msgid "Add picture…"
 msgstr "Ongeza picha…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:600
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:600
 msgid "Choose Wallpaper"
 msgstr "Chagua mandhari ya ukuta"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:602
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:602
 msgid "Images"
 msgstr "Picha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:645
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:645
 msgid "Picture not found"
 msgstr "Picha haikupatikana"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:647
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:647
 msgid "Picture is too large (50 MB limit)"
 msgstr "Picha ni kubwa mno (kikomo cha 50 MB)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:649
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:649
 msgid "Picture format not supported"
 msgstr "Muundo wa picha hauauniwi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:651
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:654
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:651
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:654
 msgid "Could not add wallpaper"
 msgstr "Imeshindwa kuongeza mandhari"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:228
 msgid "Pair"
 msgstr "Oanisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:67
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:67
 msgid "Wireless"
 msgstr "Bila waya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:30
 msgid "Device"
 msgstr "Kifaa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:47
 msgid "No Bluetooth adapter found"
 msgstr "Hakuna adapta ya Bluetooth iliyopatikana"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:52
 msgid "Paired Devices"
 msgstr "Vifaa vilivyooanishwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:53
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:185
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:185
 msgid "No paired devices"
 msgstr "Hakuna vifaa vilivyooanishwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:58
 msgid "Available Devices"
 msgstr "Vifaa vinavyopatikana"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:136
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:136
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:191
 msgid "Tap 'Search' to find nearby devices"
 msgstr "Gusa 'Tafuta' kupata vifaa vilivyo karibu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:61
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:134
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:265
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:61
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:134
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:265
 msgid "Search for devices"
 msgstr "Tafuta vifaa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:80
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:245
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:183
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:80
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:245
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:183
 msgid "Advanced"
 msgstr "Kina zaidi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:112
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:112
 msgid "Bluetooth manager not available"
 msgstr "Kidhibiti cha Bluetooth hakipatikani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:126
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:126
 msgid "Scanning..."
 msgstr "Inachunguza..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:127
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:127
 msgid "Scanning for devices..."
 msgstr "Inatafuta vifaa..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:198
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:198
 msgid "Unknown device"
 msgstr "Kifaa kisichojulikana"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:201
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:201
 msgid "Bluetooth device"
 msgstr "Kifaa cha Bluetooth"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:211
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:306
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:341
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:627
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:211
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:306
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:341
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:627
 msgid "Connected"
 msgstr "Imeunganishwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:212
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:212
 msgid "Disconnect"
 msgstr "Tenganisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:217
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:376
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:445
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:514
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:217
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:376
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:445
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:514
 msgid "Connect"
 msgstr "Unganisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:222
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:370
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:408
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:222
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:370
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:408
 msgid "Forget"
 msgstr "Sahau"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:239
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:239
 msgid "Pairing..."
 msgstr "Inaoanisha..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:244
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:244
 msgid "Paired successfully"
 msgstr "Imeoanishwa kwa mafanikio"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:252
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:252
 #, python-brace-format
 msgid "Pairing failed: {message}"
 msgstr "Kuoanisha kumeshindwa: {message}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:66
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:66
 msgid "Timezone"
 msgstr "Saa za eneo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:74
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:74
 msgid "Automatic time"
 msgstr "Saa otomatiki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:31
 msgid "NTP"
 msgstr "NTP"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:32
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:91
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:91
 msgid "24-hour clock"
 msgstr "Saa ya masaa 24"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:75
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:75
 msgid "Sync clock via network (NTP)"
 msgstr "Sawazisha saa kupitia mtandao (NTP)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:92
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:92
 msgid "Use 24-hour time format"
 msgstr "Tumia muundo wa saa 24"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:157
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:157
 msgid "Failed to set timezone"
 msgstr "Imeshindwa kuweka saa za eneo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:161
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:161
 msgid "Invalid timezone"
 msgstr "Saa za eneo si sahihi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:220
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:220
 msgid "Automatic time change timed out"
 msgstr "Ubadilishaji wa muda kiotomatiki umekwisha muda"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:225
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:225
 msgid "Time settings are unavailable on this system"
 msgstr "Mipangilio ya saa haipatikani kwenye mfumo huu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:230
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:235
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:230
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:235
 msgid "Failed to change automatic time"
 msgstr "Imeshindwa kubadilisha muda kiotomatiki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:18
 msgid "Web Browser"
 msgstr "Kivinjari"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:23
 msgid "File Manager"
 msgstr "Kidhibiti faili"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:24
 msgid "Terminal"
 msgstr "Terminali"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:25
 msgid "Text Editor"
 msgstr "Kihariri maandishi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:26
 msgid "Image Viewer"
 msgstr "Kitazamaji picha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:32
 msgid "PDF Viewer"
 msgstr "Kitazamaji PDF"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:33
 msgid "Media Player"
 msgstr "Kichezaji midia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:39
 msgid "Email Client"
 msgstr "Programu ya barua pepe"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:50
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:50
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:54
 msgid "Default Applications"
 msgstr "Programu chaguomsingi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:83
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:83
 msgid "Could not change default terminal"
 msgstr "Haikuweza kubadilisha terminali chaguomsingi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:107
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:113
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:107
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:113
 msgid "Could not change default app"
 msgstr "Haikuweza kubadilisha programu chaguomsingi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:16
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:16
 msgid "Sunset to Sunrise"
 msgstr "Machweo hadi mapambazuko"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:16
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:16
 msgid "Custom"
 msgstr "Desturi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:54
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:55
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:108
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:108
 msgid "Display Scale"
 msgstr "Kipimo cha onyesho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:54
 msgid "Scale"
 msgstr "Kipimo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:55
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:56
 msgid "Resolution"
 msgstr "Azimio"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:56
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:57
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:114
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:57
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:114
 msgid "Resolution & Refresh Rate"
 msgstr "Ubainishaji na Kiwango cha kuonyesha upya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:57
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:57
 msgid "Refresh"
 msgstr "Onyesha upya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:58
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:60
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:147
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:151
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:60
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:147
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:151
 msgid "Night Light"
 msgstr "Mwanga wa usiku"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:163
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:163
 msgid "Temperature"
 msgstr "Halijoto"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:60
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:60
 msgid "Blue light"
 msgstr "Mwanga wa buluu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:70
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:70
 msgid "No displays detected"
 msgstr "Hakuna onyesho lililogunduliwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:71
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:71
 msgid "Connect a display and reopen Settings."
 msgstr "Unganisha onyesho na ufungue tena Mipangilio."
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:92
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:92
 msgid "Display scale"
 msgstr "Kipimo cha onyesho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:127
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:127
 msgid "Resolution and refresh rate"
 msgstr "Ubainishaji na kiwango cha kuonyesha upya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:131
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:131
 msgid "Mode"
 msgstr "Hali"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:152
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:152
 msgid "Reduce blue light to help with sleep"
 msgstr "Punguza mwanga wa buluu kusaidia usingizi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:164
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:164
 msgid "3500K (warm) to 6500K (cool)"
 msgstr "3500K (joto) hadi 6500K (baridi)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:177
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:177
 msgid "Night Light temperature"
 msgstr "Night Light temperature"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:191
 msgid "Schedule"
 msgstr "Ratiba"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:203
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:203
 msgid "Custom schedule"
 msgstr "Ratiba ya desturi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:204
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:204
 msgid "Times snap to 15-minute increments"
 msgstr "Nyakati hupanga katika nyongeza za dakika 15"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:208
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:208
 msgid "Start time"
 msgstr "Saa ya kuanza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:218
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:218
 msgid "End time"
 msgstr "Saa ya kuisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:248
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:248
 msgid "Advanced display settings"
 msgstr "Mipangilio ya kina ya onyesho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:249
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:249
 msgid "Arrange and configure displays visually"
 msgstr "Panga na sanidi onyesho kwa kuona"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:273
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:273
 msgid "Advanced display tool not available"
 msgstr "Zana ya kina ya onyesho haipatikani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:411
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:411
 #, python-brace-format
 msgid "Failed to set display scale on {output}"
 msgstr "Imeshindwa kuweka kipimo cha onyesho kwenye {output}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:417
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:417
 msgid "Confirm display scale"
 msgstr "Thibitisha kipimo cha onyesho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:420
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:600
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:420
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:600
 msgid "Revert"
 msgstr "Rudisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:421
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:601
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:421
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:601
 msgid "Keep"
 msgstr "Weka"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:436
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:462
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:436
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:462
 #, python-brace-format
 msgid "Keep this display scale? Reverting in {seconds}s…"
 msgstr "Weka kipimo hiki cha onyesho? Inarudi baada ya {seconds}s…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:597
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:597
 msgid "Confirm resolution"
 msgstr "Thibitisha azimio"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:612
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:634
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:612
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:634
 #, python-brace-format
 msgid "Keep this resolution? Reverting in {seconds}s…"
 msgstr "Weka azimio hili? Inarudi baada ya {seconds}s…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:17
 msgid "English (US)"
 msgstr "Kiingereza (Marekani)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:17
 msgid "English (UK)"
 msgstr "Kiingereza (Uingereza)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:17
 msgid "German"
 msgstr "Kijerumani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:18
 msgid "French"
 msgstr "Kifaransa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:18
 msgid "Spanish"
 msgstr "Kihispania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:18
 msgid "Italian"
 msgstr "Kiitaliano"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:19
 msgid "Portuguese"
 msgstr "Kireno"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:20
 msgid "Russian"
 msgstr "Kirusi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:20
 msgid "Japanese"
 msgstr "Kijapani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:20
 msgid "Korean"
 msgstr "Kikorea"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:21
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:21
 msgid "Chinese"
 msgstr "Kichina"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:22
 msgid "Arabic"
 msgstr "Kiarabu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:22
 msgid "Portuguese (Brazil)"
 msgstr "Kireno (Brazil)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:22
 msgid "Canadian"
 msgstr "Kikanada"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:23
 msgid "Danish"
 msgstr "Kidenmaki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:23
 msgid "Finnish"
 msgstr "Kifini"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:23
 msgid "Dutch"
 msgstr "Kiholanzi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:24
 msgid "Norwegian"
 msgstr "Kinorwe"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:25
 msgid "Polish"
 msgstr "Kipolandi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:25
 msgid "Swedish"
 msgstr "Kiswidi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:25
 msgid "Swiss"
 msgstr "Kiswisi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:26
 msgid "Turkish"
 msgstr "Kituruki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:27
 msgid "Ukrainian"
 msgstr "Kiukreni"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:27
 msgid "Indian"
 msgstr "Kihindi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:27
 msgid "Hebrew"
 msgstr "Kiebrania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:28
 msgid "Thai"
 msgstr "Kithai"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:29
 msgid "Czech"
 msgstr "Kicheki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:29
 msgid "Hungarian"
 msgstr "Kihungaria"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:29
 msgid "Romanian"
 msgstr "Kiromania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:30
 msgid "Slovak"
 msgstr "Kislovakia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:31
 msgid "Croatian"
 msgstr "Kikroeshia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:31
 msgid "Slovenian"
 msgstr "Kislovenia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:31
 msgid "Bulgarian"
 msgstr "Kibulgaria"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:32
 msgid "Greek"
 msgstr "Kigiriki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:33
 msgid "Persian"
 msgstr "Kiajemi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:33
 msgid "Amharic"
 msgstr "Kiamhari"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:33
 msgid "Vietnamese"
 msgstr "Kivietinamu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:34
 msgid "Swahili (Kenya)"
 msgstr "Kiswahili (Kenya)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:34
 msgid "Swahili (Tanzania)"
 msgstr "Kiswahili (Tanzania)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:35
 msgid "Nigerian"
 msgstr "Kinigeria"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:52
 msgid "Open Terminal"
 msgstr "Fungua Terminali"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:53
 msgid "Open File Manager"
 msgstr "Fungua Kidhibiti faili"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:54
 msgid "App Launcher"
 msgstr "Kizindua programu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:55
 msgid "Open Settings"
 msgstr "Fungua Mipangilio"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:56
 msgid "Lock Screen"
 msgstr "Funga skrini"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:57
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:57
 msgid "System Monitor"
 msgstr "Kichunguzi cha mfumo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:58
 msgid "Switch Windows"
 msgstr "Badili madirisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:59
 msgid "Switch Windows (Reverse)"
 msgstr "Badili madirisha (kinyume)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:60
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:60
 msgid "Close Window"
 msgstr "Funga dirisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:61
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:61
 msgid "Maximize / Restore"
 msgstr "Kuza / Rejesha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:62
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:62
 msgid "Minimize"
 msgstr "Punguza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:63
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:63
 msgid "Toggle Fullscreen"
 msgstr "Washa/zima skrini nzima"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:64
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:64
 msgid "Snap Left"
 msgstr "Bandika kushoto"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:65
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:65
 msgid "Snap Right"
 msgstr "Bandika kulia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:115
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:115
 #, python-brace-format
 msgid "Snap {direction}"
 msgstr "Bandika {direction}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:133
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:133
 msgid "Volume Up"
 msgstr "Ongeza sauti"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:135
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:135
 msgid "Volume Down"
 msgstr "Punguza sauti"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:137
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:91
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:140
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:137
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:91
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:140
 msgid "Mute"
 msgstr "Nyamazisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:139
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:139
 msgid "Brightness Up"
 msgstr "Ongeza mwangaza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:141
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:141
 msgid "Brightness Down"
 msgstr "Punguza mwangaza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:143
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:143
 msgid "Screenshot (Region)"
 msgstr "Picha ya skrini (eneo)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:145
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:145
 msgid "Screenshot"
 msgstr "Picha ya skrini"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:147
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:147
 #, python-brace-format
 msgid "Run: {command}"
 msgstr "Endesha: {command}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:319
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:354
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:319
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:354
 msgid "Layout"
 msgstr "Mpangilio"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:319
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:365
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:319
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:365
 msgid "Keyboard layout"
 msgstr "Mpangilio wa kibodi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:319
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:372
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:319
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:372
 msgid "Variant"
 msgstr "Toleo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:320
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:447
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:320
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:447
 msgid "Repeat"
 msgstr "Rudia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:320
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:450
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:320
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:450
 msgid "Repeat delay"
 msgstr "Ucheleweshaji wa kurudia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:320
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:462
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:320
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:462
 msgid "Repeat rate"
 msgstr "Kiwango cha kurudia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:321
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:321
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:321
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:321
 msgid "Caps Lock behavior"
 msgstr "Tabia ya Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:321
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:321
 msgid "Remap"
 msgstr "Panga upya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:322
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:323
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:322
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:323
 msgid "Shortcuts"
 msgstr "Njia za mkato"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:322
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:322
 msgid "Keyboard shortcuts"
 msgstr "Njia za mkato za kibodi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:322
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:322
 msgid "Keybinding"
 msgstr "Ufungaji wa vitufe"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:323
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:323
 msgid "Hotkey"
 msgstr "Kitufe cha haraka"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:323
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:323
 msgid "Key combo"
 msgstr "Mchanganyiko wa vitufe"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:373
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:429
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:373
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:429
 msgid "(Default)"
 msgstr "(Chaguomsingi)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:451
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:451
 msgid "Milliseconds before keys begin repeating"
 msgstr "Milisekunde kabla vitufe havijaanza kurudia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:463
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:463
 msgid "Keys per second when held"
 msgstr "Vitufe kwa sekunde vinaposhikiliwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:476
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:476
 msgid "Caps Lock Behavior"
 msgstr "Tabia ya Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
 msgid "Ctrl"
 msgstr "Ctrl"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
 msgid "Escape"
 msgstr "Escape"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
 msgid "Disabled"
 msgstr "Imezimwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:482
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:482
 msgid "Caps Lock key"
 msgstr "Kitufe cha Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:483
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:483
 msgid "Remap Caps Lock to another function"
 msgstr "Panga upya Caps Lock kwa kazi nyingine"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:503
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:503
 msgid "Keyboard Shortcuts"
 msgstr "Njia za mkato za kibodi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:517
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:517
 msgid "Reset all shortcuts"
 msgstr "Weka upya njia zote za mkato"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:518
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:518
 msgid "Restore every shortcut to its default"
 msgstr "Rejesha kila njia ya mkato kwa chaguomsingi yake"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:520
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:906
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:520
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:906
 msgid "Reset All"
 msgstr "Weka upya yote"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:547
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:553
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:597
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:600
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:547
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:553
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:597
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:600
 msgid "Reset to default"
 msgstr "Rejesha chaguomsingi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:640
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:640
 msgid "Press new shortcut"
 msgstr "Bonyeza njia mpya ya mkato"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:649
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:649
 msgid "Press the new shortcut"
 msgstr "Bonyeza njia mpya ya mkato"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:651
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:651
 msgid "Press the desired key combination. Press Escape to cancel."
 msgstr "Bonyeza mchanganyiko wa vitufe unaotaka. Bonyeza Escape kughairi."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:715
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:715
 msgid "Reserved key combination"
 msgstr "Mchanganyiko wa vitufe umehifadhiwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:716
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:716
 #, python-brace-format
 msgid "{key} is reserved by the system and can't be reassigned."
 msgstr "{key} imehifadhiwa na mfumo na haiwezi kugawiwa upya."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:718
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:718
 msgid "OK"
 msgstr "Sawa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:789
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:789
 msgid "Shortcut Conflict"
 msgstr "Mgongano wa njia ya mkato"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:790
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:790
 #, python-brace-format
 msgid ""
 "\"{key}\" is already assigned to \"{conflict}\".\n"
@@ -1447,20 +1447,20 @@ msgstr ""
 "\n"
 "Ipe upya kwa \"{target}\"?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:798
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:798
 msgid "Reassign"
 msgstr "Teua upya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:821
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:821
 #, python-brace-format
 msgid "No default key for {action}; please rebind it."
 msgstr "Hakuna kitufe chaguomsingi cha {action}; tafadhali kifunge upya."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:862
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:862
 msgid "Reset would affect another shortcut"
 msgstr "Kuweka upya kutaathiri njia nyingine ya mkato"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:863
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:863
 #, python-brace-format
 msgid ""
 "{key} is currently assigned to {name}. Reset this shortcut and also reset "
@@ -1469,15 +1469,15 @@ msgstr ""
 "{key} kwa sasa imepewa {name}. Uweke upya njia hii ya mkato na pia urejeshe "
 "{name} kwa chaguomsingi yake?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:868
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:868
 msgid "Reset Both"
 msgstr "Weka upya zote mbili"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:901
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:901
 msgid "Reset all shortcuts?"
 msgstr "Weka upya njia zote za mkato?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:902
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:902
 msgid ""
 "This will restore every shortcut to its system default. This cannot be "
 "undone."
@@ -1485,760 +1485,760 @@ msgstr ""
 "Hii itarejesha kila njia ya mkato kwa chaguomsingi ya mfumo. Haiwezi "
 "kutenduliwa."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:949
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:949
 #, python-brace-format
 msgid "Failed to save shortcuts: {msg}"
 msgstr "Imeshindwa kuhifadhi njia za mkato: {msg}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:23
 msgid "Language"
 msgstr "Lugha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:24
 msgid "Locale"
 msgstr "Mandhari ya eneo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:25
 msgid "Regional format"
 msgstr "Muundo wa eneo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:30
 msgid "Changes take effect after logging out"
 msgstr "Mabadiliko yatatumika baada ya kutoka"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:42
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:42
 msgid "System language"
 msgstr "Lugha ya mfumo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:53
 msgid "Regional formats"
 msgstr "Miundo ya eneo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:54
 msgid "Date, number, and currency format"
 msgstr "Muundo wa tarehe, nambari, na fedha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:158
 msgid "Failed to set language"
 msgstr "Imeshindwa kuweka lugha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:159
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:159
 msgid "Language change timed out"
 msgstr "Muda wa kubadilisha lugha umeisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:173
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:173
 msgid "Failed to set regional format"
 msgstr "Imeshindwa kuweka muundo wa eneo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:174
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:174
 msgid "Format change timed out"
 msgstr "Muda wa kubadilisha muundo umeisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:188
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:188
 msgid "Language settings are unavailable on this system"
 msgstr "Mipangilio ya lugha haipatikani kwenye mfumo huu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:192
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:192
 #, python-brace-format
 msgid "Language change failed: {reason}"
 msgstr "Kubadilisha lugha kumeshindwa: {reason}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:12
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:12
 msgid "Adaptive"
 msgstr "Inayobadilika"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:13
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:13
 msgid "Flat"
 msgstr "Bapa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:26
 msgid "Slowest"
 msgstr "Polepole zaidi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:28
 msgid "Slow"
 msgstr "Polepole"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:32
 msgid "Fast"
 msgstr "Haraka"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:33
 msgid "Fastest"
 msgstr "Haraka zaidi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:61
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:61
 msgid "Touchpad"
 msgstr "Padi ya kugusa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:65
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:65
 msgid "Tap to click"
 msgstr "Gusa kubofya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:72
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:125
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:72
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:125
 msgid "Natural scrolling"
 msgstr "Kusogeza asilia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:101
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:152
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:101
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:152
 msgid "Pointer speed"
 msgstr "Kasi ya kielekezi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:107
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:107
 msgid "Scroll speed"
 msgstr "Kasi ya kusogeza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:48
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:121
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:48
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:121
 msgid "Mouse"
 msgstr "Kipanya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:48
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:48
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:158
 msgid "Acceleration"
 msgstr "Kuongeza kasi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:73
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:73
 msgid "Content moves with your fingers"
 msgstr "Maudhui husogea na vidole vyako"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:94
 msgid "Touchpad pointer speed"
 msgstr "Touchpad pointer speed"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:145
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:145
 msgid "Mouse pointer speed"
 msgstr "Mouse pointer speed"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:34
 msgid "Signal: excellent"
 msgstr "Ishara: bora"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:36
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:36
 msgid "Signal: good"
 msgstr "Ishara: nzuri"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:38
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:38
 msgid "Signal: fair"
 msgstr "Ishara: wastani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:39
 msgid "Signal: weak"
 msgstr "Ishara: dhaifu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:67
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:68
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:123
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:141
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:67
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:68
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:123
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:141
 msgid "WiFi"
 msgstr "WiFi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:68
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:68
 msgid "Hidden network"
 msgstr "Mtandao uliofichwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:171
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:171
 msgid "Wired"
 msgstr "Yenye waya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:174
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:174
 msgid "Ethernet"
 msgstr "Ethernet"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
 msgid "Connection"
 msgstr "Muunganisho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
 msgid "IP address"
 msgstr "Anwani ya IP"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:82
 msgid "No network adapter"
 msgstr "Hakuna adapta ya mtandao"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:128
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:131
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:128
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:131
 msgid "Scan for networks"
 msgstr "Tafuta mitandao"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:147
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:147
 msgid "Connect to hidden network"
 msgstr "Unganisha na mtandao uliofichwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:157
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:157
 msgid "Available Networks"
 msgstr "Mitandao inayopatikana"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:158
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:268
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:274
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:268
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:274
 msgid "No networks found"
 msgstr "Hakuna mitandao iliyopatikana"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:164
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:164
 msgid "Active Connection"
 msgstr "Muunganisho hai"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:165
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:597
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:165
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:597
 msgid "Not connected"
 msgstr "Haijaunganishwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:186
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:186
 msgid "Advanced network settings"
 msgstr "Mipangilio ya kina ya mtandao"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:204
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:204
 msgid "Connection editor not found"
 msgstr "Kihariri cha muunganisho hakikupatikana"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:227
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:227
 msgid "NetworkManager is not available"
 msgstr "NetworkManager haipatikani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:360
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:364
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:360
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:364
 msgid "Password protected"
 msgstr "Imelindwa kwa nenosiri"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:390
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:390
 msgid "Another connection attempt is already running"
 msgstr "Jaribio lingine la kuunganisha tayari linaendelea"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:397
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:397
 #, python-brace-format
 msgid "Connecting to {ssid}…"
 msgstr "Inaunganisha na {ssid}…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:403
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:403
 msgid "Forget network?"
 msgstr "Sahau mtandao?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:404
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:404
 #, python-brace-format
 msgid "This will remove the saved password for {ssid}."
 msgstr "Hii itaondoa nenosiri lililohifadhiwa la {ssid}."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:426
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:426
 #, python-brace-format
 msgid "Connect to {ssid}"
 msgstr "Unganisha na {ssid}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:436
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:436
 msgid "Enter the Wi-Fi password."
 msgstr "Ingiza nenosiri la Wi-Fi."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:466
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:557
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:466
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:557
 msgid "Password must be at least 8 characters"
 msgstr "Nenosiri lazima liwe na angalau herufi 8"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:469
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:560
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:469
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:560
 #, python-brace-format
 msgid "Connecting to {ssid}..."
 msgstr "Inaunganisha na {ssid}..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:480
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:480
 msgid "Connect to Hidden Network"
 msgstr "Unganisha na mtandao uliofichwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:491
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:491
 msgid "Enter the network name and security details."
 msgstr "Ingiza jina la mtandao na maelezo ya usalama."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:495
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:495
 msgid "Network name (SSID)"
 msgstr "Jina la mtandao (SSID)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:499
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:499
 msgid "Security"
 msgstr "Usalama"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:501
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:501
 msgid "None"
 msgstr "Hakuna"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:501
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:501
 msgid "WPA/WPA2"
 msgstr "WPA/WPA2"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:532
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:532
 msgid "Network name cannot be empty"
 msgstr "Jina la mtandao haliwezi kuwa tupu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:537
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:537
 msgid "Network name is invalid"
 msgstr "Jina la mtandao si sahihi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:540
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:540
 msgid "Network name must be 32 bytes or less"
 msgstr "Jina la mtandao lazima liwe baiti 32 au chini ya hapo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:572
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:572
 msgid "Connected successfully"
 msgstr "Imeunganishwa kwa mafanikio"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:603
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:603
 msgid "Type"
 msgstr "Aina"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:604
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:604
 msgid "IP Address"
 msgstr "Anwani ya IP"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:605
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:605
 msgid "Gateway"
 msgstr "Lango"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:606
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:606
 msgid "DNS"
 msgstr "DNS"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:625
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:625
 msgid "No wired adapter detected"
 msgstr "Hakuna adapta ya waya iliyogunduliwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:629
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:629
 msgid "Disconnected"
 msgstr "Imetenganishwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:17
 msgid "Apps"
 msgstr "Programu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:17
 msgid "Window list"
 msgstr "Orodha ya madirisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:18
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:72
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:121
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:72
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:121
 msgid "Volume"
 msgstr "Sauti"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:18
 msgid "Brightness"
 msgstr "Mwangaza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:18
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:83
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:83
 msgid "Battery"
 msgstr "Betri"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:19
 msgid "Clock"
 msgstr "Saa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:19
 msgid "System tray"
 msgstr "Trei ya mfumo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:53
 msgid "Left"
 msgstr "Kushoto"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:47
 msgid "Center"
 msgstr "Katikati"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:54
 msgid "Right"
 msgstr "Kulia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:52
 msgid "Top"
 msgstr "Juu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:51
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:51
 msgid "Bottom"
 msgstr "Chini"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:58
 msgid "Normal"
 msgstr "Kawaida"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
 msgid "Compact"
 msgstr "Iliyoshikana"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:132
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:132
 msgid "Position"
 msgstr "Nafasi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:158
 msgid "Density"
 msgstr "Msongamano"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:95
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:183
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:186
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:95
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:183
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:186
 msgid "Twilight"
 msgstr "Machweo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:95
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:95
 msgid "Invert"
 msgstr "Geuza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
 msgid "Module Layout"
 msgstr "Mpangilio wa moduli"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
 msgid "Modules"
 msgstr "Moduli"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:535
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:535
 msgid "Pinned Apps"
 msgstr "Programu zilizobandikwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
 msgid "Pinned"
 msgstr "Imebandikwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:136
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:136
 msgid "Panel position"
 msgstr "Nafasi ya paneli"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:161
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:161
 msgid "Panel density"
 msgstr "Msongamano wa paneli"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:187
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:187
 msgid "Invert panel colors from the system theme"
 msgstr "Geuza rangi za paneli kutoka kwa mandhari ya mfumo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:226
 msgid "Reset layout to defaults"
 msgstr "Rejesha mpangilio wa chaguomsingi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:413
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:413
 msgid "Move up in section"
 msgstr "Sogeza juu katika sehemu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:431
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:431
 msgid "Move down in section"
 msgstr "Sogeza chini katika sehemu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:447
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:466
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:447
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:466
 #, python-brace-format
 msgid "Move to {section}"
 msgstr "Hamisha hadi {section}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:539
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:542
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:539
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:542
 msgid "Add pinned app"
 msgstr "Ongeza programu iliyobandikwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:565
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:565
 msgid "No pinned apps"
 msgstr "Hakuna programu zilizobandikwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:621
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:621
 msgid "Add Pinned App"
 msgstr "Ongeza programu iliyobandikwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:635
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:635
 msgid "Search apps"
 msgstr "Tafuta programu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:643
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:643
 msgid "Applications"
 msgstr "Programu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:665
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:665
 msgid "Add"
 msgstr "Ongeza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:696
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:696
 #, python-brace-format
 msgid "{app} has no launch command"
 msgstr "{app} haina amri ya kuzindua"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:17
 msgid "1 minute"
 msgstr "Dakika 1"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:18
 msgid "2 minutes"
 msgstr "Dakika 2"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:19
 msgid "5 minutes"
 msgstr "Dakika 5"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:20
 msgid "10 minutes"
 msgstr "Dakika 10"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:21
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:21
 msgid "15 minutes"
 msgstr "Dakika 15"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:22
 msgid "30 minutes"
 msgstr "Dakika 30"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:23
 msgid "Never"
 msgstr "Kamwe"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:28
 msgid "Balanced"
 msgstr "Sawia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:29
 msgid "Power Saver"
 msgstr "Kiokoa nguvu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:30
 msgid "Performance"
 msgstr "Utendaji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:34
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:84
 msgid "Suspend"
 msgstr "Simamisha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:35
 msgid "Lock"
 msgstr "Funga"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:36
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:36
 msgid "Do Nothing"
 msgstr "Usifanye chochote"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:80
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:81
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:120
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:80
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:81
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:120
 msgid "Lock & Display"
 msgstr "Kufunga na Onyesho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:80
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:80
 msgid "Lock screen"
 msgstr "Funga skrini"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:81
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:81
 msgid "Display off"
 msgstr "Zima onyesho"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:82
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:83
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:180
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:83
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:180
 msgid "Power Profile"
 msgstr "Wasifu wa nguvu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:82
 msgid "Power"
 msgstr "Nguvu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:186
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:186
 msgid "Suspend on Idle"
 msgstr "Simamisha wakati wa kupumzika"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:85
 msgid "Idle"
 msgstr "Kupumzika"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:269
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:269
 msgid "Lid Close Behavior"
 msgstr "Tabia ya kufunga kifuniko"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:86
 msgid "Lid"
 msgstr "Kifuniko"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:123
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:123
 msgid "Lock screen after"
 msgstr "Funga skrini baada ya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:128
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:128
 msgid "Turn off display after"
 msgstr "Zima onyesho baada ya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:145
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:145
 msgid "Power profile"
 msgstr "Wasifu wa nguvu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:146
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:146
 msgid "Balance between performance and battery life"
 msgstr "Usawa kati ya utendaji na muda wa betri"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:158
 msgid "Power profiles are unavailable on this system"
 msgstr "Power profiles are unavailable on this system"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:188
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:188
 msgid "Put the computer to sleep after a period of inactivity."
 msgstr "Laza kompyuta baada ya muda wa kutotumika."
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:201
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:201
 msgid "Suspend after"
 msgstr "Simamisha baada ya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:222
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:222
 msgid "Suspend delay must be at least as long as the lock delay."
 msgstr ""
 "Ucheleweshaji wa kusimamisha lazima uwe angalau sawa na ucheleweshaji wa "
 "kufunga."
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:241
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:241
 msgid "When lid is closed"
 msgstr "Wakati kifuniko kinafungwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:364
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:364
 msgid "Lid action change timed out"
 msgstr "Ubadilishaji wa kitendo cha kifuniko umekwisha muda"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:369
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:369
 msgid "Authentication tool not available"
 msgstr "Zana ya uthibitishaji haipatikani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:384
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:384
 msgid "Failed to change lid close action"
 msgstr "Imeshindwa kubadilisha kitendo cha kufunga kifuniko"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:51
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:51
 msgid "Output"
 msgstr "Pato"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:63
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:63
 msgid "Output device"
 msgstr "Kifaa cha pato"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:100
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:100
 msgid "Input"
 msgstr "Ingizo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:112
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:112
 msgid "Input device"
 msgstr "Kifaa cha ingizo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:45
 msgid "Microphone"
 msgstr "Maikrofoni"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:65
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:359
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:65
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:359
 msgid "(No output devices)"
 msgstr "(Hakuna vifaa vya pato)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:82
 msgid "Output volume"
 msgstr "Output volume"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:114
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:377
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:114
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:377
 msgid "(No input devices)"
 msgstr "(Hakuna vifaa vya ingizo)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:131
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:131
 msgid "Input volume"
 msgstr "Input volume"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:43
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:99
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:43
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:99
 msgid "Display name"
 msgstr "Jina la kuonyesha"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:45
 msgid "Auto-login"
 msgstr "Kuingia otomatiki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:90
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:90
 msgid "Account"
 msgstr "Akaunti"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:84
 msgid "Could not connect to AccountsService"
 msgstr "Imeshindwa kuunganisha na AccountsService"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:85
 msgid "User account settings are unavailable."
 msgstr "Mipangilio ya akaunti ya mtumiaji haipatikani."
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:108
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:108
 msgid "Set a new password for your account"
 msgstr "Weka nenosiri jipya kwa akaunti yako"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:121
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:121
 msgid "Automatic login"
 msgstr "Kuingia otomatiki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:122
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:122
 msgid "Log in without a password at startup"
 msgstr "Ingia bila nenosiri wakati wa kuanza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:162
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:162
 #, python-brace-format
 msgid "Could not save name: {msg}"
 msgstr "Imeshindwa kuhifadhi jina: {msg}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:191
 msgid "Could not change auto-login"
 msgstr "Haikuweza kubadilisha kuingia otomatiki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:208
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:208
 msgid "Change Password"
 msgstr "Badilisha nenosiri"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:217
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:217
 msgid "Enter a new password for your account."
 msgstr "Ingiza nenosiri jipya kwa akaunti yako."
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:220
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:220
 msgid "New password"
 msgstr "Nenosiri jipya"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:224
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:224
 msgid "Confirm password"
 msgstr "Thibitisha nenosiri"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:232
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:232
 msgid "Apply"
 msgstr "Tumia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:255
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:255
 msgid "Passwords do not match"
 msgstr "Nenosiri hazilingani"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:293
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:293
 msgid "Password changed"
 msgstr "Nenosiri limebadilishwa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:299
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:299
 msgid "Failed to set password"
 msgstr "Imeshindwa kuweka nenosiri"
 
@@ -2325,8 +2325,8 @@ msgstr "Imeshindwa kuweka nenosiri"
 #~ msgid "Search apps…"
 #~ msgstr "Tafuta programu…"
 
-#~ msgid "Universal-Lite Settings"
-#~ msgstr "Mipangilio ya Universal-Lite"
+#~ msgid "Adwaita-Lite Settings"
+#~ msgstr "Mipangilio ya Adwaita-Lite"
 
 #~ msgid "Search settings..."
 #~ msgstr "Tafuta mipangilio..."

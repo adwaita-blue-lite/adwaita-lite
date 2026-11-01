@@ -4,24 +4,24 @@
 
 **Goal:** Stop Settings from live-reloading Waybar, keep transactional Waybar file writes, and tell users in every Settings language that panel changes apply after restarting the session.
 
-**Architecture:** `SettingsStore` keeps the detached `mode="waybar"` worker but treats it as save-and-defer, not live apply. `universal-lite-apply-settings` continues rendering and atomically replacing Waybar config/CSS, while both `--mode waybar` and full/live Settings applies avoid `reload_waybar()`. Panel and Appearance pages show a persistent restart-session notice, and gettext catalogs carry the new copy for all supported locales.
+**Architecture:** `SettingsStore` keeps the detached `mode="waybar"` worker but treats it as save-and-defer, not live apply. `adwaita-lite-apply-settings` continues rendering and atomically replacing Waybar config/CSS, while both `--mode waybar` and full/live Settings applies avoid `reload_waybar()`. Panel and Appearance pages show a persistent restart-session notice, and gettext catalogs carry the new copy for all supported locales.
 
-**Tech Stack:** Python 3.14, GTK/Adwaita via PyGObject, GNU gettext PO/POT/MO files, pytest, existing `universal-lite-apply-settings` script.
+**Tech Stack:** Python 3.14, GTK/Adwaita via PyGObject, GNU gettext PO/POT/MO files, pytest, existing `adwaita-lite-apply-settings` script.
 
 ---
 
 ## File Map
 
-- Modify `files/usr/libexec/universal-lite-apply-settings`: remove Settings-driven Waybar lifecycle calls from `apply_waybar_transaction()` and `_sync_live_session()` while preserving transactional writes.
-- Modify `files/usr/lib/universal-lite/settings/settings_store.py`: show restart-session success toast for detached Waybar applies and update the spawn-failure copy.
-- Modify `files/usr/lib/universal-lite/settings/pages/panel.py`: add a persistent restart-session notice to the Panel page.
-- Modify `files/usr/lib/universal-lite/settings/pages/appearance.py`: add the same persistent notice near accent color because accent changes affect panel styling.
+- Modify `files/usr/libexec/adwaita-lite-apply-settings`: remove Settings-driven Waybar lifecycle calls from `apply_waybar_transaction()` and `_sync_live_session()` while preserving transactional writes.
+- Modify `files/usr/lib/adwaita-lite/settings/settings_store.py`: show restart-session success toast for detached Waybar applies and update the spawn-failure copy.
+- Modify `files/usr/lib/adwaita-lite/settings/pages/panel.py`: add a persistent restart-session notice to the Panel page.
+- Modify `files/usr/lib/adwaita-lite/settings/pages/appearance.py`: add the same persistent notice near accent color because accent changes affect panel styling.
 - Modify `tests/test_apply_settings.py`: update transactional Waybar tests and add coverage that live sync ignores `waybar_changed` for reload purposes.
 - Modify `tests/test_settings_store.py`: add coverage for the restart-session toast and updated spawn-failure toast.
 - Modify `tests/test_settings_app_logic.py`: add source-level coverage for the persistent Panel and Appearance notices.
-- Modify `po/settings/universal-lite-settings.pot`: add the new translatable Settings strings.
+- Modify `po/settings/adwaita-lite-settings.pot`: add the new translatable Settings strings.
 - Modify `po/settings/*.po`: add non-empty translations for every supported Settings language.
-- Modify `files/usr/share/locale/*/LC_MESSAGES/universal-lite-settings.mo`: rebuild compiled Settings catalogs.
+- Modify `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-settings.mo`: rebuild compiled Settings catalogs.
 
 ---
 
@@ -29,7 +29,7 @@
 
 **Files:**
 - Modify: `tests/test_apply_settings.py`
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 - [ ] **Step 1: Replace the transactional reload expectation with a failing no-reload test**
 
@@ -145,7 +145,7 @@ Expected: FAIL. The first test fails because `apply_waybar_transaction()` calls 
 
 - [ ] **Step 4: Remove reload calls from Settings-driven apply paths**
 
-In `files/usr/libexec/universal-lite-apply-settings`, change `apply_waybar_transaction()` to:
+In `files/usr/libexec/adwaita-lite-apply-settings`, change `apply_waybar_transaction()` to:
 
 ```python
 def apply_waybar_transaction(tokens: dict) -> bool:
@@ -188,7 +188,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings tests/test_apply_settings.py
+git add files/usr/libexec/adwaita-lite-apply-settings tests/test_apply_settings.py
 git commit -m "fix(settings): defer waybar reloads"
 ```
 
@@ -198,7 +198,7 @@ git commit -m "fix(settings): defer waybar reloads"
 
 **Files:**
 - Modify: `tests/test_settings_store.py`
-- Modify: `files/usr/lib/universal-lite/settings/settings_store.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/settings_store.py`
 
 - [ ] **Step 1: Add failing success-toast coverage for Waybar-only saves**
 
@@ -267,7 +267,7 @@ Expected: FAIL. The first test fails because the detached Waybar path currently 
 
 - [ ] **Step 4: Update detached Waybar apply messaging**
 
-In `files/usr/lib/universal-lite/settings/settings_store.py`, update `_run_waybar_apply_detached()` to:
+In `files/usr/lib/adwaita-lite/settings/settings_store.py`, update `_run_waybar_apply_detached()` to:
 
 ```python
     def _run_waybar_apply_detached(self) -> None:
@@ -324,7 +324,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add files/usr/lib/universal-lite/settings/settings_store.py tests/test_settings_store.py
+git add files/usr/lib/adwaita-lite/settings/settings_store.py tests/test_settings_store.py
 git commit -m "fix(settings): explain deferred panel applies"
 ```
 
@@ -334,8 +334,8 @@ git commit -m "fix(settings): explain deferred panel applies"
 
 **Files:**
 - Modify: `tests/test_settings_app_logic.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/panel.py`
-- Modify: `files/usr/lib/universal-lite/settings/pages/appearance.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/panel.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/appearance.py`
 
 - [ ] **Step 1: Add failing Panel-page notice coverage**
 
@@ -379,7 +379,7 @@ Expected: FAIL because neither page declares or displays `PANEL_RESTART_NOTICE` 
 
 - [ ] **Step 4: Add the Panel page notice**
 
-In `files/usr/lib/universal-lite/settings/pages/panel.py`, add this constant after `DENSITY_OPTIONS`:
+In `files/usr/lib/adwaita-lite/settings/pages/panel.py`, add this constant after `DENSITY_OPTIONS`:
 
 ```python
 PANEL_RESTART_NOTICE = _("Panel changes apply after you restart your session.")
@@ -393,7 +393,7 @@ In `_build_position_group()`, after `group.set_title(_("Position"))`, add:
 
 - [ ] **Step 5: Add the Appearance accent notice**
 
-In `files/usr/lib/universal-lite/settings/pages/appearance.py`, add this constant before `class AppearancePage`:
+In `files/usr/lib/adwaita-lite/settings/pages/appearance.py`, add this constant before `class AppearancePage`:
 
 ```python
 PANEL_RESTART_NOTICE = _("Panel changes apply after you restart your session.")
@@ -430,7 +430,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/panel.py files/usr/lib/universal-lite/settings/pages/appearance.py tests/test_settings_app_logic.py
+git add files/usr/lib/adwaita-lite/settings/pages/panel.py files/usr/lib/adwaita-lite/settings/pages/appearance.py tests/test_settings_app_logic.py
 git commit -m "fix(settings): show panel restart notice"
 ```
 
@@ -439,7 +439,7 @@ git commit -m "fix(settings): show panel restart notice"
 ### Task 4: Update Settings Translations
 
 **Files:**
-- Modify: `po/settings/universal-lite-settings.pot`
+- Modify: `po/settings/adwaita-lite-settings.pot`
 - Modify: `po/settings/am.po`
 - Modify: `po/settings/ar.po`
 - Modify: `po/settings/de.po`
@@ -462,7 +462,7 @@ git commit -m "fix(settings): show panel restart notice"
 - Modify: `po/settings/vi.po`
 - Modify: `po/settings/yo.po`
 - Modify: `po/settings/zh.po`
-- Modify: `files/usr/share/locale/*/LC_MESSAGES/universal-lite-settings.mo`
+- Modify: `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-settings.mo`
 
 - [ ] **Step 1: Refresh Settings POT and PO catalogs**
 
@@ -472,7 +472,7 @@ Run:
 make -C po pot-settings po-settings
 ```
 
-Expected: `po/settings/universal-lite-settings.pot` contains these msgids, and every `po/settings/*.po` contains matching untranslated entries:
+Expected: `po/settings/adwaita-lite-settings.pot` contains these msgids, and every `po/settings/*.po` contains matching untranslated entries:
 
 ```po
 msgid "Panel changes saved. Restart your session to apply them."
@@ -576,7 +576,7 @@ Run:
 make -C po mo-settings
 ```
 
-Expected: `files/usr/share/locale/<lang>/LC_MESSAGES/universal-lite-settings.mo` is updated for every language listed in `po/Makefile`.
+Expected: `files/usr/share/locale/<lang>/LC_MESSAGES/adwaita-lite-settings.mo` is updated for every language listed in `po/Makefile`.
 
 - [ ] **Step 4: Run translation catalog tests**
 
@@ -651,7 +651,7 @@ Run:
 ```bash
 python - <<'PY'
 from pathlib import Path
-source = Path('files/usr/libexec/universal-lite-apply-settings').read_text(encoding='utf-8')
+source = Path('files/usr/libexec/adwaita-lite-apply-settings').read_text(encoding='utf-8')
 call_sites = [
     line for line in source.splitlines()
     if 'reload_waybar()' in line and not line.lstrip().startswith('def reload_waybar')

@@ -6,7 +6,7 @@
 
 **Architecture:** Six parallel Sonnet subagents, one per page. Each agent:
 
-1. Reads the pilot (`files/usr/lib/universal-lite/settings/pages/power_lock.py`) as reference
+1. Reads the pilot (`files/usr/lib/adwaita-lite/settings/pages/power_lock.py`) as reference
 2. Reads the reference pack (`docs/superpowers/specs/2026-04-20-settings-adwaita-reference.md`) for patterns
 3. Reads their page-specific task section in this plan for target row types, preservation checklist, and UX touches
 4. Rewrites their assigned page, commits as a single-file commit with the exact message template provided, does not push
@@ -16,7 +16,7 @@ After all six agents finish, the **controller** runs spec + quality reviewers pe
 **Tech Stack:** Python 3.13, PyGObject, GTK 4, libadwaita.
 
 **References:**
-- Pilot: `files/usr/lib/universal-lite/settings/pages/power_lock.py` (commit `842a98b`, annotated in `7f9473f`)
+- Pilot: `files/usr/lib/adwaita-lite/settings/pages/power_lock.py` (commit `842a98b`, annotated in `7f9473f`)
 - Design: `docs/superpowers/specs/2026-04-20-settings-adwaita-migration-design.md`
 - Reference pack: `docs/superpowers/specs/2026-04-20-settings-adwaita-reference.md`
 - Phase 0 plan (for context on the conversion pattern): `docs/superpowers/plans/2026-04-20-settings-adwaita-phase-0.md`
@@ -63,18 +63,18 @@ Six pages modified. `base.py`, `window.py`, `pages/__init__.py` are untouched.
 
 | Page | File | Complexity | Agent |
 |---|---|---|---|
-| Mouse & Touchpad | `files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py` | Low (switches + scales + toggle-cards) | Agent 1 |
-| Accessibility | `files/usr/lib/universal-lite/settings/pages/accessibility.py` | Low-Med (switches + dropdown + stateful large-text toggle) | Agent 2 |
-| Date & Time | `files/usr/lib/universal-lite/settings/pages/datetime.py` | Med (entry + switches + live-updating time label + subprocess timezone) | Agent 3 |
-| Default Apps | `files/usr/lib/universal-lite/settings/pages/default_apps.py` | Low-Med (dynamic dropdowns with loading guard) | Agent 4 |
-| Language & Region | `files/usr/lib/universal-lite/settings/pages/language.py` | Low-Med (two dropdowns + info banner + loading guard) | Agent 5 |
-| Sound | `files/usr/lib/universal-lite/settings/pages/sound.py` | Med-High (dropdowns + scales + switches, live pactl events, updating flag) | Agent 6 |
+| Mouse & Touchpad | `files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py` | Low (switches + scales + toggle-cards) | Agent 1 |
+| Accessibility | `files/usr/lib/adwaita-lite/settings/pages/accessibility.py` | Low-Med (switches + dropdown + stateful large-text toggle) | Agent 2 |
+| Date & Time | `files/usr/lib/adwaita-lite/settings/pages/datetime.py` | Med (entry + switches + live-updating time label + subprocess timezone) | Agent 3 |
+| Default Apps | `files/usr/lib/adwaita-lite/settings/pages/default_apps.py` | Low-Med (dynamic dropdowns with loading guard) | Agent 4 |
+| Language & Region | `files/usr/lib/adwaita-lite/settings/pages/language.py` | Low-Med (two dropdowns + info banner + loading guard) | Agent 5 |
+| Sound | `files/usr/lib/adwaita-lite/settings/pages/sound.py` | Med-High (dropdowns + scales + switches, live pactl events, updating flag) | Agent 6 |
 
 ---
 
 ## Task: Agent 1 — `mouse_touchpad`
 
-**File:** `files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py`
 
 ### Row mapping
 
@@ -102,10 +102,10 @@ Six pages modified. `base.py`, `window.py`, `pages/__init__.py` are untouched.
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py').read()); print('OK')"
-grep -cE 'save_and_apply|save_debounced' files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py').read()); print('OK')"
+grep -cE 'save_and_apply|save_debounced' files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py
 # Expected: 7
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py
 # Expected: 0
 ```
 
@@ -119,7 +119,7 @@ Preservation line: *"all 7 save_and_apply/save_debounced calls, the pointer-spee
 
 ## Task: Agent 2 — `accessibility`
 
-**File:** `files/usr/lib/universal-lite/settings/pages/accessibility.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/accessibility.py`
 
 ### Row mapping
 
@@ -153,12 +153,12 @@ The design spec suggested `AdwBanner` when high-contrast is active but the adw-g
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/accessibility.py').read()); print('OK')"
-grep -cE 'save_and_apply' files/usr/lib/universal-lite/settings/pages/accessibility.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/accessibility.py').read()); print('OK')"
+grep -cE 'save_and_apply' files/usr/lib/adwaita-lite/settings/pages/accessibility.py
 # Expected: 4
-grep -cE '_prev_font_size' files/usr/lib/universal-lite/settings/pages/accessibility.py
+grep -cE '_prev_font_size' files/usr/lib/adwaita-lite/settings/pages/accessibility.py
 # Expected: >= 3 (init, read inside _on_large_text, write inside _on_large_text)
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/accessibility.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/accessibility.py
 # Expected: 0
 ```
 
@@ -172,7 +172,7 @@ Preservation line: *"all 4 save_and_apply calls, the stateful large-text font-si
 
 ## Task: Agent 3 — `datetime`
 
-**File:** `files/usr/lib/universal-lite/settings/pages/datetime.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/datetime.py`
 
 ### Row mapping
 
@@ -202,14 +202,14 @@ Single `Adw.PreferencesGroup` titled `_("Date & Time")`.
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/datetime.py').read()); print('OK')"
-grep -cE '_timer_id|_mapped|_update_time' files/usr/lib/universal-lite/settings/pages/datetime.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/datetime.py').read()); print('OK')"
+grep -cE '_timer_id|_mapped|_update_time' files/usr/lib/adwaita-lite/settings/pages/datetime.py
 # Expected: >= 6 (timer + mapped + update_time each appear in setter, reader, and teardown)
-grep -cE 'timedatectl' files/usr/lib/universal-lite/settings/pages/datetime.py
+grep -cE 'timedatectl' files/usr/lib/adwaita-lite/settings/pages/datetime.py
 # Expected: 4 (Timezone get, NTP get, Timezone set, NTP set)
-grep -cE 'save_and_apply' files/usr/lib/universal-lite/settings/pages/datetime.py
+grep -cE 'save_and_apply' files/usr/lib/adwaita-lite/settings/pages/datetime.py
 # Expected: 1 (only clock_24h persists through the store; timezone/ntp persist via timedatectl)
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/datetime.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/datetime.py
 # Expected: 0
 ```
 
@@ -223,7 +223,7 @@ Preservation line: *"clock_24h save_and_apply, timedatectl subprocess flows for 
 
 ## Task: Agent 4 — `default_apps`
 
-**File:** `files/usr/lib/universal-lite/settings/pages/default_apps.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/default_apps.py`
 
 ### Row mapping
 
@@ -240,12 +240,12 @@ Preservation line: *"clock_24h save_and_apply, timedatectl subprocess flows for 
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/default_apps.py').read()); print('OK')"
-grep -cE 'xdg-mime' files/usr/lib/universal-lite/settings/pages/default_apps.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/default_apps.py').read()); print('OK')"
+grep -cE 'xdg-mime' files/usr/lib/adwaita-lite/settings/pages/default_apps.py
 # Expected: 2 (one read, one write)
-grep -cE '_set_terminal' files/usr/lib/universal-lite/settings/pages/default_apps.py
+grep -cE '_set_terminal' files/usr/lib/adwaita-lite/settings/pages/default_apps.py
 # Expected: >= 4 (def _set_terminal_by_id, def _set_terminal, call site inside handler, + internal ref)
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/default_apps.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/default_apps.py
 # Expected: 0
 ```
 
@@ -259,7 +259,7 @@ Preservation line: *"xdg-mime read/write for each non-terminal handler, the cust
 
 ## Task: Agent 5 — `language`
 
-**File:** `files/usr/lib/universal-lite/settings/pages/language.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/language.py`
 
 ### Row mapping
 
@@ -287,12 +287,12 @@ Preservation line: *"xdg-mime read/write for each non-terminal handler, the cust
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/language.py').read()); print('OK')"
-grep -cE 'localectl' files/usr/lib/universal-lite/settings/pages/language.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/language.py').read()); print('OK')"
+grep -cE 'localectl' files/usr/lib/adwaita-lite/settings/pages/language.py
 # Expected: 5 (list-locales, status x2, set-locale x2)
-grep -cE 'loaded\[0\]' files/usr/lib/universal-lite/settings/pages/language.py
+grep -cE 'loaded\[0\]' files/usr/lib/adwaita-lite/settings/pages/language.py
 # Expected: >= 4 (definition, write-True at end of build, guard in lang handler, guard in format handler)
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/language.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/language.py
 # Expected: 0
 ```
 
@@ -306,7 +306,7 @@ Preservation line: *"localectl subprocess flows for both setters, the loaded-fla
 
 ## Task: Agent 6 — `sound`
 
-**File:** `files/usr/lib/universal-lite/settings/pages/sound.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/sound.py`
 
 ### Row mapping
 
@@ -338,14 +338,14 @@ Volume scales keep `set_draw_value(True)` + `set_format_value_func(lambda _s, v:
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/sound.py').read()); print('OK')"
-grep -cE 'self\._updating' files/usr/lib/universal-lite/settings/pages/sound.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/sound.py').read()); print('OK')"
+grep -cE 'self\._updating' files/usr/lib/adwaita-lite/settings/pages/sound.py
 # Expected: >= 10 (init, set True / False in _refresh's try/finally, guard at top of 6 handlers)
-grep -cE 'pactl' files/usr/lib/universal-lite/settings/pages/sound.py
+grep -cE 'pactl' files/usr/lib/adwaita-lite/settings/pages/sound.py
 # Expected: >= 10 (6 setters + 4 getters in static helpers)
-grep -cE 'self\.subscribe|setup_cleanup|PulseAudioSubscriber' files/usr/lib/universal-lite/settings/pages/sound.py
+grep -cE 'self\.subscribe|setup_cleanup|PulseAudioSubscriber' files/usr/lib/adwaita-lite/settings/pages/sound.py
 # Expected: >= 3 (subscribe, setup_cleanup, PulseAudioSubscriber instantiation)
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/sound.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/sound.py
 # Expected: 0
 ```
 
@@ -391,7 +391,7 @@ Expected: six commits land on `origin/main`. CI build triggers.
 
 After the CI build completes, update the target machine and verify each page in the settings app:
 
-- **Mouse & Touchpad** — two groups visible, switches toggle live, pointer-speed slider moves and its value persists (check `~/.config/universal-lite/settings.json`), accel dropdown switches.
+- **Mouse & Touchpad** — two groups visible, switches toggle live, pointer-speed slider moves and its value persists (check `~/.config/adwaita-lite/settings.json`), accel dropdown switches.
 - **Accessibility** — four rows; toggling Large Text up and then back down restores the original font size (not permanently set to 11).
 - **Date & Time** — live time updates every second; timezone entry accepts input and shows error on invalid; NTP / 24-hour switches toggle.
 - **Default Apps** — each of the 8 handler rows renders; changing the Web Browser entry updates `xdg-settings get default-web-browser`.
@@ -404,7 +404,7 @@ If any smoke test fails, `git revert` the specific commit and re-dispatch that a
 
 ## Completion criteria
 
-- All six pages in `files/usr/lib/universal-lite/settings/pages/` inherit from both `BasePage` and `Adw.PreferencesPage`.
+- All six pages in `files/usr/lib/adwaita-lite/settings/pages/` inherit from both `BasePage` and `Adw.PreferencesPage`.
 - `base.py`'s `make_*` factories are still present (waves 2 & 3 need them).
 - All six commits are on `origin/main`.
 - Hardware smoke test passes for every converted page.

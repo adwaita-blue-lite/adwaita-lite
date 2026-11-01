@@ -14,9 +14,9 @@
 
 | File | Action | Responsibility |
 |------|--------|----------------|
-| `files/usr/bin/universal-lite-setup-wizard` | Modify | CSS constant (lines 71-180), button widget setup (~line 1518), `_step_install_system` loop (~line 2453), `_bootc_continue_clicked` handler (~line 3191) |
+| `files/usr/bin/adwaita-lite-setup-wizard` | Modify | CSS constant (lines 71-180), button widget setup (~line 1518), `_step_install_system` loop (~line 2453), `_bootc_continue_clicked` handler (~line 3191) |
 | `po/*.po` (22 files) | Modify | Add `"Waiting for install..."` translation entry |
-| `files/usr/share/locale/*/LC_MESSAGES/universal-lite-setup-wizard.mo` (22 files) | Regenerate | Compiled from `.po` via `make mo-wizard` |
+| `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-setup-wizard.mo` (22 files) | Regenerate | Compiled from `.po` via `make mo-wizard` |
 
 ---
 
@@ -25,11 +25,11 @@
 Replace all three button class definitions in the `CSS` constant with Adwaita dark + ChromeOS styling. Add `@keyframes pop-in`, destructive disabled state, and transitions.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard:119-180` (CSS button block)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:119-180` (CSS button block)
 
 - [ ] **Step 1: Replace the button CSS block**
 
-In `files/usr/bin/universal-lite-setup-wizard`, replace lines 119–180 (from `button.create-button {` through `button.back-button:hover label {`) with:
+In `files/usr/bin/adwaita-lite-setup-wizard`, replace lines 119–180 (from `button.create-button {` through `button.back-button:hover label {`) with:
 
 ```css
 button.create-button {
@@ -151,14 +151,14 @@ button.back-button:active label {
 
 - [ ] **Step 2: Verify no other CSS references break**
 
-Run: `grep -n 'create-button\|destructive-button\|back-button' files/usr/bin/universal-lite-setup-wizard | grep -v '^[0-9]*:.*CSS'`
+Run: `grep -n 'create-button\|destructive-button\|back-button' files/usr/bin/adwaita-lite-setup-wizard | grep -v '^[0-9]*:.*CSS'`
 
 Expected: Only widget `.add_css_class()` calls — no hardcoded style overrides elsewhere.
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "style(wizard): polish button CSS to Adwaita dark + ChromeOS feel
 
 Add transitions, active/pressed states, box-shadow depth, disabled
@@ -174,9 +174,9 @@ button classes."
 Change the button from "visible immediately, disappears on proc exit" to "visible-but-disabled immediately, enables on proc exit or 10-min timeout, hidden after click".
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard:1518-1523` (button widget setup)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:2453-2484` (`_step_install_system` loop)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:~3191` (`_bootc_continue_clicked` handler)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:1518-1523` (button widget setup)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:2453-2484` (`_step_install_system` loop)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:~3191` (`_bootc_continue_clicked` handler)
 
 - [ ] **Step 1: Update button widget setup to start disabled with "Waiting for install..." label**
 
@@ -310,7 +310,7 @@ with:
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "fix(wizard): Continue button appears on bootc exit, not before
 
 Button starts visible-but-disabled ('Waiting for install...') when
@@ -327,7 +327,7 @@ Add the new translatable string to all 22 `.po` files and recompile.
 
 **Files:**
 - Modify: `po/am.po`, `po/ar.po`, `po/de.po`, `po/es.po`, `po/fa.po`, `po/fr.po`, `po/ha.po`, `po/hi.po`, `po/it.po`, `po/ja.po`, `po/ko.po`, `po/nl.po`, `po/pl.po`, `po/pt.po`, `po/ru.po`, `po/sv.po`, `po/sw.po`, `po/th.po`, `po/tr.po`, `po/vi.po`, `po/yo.po`, `po/zh.po`
-- Regenerate: `files/usr/share/locale/*/LC_MESSAGES/universal-lite-setup-wizard.mo` (22 files)
+- Regenerate: `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-setup-wizard.mo` (22 files)
 
 - [ ] **Step 1: Add translation entries to all 22 `.po` files**
 
@@ -361,7 +361,7 @@ Append the following entry to the END of each `.po` file (before any trailing ne
 Each entry format:
 
 ```
-#: files/usr/bin/universal-lite-setup-wizard:1518
+#: files/usr/bin/adwaita-lite-setup-wizard:1518
 msgid "Waiting for install..."
 msgstr "TRANSLATED_STRING"
 ```
@@ -375,6 +375,6 @@ Expected: All 22 `.mo` files regenerated under `files/usr/share/locale/*/LC_MESS
 - [ ] **Step 3: Commit**
 
 ```bash
-git add po/*.po po/universal-lite-setup-wizard.pot files/usr/share/locale/*/LC_MESSAGES/universal-lite-setup-wizard.mo
+git add po/*.po po/adwaita-lite-setup-wizard.pot files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-setup-wizard.mo
 git commit -m "i18n(wizard): add 'Waiting for install...' translations for 22 locales"
 ```

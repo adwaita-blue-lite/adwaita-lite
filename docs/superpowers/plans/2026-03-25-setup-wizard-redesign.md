@@ -4,7 +4,7 @@
 
 **Goal:** Rewrite the setup wizard from a single scrolling page to a 3-page wizard with navigation, keeping all business logic unchanged.
 
-**Architecture:** Single file rewrite of `files/usr/bin/universal-lite-setup-wizard`. The UI is restructured around a `Gtk.Stack` with 3 page cards. Step indicator, status label, and button row live outside the stack so they stay fixed during transitions. Business logic (useradd, chpasswd, swap config, timezone) is preserved verbatim.
+**Architecture:** Single file rewrite of `files/usr/bin/adwaita-lite-setup-wizard`. The UI is restructured around a `Gtk.Stack` with 3 page cards. Step indicator, status label, and button row live outside the stack so they stay fixed during transitions. Business logic (useradd, chpasswd, swap config, timezone) is preserved verbatim.
 
 **Tech Stack:** Python 3, GTK4 (gi.repository), no libadwaita
 
@@ -15,7 +15,7 @@
 ### Task 1: Rewrite the setup wizard
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard`
 
 This is a single-task rewrite since it's one file with tightly coupled UI code. The business logic functions are preserved exactly.
 
@@ -36,7 +36,7 @@ Replace the entire file content. The new structure:
    - Button row: Back (`.back-button`, hidden on page 1) + Next/Set Up (`.create-button`)
 
 4. **`_build_account_page()`**: Returns a `Gtk.ScrolledWindow` wrapping a `.card` box containing:
-   - Title: "Welcome to Universal-Lite"
+   - Title: "Welcome to Adwaita-Lite"
    - Subtitle: "Create your account to get started"
    - Full Name entry, Username entry, Password entry, Confirm Password entry
    - Connect Enter on confirm_entry to `_go_next()`
@@ -71,13 +71,13 @@ Replace the entire file content. The new structure:
 
 - [ ] **Step 2: Verify the file is syntactically valid**
 
-Run: `python3 -c "import py_compile; py_compile.compile('files/usr/bin/universal-lite-setup-wizard', doraise=True)"`
+Run: `python3 -c "import py_compile; py_compile.compile('files/usr/bin/adwaita-lite-setup-wizard', doraise=True)"`
 Expected: No output (success)
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat: redesign setup wizard as 3-page flow
 
 Split the single scrolling form into three pages:

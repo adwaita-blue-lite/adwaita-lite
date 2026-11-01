@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add a WiFi network configuration page and first-boot Flatpak installation to the Universal-Lite setup wizard, replacing the standalone Flatpak systemd service.
+**Goal:** Add a WiFi network configuration page and first-boot Flatpak installation to the Adwaita-Lite setup wizard, replacing the standalone Flatpak systemd service.
 
-**Architecture:** The existing 3-page GTK4 wizard (`files/usr/bin/universal-lite-setup-wizard`) expands to 6 pages: Network -> Account -> System -> Apps -> Confirm -> Progress. Network uses libnm (`gi.repository.NM`) for WiFi scan/connect with auto-skip on existing connectivity. Progress page replaces the inline status pattern with a step-runner that provides per-step feedback, retry/skip for Flatpak failures, and a manual Reboot button on success.
+**Architecture:** The existing 3-page GTK4 wizard (`files/usr/bin/adwaita-lite-setup-wizard`) expands to 6 pages: Network -> Account -> System -> Apps -> Confirm -> Progress. Network uses libnm (`gi.repository.NM`) for WiFi scan/connect with auto-skip on existing connectivity. Progress page replaces the inline status pattern with a step-runner that provides per-step feedback, retry/skip for Flatpak failures, and a manual Reboot button on success.
 
 **Tech Stack:** Python 3 / GTK4 / libnm (gi.repository.NM) / Flatpak CLI / AccountsService D-Bus
 
@@ -18,11 +18,11 @@
 
 | File | Action | Responsibility |
 |------|--------|---------------|
-| `files/usr/bin/universal-lite-setup-wizard` | Modify | All wizard logic: new pages, navigation, NM integration, step runner |
+| `files/usr/bin/adwaita-lite-setup-wizard` | Modify | All wizard logic: new pages, navigation, NM integration, step runner |
 | `build_files/build.sh` | Modify | Add `NetworkManager-libnm` + `flatpak` packages; remove flatpak-setup refs |
-| `files/usr/libexec/universal-lite-session-init` | Modify | Remove stamp file notification block (lines 53-60) |
-| `files/etc/systemd/system/universal-lite-flatpak-setup.service` | Delete | Replaced by wizard |
-| `files/usr/libexec/universal-lite-flatpak-setup` | Delete | Replaced by wizard |
+| `files/usr/libexec/adwaita-lite-session-init` | Modify | Remove stamp file notification block (lines 53-60) |
+| `files/etc/systemd/system/adwaita-lite-flatpak-setup.service` | Delete | Replaced by wizard |
+| `files/usr/libexec/adwaita-lite-flatpak-setup` | Delete | Replaced by wizard |
 
 ---
 
@@ -31,16 +31,16 @@
 Delete the standalone Flatpak provisioning path and add new package dependencies. This is a standalone change with no code dependencies on the wizard.
 
 **Files:**
-- Delete: `files/etc/systemd/system/universal-lite-flatpak-setup.service`
-- Delete: `files/usr/libexec/universal-lite-flatpak-setup`
+- Delete: `files/etc/systemd/system/adwaita-lite-flatpak-setup.service`
+- Delete: `files/usr/libexec/adwaita-lite-flatpak-setup`
 - Modify: `build_files/build.sh:17-78` (dnf5 install list), `build_files/build.sh:98-105` (chmod block), `build_files/build.sh:111` (systemctl enable block)
-- Modify: `files/usr/libexec/universal-lite-session-init:53-60`
+- Modify: `files/usr/libexec/adwaita-lite-session-init:53-60`
 
 - [ ] **Step 1: Delete the Flatpak service file and script**
 
 ```bash
-rm files/etc/systemd/system/universal-lite-flatpak-setup.service
-rm files/usr/libexec/universal-lite-flatpak-setup
+rm files/etc/systemd/system/adwaita-lite-flatpak-setup.service
+rm files/usr/libexec/adwaita-lite-flatpak-setup
 ```
 
 - [ ] **Step 2: Update build.sh — add packages**
@@ -59,21 +59,21 @@ Add `flatpak` and `NetworkManager-libnm` to the `dnf5 install` list in alphabeti
 
 - [ ] **Step 3: Update build.sh — remove Flatpak service references**
 
-Remove `chmod 0755 /usr/libexec/universal-lite-flatpak-setup` from the chmod block (line ~103).
+Remove `chmod 0755 /usr/libexec/adwaita-lite-flatpak-setup` from the chmod block (line ~103).
 
-Remove `systemctl enable universal-lite-flatpak-setup.service` from the systemctl block (line ~112).
+Remove `systemctl enable adwaita-lite-flatpak-setup.service` from the systemctl block (line ~112).
 
 - [ ] **Step 4: Update session-init — remove stamp file notification**
 
-Remove lines 53-60 from `files/usr/libexec/universal-lite-session-init` (the background subshell that checks for `/var/lib/universal-lite/flatpak-setup.done` and sends a `notify-send` notification).
+Remove lines 53-60 from `files/usr/libexec/adwaita-lite-session-init` (the background subshell that checks for `/var/lib/adwaita-lite/flatpak-setup.done` and sends a `notify-send` notification).
 
 - [ ] **Step 5: Verify and commit**
 
 ```bash
 bash -n build_files/build.sh
-bash -n files/usr/libexec/universal-lite-session-init
-test ! -f files/etc/systemd/system/universal-lite-flatpak-setup.service
-test ! -f files/usr/libexec/universal-lite-flatpak-setup
+bash -n files/usr/libexec/adwaita-lite-session-init
+test ! -f files/etc/systemd/system/adwaita-lite-flatpak-setup.service
+test ! -f files/usr/libexec/adwaita-lite-flatpak-setup
 
 git add -A && git commit -m "refactor: remove standalone Flatpak service, add NM/flatpak packages
 
@@ -90,14 +90,14 @@ and flatpak to the package list."
 Update the wizard's top-level declarations AND navigation for the new 6-page flow simultaneously, with stub pages for Network, Apps, and Progress so the wizard is functional at every commit boundary.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` (entire file — imports, constants, CSS, navigation, page builders, stack registration)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` (entire file — imports, constants, CSS, navigation, page builders, stack registration)
 
 - [ ] **Step 1: Update module docstring**
 
 Change the docstring (lines 2-12) to reflect the new 6-page flow:
 
 ```python
-"""Universal-Lite first-boot user creation wizard.
+"""Adwaita-Lite first-boot user creation wizard.
 
 Runs inside cage (kiosk Wayland compositor) on the login screen when no user
 accounts exist.  Creates a local user with sudo (wheel) access, configures
@@ -425,9 +425,9 @@ def _get_selected_apps(self) -> list[tuple[str, str]]:
 - [ ] **Step 10: Verify syntax and commit**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read())"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read())"
 
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "refactor: 6-page wizard scaffold with constants, CSS, navigation, stubs
 
 Updates page constants (PAGE_NETWORK through PAGE_PROGRESS), adds NM
@@ -443,7 +443,7 @@ Wizard is fully functional at this commit with stubs in place."
 Replace the network page stub with the complete layout: WiFi list, hidden network entry, rescan button, status area.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` — replace `_build_network_page` stub
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` — replace `_build_network_page` stub
 
 - [ ] **Step 1: Replace `_build_network_page`**
 
@@ -562,9 +562,9 @@ def _connect_hidden_network(self) -> None:
 - [ ] **Step 3: Verify syntax and commit**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read())"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read())"
 
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat: add network page UI to wizard
 
 WiFi list, hidden network entry, rescan button, and status area.
@@ -578,7 +578,7 @@ NM integration in next commit."
 Wire up NM.Client for async WiFi scanning, populating the list, and connecting to networks.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` — NM.Client init, scan, connect, auto-skip
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` — NM.Client init, scan, connect, auto-skip
 
 **Reference:** libnm GObject API — `NM.Client`, `NM.DeviceWifi`, `NM.AccessPoint`, `NM.SimpleConnection`, `NM.SettingWireless`, `NM.SettingWirelessSecurity`
 
@@ -863,9 +863,9 @@ def _on_post_connect_check(self, client: NM.Client, result: Gio.AsyncResult) -> 
 - [ ] **Step 8: Verify syntax and commit**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read())"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read())"
 
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat: add libnm WiFi integration to network page
 
 Async NM.Client init (placed after UI construction to avoid races),
@@ -882,7 +882,7 @@ Uses check_connectivity_async for fresh connectivity checks."
 Replace the apps page stub with the full Flatpak app selection UI.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` — replace `_build_apps_page` stub, replace `_get_selected_apps` stub
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` — replace `_build_apps_page` stub, replace `_get_selected_apps` stub
 
 - [ ] **Step 1: Replace `_build_apps_page`**
 
@@ -960,9 +960,9 @@ def _get_selected_apps(self) -> list[tuple[str, str]]:
 - [ ] **Step 3: Verify syntax and commit**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read())"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read())"
 
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat: add Flatpak app selection page to wizard
 
 Shows DEFAULT_FLATPAKS with per-app checkbox toggles. Currently
@@ -976,7 +976,7 @@ just Bazaar. _get_selected_apps returns the checked app list."
 Add network and apps summary rows to the confirm page.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` — `_build_confirm_page`, `_populate_summary`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` — `_build_confirm_page`, `_populate_summary`
 
 - [ ] **Step 1: Update `_build_confirm_page`**
 
@@ -1032,9 +1032,9 @@ def _populate_summary(self) -> None:
 - [ ] **Step 3: Verify syntax and commit**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read())"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read())"
 
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat: add network and apps summaries to confirm page"
 ```
 
@@ -1045,7 +1045,7 @@ git commit -m "feat: add network and apps summaries to confirm page"
 Replace the progress page stub and the monolithic `_create_account` with a dedicated progress page and step-runner loop.
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` — replace `_build_progress_page` stub, add step functions, rewrite `_on_setup_clicked`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` — replace `_build_progress_page` stub, add step functions, rewrite `_on_setup_clicked`
 
 - [ ] **Step 1: Replace `_build_progress_page`**
 
@@ -1241,7 +1241,7 @@ def _step_configure_system(self) -> str | None:
             )
             subprocess.run(["chmod", "600", "/var/swap"],
                            check=True, capture_output=True, text=True)
-            subprocess.run(["systemctl", "enable", "universal-lite-encrypted-swap.service"],
+            subprocess.run(["systemctl", "enable", "adwaita-lite-encrypted-swap.service"],
                            check=True, capture_output=True, text=True)
         except subprocess.CalledProcessError as exc:
             return f"Failed to configure swap: {exc.stderr.strip() or exc}"
@@ -1346,7 +1346,7 @@ def _start_step_runner(self) -> None:
             GLib.idle_add(self._update_step_status, i, "done")
 
         # All done — write stamp file and show reboot
-        stamp = Path("/var/lib/universal-lite/flatpak-setup.done")
+        stamp = Path("/var/lib/adwaita-lite/flatpak-setup.done")
         stamp.parent.mkdir(parents=True, exist_ok=True)
         stamp.touch()
         GLib.idle_add(self._on_all_steps_done)
@@ -1404,7 +1404,7 @@ def _progress_skip(self) -> None:
             self._update_step_status(i, "skipped")
 
     # Write stamp and show reboot
-    stamp = Path("/var/lib/universal-lite/flatpak-setup.done")
+    stamp = Path("/var/lib/adwaita-lite/flatpak-setup.done")
     stamp.parent.mkdir(parents=True, exist_ok=True)
     stamp.touch()
     self._on_all_steps_done()
@@ -1418,9 +1418,9 @@ def _progress_go_back(self) -> None:
 - [ ] **Step 4: Verify syntax and commit**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read())"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read())"
 
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat: add progress page with step-runner, retry/skip, and reboot
 
 Replaces monolithic _create_account with individual step functions
@@ -1441,28 +1441,28 @@ One last pass to make sure everything is consistent.
 - [ ] **Step 1: Syntax check wizard**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/bin/universal-lite-setup-wizard').read())"
+python3 -c "import ast; ast.parse(open('files/usr/bin/adwaita-lite-setup-wizard').read())"
 ```
 
 - [ ] **Step 2: Syntax check shell scripts**
 
 ```bash
 bash -n build_files/build.sh
-bash -n files/usr/libexec/universal-lite-session-init
+bash -n files/usr/libexec/adwaita-lite-session-init
 ```
 
 - [ ] **Step 3: Verify deleted files are gone**
 
 ```bash
-test ! -f files/etc/systemd/system/universal-lite-flatpak-setup.service
-test ! -f files/usr/libexec/universal-lite-flatpak-setup
+test ! -f files/etc/systemd/system/adwaita-lite-flatpak-setup.service
+test ! -f files/usr/libexec/adwaita-lite-flatpak-setup
 ```
 
 - [ ] **Step 4: Verify no stale references**
 
 ```bash
 # Should return no matches
-grep -r "universal-lite-flatpak-setup" build_files/ files/ || echo "Clean"
+grep -r "adwaita-lite-flatpak-setup" build_files/ files/ || echo "Clean"
 ```
 
 - [ ] **Step 5: Review diff for consistency**

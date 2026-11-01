@@ -1,11 +1,11 @@
-# Portuguese translations for universal-lite-app-menu package.
-# Copyright (C) 2026 THE universal-lite-app-menu'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the universal-lite-app-menu package.
+# Portuguese translations for adwaita-lite-app-menu package.
+# Copyright (C) 2026 THE adwaita-lite-app-menu'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the adwaita-lite-app-menu package.
 # Automatically generated, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: universal-lite-app-menu\n"
+"Project-Id-Version: adwaita-lite-app-menu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-29 08:23-0400\n"
 "PO-Revision-Date: 2026-04-29 08:16-0400\n"
@@ -17,105 +17,105 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../files/usr/bin/universal-lite-app-menu:119
+#: ../files/usr/bin/adwaita-lite-app-menu:119
 msgid "Accessories"
 msgstr "Acessórios"
 
-#: ../files/usr/bin/universal-lite-app-menu:120
+#: ../files/usr/bin/adwaita-lite-app-menu:120
 msgid "Development"
 msgstr "Desenvolvimento"
 
-#: ../files/usr/bin/universal-lite-app-menu:121
+#: ../files/usr/bin/adwaita-lite-app-menu:121
 msgid "Games"
 msgstr "Jogos"
 
-#: ../files/usr/bin/universal-lite-app-menu:122
+#: ../files/usr/bin/adwaita-lite-app-menu:122
 msgid "Graphics"
 msgstr "Gráficos"
 
-#: ../files/usr/bin/universal-lite-app-menu:124
+#: ../files/usr/bin/adwaita-lite-app-menu:124
 msgid "Internet"
 msgstr "Internet"
 
-#: ../files/usr/bin/universal-lite-app-menu:126
+#: ../files/usr/bin/adwaita-lite-app-menu:126
 msgid "Multimedia"
 msgstr "Multimédia"
 
-#: ../files/usr/bin/universal-lite-app-menu:128
+#: ../files/usr/bin/adwaita-lite-app-menu:128
 msgid "Settings"
 msgstr "Definições"
 
-#: ../files/usr/bin/universal-lite-app-menu:130
+#: ../files/usr/bin/adwaita-lite-app-menu:130
 msgid "System"
 msgstr "Sistema"
 
-#: ../files/usr/bin/universal-lite-app-menu:134
+#: ../files/usr/bin/adwaita-lite-app-menu:134
 msgid "All Apps"
 msgstr "Todas as apps"
 
-#: ../files/usr/bin/universal-lite-app-menu:135
+#: ../files/usr/bin/adwaita-lite-app-menu:135
 msgid "Other"
 msgstr "Outros"
 
-#: ../files/usr/bin/universal-lite-app-menu:166
+#: ../files/usr/bin/adwaita-lite-app-menu:166
 msgid "Lock"
 msgstr "Bloquear"
 
-#: ../files/usr/bin/universal-lite-app-menu:167
-#: ../files/usr/bin/universal-lite-app-menu:1671
+#: ../files/usr/bin/adwaita-lite-app-menu:167
+#: ../files/usr/bin/adwaita-lite-app-menu:1671
 msgid "Log Out"
 msgstr "Terminar sessão"
 
-#: ../files/usr/bin/universal-lite-app-menu:168
-#: ../files/usr/bin/universal-lite-app-menu:1672
+#: ../files/usr/bin/adwaita-lite-app-menu:168
+#: ../files/usr/bin/adwaita-lite-app-menu:1672
 msgid "Restart"
 msgstr "Reiniciar"
 
-#: ../files/usr/bin/universal-lite-app-menu:169
-#: ../files/usr/bin/universal-lite-app-menu:1673
+#: ../files/usr/bin/adwaita-lite-app-menu:169
+#: ../files/usr/bin/adwaita-lite-app-menu:1673
 msgid "Shut Down"
 msgstr "Encerrar"
 
-#: ../files/usr/bin/universal-lite-app-menu:1237
+#: ../files/usr/bin/adwaita-lite-app-menu:1237
 msgid "Search apps…"
 msgstr "Pesquisar apps…"
 
-#: ../files/usr/bin/universal-lite-app-menu:1240
+#: ../files/usr/bin/adwaita-lite-app-menu:1240
 msgid "Search apps"
 msgstr "Pesquisar apps"
 
-#: ../files/usr/bin/universal-lite-app-menu:1249
-#: ../files/usr/bin/universal-lite-app-menu:1250
+#: ../files/usr/bin/adwaita-lite-app-menu:1249
+#: ../files/usr/bin/adwaita-lite-app-menu:1250
 msgid "Filter by category"
 msgstr "Filtrar por categoria"
 
-#: ../files/usr/bin/universal-lite-app-menu:1259
+#: ../files/usr/bin/adwaita-lite-app-menu:1259
 msgid "Frequent"
 msgstr "Frequentes"
 
-#: ../files/usr/bin/universal-lite-app-menu:1566
-#: ../files/usr/bin/universal-lite-app-menu:1596
-#: ../files/usr/bin/universal-lite-app-menu:1598
+#: ../files/usr/bin/adwaita-lite-app-menu:1566
+#: ../files/usr/bin/adwaita-lite-app-menu:1596
+#: ../files/usr/bin/adwaita-lite-app-menu:1598
 #, python-brace-format
 msgid "Launch {app}"
 msgstr "Abrir {app}"
 
-#: ../files/usr/bin/universal-lite-app-menu:1653
+#: ../files/usr/bin/adwaita-lite-app-menu:1653
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../files/usr/bin/universal-lite-app-menu:1658
+#: ../files/usr/bin/adwaita-lite-app-menu:1658
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: ../files/usr/bin/universal-lite-app-menu:1671
+#: ../files/usr/bin/adwaita-lite-app-menu:1671
 msgid "Log out now?"
 msgstr "Terminar sessão agora?"
 
-#: ../files/usr/bin/universal-lite-app-menu:1672
+#: ../files/usr/bin/adwaita-lite-app-menu:1672
 msgid "Restart the computer?"
 msgstr "Reiniciar o computador?"
 
-#: ../files/usr/bin/universal-lite-app-menu:1673
+#: ../files/usr/bin/adwaita-lite-app-menu:1673
 msgid "Shut down the computer?"
 msgstr "Encerrar o computador?"

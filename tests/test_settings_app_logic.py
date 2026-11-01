@@ -3,7 +3,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/universal-lite"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/adwaita-lite"))
 
 from settings.pages import about, appearance, default_apps, keyboard, panel, power_lock  # noqa: E402
 
@@ -523,7 +523,7 @@ def test_power_timeout_sanitizer_matches_apply_defaults():
 
 
 def test_settings_launcher_guards_vm_renderer_before_importing_gtk_app():
-    source = (ROOT / "files/usr/bin/universal-lite-settings").read_text(
+    source = (ROOT / "files/usr/bin/adwaita-lite-settings").read_text(
         encoding="utf-8"
     )
 
@@ -536,7 +536,7 @@ def test_settings_launcher_guards_vm_renderer_before_importing_gtk_app():
 
 def test_power_lock_helper_survives_transient_unmap():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/pages/power_lock.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/pages/power_lock.py"
     ).read_text(encoding="utf-8")
 
     assert 'connect("unrealize", lambda _w: self._teardown_helpers())' in source
@@ -545,7 +545,7 @@ def test_power_lock_helper_survives_transient_unmap():
 
 def test_power_profile_set_uses_async_dbus_call():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/dbus_helpers.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/dbus_helpers.py"
     ).read_text(encoding="utf-8")
     body = source.split("def set_active_profile", 1)[1].split(
         "def _on_props_changed", 1
@@ -558,7 +558,7 @@ def test_power_profile_set_uses_async_dbus_call():
 
 def test_window_close_holds_application_until_apply_work_drains():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/window.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/window.py"
     ).read_text(encoding="utf-8")
 
     assert "if self._store.has_apply_work():" in source
@@ -568,7 +568,7 @@ def test_window_close_holds_application_until_apply_work_drains():
 
 def test_settings_window_uses_adw_banner_for_deferred_restart_prompt():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/window.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/window.py"
     ).read_text(encoding="utf-8")
 
     assert "self._deferred_restart_banner = Adw.Banner()" in source
@@ -583,7 +583,7 @@ def test_settings_window_uses_adw_banner_for_deferred_restart_prompt():
 
 def test_settings_window_confirms_and_runs_session_restart():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/window.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/window.py"
     ).read_text(encoding="utf-8")
 
     assert "def _on_restart_session_clicked" in source
@@ -602,7 +602,7 @@ def test_settings_window_confirms_and_runs_session_restart():
 
 def test_failed_page_build_unsubscribes_partial_subscriptions():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/window.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/window.py"
     ).read_text(encoding="utf-8")
 
     assert "page.unsubscribe_all()" in source

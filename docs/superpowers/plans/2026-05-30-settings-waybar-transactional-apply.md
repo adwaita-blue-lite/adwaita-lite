@@ -4,16 +4,16 @@
 
 **Goal:** Make Waybar-related Settings changes fire-and-forget from the GTK process while applying Waybar config/CSS transactionally in a detached worker.
 
-**Architecture:** `SettingsStore` keeps tracked apply behavior for full/live applies, but `mode="waybar"` writes JSON and dispatches `/usr/libexec/universal-lite-apply-settings --mode waybar` detached with no wait thread or completion callback. The apply script renders Waybar config/CSS into staging content, validates generated config, commits files only after staging succeeds, logs failures to a user-cache log, then reloads Waybar through the existing reload helper boundary.
+**Architecture:** `SettingsStore` keeps tracked apply behavior for full/live applies, but `mode="waybar"` writes JSON and dispatches `/usr/libexec/adwaita-lite-apply-settings --mode waybar` detached with no wait thread or completion callback. The apply script renders Waybar config/CSS into staging content, validates generated config, commits files only after staging succeeds, logs failures to a user-cache log, then reloads Waybar through the existing reload helper boundary.
 
-**Tech Stack:** Python 3.14, GTK/GLib via PyGObject, pytest, existing `universal-lite-apply-settings` script, Waybar config JSON/CSS generation.
+**Tech Stack:** Python 3.14, GTK/GLib via PyGObject, pytest, existing `adwaita-lite-apply-settings` script, Waybar config JSON/CSS generation.
 
 ---
 
 ## File Map
 
-- Modify `files/usr/lib/universal-lite/settings/settings_store.py`: add a detached Waybar apply path and route `mode="waybar"` through it before `_apply_running` state is touched.
-- Modify `files/usr/libexec/universal-lite-apply-settings`: add persistent logging helpers, split Waybar rendering from file writes, validate generated Waybar config, add transactional Waybar file commit, and update `--mode waybar` to use the transaction.
+- Modify `files/usr/lib/adwaita-lite/settings/settings_store.py`: add a detached Waybar apply path and route `mode="waybar"` through it before `_apply_running` state is touched.
+- Modify `files/usr/libexec/adwaita-lite-apply-settings`: add persistent logging helpers, split Waybar rendering from file writes, validate generated Waybar config, add transactional Waybar file commit, and update `--mode waybar` to use the transaction.
 - Modify `tests/test_settings_store.py`: replace the existing Waybar-mode test with detached-dispatch assertions and add coverage that full applies remain tracked.
 - Modify `tests/test_apply_settings.py`: add logging, validation, transaction ordering, rollback, and reload-boundary tests.
 - Use existing design doc `docs/superpowers/specs/2026-05-30-settings-waybar-transactional-apply-design.md` as the source of requirements.
@@ -24,7 +24,7 @@
 
 **Files:**
 - Modify: `tests/test_settings_store.py`
-- Modify: `files/usr/lib/universal-lite/settings/settings_store.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/settings_store.py`
 
 - [ ] **Step 1: Replace the existing Waybar-mode test with a failing detached-dispatch test**
 
@@ -85,7 +85,7 @@ Expected: FAIL because current `SettingsStore._run_apply("waybar")` uses `stderr
 
 - [ ] **Step 4: Add detached Waybar dispatch implementation**
 
-In `files/usr/lib/universal-lite/settings/settings_store.py`, update `_run_apply` so the first lines are:
+In `files/usr/lib/adwaita-lite/settings/settings_store.py`, update `_run_apply` so the first lines are:
 
 ```python
     def _run_apply(self, mode: str = "full") -> None:
@@ -188,7 +188,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add files/usr/lib/universal-lite/settings/settings_store.py tests/test_settings_store.py
+git add files/usr/lib/adwaita-lite/settings/settings_store.py tests/test_settings_store.py
 git commit -m "fix(settings): detach waybar apply dispatch"
 ```
 
@@ -198,7 +198,7 @@ git commit -m "fix(settings): detach waybar apply dispatch"
 
 **Files:**
 - Modify: `tests/test_apply_settings.py`
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 - [ ] **Step 1: Add failing tests for the diagnostics logger**
 
@@ -237,11 +237,11 @@ Expected: FAIL because `APPLY_LOG_PATH` and `_log_apply_event` are not defined.
 
 - [ ] **Step 3: Add logging constants and helper**
 
-In `files/usr/libexec/universal-lite-apply-settings`, add these constants after `SWAYLOCK_DIR`:
+In `files/usr/libexec/adwaita-lite-apply-settings`, add these constants after `SWAYLOCK_DIR`:
 
 ```python
 CACHE_HOME = Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache")
-APPLY_LOG_PATH = CACHE_HOME / "universal-lite/apply-settings.log"
+APPLY_LOG_PATH = CACHE_HOME / "adwaita-lite/apply-settings.log"
 ```
 
 Add this helper after `_close_apply_lock`:
@@ -275,7 +275,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings tests/test_apply_settings.py
+git add files/usr/libexec/adwaita-lite-apply-settings tests/test_apply_settings.py
 git commit -m "fix(settings): log detached apply diagnostics"
 ```
 
@@ -285,7 +285,7 @@ git commit -m "fix(settings): log detached apply diagnostics"
 
 **Files:**
 - Modify: `tests/test_apply_settings.py`
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 - [ ] **Step 1: Add failing tests for render-only Waybar file generation**
 
@@ -324,7 +324,7 @@ Expected: FAIL because `_render_waybar_files` is not defined.
 
 - [ ] **Step 3: Refactor `write_waybar_config` into render and write phases**
 
-In `files/usr/libexec/universal-lite-apply-settings`, create a new function immediately before `write_waybar_config`:
+In `files/usr/libexec/adwaita-lite-apply-settings`, create a new function immediately before `write_waybar_config`:
 
 ```python
 def _render_waybar_files(tokens: dict) -> tuple[str, str]:
@@ -399,7 +399,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings tests/test_apply_settings.py
+git add files/usr/libexec/adwaita-lite-apply-settings tests/test_apply_settings.py
 git commit -m "refactor(settings): split waybar rendering from writes"
 ```
 
@@ -409,7 +409,7 @@ git commit -m "refactor(settings): split waybar rendering from writes"
 
 **Files:**
 - Modify: `tests/test_apply_settings.py`
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 - [ ] **Step 1: Add a failing validation test**
 
@@ -476,7 +476,7 @@ Expected: FAIL because `_validate_waybar_files` and `apply_waybar_transaction` a
 
 - [ ] **Step 5: Add validation and transactional write helpers**
 
-In `files/usr/libexec/universal-lite-apply-settings`, add these functions after `_render_waybar_files`:
+In `files/usr/libexec/adwaita-lite-apply-settings`, add these functions after `_render_waybar_files`:
 
 ```python
 def _validate_waybar_files(config_text: str, css_text: str) -> None:
@@ -634,7 +634,7 @@ Expected: PASS.
 Run:
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings tests/test_apply_settings.py
+git add files/usr/libexec/adwaita-lite-apply-settings tests/test_apply_settings.py
 git commit -m "fix(settings): apply waybar config transactionally"
 ```
 
@@ -666,7 +666,7 @@ Expected: no output.
 
 - [ ] **Step 4: Inspect final diff**
 
-Run: `git diff --stat && git diff -- files/usr/lib/universal-lite/settings/settings_store.py files/usr/libexec/universal-lite-apply-settings tests/test_settings_store.py tests/test_apply_settings.py docs/superpowers/specs/2026-05-30-settings-waybar-transactional-apply-design.md docs/superpowers/plans/2026-05-30-settings-waybar-transactional-apply.md`
+Run: `git diff --stat && git diff -- files/usr/lib/adwaita-lite/settings/settings_store.py files/usr/libexec/adwaita-lite-apply-settings tests/test_settings_store.py tests/test_apply_settings.py docs/superpowers/specs/2026-05-30-settings-waybar-transactional-apply-design.md docs/superpowers/plans/2026-05-30-settings-waybar-transactional-apply.md`
 
 Expected: only the SettingsStore detached path, apply-settings transaction/logging path, tests, spec, and plan are changed.
 
@@ -692,7 +692,7 @@ Run the installed Settings app and verify each action keeps Settings open:
 6. Reorder a panel module within a section.
 7. Add a pinned app.
 8. Remove a pinned app.
-9. Inspect ~/.cache/universal-lite/apply-settings.log if any panel update fails.
+9. Inspect ~/.cache/adwaita-lite/apply-settings.log if any panel update fails.
 ```
 
 Expected: Settings remains open for every action. Waybar updates live when reload succeeds. If a reload failure occurs, the setting remains saved and the log contains `mode=waybar` details.

@@ -4,7 +4,7 @@
 
 **Goal:** Run the setup wizard as a fullscreen GTK4 app inside a labwc session managed by greetd, replacing the broken cage-from-systemd approach.
 
-**Architecture:** greetd auto-logs in root via `initial_session` when no users exist (UID >= 1000). A dedicated wizard session script launches labwc with a `UNIVERSAL_LITE_WIZARD=1` flag. The autostart checks this flag and launches only the wizard (bare — no desktop daemons). VM hardware cursor fix applied to all session scripts.
+**Architecture:** greetd auto-logs in root via `initial_session` when no users exist (UID >= 1000). A dedicated wizard session script launches labwc with a `ADWAITA_LITE_WIZARD=1` flag. The autostart checks this flag and launches only the wizard (bare — no desktop daemons). VM hardware cursor fix applied to all session scripts.
 
 **Tech Stack:** greetd, labwc, GTK4, bash, systemd-detect-virt
 
@@ -15,7 +15,7 @@
 ### Task 1: Create wizard session script
 
 **Files:**
-- Create: `files/usr/libexec/universal-lite-wizard-session`
+- Create: `files/usr/libexec/adwaita-lite-wizard-session`
 
 - [ ] **Step 1: Create the wizard session script**
 
@@ -27,7 +27,7 @@
 
 set -euo pipefail
 
-export UNIVERSAL_LITE_WIZARD=1
+export ADWAITA_LITE_WIZARD=1
 export XDG_CURRENT_DESKTOP="labwc"
 export XDG_SESSION_DESKTOP="labwc"
 export XDG_SESSION_TYPE="wayland"
@@ -51,7 +51,7 @@ exec labwc
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-wizard-session
+git add files/usr/libexec/adwaita-lite-wizard-session
 git commit -m "feat: add wizard-mode labwc session script"
 ```
 
@@ -60,7 +60,7 @@ git commit -m "feat: add wizard-mode labwc session script"
 ### Task 2: Update greeter-setup to detect users and configure wizard mode
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-greeter-setup`
+- Modify: `files/usr/libexec/adwaita-lite-greeter-setup`
 
 - [ ] **Step 1: Rewrite greeter-setup with user detection**
 
@@ -85,11 +85,11 @@ if [ "$has_users" -eq 0 ]; then
 vt = 7
 
 [default_session]
-command = "/usr/libexec/universal-lite-greeter-launch"
+command = "/usr/libexec/adwaita-lite-greeter-launch"
 user = "greetd"
 
 [initial_session]
-command = "/usr/libexec/universal-lite-wizard-session"
+command = "/usr/libexec/adwaita-lite-wizard-session"
 user = "root"
 EOF
 else
@@ -98,7 +98,7 @@ else
 vt = 7
 
 [default_session]
-command = "/usr/libexec/universal-lite-greeter-launch"
+command = "/usr/libexec/adwaita-lite-greeter-launch"
 user = "greetd"
 EOF
 fi
@@ -107,7 +107,7 @@ fi
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-greeter-setup
+git add files/usr/libexec/adwaita-lite-greeter-setup
 git commit -m "feat: greeter-setup detects users, adds wizard initial_session for DD path"
 ```
 
@@ -127,8 +127,8 @@ Insert the following block at line 1 (before the existing `#!/bin/sh`), replacin
 
 # Wizard mode: launch only the setup wizard, skip all desktop daemons.
 # Keeps RAM minimal on 2 GB Chromebooks that use the DD install path.
-if [ "${UNIVERSAL_LITE_WIZARD:-}" = "1" ]; then
-    /usr/bin/universal-lite-setup-wizard &
+if [ "${ADWAITA_LITE_WIZARD:-}" = "1" ]; then
+    /usr/bin/adwaita-lite-setup-wizard &
     exit 0
 fi
 ```
@@ -139,7 +139,7 @@ The rest of the file (from `# Export Wayland environment to D-Bus...` onward) st
 
 ```bash
 git add files/etc/xdg/labwc/autostart
-git commit -m "feat: autostart launches wizard in bare mode when UNIVERSAL_LITE_WIZARD=1"
+git commit -m "feat: autostart launches wizard in bare mode when ADWAITA_LITE_WIZARD=1"
 ```
 
 ---
@@ -147,7 +147,7 @@ git commit -m "feat: autostart launches wizard in bare mode when UNIVERSAL_LITE_
 ### Task 4: Make the wizard fullscreen itself
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` (line 314)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` (line 314)
 
 - [ ] **Step 1: Add self.fullscreen() to the wizard window constructor**
 
@@ -171,7 +171,7 @@ The `set_default_size` is kept as a fallback if unfullscreen is ever called.
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat: wizard fullscreens itself (previously cage forced this)"
 ```
 
@@ -180,8 +180,8 @@ git commit -m "feat: wizard fullscreens itself (previously cage forced this)"
 ### Task 5: Add VM hardware cursor fix to normal session and greeter
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-session` (lines 1-13)
-- Modify: `files/usr/libexec/universal-lite-greeter-launch` (line 27)
+- Modify: `files/usr/libexec/adwaita-lite-session` (lines 1-13)
+- Modify: `files/usr/libexec/adwaita-lite-greeter-launch` (line 27)
 
 - [ ] **Step 1: Add VM cursor detection to the normal session script**
 
@@ -191,7 +191,7 @@ Replace the entire file with:
 #!/bin/bash
 set -euo pipefail
 
-export UNIVERSAL_LITE=1
+export ADWAITA_LITE=1
 export XDG_CURRENT_DESKTOP="labwc"
 export XDG_SESSION_DESKTOP="labwc"
 export XDG_SESSION_TYPE="wayland"
@@ -203,17 +203,17 @@ if systemd-detect-virt -q; then
 fi
 
 # Write theme configs before the compositor starts (no Wayland socket needed).
-/usr/libexec/universal-lite-apply-settings
+/usr/libexec/adwaita-lite-apply-settings
 
 exec labwc
 ```
 
 - [ ] **Step 2: Update greeter-launch to conditionally set hardware cursor flag**
 
-In `files/usr/libexec/universal-lite-greeter-launch`, change line 27 from:
+In `files/usr/libexec/adwaita-lite-greeter-launch`, change line 27 from:
 
 ```bash
-env WLR_NO_HARDWARE_CURSORS=1 cage -s -- /usr/bin/universal-lite-greeter
+env WLR_NO_HARDWARE_CURSORS=1 cage -s -- /usr/bin/adwaita-lite-greeter
 ```
 
 to:
@@ -224,7 +224,7 @@ if systemd-detect-virt -q; then
     export WLR_NO_HARDWARE_CURSORS=1
 fi
 
-cage -s -- /usr/bin/universal-lite-greeter
+cage -s -- /usr/bin/adwaita-lite-greeter
 ```
 
 This makes the hardware cursor fix conditional on VM detection rather than always-on (bare metal hardware cursors work fine).
@@ -232,7 +232,7 @@ This makes the hardware cursor fix conditional on VM detection rather than alway
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-session files/usr/libexec/universal-lite-greeter-launch
+git add files/usr/libexec/adwaita-lite-session files/usr/libexec/adwaita-lite-greeter-launch
 git commit -m "fix: conditionally disable hardware cursors only in VMs"
 ```
 
@@ -248,13 +248,13 @@ git commit -m "fix: conditionally disable hardware cursors only in VMs"
 Change line 149:
 
 ```bash
-    /usr/libexec/universal-lite-wizard-launch \
+    /usr/libexec/adwaita-lite-wizard-launch \
 ```
 
 to:
 
 ```bash
-    /usr/libexec/universal-lite-wizard-session \
+    /usr/libexec/adwaita-lite-wizard-session \
 ```
 
 - [ ] **Step 2: Remove the systemctl enable for the old first-boot service**
@@ -262,7 +262,7 @@ to:
 Delete line 158:
 
 ```bash
-systemctl enable universal-lite-first-boot.service
+systemctl enable adwaita-lite-first-boot.service
 ```
 
 - [ ] **Step 3: Commit**
@@ -277,24 +277,24 @@ git commit -m "build: swap wizard-launch for wizard-session, drop first-boot ser
 ### Task 7: Delete obsolete files
 
 **Files:**
-- Delete: `files/etc/systemd/system/universal-lite-first-boot.service`
-- Delete: `files/etc/pam.d/universal-lite-first-boot`
-- Delete: `files/usr/libexec/universal-lite-wizard-launch`
+- Delete: `files/etc/systemd/system/adwaita-lite-first-boot.service`
+- Delete: `files/etc/pam.d/adwaita-lite-first-boot`
+- Delete: `files/usr/libexec/adwaita-lite-wizard-launch`
 
 - [ ] **Step 1: Remove the three obsolete files**
 
 ```bash
-rm files/etc/systemd/system/universal-lite-first-boot.service
-rm files/etc/pam.d/universal-lite-first-boot
-rm files/usr/libexec/universal-lite-wizard-launch
+rm files/etc/systemd/system/adwaita-lite-first-boot.service
+rm files/etc/pam.d/adwaita-lite-first-boot
+rm files/usr/libexec/adwaita-lite-wizard-launch
 ```
 
 - [ ] **Step 2: Commit**
 
 ```bash
-git add -A files/etc/systemd/system/universal-lite-first-boot.service \
-          files/etc/pam.d/universal-lite-first-boot \
-          files/usr/libexec/universal-lite-wizard-launch
+git add -A files/etc/systemd/system/adwaita-lite-first-boot.service \
+          files/etc/pam.d/adwaita-lite-first-boot \
+          files/usr/libexec/adwaita-lite-wizard-launch
 git commit -m "cleanup: remove cage-based wizard service, PAM config, and launcher"
 ```
 
@@ -305,8 +305,8 @@ git commit -m "cleanup: remove cage-based wizard service, PAM config, and launch
 - [ ] **Step 1: Confirm no dangling references to removed files**
 
 ```bash
-grep -r "universal-lite-first-boot" files/ build_files/
-grep -r "universal-lite-wizard-launch" files/ build_files/
+grep -r "adwaita-lite-first-boot" files/ build_files/
+grep -r "adwaita-lite-wizard-launch" files/ build_files/
 ```
 
 Expected: no output. If anything is found, update or remove it.
@@ -314,7 +314,7 @@ Expected: no output. If anything is found, update or remove it.
 - [ ] **Step 2: Confirm wizard-session is referenced where needed**
 
 ```bash
-grep -r "universal-lite-wizard-session" files/ build_files/
+grep -r "adwaita-lite-wizard-session" files/ build_files/
 ```
 
 Expected: matches in `greeter-setup` and `build.sh` (chmod).
@@ -325,4 +325,4 @@ Expected: matches in `greeter-setup` and `build.sh` (chmod).
 head -7 files/etc/xdg/labwc/autostart
 ```
 
-Expected: shebang followed by the `UNIVERSAL_LITE_WIZARD` check.
+Expected: shebang followed by the `ADWAITA_LITE_WIZARD` check.

@@ -2,7 +2,7 @@
 
 ## Goal
 
-Reduce pulls from Universal Blue GHCR base images so routine development and stream builds use already-published Universal-Lite images from Quay. Only daily upstream refresh builds should pull from `ghcr.io/ublue-os/base-main`.
+Reduce pulls from Universal Blue GHCR base images so routine development and stream builds use already-published Adwaita-Lite images from Quay. Only daily upstream refresh builds should pull from `ghcr.io/ublue-os/base-main`.
 
 ## Current Problem
 
@@ -20,14 +20,14 @@ Daily scheduled refresh builds are the only normal builds that pull from upstrea
 - Scheduled `main` refresh uses `ghcr.io/ublue-os/base-main:latest` and publishes `latest`, `latest.YYYYMMDD`, and `YYYYMMDD`.
 - Scheduled `beta` refresh uses `ghcr.io/ublue-os/base-main:beta` and publishes `beta` and `beta.YYYYMMDD`.
 
-All other builds use Universal-Lite images from Quay:
+All other builds use Adwaita-Lite images from Quay:
 
-- Non-scheduled `main` builds use `quay.io/noitatsidem/universal-lite:latest`.
-- `dx` builds use `quay.io/noitatsidem/universal-lite:latest`.
-- `testing` builds use `quay.io/noitatsidem/universal-lite:dx`.
-- Non-refresh `beta` builds use `quay.io/noitatsidem/universal-lite:beta`.
+- Non-scheduled `main` builds use `ghcr.io/adwaita-blue-lite/adwaita-lite:latest`.
+- `dx` builds use `ghcr.io/adwaita-blue-lite/adwaita-lite:latest`.
+- `testing` builds use `ghcr.io/adwaita-blue-lite/adwaita-lite:dx`.
+- Non-refresh `beta` builds use `ghcr.io/adwaita-blue-lite/adwaita-lite:beta`.
 
-This keeps normal builds tied to the last successfully published Universal-Lite base while still refreshing from upstream once per day.
+This keeps normal builds tied to the last successfully published Adwaita-Lite base while still refreshing from upstream once per day.
 
 ## Workflow Design
 
@@ -74,10 +74,10 @@ Update workflow contract tests to verify base-image routing:
 
 - Scheduled `main` refresh uses `ghcr.io/ublue-os/base-main:latest`.
 - Scheduled `beta` refresh uses `ghcr.io/ublue-os/base-main:beta`.
-- Non-scheduled `main` uses `quay.io/noitatsidem/universal-lite:latest`.
-- `dx` uses `quay.io/noitatsidem/universal-lite:latest`.
-- `testing` uses `quay.io/noitatsidem/universal-lite:dx`.
-- Non-refresh `beta` uses `quay.io/noitatsidem/universal-lite:beta`.
+- Non-scheduled `main` uses `ghcr.io/adwaita-blue-lite/adwaita-lite:latest`.
+- `dx` uses `ghcr.io/adwaita-blue-lite/adwaita-lite:latest`.
+- `testing` uses `ghcr.io/adwaita-blue-lite/adwaita-lite:dx`.
+- Non-refresh `beta` uses `ghcr.io/adwaita-blue-lite/adwaita-lite:beta`.
 
 Run the focused workflow tests and the full test suite before pushing.
 

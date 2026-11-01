@@ -6,7 +6,7 @@
 
 **Architecture:** Three-layer CSS builder — common layer handles shared design language (colors, transitions, pill radius, launcher circle, dot indicator, tooltips), horizontal layer handles bottom/top layout optimization, vertical layer handles left/right layout optimization. A new `group/status` waybar module wraps status modules for the grouped pill effect.
 
-**Tech Stack:** Python (existing `universal-lite-apply-settings` script), waybar CSS, waybar `group` module type
+**Tech Stack:** Python (existing `adwaita-lite-apply-settings` script), waybar CSS, waybar `group` module type
 
 **Spec:** `docs/superpowers/specs/2026-04-24-waybar-theming-design.md`
 
@@ -16,7 +16,7 @@
 
 | File | Change | Responsibility |
 |---|---|---|
-| `files/usr/libexec/universal-lite-apply-settings` | Modify | Refactor `_waybar_css_common`, `_waybar_css_horizontal`, `_waybar_css_vertical`; update `write_waybar_config` to add `group/status` module |
+| `files/usr/libexec/adwaita-lite-apply-settings` | Modify | Refactor `_waybar_css_common`, `_waybar_css_horizontal`, `_waybar_css_vertical`; update `write_waybar_config` to add `group/status` module |
 | `tests/test_apply_settings.py` | Modify | Update existing CSS assertion tests, add new tests for common CSS, grouped pill, dot indicator |
 
 ---
@@ -24,7 +24,7 @@
 ### Task 1: Update `_waybar_css_common` — Shared Design Language
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings:595-657` (`_waybar_css_common`)
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings:595-657` (`_waybar_css_common`)
 
 This task refactors the common CSS to be the single source of truth for visual styling. It removes orientation-specific logic and adds ChromeOS design elements.
 
@@ -72,7 +72,7 @@ Expected: FAIL — `border-radius: 50%`, `::after`, `transition:` not found in c
 
 - [ ] **Step 3: Rewrite `_waybar_css_common`**
 
-Replace the function at `files/usr/libexec/universal-lite-apply-settings:595-657` with:
+Replace the function at `files/usr/libexec/adwaita-lite-apply-settings:595-657` with:
 
 ```python
 def _waybar_css_common(tokens: dict) -> str:
@@ -171,7 +171,7 @@ Expected: PASS
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings tests/test_apply_settings.py
+git add files/usr/libexec/adwaita-lite-apply-settings tests/test_apply_settings.py
 git commit -m "refactor(waybar): rewrite common CSS with ChromeOS design language"
 ```
 
@@ -180,7 +180,7 @@ git commit -m "refactor(waybar): rewrite common CSS with ChromeOS design languag
 ### Task 2: Update `_waybar_css_horizontal` — Bottom/Top Optimization
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings:660-702` (`_waybar_css_horizontal`)
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings:660-702` (`_waybar_css_horizontal`)
 
 - [ ] **Step 1: Write failing tests for horizontal CSS**
 
@@ -227,7 +227,7 @@ Expected: FAIL — `border-bottom:` currently exists, `min-width` assertion may 
 
 - [ ] **Step 3: Rewrite `_waybar_css_horizontal`**
 
-Replace the function at `files/usr/libexec/universal-lite-apply-settings:660-702` with:
+Replace the function at `files/usr/libexec/adwaita-lite-apply-settings:660-702` with:
 
 ```python
 def _waybar_css_horizontal(tokens: dict) -> str:
@@ -314,7 +314,7 @@ Expected: Some tests in `TestVerticalCssBorder` will fail (they assert `border-b
 - [ ] **Step 6: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings tests/test_apply_settings.py
+git add files/usr/libexec/adwaita-lite-apply-settings tests/test_apply_settings.py
 git commit -m "refactor(waybar): rewrite horizontal CSS with pill consistency"
 ```
 
@@ -323,7 +323,7 @@ git commit -m "refactor(waybar): rewrite horizontal CSS with pill consistency"
 ### Task 3: Update `_waybar_css_vertical` — Left/Right Optimization
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings:705-771` (`_waybar_css_vertical`)
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings:705-771` (`_waybar_css_vertical`)
 
 - [ ] **Step 1: Rewrite tests for vertical CSS**
 
@@ -376,7 +376,7 @@ Expected: FAIL — current vertical CSS uses `border-right:`/`border-left:`, `10
 
 - [ ] **Step 3: Rewrite `_waybar_css_vertical`**
 
-Replace the function at `files/usr/libexec/universal-lite-apply-settings:705-771` with:
+Replace the function at `files/usr/libexec/adwaita-lite-apply-settings:705-771` with:
 
 ```python
 def _waybar_css_vertical(tokens: dict) -> str:
@@ -462,7 +462,7 @@ Expected: ALL PASS
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings tests/test_apply_settings.py
+git add files/usr/libexec/adwaita-lite-apply-settings tests/test_apply_settings.py
 git commit -m "refactor(waybar): rewrite vertical CSS with pill consistency"
 ```
 
@@ -471,7 +471,7 @@ git commit -m "refactor(waybar): rewrite vertical CSS with pill consistency"
 ### Task 4: Add `group/status` Module to Waybar Config
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings:781-930` (`write_waybar_config`)
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings:781-930` (`write_waybar_config`)
 
 This task adds the waybar `group/status` module that wraps status modules (pulseaudio, backlight, battery, clock) for the grouped pill effect.
 
@@ -537,7 +537,7 @@ Expected: FAIL — `group/status` not in current config.
 
 - [ ] **Step 3: Update `write_waybar_config` to add group/status**
 
-In `files/usr/libexec/universal-lite-apply-settings`, in the `write_waybar_config` function (starting around line 781), add the following logic after the module lists are built (after line 808 where pin injection happens) but before the config dict is created:
+In `files/usr/libexec/adwaita-lite-apply-settings`, in the `write_waybar_config` function (starting around line 781), add the following logic after the module lists are built (after line 808 where pin injection happens) but before the config dict is created:
 
 After pin injection (line ~808) and before the config dict, insert status module grouping:
 
@@ -585,7 +585,7 @@ Expected: ALL PASS
 - [ ] **Step 6: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings tests/test_apply_settings.py
+git add files/usr/libexec/adwaita-lite-apply-settings tests/test_apply_settings.py
 git commit -m "feat(waybar): add group/status module for grouped status pill"
 ```
 

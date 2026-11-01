@@ -12,11 +12,11 @@
 
 ## File Structure
 
-- Modify `files/usr/lib/universal-lite/settings/settings_store.py`: add deferred-session key constants, session snapshot loading, pending-state comparison, and a callback for window UI refresh.
-- Modify `files/usr/lib/universal-lite/settings/window.py`: add the `Adw.Banner`, confirmation dialog, restart-session command, and error toast path.
+- Modify `files/usr/lib/adwaita-lite/settings/settings_store.py`: add deferred-session key constants, session snapshot loading, pending-state comparison, and a callback for window UI refresh.
+- Modify `files/usr/lib/adwaita-lite/settings/window.py`: add the `Adw.Banner`, confirmation dialog, restart-session command, and error toast path.
 - Modify `tests/test_settings_store.py`: add real behavior tests for pending detection and callback refresh.
 - Modify `tests/test_settings_app_logic.py`: add source-level tests for the Adwaita banner/dialog/restart command wiring.
-- Modify `po/settings/universal-lite-settings.pot`, `po/settings/*.po`, and `files/usr/share/locale/*/LC_MESSAGES/universal-lite-settings.mo`: add and compile translated strings.
+- Modify `po/settings/adwaita-lite-settings.pot`, `po/settings/*.po`, and `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-settings.mo`: add and compile translated strings.
 - Modify `tests/test_translation_catalogs.py`: add a focused guard that the new Settings restart strings are present and translated.
 
 ---
@@ -24,7 +24,7 @@
 ### Task 1: SettingsStore Deferred-Change State
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/settings_store.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/settings_store.py`
 - Test: `tests/test_settings_store.py`
 
 - [ ] **Step 1: Write failing tests for snapshot comparison**
@@ -34,10 +34,10 @@ Add these tests after `test_waybar_apply_spawn_failure_reports_file_update_error
 ```python
 def _write_session_snapshot(monkeypatch, tmp_path, data):
     runtime_dir = tmp_path / "runtime"
-    snapshot = runtime_dir / "universal-lite/session-settings.json"
+    snapshot = runtime_dir / "adwaita-lite/session-settings.json"
     snapshot.parent.mkdir(parents=True)
     snapshot.write_text(json.dumps(data), encoding="utf-8")
-    monkeypatch.delenv("UNIVERSAL_LITE_SESSION_SETTINGS", raising=False)
+    monkeypatch.delenv("ADWAITA_LITE_SESSION_SETTINGS", raising=False)
     monkeypatch.setenv("XDG_RUNTIME_DIR", str(runtime_dir))
     return snapshot
 
@@ -66,10 +66,10 @@ def test_deferred_session_changes_hide_when_values_match_snapshot(monkeypatch, t
 
 def test_deferred_session_changes_ignore_missing_or_invalid_snapshot(monkeypatch, tmp_path):
     runtime_dir = tmp_path / "runtime"
-    snapshot = runtime_dir / "universal-lite/session-settings.json"
+    snapshot = runtime_dir / "adwaita-lite/session-settings.json"
     snapshot.parent.mkdir(parents=True)
     snapshot.write_text("{invalid", encoding="utf-8")
-    monkeypatch.delenv("UNIVERSAL_LITE_SESSION_SETTINGS", raising=False)
+    monkeypatch.delenv("ADWAITA_LITE_SESSION_SETTINGS", raising=False)
     monkeypatch.setenv("XDG_RUNTIME_DIR", str(runtime_dir))
     store = _make_store(
         tmp_path,
@@ -92,10 +92,10 @@ Expected: FAIL because `SettingsStore` has no `has_deferred_session_changes()` m
 
 - [ ] **Step 3: Implement pending-state comparison**
 
-In `files/usr/lib/universal-lite/settings/settings_store.py`, add these constants near the imports/class definition:
+In `files/usr/lib/adwaita-lite/settings/settings_store.py`, add these constants near the imports/class definition:
 
 ```python
-SESSION_SETTINGS_ENV = "UNIVERSAL_LITE_SESSION_SETTINGS"
+SESSION_SETTINGS_ENV = "ADWAITA_LITE_SESSION_SETTINGS"
 SESSION_SETTINGS_NAME = "session-settings.json"
 DEFERRED_SESSION_KEYS = frozenset({
     "edge",
@@ -131,7 +131,7 @@ Add these methods after `show_toast()`:
         session_settings = os.environ.get(SESSION_SETTINGS_ENV)
         if session_settings:
             candidates.append(Path(session_settings))
-        candidates.append(self._runtime_dir() / "universal-lite" / SESSION_SETTINGS_NAME)
+        candidates.append(self._runtime_dir() / "adwaita-lite" / SESSION_SETTINGS_NAME)
         return tuple(candidates)
 
     def _load_session_settings_snapshot(self) -> dict | None:
@@ -262,7 +262,7 @@ Expected: all SettingsStore tests pass.
 Run:
 
 ```bash
-git add files/usr/lib/universal-lite/settings/settings_store.py tests/test_settings_store.py
+git add files/usr/lib/adwaita-lite/settings/settings_store.py tests/test_settings_store.py
 git commit -m "feat(settings): track deferred session changes"
 ```
 
@@ -271,7 +271,7 @@ git commit -m "feat(settings): track deferred session changes"
 ### Task 2: Adwaita Restart Banner And Confirmation
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/window.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/window.py`
 - Test: `tests/test_settings_app_logic.py`
 
 - [ ] **Step 1: Write failing source tests for banner wiring**
@@ -281,7 +281,7 @@ Add these tests after `test_window_close_holds_application_until_apply_work_drai
 ```python
 def test_settings_window_uses_adw_banner_for_deferred_restart_prompt():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/window.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/window.py"
     ).read_text(encoding="utf-8")
 
     assert "self._deferred_restart_banner = Adw.Banner()" in source
@@ -296,7 +296,7 @@ def test_settings_window_uses_adw_banner_for_deferred_restart_prompt():
 
 def test_settings_window_confirms_and_runs_session_restart():
     source = (
-        ROOT / "files/usr/lib/universal-lite/settings/window.py"
+        ROOT / "files/usr/lib/adwaita-lite/settings/window.py"
     ).read_text(encoding="utf-8")
 
     assert "def _on_restart_session_clicked" in source
@@ -325,7 +325,7 @@ Expected: FAIL because `SettingsWindow` does not create a deferred restart banne
 
 - [ ] **Step 3: Implement banner construction**
 
-In `files/usr/lib/universal-lite/settings/window.py`, add `subprocess` to the imports:
+In `files/usr/lib/adwaita-lite/settings/window.py`, add `subprocess` to the imports:
 
 ```python
 import subprocess
@@ -433,7 +433,7 @@ Expected: all Settings app logic tests pass.
 Run:
 
 ```bash
-git add files/usr/lib/universal-lite/settings/window.py tests/test_settings_app_logic.py
+git add files/usr/lib/adwaita-lite/settings/window.py tests/test_settings_app_logic.py
 git commit -m "feat(settings): show deferred restart banner"
 ```
 
@@ -442,7 +442,7 @@ git commit -m "feat(settings): show deferred restart banner"
 ### Task 3: Settings Translation Catalog Updates
 
 **Files:**
-- Modify: `po/settings/universal-lite-settings.pot`
+- Modify: `po/settings/adwaita-lite-settings.pot`
 - Modify: `po/settings/am.po`
 - Modify: `po/settings/ar.po`
 - Modify: `po/settings/de.po`
@@ -465,7 +465,7 @@ git commit -m "feat(settings): show deferred restart banner"
 - Modify: `po/settings/vi.po`
 - Modify: `po/settings/yo.po`
 - Modify: `po/settings/zh.po`
-- Modify: `files/usr/share/locale/*/LC_MESSAGES/universal-lite-settings.mo`
+- Modify: `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-settings.mo`
 - Test: `tests/test_translation_catalogs.py`
 
 - [ ] **Step 1: Write failing focused translation test**
@@ -483,7 +483,7 @@ def test_settings_deferred_restart_strings_are_translated():
     }
     pot_entries = {
         "".join(entry["msgid"])
-        for entry in _parse_po_entries(ROOT / "po/settings/universal-lite-settings.pot")
+        for entry in _parse_po_entries(ROOT / "po/settings/adwaita-lite-settings.pot")
     }
     for msgid in required:
         assert msgid in pot_entries
@@ -518,7 +518,7 @@ Run:
 make -C po pot-settings po-settings
 ```
 
-Expected: `po/settings/universal-lite-settings.pot` and every `po/settings/*.po` now contain entries for the five new msgids, initially untranslated or fuzzy.
+Expected: `po/settings/adwaita-lite-settings.pot` and every `po/settings/*.po` now contain entries for the five new msgids, initially untranslated or fuzzy.
 
 - [ ] **Step 4: Fill translations for all supported Settings locales**
 
@@ -738,7 +738,7 @@ Run:
 make -C po mo-settings
 ```
 
-Expected: `files/usr/share/locale/*/LC_MESSAGES/universal-lite-settings.mo` are updated.
+Expected: `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-settings.mo` are updated.
 
 - [ ] **Step 6: Run translation tests**
 
@@ -764,13 +764,13 @@ git commit -m "i18n(settings): translate deferred restart banner"
 ### Task 4: Final Verification
 
 **Files:**
-- Verify: `files/usr/lib/universal-lite/settings/settings_store.py`
-- Verify: `files/usr/lib/universal-lite/settings/window.py`
+- Verify: `files/usr/lib/adwaita-lite/settings/settings_store.py`
+- Verify: `files/usr/lib/adwaita-lite/settings/window.py`
 - Verify: `tests/test_settings_store.py`
 - Verify: `tests/test_settings_app_logic.py`
 - Verify: `tests/test_translation_catalogs.py`
 - Verify: `po/settings/*`
-- Verify: `files/usr/share/locale/*/LC_MESSAGES/universal-lite-settings.mo`
+- Verify: `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-settings.mo`
 
 - [ ] **Step 1: Run focused regressions**
 
@@ -823,4 +823,4 @@ Expected: `git diff --check` prints no output. `git status --short` is clean aft
 
 - [ ] **Step 5: Manual desktop verification**
 
-In a Universal-Lite session, change a Panel setting that uses `mode="waybar"`. Expected: the existing toast appears, and the Settings banner appears with `Restart Session`. Close and reopen Settings in the same session. Expected: the banner is still visible. Click `Restart Session`. Expected: an Adwaita confirmation dialog appears. Click `Cancel`. Expected: session continues and banner remains. Click `Restart Session` again and confirm. Expected: the labwc session exits to the sign-in screen. After logging back in, reopen Settings. Expected: the banner is hidden if the session snapshot now matches `settings.json`.
+In a Adwaita-Lite session, change a Panel setting that uses `mode="waybar"`. Expected: the existing toast appears, and the Settings banner appears with `Restart Session`. Close and reopen Settings in the same session. Expected: the banner is still visible. Click `Restart Session`. Expected: an Adwaita confirmation dialog appears. Click `Cancel`. Expected: session continues and banner remains. Click `Restart Session` again and confirm. Expected: the labwc session exits to the sign-in screen. After logging back in, reopen Settings. Expected: the banner is hidden if the session snapshot now matches `settings.json`.

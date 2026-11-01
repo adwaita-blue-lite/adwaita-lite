@@ -2,15 +2,15 @@ import sys
 from pathlib import Path
 
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/universal-lite"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/adwaita-lite"))
 
 from settings import app as settings_app  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-CSS_PATH = ROOT / "files/usr/lib/universal-lite/settings/css/style.css"
-APPEARANCE_PATH = ROOT / "files/usr/lib/universal-lite/settings/pages/appearance.py"
+CSS_PATH = ROOT / "files/usr/lib/adwaita-lite/settings/css/style.css"
+APPEARANCE_PATH = ROOT / "files/usr/lib/adwaita-lite/settings/pages/appearance.py"
 BUILD_PATH = ROOT / "build_files/build.sh"
-THUMBNAILER_PATH = ROOT / "files/usr/libexec/universal-lite-wallpaper-thumbnailer"
+THUMBNAILER_PATH = ROOT / "files/usr/libexec/adwaita-lite-wallpaper-thumbnailer"
 
 
 def test_accent_css_uses_contrast_aware_selected_check_color(
@@ -90,7 +90,7 @@ def test_theme_toggle_defers_wallpaper_refresh_out_of_signal_handler():
 
 
 def test_accent_changes_refresh_settings_app_accent_provider():
-    app_source = (ROOT / "files/usr/lib/universal-lite/settings/app.py").read_text(
+    app_source = (ROOT / "files/usr/lib/adwaita-lite/settings/app.py").read_text(
         encoding="utf-8"
     )
     appearance_source = APPEARANCE_PATH.read_text(encoding="utf-8")
@@ -119,4 +119,4 @@ def test_risky_wallpaper_thumbnails_use_isolated_helper_with_placeholder_fallbac
     assert 'os.environ.setdefault("GIO_USE_VFS", "local")' in helper
     assert 'pixbuf.savev(str(tmp), "png", [], [])' in helper
     assert "os.replace(tmp, dest)" in helper
-    assert "/usr/libexec/universal-lite-wallpaper-thumbnailer" in build
+    assert "/usr/libexec/adwaita-lite-wallpaper-thumbnailer" in build

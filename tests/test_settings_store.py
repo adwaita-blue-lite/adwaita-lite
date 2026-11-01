@@ -6,7 +6,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/universal-lite"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/adwaita-lite"))
 from settings.settings_store import SettingsStore
 
 
@@ -134,10 +134,10 @@ def test_waybar_apply_spawn_failure_reports_file_update_error(monkeypatch, tmp_p
 
 def _write_session_snapshot(monkeypatch, tmp_path, data):
     runtime_dir = tmp_path / "runtime"
-    snapshot = runtime_dir / "universal-lite/session-settings.json"
+    snapshot = runtime_dir / "adwaita-lite/session-settings.json"
     snapshot.parent.mkdir(parents=True)
     snapshot.write_text(json.dumps(data), encoding="utf-8")
-    monkeypatch.delenv("UNIVERSAL_LITE_SESSION_SETTINGS", raising=False)
+    monkeypatch.delenv("ADWAITA_LITE_SESSION_SETTINGS", raising=False)
     monkeypatch.setenv("XDG_RUNTIME_DIR", str(runtime_dir))
     return snapshot
 
@@ -202,10 +202,10 @@ def test_deferred_session_changes_ignore_live_apply_settings(monkeypatch, tmp_pa
 
 def test_deferred_session_changes_ignore_missing_or_invalid_snapshot(monkeypatch, tmp_path):
     runtime_dir = tmp_path / "runtime"
-    snapshot = runtime_dir / "universal-lite/session-settings.json"
+    snapshot = runtime_dir / "adwaita-lite/session-settings.json"
     snapshot.parent.mkdir(parents=True)
     snapshot.write_text("{invalid", encoding="utf-8")
-    monkeypatch.delenv("UNIVERSAL_LITE_SESSION_SETTINGS", raising=False)
+    monkeypatch.delenv("ADWAITA_LITE_SESSION_SETTINGS", raising=False)
     monkeypatch.setenv("XDG_RUNTIME_DIR", str(runtime_dir))
     store = _make_store(
         tmp_path,
@@ -223,7 +223,7 @@ def test_deferred_session_changes_env_snapshot_does_not_fallback_to_runtime(monk
     runtime_snapshot = _write_session_snapshot(monkeypatch, tmp_path, {"edge": "bottom"})
     env_snapshot = runtime_snapshot.parent / "bad-session-settings.json"
     env_snapshot.write_text("{invalid", encoding="utf-8")
-    monkeypatch.setenv("UNIVERSAL_LITE_SESSION_SETTINGS", str(env_snapshot))
+    monkeypatch.setenv("ADWAITA_LITE_SESSION_SETTINGS", str(env_snapshot))
     store = _make_store(
         tmp_path,
         defaults={"edge": "bottom"},

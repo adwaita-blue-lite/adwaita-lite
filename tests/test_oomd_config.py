@@ -5,24 +5,24 @@ import subprocess
 
 
 REPO = Path(__file__).resolve().parents[1]
-OOMD_CONF = REPO / "files/usr/lib/systemd/oomd.conf.d/10-universal-lite.conf"
+OOMD_CONF = REPO / "files/usr/lib/systemd/oomd.conf.d/10-adwaita-lite.conf"
 ROOT_SLICE_OOMD = (
-    REPO / "files/usr/lib/systemd/system/-.slice.d/10-universal-lite-oomd.conf"
+    REPO / "files/usr/lib/systemd/system/-.slice.d/10-adwaita-lite-oomd.conf"
 )
 USER_SERVICE_OOMD = (
     REPO
-    / "files/usr/lib/systemd/system/user@.service.d/10-universal-lite-oomd.conf"
+    / "files/usr/lib/systemd/system/user@.service.d/10-adwaita-lite-oomd.conf"
 )
 CHROME_FLATPAK_SCOPE_OOMD = (
     REPO
-    / "files/usr/lib/systemd/user/app-flatpak-com.google.Chrome-.scope.d/10-universal-lite-oomd.conf"
+    / "files/usr/lib/systemd/user/app-flatpak-com.google.Chrome-.scope.d/10-adwaita-lite-oomd.conf"
 )
 CHROME_OOM_CLEANUP_SERVICE = (
-    REPO / "files/usr/lib/systemd/user/universal-lite-chrome-oom-cleanup.service"
+    REPO / "files/usr/lib/systemd/user/adwaita-lite-chrome-oom-cleanup.service"
 )
-CHROME_OOM_CLEANUP = REPO / "files/usr/libexec/universal-lite-chrome-oom-cleanup"
+CHROME_OOM_CLEANUP = REPO / "files/usr/libexec/adwaita-lite-chrome-oom-cleanup"
 CHROME_EARLY_OOM_SERVICE = (
-    REPO / "files/usr/lib/systemd/system/universal-lite-chrome-early-oom.service"
+    REPO / "files/usr/lib/systemd/system/adwaita-lite-chrome-early-oom.service"
 )
 BUILD_SCRIPT = REPO / "build_files/build.sh"
 
@@ -54,7 +54,7 @@ def test_chrome_flatpak_scope_is_killed_as_one_oom_group():
     conf = CHROME_FLATPAK_SCOPE_OOMD.read_text(encoding="utf-8")
 
     assert "[Unit]" in conf
-    assert "OnFailure=universal-lite-chrome-oom-cleanup.service" in conf
+    assert "OnFailure=adwaita-lite-chrome-oom-cleanup.service" in conf
     assert "[Scope]" in conf
     assert "OOMPolicy=kill" in conf
 
@@ -64,7 +64,7 @@ def test_chrome_oom_cleanup_service_runs_helper():
 
     assert "[Service]" in conf
     assert "Type=oneshot" in conf
-    assert "ExecStart=/usr/libexec/universal-lite-chrome-oom-cleanup" in conf
+    assert "ExecStart=/usr/libexec/adwaita-lite-chrome-oom-cleanup" in conf
 
 
 def test_chrome_oom_cleanup_helper_kills_remaining_active_chrome_scopes(tmp_path):
@@ -102,7 +102,7 @@ def test_chrome_early_oom_service_runs_monitor():
     assert "[Unit]" in conf
     assert "After=multi-user.target" in conf
     assert "[Service]" in conf
-    assert "ExecStart=/usr/libexec/universal-lite-chrome-early-oom" in conf
+    assert "ExecStart=/usr/libexec/adwaita-lite-chrome-early-oom" in conf
     assert "Restart=always" in conf
     assert "[Install]" in conf
     assert "WantedBy=multi-user.target" in conf
@@ -111,4 +111,4 @@ def test_chrome_early_oom_service_runs_monitor():
 def test_build_enables_chrome_early_oom_service():
     build = BUILD_SCRIPT.read_text(encoding="utf-8")
 
-    assert "systemctl enable universal-lite-chrome-early-oom.service" in build
+    assert "systemctl enable adwaita-lite-chrome-early-oom.service" in build

@@ -18,12 +18,12 @@ The current Waybar-only path was intended to reduce blast radius by avoiding ful
 
 ## Current Context And Evidence
 
-- `files/usr/lib/universal-lite/settings/settings_store.py` writes `settings.json`, starts `/usr/libexec/universal-lite-apply-settings`, waits in a background thread, and posts a GTK toast from `_on_apply_done` through `GLib.idle_add`.
-- `SettingsStore.save_and_apply(..., mode="waybar")` is used by Waybar-related UI controls in `files/usr/lib/universal-lite/settings/pages/panel.py` and accent changes in `files/usr/lib/universal-lite/settings/pages/appearance.py`.
-- `files/usr/libexec/universal-lite-apply-settings` already supports `--mode waybar`; that mode calls `write_waybar_config(tokens)` and then `reload_waybar()` when files changed.
+- `files/usr/lib/adwaita-lite/settings/settings_store.py` writes `settings.json`, starts `/usr/libexec/adwaita-lite-apply-settings`, waits in a background thread, and posts a GTK toast from `_on_apply_done` through `GLib.idle_add`.
+- `SettingsStore.save_and_apply(..., mode="waybar")` is used by Waybar-related UI controls in `files/usr/lib/adwaita-lite/settings/pages/panel.py` and accent changes in `files/usr/lib/adwaita-lite/settings/pages/appearance.py`.
+- `files/usr/libexec/adwaita-lite-apply-settings` already supports `--mode waybar`; that mode calls `write_waybar_config(tokens)` and then `reload_waybar()` when files changed.
 - `reload_waybar()` currently sends `SIGUSR2` to all user Waybar processes via `pkill -USR2 -x waybar` and starts `waybar` in a new session if none is running.
 - User report: Settings itself closes when changing Waybar-related controls. This means the issue is not only Waybar disappearing; it implicates either Settings-side apply completion/callback behavior or a compositor/Waybar reload interaction that affects the GTK client.
-- Local checks did not show useful current crash evidence: `coredumpctl list universal-lite-settings` found no coredumps and user journal lookups for `universal-lite-settings`/`python3` had no relevant entries in this environment.
+- Local checks did not show useful current crash evidence: `coredumpctl list adwaita-lite-settings` found no coredumps and user journal lookups for `adwaita-lite-settings`/`python3` had no relevant entries in this environment.
 - Existing tests cover mode routing and Waybar config generation in `tests/test_settings_store.py`, `tests/test_settings_app_logic.py`, and `tests/test_apply_settings.py`, but they do not prove crash isolation from the GTK process.
 
 ## Scope
@@ -46,10 +46,10 @@ The current Waybar-only path was intended to reduce blast radius by avoiding ful
 
 - The Settings GTK process must not import or execute Waybar reload logic directly.
 - The apply worker must be one-shot and self-exiting to avoid lifecycle management complexity.
-- User settings remain stored in `~/.config/universal-lite/settings.json` as the source of truth.
+- User settings remain stored in `~/.config/adwaita-lite/settings.json` as the source of truth.
 - Waybar config remains stored in `~/.config/waybar/config.jsonc` and CSS in `~/.config/waybar/style.css`.
 - Atomic replacement is required so Waybar never sees partially-written config or CSS.
-- The existing file lock in `universal-lite-apply-settings` can continue serializing concurrent apply runs.
+- The existing file lock in `adwaita-lite-apply-settings` can continue serializing concurrent apply runs.
 - Waybar may not be installed or running in all test/dev environments; tests must mock process calls and paths.
 - The crash may be caused by Settings-side callback behavior, Waybar `SIGUSR2`, or compositor interaction. The design isolates these paths and adds diagnostics rather than betting on a single unproven cause.
 
@@ -57,7 +57,7 @@ The current Waybar-only path was intended to reduce blast radius by avoiding ful
 
 ### Option 1: Suppress Waybar Success Toasts Only
 
-Settings would continue spawning and waiting on `universal-lite-apply-settings --mode waybar`, but would not show a success toast for Waybar applies.
+Settings would continue spawning and waiting on `adwaita-lite-apply-settings --mode waybar`, but would not show a success toast for Waybar applies.
 
 This is small and might fix a crash caused by the completion callback. It does not isolate Settings from child process completion, stderr handling, or live Waybar reload timing. It also leaves the architecture fragile if the real failure is compositor/Waybar interaction.
 
@@ -77,11 +77,11 @@ This is the selected design because it addresses both suspected failure classes:
 
 Waybar-related controls will use a fire-and-forget apply path. Settings remains responsible for persisting state and keeping its own UI responsive. A detached one-shot worker handles Waybar config generation, file commit, and panel reload.
 
-The existing `universal-lite-apply-settings --mode waybar` command becomes the detached worker entry point. Internally it should call a Waybar transaction helper that reads sanitized settings, builds tokens, generates config/CSS into memory or staging files, validates generated JSON with `json.loads`, performs basic CSS/file sanity checks, writes staged files, and atomically renames them into place. Only after a successful commit does it request Waybar to reload.
+The existing `adwaita-lite-apply-settings --mode waybar` command becomes the detached worker entry point. Internally it should call a Waybar transaction helper that reads sanitized settings, builds tokens, generates config/CSS into memory or staging files, validates generated JSON with `json.loads`, performs basic CSS/file sanity checks, writes staged files, and atomically renames them into place. Only after a successful commit does it request Waybar to reload.
 
 Settings will not wait for Waybar-only apply completion, read stderr, or show a completion toast from that worker. The UI can show a synchronous confirmation such as "Saved" after JSON persistence succeeds, but it must not imply the panel reload completed.
 
-The worker writes diagnostics through a small logging helper to a persistent user log such as `~/.cache/universal-lite/apply-settings.log`. The log should include timestamp, mode, phase, error message, and relevant command return code. This creates actionable evidence when user systems reproduce crashes that tests cannot.
+The worker writes diagnostics through a small logging helper to a persistent user log such as `~/.cache/adwaita-lite/apply-settings.log`. The log should include timestamp, mode, phase, error message, and relevant command return code. This creates actionable evidence when user systems reproduce crashes that tests cannot.
 
 The first reload strategy remains detached `SIGUSR2` because Waybar documents it as the standard config reload path. The implementation must keep this strategy behind a helper boundary so a later plan can switch to a safer replacement strategy if diagnostics or manual testing shows `SIGUSR2` itself closes Settings.
 
@@ -90,7 +90,7 @@ The first reload strategy remains detached `SIGUSR2` because Waybar documents it
 - Settings UI pages own widget state, user interactions, and calls to `SettingsStore`.
 - `SettingsStore` owns JSON persistence, full/live apply orchestration, and Waybar apply dispatch policy.
 - The detached Waybar apply worker owns Waybar transaction execution and diagnostics.
-- `universal-lite-apply-settings` owns settings sanitization, token generation, config rendering, atomic file writes, and external process signaling.
+- `adwaita-lite-apply-settings` owns settings sanitization, token generation, config rendering, atomic file writes, and external process signaling.
 - Waybar remains an external consumer. It must only observe complete config/CSS files.
 
 The critical new boundary is that Waybar-only applies do not call back into GTK after dispatch.

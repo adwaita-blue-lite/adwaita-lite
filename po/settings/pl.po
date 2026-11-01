@@ -1,11 +1,11 @@
-# Polish translations for universal-lite-settings package.
-# Copyright (C) 2026 THE universal-lite-settings'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the universal-lite-settings package.
+# Polish translations for adwaita-lite-settings package.
+# Copyright (C) 2026 THE adwaita-lite-settings'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the adwaita-lite-settings package.
 # Automatically generated, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: universal-lite-settings\n"
+"Project-Id-Version: adwaita-lite-settings\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-02 12:03-0400\n"
 "PO-Revision-Date: 2026-04-05 13:06-0400\n"
@@ -18,1428 +18,1428 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: ../files/usr/bin/universal-lite-greeter:413
+#: ../files/usr/bin/adwaita-lite-greeter:413
 msgid "Login"
 msgstr "Logowanie"
 
-#: ../files/usr/bin/universal-lite-greeter:471
+#: ../files/usr/bin/adwaita-lite-greeter:471
 msgid "Session"
 msgstr "Sesja"
 
-#: ../files/usr/bin/universal-lite-greeter:497
+#: ../files/usr/bin/adwaita-lite-greeter:497
 msgid "Username"
 msgstr "Nazwa użytkownika"
 
-#: ../files/usr/bin/universal-lite-greeter:506
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:68
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:439
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:507
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:107
+#: ../files/usr/bin/adwaita-lite-greeter:506
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:68
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:439
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:507
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:107
 msgid "Password"
 msgstr "Hasło"
 
-#: ../files/usr/bin/universal-lite-greeter:568
+#: ../files/usr/bin/adwaita-lite-greeter:568
 #, python-brace-format
 msgid "Welcome back, {username}"
 msgstr "Witaj ponownie, {username}"
 
-#: ../files/usr/bin/universal-lite-greeter:574
+#: ../files/usr/bin/adwaita-lite-greeter:574
 msgid "Log In"
 msgstr "Zaloguj się"
 
-#: ../files/usr/bin/universal-lite-greeter:575
+#: ../files/usr/bin/adwaita-lite-greeter:575
 #, python-brace-format
 msgid "Not {username}?"
 msgstr "Nie {username}?"
 
-#: ../files/usr/bin/universal-lite-greeter:591
+#: ../files/usr/bin/adwaita-lite-greeter:591
 msgid "Log in"
 msgstr "Zaloguj się"
 
-#: ../files/usr/bin/universal-lite-greeter:597
+#: ../files/usr/bin/adwaita-lite-greeter:597
 msgid "Next"
 msgstr "Dalej"
 
-#: ../files/usr/bin/universal-lite-greeter:610
-#: ../files/usr/bin/universal-lite-greeter:625
-#: ../files/usr/bin/universal-lite-greeter:674
+#: ../files/usr/bin/adwaita-lite-greeter:610
+#: ../files/usr/bin/adwaita-lite-greeter:625
+#: ../files/usr/bin/adwaita-lite-greeter:674
 #, python-brace-format
 msgid "Connection error: {exc}"
 msgstr "Błąd połączenia: {exc}"
 
-#: ../files/usr/bin/universal-lite-greeter:634
-#: ../files/usr/bin/universal-lite-greeter:639
+#: ../files/usr/bin/adwaita-lite-greeter:634
+#: ../files/usr/bin/adwaita-lite-greeter:639
 msgid "Authentication error"
 msgstr "Błąd uwierzytelniania"
 
-#: ../files/usr/bin/universal-lite-greeter:649
+#: ../files/usr/bin/adwaita-lite-greeter:649
 msgid "Unknown error"
 msgstr "Nieznany błąd"
 
-#: ../files/usr/bin/universal-lite-greeter:658
+#: ../files/usr/bin/adwaita-lite-greeter:658
 msgid "Enter a username."
 msgstr "Wprowadź nazwę użytkownika."
 
-#: ../files/usr/bin/universal-lite-greeter:666
+#: ../files/usr/bin/adwaita-lite-greeter:666
 msgid "Enter your password."
 msgstr "Wprowadź hasło."
 
-#: ../files/usr/bin/universal-lite-greeter:685
+#: ../files/usr/bin/adwaita-lite-greeter:685
 msgid "Authentication failed"
 msgstr "Uwierzytelnianie nie powiodło się"
 
-#: ../files/usr/bin/universal-lite-greeter:696
+#: ../files/usr/bin/adwaita-lite-greeter:696
 msgid "Unexpected authentication response."
 msgstr "Nieoczekiwana odpowiedź uwierzytelniania."
 
-#: ../files/usr/bin/universal-lite-greeter:700
+#: ../files/usr/bin/adwaita-lite-greeter:700
 msgid "Multi-step auth not supported."
 msgstr "Uwierzytelnianie wieloetapowe nie jest obsługiwane."
 
-#: ../files/usr/bin/universal-lite-greeter:705
+#: ../files/usr/bin/adwaita-lite-greeter:705
 msgid "Incorrect password."
 msgstr "Nieprawidłowe hasło."
 
-#: ../files/usr/bin/universal-lite-greeter:707
+#: ../files/usr/bin/adwaita-lite-greeter:707
 msgid "Login failed."
 msgstr "Logowanie nie powiodło się."
 
-#: ../files/usr/bin/universal-lite-greeter:710
+#: ../files/usr/bin/adwaita-lite-greeter:710
 msgid "Unexpected response from login service."
 msgstr "Nieoczekiwana odpowiedź z usługi logowania."
 
-#: ../files/usr/bin/universal-lite-greeter:719
+#: ../files/usr/bin/adwaita-lite-greeter:719
 #, python-brace-format
 msgid "Failed to start session: {exc}"
 msgstr "Nie udało się uruchomić sesji: {exc}"
 
-#: ../files/usr/bin/universal-lite-greeter:727
+#: ../files/usr/bin/adwaita-lite-greeter:727
 msgid "Failed to start session."
 msgstr "Nie udało się uruchomić sesji."
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:186
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:187
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:188
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:186
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:187
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:188
 msgid "N/A"
 msgstr "N/A"
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:219
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:219
 msgid "Unsupported WiFi security"
 msgstr "Nieobsługiwane zabezpieczenia WiFi"
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:224
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:462
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:553
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:252
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:224
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:462
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:553
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:252
 msgid "Password cannot be empty"
 msgstr "Hasło nie może być puste"
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:262
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:274
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:262
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:274
 msgid "Wrong password."
 msgstr "Nieprawidłowe hasło."
 
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:264
-#: ../files/usr/lib/universal-lite/settings/dbus_helpers.py:276
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:264
+#: ../files/usr/lib/adwaita-lite/settings/dbus_helpers.py:276
 msgid "Could not connect to network"
 msgstr "Nie można połączyć się z siecią"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:355
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:355
 #, python-brace-format
 msgid "Could not save settings: {reason}"
 msgstr "Nie można zapisać ustawień: {reason}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:385
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:385
 #, python-brace-format
 msgid "Panel changes saved, but panel files could not be updated: {detail}"
 msgstr ""
 "Zmiany panelu zapisane, ale nie udało się zaktualizować plików panelu: "
 "{detail}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:393
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:393
 msgid "Panel changes saved. Restart your session to apply them."
 msgstr "Zmiany panelu zapisane. Uruchom ponownie sesję, aby je zastosować."
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:441
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:441
 #, python-brace-format
 msgid "Failed to apply settings: {detail}"
 msgstr "Nie udało się zastosować ustawień: {detail}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:472
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:472
 msgid "Settings applied"
 msgstr "Ustawienia zastosowane"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:474
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:474
 #, python-brace-format
 msgid "Apply timed out after {n}s"
 msgstr "Przekroczono limit czasu zastosowania po {n}s"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:479
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:479
 #, python-brace-format
 msgid "Failed to apply: {err}"
 msgstr "Nie udało się zastosować: {err}"
 
-#: ../files/usr/lib/universal-lite/settings/settings_store.py:481
+#: ../files/usr/lib/adwaita-lite/settings/settings_store.py:481
 msgid "Failed to apply settings"
 msgstr "Nie udało się zastosować ustawień"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:50
-#: ../files/usr/lib/universal-lite/settings/window.py:81
-#: ../files/usr/lib/universal-lite/settings/window.py:127
+#: ../files/usr/lib/adwaita-lite/settings/window.py:50
+#: ../files/usr/lib/adwaita-lite/settings/window.py:81
+#: ../files/usr/lib/adwaita-lite/settings/window.py:127
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:93
+#: ../files/usr/lib/adwaita-lite/settings/window.py:93
 msgid "Search settings"
 msgstr "Wyszukaj ustawienia"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:97
+#: ../files/usr/lib/adwaita-lite/settings/window.py:97
 msgid "Search settings…"
 msgstr "Wyszukaj ustawienia…"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:113
+#: ../files/usr/lib/adwaita-lite/settings/window.py:113
 msgid "Restart your session to apply panel and start menu changes."
 msgstr "Uruchom sesję ponownie, aby zastosować zmiany panelu i menu Start."
 
-#: ../files/usr/lib/universal-lite/settings/window.py:115
-#: ../files/usr/lib/universal-lite/settings/window.py:229
+#: ../files/usr/lib/adwaita-lite/settings/window.py:115
+#: ../files/usr/lib/adwaita-lite/settings/window.py:229
 msgid "Restart Session"
 msgstr "Uruchom sesję ponownie"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:225
+#: ../files/usr/lib/adwaita-lite/settings/window.py:225
 msgid "Restart Session?"
 msgstr "Uruchomić sesję ponownie?"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:226
+#: ../files/usr/lib/adwaita-lite/settings/window.py:226
 msgid "This will close your apps and return you to the sign-in screen."
 msgstr "Spowoduje to zamknięcie aplikacji i powrót do ekranu logowania."
 
-#: ../files/usr/lib/universal-lite/settings/window.py:228
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:797
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:867
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:905
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:407
+#: ../files/usr/lib/adwaita-lite/settings/window.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:797
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:867
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:905
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:407
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:251
+#: ../files/usr/lib/adwaita-lite/settings/window.py:251
 #, python-brace-format
 msgid "Could not restart session: {detail}"
 msgstr "Nie można uruchomić sesji ponownie: {detail}"
 
-#: ../files/usr/lib/universal-lite/settings/window.py:298
+#: ../files/usr/lib/adwaita-lite/settings/window.py:298
 #, python-brace-format
 msgid "Failed to load {label}"
 msgstr "Nie udało się wczytać {label}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:26
 msgid "Appearance"
 msgstr "Wygląd"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:27
 msgid "Display"
 msgstr "Ekran"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:28
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:67
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:100
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:602
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:67
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:100
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:602
 msgid "Network"
 msgstr "Sieć"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:40
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:40
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:115
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:115
 msgid "Panel"
 msgstr "Panel"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:31
 msgid "Mouse & Touchpad"
 msgstr "Mysz i touchpad"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:32
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:339
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:339
 msgid "Keyboard"
 msgstr "Klawiatura"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:33
 msgid "Sound"
 msgstr "Dźwięk"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:34
 msgid "Power & Lock"
 msgstr "Zasilanie i blokada"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:35
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:27
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:28
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:35
 msgid "Accessibility"
 msgstr "Dostępność"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:36
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:31
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:32
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:37
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:36
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:37
 msgid "Date & Time"
 msgstr "Data i czas"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:37
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:43
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:132
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:37
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:43
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:132
 msgid "Users"
 msgstr "Użytkownicy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:38
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:23
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:24
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:25
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:64
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:38
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:64
 msgid "Language & Region"
 msgstr "Język i region"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:39
 msgid "Default Apps"
 msgstr "Domyślne aplikacje"
 
-#: ../files/usr/lib/universal-lite/settings/pages/__init__.py:40
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:87
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:88
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:108
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:117
+#: ../files/usr/lib/adwaita-lite/settings/pages/__init__.py:40
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:87
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:88
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:108
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:117
 msgid "About"
 msgstr "O systemie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:191
 msgid "Operating System"
 msgstr "System operacyjny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:192
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:192
 msgid "Hostname"
 msgstr "Nazwa hosta"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:193
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:193
 msgid "Processor"
 msgstr "Procesor"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:194
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:194
 msgid "Memory"
 msgstr "Pamięć"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:196
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:196
 msgid "Disk"
 msgstr "Dysk"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:198
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:198
 msgid "Desktop"
 msgstr "Pulpit"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:197
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:197
 msgid "Graphics"
 msgstr "Grafika"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:86
 msgid "GPU"
 msgstr "GPU"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:87
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:221
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:87
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:221
 msgid "Updates"
 msgstr "Aktualizacje"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:88
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:252
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:344
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:88
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:252
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:344
 msgid "Restore Defaults"
 msgstr "Przywróć ustawienia domyślne"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:133
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:140
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:146
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:151
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:171
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:594
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:133
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:140
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:146
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:151
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:171
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:594
 msgid "Unknown"
 msgstr "Nieznane"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:165
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:165
 #, python-brace-format
 msgid "{used:.1f} GB used of {total:.1f} GB"
 msgstr "Wykorzystano {used:.1f} GB z {total:.1f} GB"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:224
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:224
 msgid "Status"
 msgstr "Stan"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:225
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:225
 msgid "Click to check for updates"
 msgstr "Kliknij, aby sprawdzić aktualizacje"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:229
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:229
 msgid "Check for Updates"
 msgstr "Sprawdź aktualizacje"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:234
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:234
 msgid "Update now..."
 msgstr "Zaktualizuj teraz..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:249
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:249
 msgid "Troubleshooting"
 msgstr "Rozwiązywanie problemów"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:253
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:253
 msgid "Reset settings to factory defaults"
 msgstr "Przywróć ustawienia do wartości fabrycznych"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:271
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:175
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:271
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:175
 msgid "Checking..."
 msgstr "Sprawdzanie..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:280
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:280
 msgid "Update check timed out"
 msgstr "Przekroczono limit czasu sprawdzania aktualizacji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:283
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:283
 msgid "Update system not available"
 msgstr "System aktualizacji jest niedostępny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:286
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:286
 msgid "Update check failed"
 msgstr "Sprawdzanie aktualizacji nie powiodło się"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:289
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:289
 msgid "Update available"
 msgstr "Dostępna aktualizacja"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:292
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:292
 msgid "System is up to date"
 msgstr "System jest aktualny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:295
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:295
 msgid "Could not check for updates"
 msgstr "Nie udało się sprawdzić aktualizacji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:326
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:326
 msgid "Terminal not available"
 msgstr "Terminal jest niedostępny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:356
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:356
 msgid "Select which settings to reset to factory defaults."
 msgstr "Wybierz, które ustawienia przywrócić do wartości fabrycznych."
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:363
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:363
 msgid "Categories"
 msgstr "Kategorie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:366
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:366
 msgid "Select All"
 msgstr "Zaznacz wszystko"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:406
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:406
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:228
 msgid "Reset"
 msgstr "Resetuj"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:439
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:439
 msgid "Could not read defaults file"
 msgstr "Nie można odczytać pliku ustawień domyślnych"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:467
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:467
 msgid "Could not reset keyboard shortcuts"
 msgstr "Nie można zresetować skrótów klawiaturowych"
 
-#: ../files/usr/lib/universal-lite/settings/pages/about.py:472
+#: ../files/usr/lib/adwaita-lite/settings/pages/about.py:472
 msgid "Could not remove a custom wallpaper"
 msgstr "Could not remove a custom wallpaper"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:12
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:12
 msgid "Default (24px)"
 msgstr "Domyślny (24px)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:13
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:13
 msgid "Large (32px)"
 msgstr "Duży (32px)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:14
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:14
 msgid "Larger (48px)"
 msgstr "Większy (48px)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:27
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:39
 msgid "Large text"
 msgstr "Duży tekst"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:28
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:64
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:64
 msgid "Cursor size"
 msgstr "Rozmiar kursora"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:81
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:81
 msgid "High contrast"
 msgstr "Wysoki kontrast"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:93
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:93
 msgid "Reduce motion"
 msgstr "Ogranicz animacje"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:40
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:40
 msgid "Increases font size for better readability"
 msgstr "Zwiększa rozmiar czcionki dla lepszej czytelności"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:82
 msgid "Forces dark theme with stronger borders"
 msgstr "Wymusza ciemny motyw z wyraźniejszymi obramowaniami"
 
-#: ../files/usr/lib/universal-lite/settings/pages/accessibility.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/accessibility.py:94
 msgid "Disables animations throughout the interface"
 msgstr "Wyłącza animacje w całym interfejsie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:48
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:48
 msgid "Blue"
 msgstr "Niebieski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:49
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:49
 msgid "Teal"
 msgstr "Turkusowy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:50
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:50
 msgid "Green"
 msgstr "Zielony"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:51
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:51
 msgid "Yellow"
 msgstr "Żółty"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:52
 msgid "Orange"
 msgstr "Pomarańczowy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:53
 msgid "Red"
 msgstr "Czerwony"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:54
 msgid "Pink"
 msgstr "Różowy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:55
 msgid "Purple"
 msgstr "Fioletowy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:56
 msgid "Slate"
 msgstr "Łupkowy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:204
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:62
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:204
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:62
 msgid "Panel changes apply after you restart your session."
 msgstr "Zmiany panelu zostaną zastosowane po ponownym uruchomieniu sesji."
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:226
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:235
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:235
 msgid "Theme"
 msgstr "Motyw"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:226
 msgid "Light"
 msgstr "Jasny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:226
 msgid "Dark"
 msgstr "Ciemny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:227
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:267
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:227
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:267
 msgid "Accent color"
 msgstr "Kolor akcentu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:227
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:227
 msgid "Color"
 msgstr "Kolor"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:228
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:347
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:354
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:347
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:354
 msgid "Font size"
 msgstr "Rozmiar czcionki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:228
 msgid "Font"
 msgstr "Czcionka"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:229
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:378
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:229
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:378
 msgid "Wallpaper"
 msgstr "Tapeta"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:229
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:229
 msgid "Background"
 msgstr "Tło"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:239
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:239
 msgid "Dark mode"
 msgstr "Tryb ciemny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:258
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:258
 msgid "Theme is set to Dark by High Contrast mode"
 msgstr "Motyw jest ustawiony na Ciemny przez tryb Wysokiego kontrastu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
 msgid "Small"
 msgstr "Mały"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:30
 msgid "Default"
 msgstr "Domyślny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
 msgid "Large"
 msgstr "Duży"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:349
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:349
 msgid "Larger"
 msgstr "Większy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:355
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:355
 msgid "Affects all text throughout the interface"
 msgstr "Wpływa na cały tekst w interfejsie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:404
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:404
 msgid "Wallpaper picker unavailable"
 msgstr "Wybór tapety jest niedostępny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:542
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:601
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:542
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:601
 msgid "Remove"
 msgstr "Usuń"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:546
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:546
 #, python-brace-format
 msgid "Remove {name}"
 msgstr "Remove {name}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:557
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:563
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:557
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:563
 msgid "Add picture…"
 msgstr "Dodaj obraz…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:600
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:600
 msgid "Choose Wallpaper"
 msgstr "Wybierz tapetę"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:602
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:602
 msgid "Images"
 msgstr "Obrazy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:645
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:645
 msgid "Picture not found"
 msgstr "Nie znaleziono obrazu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:647
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:647
 msgid "Picture is too large (50 MB limit)"
 msgstr "Obraz jest za duży (limit 50 MB)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:649
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:649
 msgid "Picture format not supported"
 msgstr "Format obrazu nie jest obsługiwany"
 
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:651
-#: ../files/usr/lib/universal-lite/settings/pages/appearance.py:654
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:651
+#: ../files/usr/lib/adwaita-lite/settings/pages/appearance.py:654
 msgid "Could not add wallpaper"
 msgstr "Nie udało się dodać tapety"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:228
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:228
 msgid "Pair"
 msgstr "Sparuj"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:67
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:67
 msgid "Wireless"
 msgstr "Bezprzewodowe"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:30
 msgid "Device"
 msgstr "Urządzenie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:47
 msgid "No Bluetooth adapter found"
 msgstr "Nie znaleziono adaptera Bluetooth"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:52
 msgid "Paired Devices"
 msgstr "Sparowane urządzenia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:53
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:185
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:185
 msgid "No paired devices"
 msgstr "Brak sparowanych urządzeń"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:58
 msgid "Available Devices"
 msgstr "Dostępne urządzenia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:136
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:136
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:191
 msgid "Tap 'Search' to find nearby devices"
 msgstr "Dotknij „Szukaj”, aby znaleźć urządzenia w pobliżu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:61
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:134
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:265
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:61
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:134
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:265
 msgid "Search for devices"
 msgstr "Szukaj urządzeń"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:80
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:245
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:183
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:80
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:245
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:183
 msgid "Advanced"
 msgstr "Zaawansowane"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:112
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:112
 msgid "Bluetooth manager not available"
 msgstr "Menedżer Bluetooth jest niedostępny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:126
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:126
 msgid "Scanning..."
 msgstr "Skanowanie..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:127
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:127
 msgid "Scanning for devices..."
 msgstr "Wyszukiwanie urządzeń..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:198
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:198
 msgid "Unknown device"
 msgstr "Nieznane urządzenie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:201
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:201
 msgid "Bluetooth device"
 msgstr "Urządzenie Bluetooth"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:211
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:306
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:341
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:627
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:211
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:306
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:341
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:627
 msgid "Connected"
 msgstr "Połączono"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:212
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:212
 msgid "Disconnect"
 msgstr "Rozłącz"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:217
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:376
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:445
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:514
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:217
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:376
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:445
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:514
 msgid "Connect"
 msgstr "Połącz"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:222
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:370
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:408
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:222
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:370
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:408
 msgid "Forget"
 msgstr "Zapomnij"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:239
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:239
 msgid "Pairing..."
 msgstr "Parowanie..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:244
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:244
 msgid "Paired successfully"
 msgstr "Sparowano pomyślnie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/bluetooth.py:252
+#: ../files/usr/lib/adwaita-lite/settings/pages/bluetooth.py:252
 #, python-brace-format
 msgid "Pairing failed: {message}"
 msgstr "Parowanie nie powiodło się: {message}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:29
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:66
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:66
 msgid "Timezone"
 msgstr "Strefa czasowa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:30
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:74
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:74
 msgid "Automatic time"
 msgstr "Automatyczny czas"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:31
 msgid "NTP"
 msgstr "NTP"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:32
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:91
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:91
 msgid "24-hour clock"
 msgstr "Zegar 24-godzinny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:75
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:75
 msgid "Sync clock via network (NTP)"
 msgstr "Synchronizuj zegar przez sieć (NTP)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:92
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:92
 msgid "Use 24-hour time format"
 msgstr "Używaj formatu 24-godzinnego"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:157
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:157
 msgid "Failed to set timezone"
 msgstr "Nie udało się ustawić strefy czasowej"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:161
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:161
 msgid "Invalid timezone"
 msgstr "Nieprawidłowa strefa czasowa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:220
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:220
 msgid "Automatic time change timed out"
 msgstr "Przekroczono limit czasu zmiany automatycznego czasu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:225
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:225
 msgid "Time settings are unavailable on this system"
 msgstr "Ustawienia czasu są niedostępne w tym systemie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:230
-#: ../files/usr/lib/universal-lite/settings/pages/datetime.py:235
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:230
+#: ../files/usr/lib/adwaita-lite/settings/pages/datetime.py:235
 msgid "Failed to change automatic time"
 msgstr "Nie udało się zmienić automatycznego czasu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:18
 msgid "Web Browser"
 msgstr "Przeglądarka internetowa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:23
 msgid "File Manager"
 msgstr "Menedżer plików"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:24
 msgid "Terminal"
 msgstr "Terminal"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:25
 msgid "Text Editor"
 msgstr "Edytor tekstu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:26
 msgid "Image Viewer"
 msgstr "Przeglądarka obrazów"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:32
 msgid "PDF Viewer"
 msgstr "Przeglądarka PDF"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:33
 msgid "Media Player"
 msgstr "Odtwarzacz multimedialny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:39
 msgid "Email Client"
 msgstr "Klient poczty"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:50
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:50
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:54
 msgid "Default Applications"
 msgstr "Domyślne aplikacje"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:83
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:83
 msgid "Could not change default terminal"
 msgstr "Nie można zmienić domyślnego terminala"
 
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:107
-#: ../files/usr/lib/universal-lite/settings/pages/default_apps.py:113
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:107
+#: ../files/usr/lib/adwaita-lite/settings/pages/default_apps.py:113
 msgid "Could not change default app"
 msgstr "Nie można zmienić domyślnej aplikacji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:16
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:16
 msgid "Sunset to Sunrise"
 msgstr "Od zachodu do wschodu słońca"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:16
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:16
 msgid "Custom"
 msgstr "Własny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:54
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:55
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:108
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:108
 msgid "Display Scale"
 msgstr "Skalowanie ekranu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:54
 msgid "Scale"
 msgstr "Skalowanie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:55
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:56
 msgid "Resolution"
 msgstr "Rozdzielczość"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:56
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:57
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:114
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:57
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:114
 msgid "Resolution & Refresh Rate"
 msgstr "Rozdzielczość i częstotliwość odświeżania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:57
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:57
 msgid "Refresh"
 msgstr "Odświeżanie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:58
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:60
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:147
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:151
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:60
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:147
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:151
 msgid "Night Light"
 msgstr "Podświetlenie nocne"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:163
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:163
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:60
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:60
 msgid "Blue light"
 msgstr "Niebieskie światło"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:70
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:70
 msgid "No displays detected"
 msgstr "Nie wykryto ekranów"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:71
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:71
 msgid "Connect a display and reopen Settings."
 msgstr "Podłącz ekran i otwórz Ustawienia ponownie."
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:92
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:92
 msgid "Display scale"
 msgstr "Skala ekranu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:127
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:127
 msgid "Resolution and refresh rate"
 msgstr "Rozdzielczość i częstotliwość odświeżania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:131
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:131
 msgid "Mode"
 msgstr "Tryb"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:152
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:152
 msgid "Reduce blue light to help with sleep"
 msgstr "Ogranicz niebieskie światło, aby ułatwić zasypianie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:164
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:164
 msgid "3500K (warm) to 6500K (cool)"
 msgstr "3500K (ciepłe) do 6500K (zimne)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:177
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:177
 msgid "Night Light temperature"
 msgstr "Night Light temperature"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:191
 msgid "Schedule"
 msgstr "Harmonogram"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:203
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:203
 msgid "Custom schedule"
 msgstr "Harmonogram niestandardowy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:204
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:204
 msgid "Times snap to 15-minute increments"
 msgstr "Czasy są zaokrąglane do 15 minut"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:208
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:208
 msgid "Start time"
 msgstr "Czas rozpoczęcia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:218
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:218
 msgid "End time"
 msgstr "Czas zakończenia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:248
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:248
 msgid "Advanced display settings"
 msgstr "Zaawansowane ustawienia ekranu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:249
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:249
 msgid "Arrange and configure displays visually"
 msgstr "Rozmieść i skonfiguruj ekrany wizualnie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:273
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:273
 msgid "Advanced display tool not available"
 msgstr "Zaawansowane narzędzie ekranu jest niedostępne"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:411
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:411
 #, python-brace-format
 msgid "Failed to set display scale on {output}"
 msgstr "Nie udało się ustawić skali ekranu na {output}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:417
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:417
 msgid "Confirm display scale"
 msgstr "Potwierdź skalę ekranu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:420
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:600
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:420
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:600
 msgid "Revert"
 msgstr "Przywróć"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:421
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:601
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:421
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:601
 msgid "Keep"
 msgstr "Zachowaj"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:436
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:462
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:436
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:462
 #, python-brace-format
 msgid "Keep this display scale? Reverting in {seconds}s…"
 msgstr "Zachować tę skalę ekranu? Przywrócenie za {seconds} s…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:597
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:597
 msgid "Confirm resolution"
 msgstr "Potwierdź rozdzielczość"
 
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:612
-#: ../files/usr/lib/universal-lite/settings/pages/display.py:634
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:612
+#: ../files/usr/lib/adwaita-lite/settings/pages/display.py:634
 #, python-brace-format
 msgid "Keep this resolution? Reverting in {seconds}s…"
 msgstr "Zachować tę rozdzielczość? Przywrócenie za {seconds} s…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:17
 msgid "English (US)"
 msgstr "Angielski (USA)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:17
 msgid "English (UK)"
 msgstr "Angielski (Wielka Brytania)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:17
 msgid "German"
 msgstr "Niemiecki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:18
 msgid "French"
 msgstr "Francuski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:18
 msgid "Spanish"
 msgstr "Hiszpański"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:18
 msgid "Italian"
 msgstr "Włoski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:19
 msgid "Portuguese"
 msgstr "Portugalski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:20
 msgid "Russian"
 msgstr "Rosyjski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:20
 msgid "Japanese"
 msgstr "Japoński"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:20
 msgid "Korean"
 msgstr "Koreański"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:21
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:21
 msgid "Chinese"
 msgstr "Chiński"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:22
 msgid "Arabic"
 msgstr "Arabski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:22
 msgid "Portuguese (Brazil)"
 msgstr "Portugalski (Brazylia)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:22
 msgid "Canadian"
 msgstr "Kanadyjski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:23
 msgid "Danish"
 msgstr "Duński"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:23
 msgid "Finnish"
 msgstr "Fiński"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:23
 msgid "Dutch"
 msgstr "Niderlandzki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:24
 msgid "Norwegian"
 msgstr "Norweski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:25
 msgid "Polish"
 msgstr "Polski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:25
 msgid "Swedish"
 msgstr "Szwedzki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:25
 msgid "Swiss"
 msgstr "Szwajcarski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:26
 msgid "Turkish"
 msgstr "Turecki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:27
 msgid "Ukrainian"
 msgstr "Ukraiński"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:27
 msgid "Indian"
 msgstr "Indyjski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:27
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:27
 msgid "Hebrew"
 msgstr "Hebrajski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:28
 msgid "Thai"
 msgstr "Tajski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:29
 msgid "Czech"
 msgstr "Czeski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:29
 msgid "Hungarian"
 msgstr "Węgierski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:29
 msgid "Romanian"
 msgstr "Rumuński"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:30
 msgid "Slovak"
 msgstr "Słowacki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:31
 msgid "Croatian"
 msgstr "Chorwacki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:31
 msgid "Slovenian"
 msgstr "Słoweński"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:31
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:31
 msgid "Bulgarian"
 msgstr "Bułgarski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:32
 msgid "Greek"
 msgstr "Grecki"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:33
 msgid "Persian"
 msgstr "Perski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:33
 msgid "Amharic"
 msgstr "Amharski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:33
 msgid "Vietnamese"
 msgstr "Wietnamski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:34
 msgid "Swahili (Kenya)"
 msgstr "Suahili (Kenia)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:34
 msgid "Swahili (Tanzania)"
 msgstr "Suahili (Tanzania)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:35
 msgid "Nigerian"
 msgstr "Nigeryjski"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:52
 msgid "Open Terminal"
 msgstr "Otwórz terminal"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:53
 msgid "Open File Manager"
 msgstr "Otwórz menedżer plików"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:54
 msgid "App Launcher"
 msgstr "Menu aplikacji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:55
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:55
 msgid "Open Settings"
 msgstr "Otwórz ustawienia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:56
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:56
 msgid "Lock Screen"
 msgstr "Zablokuj ekran"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:57
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:57
 msgid "System Monitor"
 msgstr "Monitor systemu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:58
 msgid "Switch Windows"
 msgstr "Przełącz okna"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:59
 msgid "Switch Windows (Reverse)"
 msgstr "Przełącz okna (odwrotnie)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:60
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:60
 msgid "Close Window"
 msgstr "Zamknij okno"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:61
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:61
 msgid "Maximize / Restore"
 msgstr "Maksymalizuj / przywróć"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:62
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:62
 msgid "Minimize"
 msgstr "Minimalizuj"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:63
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:63
 msgid "Toggle Fullscreen"
 msgstr "Przełącz pełny ekran"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:64
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:64
 msgid "Snap Left"
 msgstr "Przyciągnij w lewo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:65
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:65
 msgid "Snap Right"
 msgstr "Przyciągnij w prawo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:115
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:115
 #, python-brace-format
 msgid "Snap {direction}"
 msgstr "Przyciągnij {direction}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:133
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:133
 msgid "Volume Up"
 msgstr "Zwiększ głośność"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:135
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:135
 msgid "Volume Down"
 msgstr "Zmniejsz głośność"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:137
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:91
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:140
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:137
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:91
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:140
 msgid "Mute"
 msgstr "Wycisz"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:139
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:139
 msgid "Brightness Up"
 msgstr "Zwiększ jasność"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:141
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:141
 msgid "Brightness Down"
 msgstr "Zmniejsz jasność"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:143
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:143
 msgid "Screenshot (Region)"
 msgstr "Zrzut ekranu (obszar)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:145
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:145
 msgid "Screenshot"
 msgstr "Zrzut ekranu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:147
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:147
 #, python-brace-format
 msgid "Run: {command}"
 msgstr "Uruchom: {command}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:319
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:354
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:319
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:354
 msgid "Layout"
 msgstr "Układ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:319
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:365
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:319
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:365
 msgid "Keyboard layout"
 msgstr "Układ klawiatury"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:319
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:372
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:319
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:372
 msgid "Variant"
 msgstr "Wariant"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:320
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:447
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:320
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:447
 msgid "Repeat"
 msgstr "Powtarzanie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:320
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:450
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:320
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:450
 msgid "Repeat delay"
 msgstr "Opóźnienie powtarzania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:320
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:462
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:320
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:462
 msgid "Repeat rate"
 msgstr "Szybkość powtarzania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:321
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:321
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:321
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:321
 msgid "Caps Lock behavior"
 msgstr "Zachowanie Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:321
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:321
 msgid "Remap"
 msgstr "Zmień przypisanie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:322
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:323
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:322
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:323
 msgid "Shortcuts"
 msgstr "Skróty"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:322
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:322
 msgid "Keyboard shortcuts"
 msgstr "Skróty klawiszowe"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:322
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:322
 msgid "Keybinding"
 msgstr "Przypisanie klawisza"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:323
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:323
 msgid "Hotkey"
 msgstr "Klawisz skrótu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:323
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:323
 msgid "Key combo"
 msgstr "Kombinacja klawiszy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:373
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:429
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:373
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:429
 msgid "(Default)"
 msgstr "(Domyślny)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:451
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:451
 msgid "Milliseconds before keys begin repeating"
 msgstr "Milisekundy, zanim klawisze zaczną się powtarzać"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:463
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:463
 msgid "Keys per second when held"
 msgstr "Klawisze na sekundę przy przytrzymaniu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:476
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:476
 msgid "Caps Lock Behavior"
 msgstr "Zachowanie Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
 msgid "Ctrl"
 msgstr "Ctrl"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
 msgid "Escape"
 msgstr "Escape"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:478
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:478
 msgid "Disabled"
 msgstr "Wyłączony"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:482
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:482
 msgid "Caps Lock key"
 msgstr "Klawisz Caps Lock"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:483
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:483
 msgid "Remap Caps Lock to another function"
 msgstr "Przemapuj Caps Lock na inną funkcję"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:503
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:503
 msgid "Keyboard Shortcuts"
 msgstr "Skróty klawiszowe"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:517
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:517
 msgid "Reset all shortcuts"
 msgstr "Zresetuj wszystkie skróty"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:518
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:518
 msgid "Restore every shortcut to its default"
 msgstr "Przywróć wszystkie skróty do wartości domyślnych"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:520
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:906
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:520
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:906
 msgid "Reset All"
 msgstr "Zresetuj wszystko"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:547
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:553
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:597
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:600
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:547
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:553
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:597
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:600
 msgid "Reset to default"
 msgstr "Przywróć domyślne"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:640
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:640
 msgid "Press new shortcut"
 msgstr "Naciśnij nowy skrót"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:649
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:649
 msgid "Press the new shortcut"
 msgstr "Naciśnij nowy skrót"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:651
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:651
 msgid "Press the desired key combination. Press Escape to cancel."
 msgstr "Naciśnij żądaną kombinację klawiszy. Naciśnij Escape, aby anulować."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:715
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:715
 msgid "Reserved key combination"
 msgstr "Zarezerwowana kombinacja klawiszy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:716
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:716
 #, python-brace-format
 msgid "{key} is reserved by the system and can't be reassigned."
 msgstr ""
 "Kombinacja {key} jest zarezerwowana przez system i nie można jej przypisać "
 "ponownie."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:718
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:718
 msgid "OK"
 msgstr "OK"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:789
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:789
 msgid "Shortcut Conflict"
 msgstr "Konflikt skrótów"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:790
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:790
 #, python-brace-format
 msgid ""
 "\"{key}\" is already assigned to \"{conflict}\".\n"
@@ -1450,20 +1450,20 @@ msgstr ""
 "\n"
 "Przypisać do \"{target}\"?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:798
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:798
 msgid "Reassign"
 msgstr "Przypisz ponownie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:821
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:821
 #, python-brace-format
 msgid "No default key for {action}; please rebind it."
 msgstr "Brak domyślnego klawisza dla działania {action}; przypisz go ponownie."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:862
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:862
 msgid "Reset would affect another shortcut"
 msgstr "Reset wpłynie na inny skrót"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:863
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:863
 #, python-brace-format
 msgid ""
 "{key} is currently assigned to {name}. Reset this shortcut and also reset "
@@ -1472,15 +1472,15 @@ msgstr ""
 "{key} jest obecnie przypisany do {name}. Zresetować ten skrót i również "
 "przywrócić {name} do ustawienia domyślnego?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:868
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:868
 msgid "Reset Both"
 msgstr "Zresetuj oba"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:901
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:901
 msgid "Reset all shortcuts?"
 msgstr "Zresetować wszystkie skróty?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:902
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:902
 msgid ""
 "This will restore every shortcut to its system default. This cannot be "
 "undone."
@@ -1488,759 +1488,759 @@ msgstr ""
 "Spowoduje to przywrócenie każdego skrótu do domyślnej wartości systemowej. "
 "Tej operacji nie można cofnąć."
 
-#: ../files/usr/lib/universal-lite/settings/pages/keyboard.py:949
+#: ../files/usr/lib/adwaita-lite/settings/pages/keyboard.py:949
 #, python-brace-format
 msgid "Failed to save shortcuts: {msg}"
 msgstr "Nie udało się zapisać skrótów: {msg}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:23
 msgid "Language"
 msgstr "Język"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:24
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:24
 msgid "Locale"
 msgstr "Ustawienia regionalne"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:25
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:25
 msgid "Regional format"
 msgstr "Format regionalny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:30
 msgid "Changes take effect after logging out"
 msgstr "Zmiany zostaną zastosowane po wylogowaniu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:42
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:42
 msgid "System language"
 msgstr "Język systemu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:53
 msgid "Regional formats"
 msgstr "Formaty regionalne"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:54
 msgid "Date, number, and currency format"
 msgstr "Format daty, liczb i waluty"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:158
 msgid "Failed to set language"
 msgstr "Nie udało się ustawić języka"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:159
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:159
 msgid "Language change timed out"
 msgstr "Przekroczono czas zmiany języka"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:173
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:173
 msgid "Failed to set regional format"
 msgstr "Nie udało się ustawić formatu regionalnego"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:174
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:174
 msgid "Format change timed out"
 msgstr "Przekroczono czas zmiany formatu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:188
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:188
 msgid "Language settings are unavailable on this system"
 msgstr "Ustawienia języka są niedostępne w tym systemie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/language.py:192
+#: ../files/usr/lib/adwaita-lite/settings/pages/language.py:192
 #, python-brace-format
 msgid "Language change failed: {reason}"
 msgstr "Zmiana języka nie powiodła się: {reason}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:12
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:12
 msgid "Adaptive"
 msgstr "Adaptacyjne"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:13
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:13
 msgid "Flat"
 msgstr "Płaskie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:26
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:26
 msgid "Slowest"
 msgstr "Najwolniej"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:28
 msgid "Slow"
 msgstr "Wolno"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:32
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:32
 msgid "Fast"
 msgstr "Szybko"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:33
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:33
 msgid "Fastest"
 msgstr "Najszybciej"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:61
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:61
 msgid "Touchpad"
 msgstr "Touchpad"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:65
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:65
 msgid "Tap to click"
 msgstr "Stuknij, aby kliknąć"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:72
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:125
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:72
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:125
 msgid "Natural scrolling"
 msgstr "Naturalne przewijanie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:101
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:152
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:101
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:152
 msgid "Pointer speed"
 msgstr "Szybkość wskaźnika"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:107
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:107
 msgid "Scroll speed"
 msgstr "Szybkość przewijania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:48
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:121
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:48
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:121
 msgid "Mouse"
 msgstr "Mysz"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:48
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:48
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:158
 msgid "Acceleration"
 msgstr "Przyspieszenie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:73
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:73
 msgid "Content moves with your fingers"
 msgstr "Zawartość przesuwa się z ruchem palców"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:94
 msgid "Touchpad pointer speed"
 msgstr "Touchpad pointer speed"
 
-#: ../files/usr/lib/universal-lite/settings/pages/mouse_touchpad.py:145
+#: ../files/usr/lib/adwaita-lite/settings/pages/mouse_touchpad.py:145
 msgid "Mouse pointer speed"
 msgstr "Mouse pointer speed"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:34
 msgid "Signal: excellent"
 msgstr "Sygnał: doskonały"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:36
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:36
 msgid "Signal: good"
 msgstr "Sygnał: dobry"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:38
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:38
 msgid "Signal: fair"
 msgstr "Sygnał: średni"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:39
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:39
 msgid "Signal: weak"
 msgstr "Sygnał: słaby"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:67
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:68
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:123
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:141
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:67
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:68
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:123
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:141
 msgid "WiFi"
 msgstr "WiFi"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:68
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:68
 msgid "Hidden network"
 msgstr "Ukryta sieć"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:171
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:171
 msgid "Wired"
 msgstr "Przewodowe"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:174
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:174
 msgid "Ethernet"
 msgstr "Ethernet"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
 msgid "Connection"
 msgstr "Połączenie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:69
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:69
 msgid "IP address"
 msgstr "Adres IP"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:82
 msgid "No network adapter"
 msgstr "Brak adaptera sieciowego"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:128
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:131
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:128
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:131
 msgid "Scan for networks"
 msgstr "Szukaj sieci"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:147
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:147
 msgid "Connect to hidden network"
 msgstr "Połącz z ukrytą siecią"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:157
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:157
 msgid "Available Networks"
 msgstr "Dostępne sieci"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:158
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:268
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:274
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:268
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:274
 msgid "No networks found"
 msgstr "Nie znaleziono sieci"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:164
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:164
 msgid "Active Connection"
 msgstr "Aktywne połączenie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:165
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:597
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:165
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:597
 msgid "Not connected"
 msgstr "Brak połączenia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:186
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:186
 msgid "Advanced network settings"
 msgstr "Zaawansowane ustawienia sieci"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:204
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:204
 msgid "Connection editor not found"
 msgstr "Nie znaleziono edytora połączeń"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:227
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:227
 msgid "NetworkManager is not available"
 msgstr "NetworkManager jest niedostępny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:360
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:364
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:360
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:364
 msgid "Password protected"
 msgstr "Chronione hasłem"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:390
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:390
 msgid "Another connection attempt is already running"
 msgstr "Inna próba połączenia jest już w toku"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:397
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:397
 #, python-brace-format
 msgid "Connecting to {ssid}…"
 msgstr "Łączenie z {ssid}…"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:403
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:403
 msgid "Forget network?"
 msgstr "Zapomnieć sieć?"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:404
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:404
 #, python-brace-format
 msgid "This will remove the saved password for {ssid}."
 msgstr "Spowoduje to usunięcie zapisanego hasła do {ssid}."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:426
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:426
 #, python-brace-format
 msgid "Connect to {ssid}"
 msgstr "Połącz z {ssid}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:436
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:436
 msgid "Enter the Wi-Fi password."
 msgstr "Wprowadź hasło Wi-Fi."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:466
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:557
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:466
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:557
 msgid "Password must be at least 8 characters"
 msgstr "Hasło musi mieć co najmniej 8 znaków"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:469
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:560
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:469
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:560
 #, python-brace-format
 msgid "Connecting to {ssid}..."
 msgstr "Łączenie z {ssid}..."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:480
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:480
 msgid "Connect to Hidden Network"
 msgstr "Połącz z ukrytą siecią"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:491
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:491
 msgid "Enter the network name and security details."
 msgstr "Wprowadź nazwę sieci i dane zabezpieczeń."
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:495
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:495
 msgid "Network name (SSID)"
 msgstr "Nazwa sieci (SSID)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:499
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:499
 msgid "Security"
 msgstr "Zabezpieczenia"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:501
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:501
 msgid "None"
 msgstr "Brak"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:501
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:501
 msgid "WPA/WPA2"
 msgstr "WPA/WPA2"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:532
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:532
 msgid "Network name cannot be empty"
 msgstr "Nazwa sieci nie może być pusta"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:537
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:537
 msgid "Network name is invalid"
 msgstr "Nazwa sieci jest nieprawidłowa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:540
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:540
 msgid "Network name must be 32 bytes or less"
 msgstr "Nazwa sieci musi mieć 32 bajty lub mniej"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:572
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:572
 msgid "Connected successfully"
 msgstr "Połączono pomyślnie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:603
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:603
 msgid "Type"
 msgstr "Typ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:604
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:604
 msgid "IP Address"
 msgstr "Adres IP"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:605
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:605
 msgid "Gateway"
 msgstr "Brama"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:606
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:606
 msgid "DNS"
 msgstr "DNS"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:625
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:625
 msgid "No wired adapter detected"
 msgstr "Nie wykryto adaptera przewodowego"
 
-#: ../files/usr/lib/universal-lite/settings/pages/network.py:629
+#: ../files/usr/lib/adwaita-lite/settings/pages/network.py:629
 msgid "Disconnected"
 msgstr "Rozłączono"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:17
 msgid "Apps"
 msgstr "Aplikacje"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:17
 msgid "Window list"
 msgstr "Lista okien"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:18
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:72
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:121
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:72
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:121
 msgid "Volume"
 msgstr "Głośność"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:18
 msgid "Brightness"
 msgstr "Jasność"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:18
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:83
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:83
 msgid "Battery"
 msgstr "Bateria"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:19
 msgid "Clock"
 msgstr "Zegar"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:19
 msgid "System tray"
 msgstr "Zasobnik systemowy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:53
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:53
 msgid "Left"
 msgstr "Lewo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:47
 msgid "Center"
 msgstr "Środek"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:54
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:54
 msgid "Right"
 msgstr "Prawo"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:52
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:52
 msgid "Top"
 msgstr "Góra"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:47
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:51
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:47
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:51
 msgid "Bottom"
 msgstr "Dół"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:58
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:58
 msgid "Normal"
 msgstr "Normalny"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:59
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:59
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
 msgid "Compact"
 msgstr "Kompaktowy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:132
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:132
 msgid "Position"
 msgstr "Pozycja"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:94
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:94
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:158
 msgid "Density"
 msgstr "Gęstość"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:95
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:183
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:186
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:95
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:183
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:186
 msgid "Twilight"
 msgstr "Zmierzch"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:95
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:95
 msgid "Invert"
 msgstr "Odwróć"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
 msgid "Module Layout"
 msgstr "Układ modułów"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
 msgid "Modules"
 msgstr "Moduły"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:535
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:535
 msgid "Pinned Apps"
 msgstr "Przypięte aplikacje"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:96
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:96
 msgid "Pinned"
 msgstr "Przypięte"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:136
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:136
 msgid "Panel position"
 msgstr "Położenie panelu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:161
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:161
 msgid "Panel density"
 msgstr "Gęstość panelu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:187
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:187
 msgid "Invert panel colors from the system theme"
 msgstr "Odwróć kolory panelu względem motywu systemowego"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:226
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:226
 msgid "Reset layout to defaults"
 msgstr "Przywróć domyślny układ"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:413
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:413
 msgid "Move up in section"
 msgstr "Przenieś wyżej w sekcji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:431
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:431
 msgid "Move down in section"
 msgstr "Przenieś niżej w sekcji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:447
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:466
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:447
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:466
 #, python-brace-format
 msgid "Move to {section}"
 msgstr "Przenieś do {section}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:539
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:542
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:539
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:542
 msgid "Add pinned app"
 msgstr "Dodaj przypiętą aplikację"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:565
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:565
 msgid "No pinned apps"
 msgstr "Brak przypiętych aplikacji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:621
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:621
 msgid "Add Pinned App"
 msgstr "Dodaj przypiętą aplikację"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:635
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:635
 msgid "Search apps"
 msgstr "Szukaj aplikacji"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:643
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:643
 msgid "Applications"
 msgstr "Aplikacje"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:665
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:665
 msgid "Add"
 msgstr "Dodaj"
 
-#: ../files/usr/lib/universal-lite/settings/pages/panel.py:696
+#: ../files/usr/lib/adwaita-lite/settings/pages/panel.py:696
 #, python-brace-format
 msgid "{app} has no launch command"
 msgstr "Brak polecenia uruchamiającego dla {app}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:17
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:17
 msgid "1 minute"
 msgstr "1 minuta"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:18
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:18
 msgid "2 minutes"
 msgstr "2 minuty"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:19
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:19
 msgid "5 minutes"
 msgstr "5 minut"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:20
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:20
 msgid "10 minutes"
 msgstr "10 minut"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:21
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:21
 msgid "15 minutes"
 msgstr "15 minut"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:22
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:22
 msgid "30 minutes"
 msgstr "30 minut"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:23
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:23
 msgid "Never"
 msgstr "Nigdy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:28
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:28
 msgid "Balanced"
 msgstr "Zrównoważony"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:29
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:29
 msgid "Power Saver"
 msgstr "Oszczędzanie energii"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:30
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:30
 msgid "Performance"
 msgstr "Wydajność"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:34
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:34
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:84
 msgid "Suspend"
 msgstr "Uśpij"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:35
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:35
 msgid "Lock"
 msgstr "Zablokuj"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:36
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:36
 msgid "Do Nothing"
 msgstr "Nic nie rób"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:80
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:81
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:120
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:80
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:81
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:120
 msgid "Lock & Display"
 msgstr "Blokada i ekran"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:80
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:80
 msgid "Lock screen"
 msgstr "Ekran blokady"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:81
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:81
 msgid "Display off"
 msgstr "Wyłączenie ekranu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:82
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:83
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:180
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:83
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:180
 msgid "Power Profile"
 msgstr "Profil zasilania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:82
 msgid "Power"
 msgstr "Zasilanie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:84
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:85
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:186
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:186
 msgid "Suspend on Idle"
 msgstr "Uśpij przy bezczynności"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:85
 msgid "Idle"
 msgstr "Bezczynność"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:86
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:269
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:269
 msgid "Lid Close Behavior"
 msgstr "Zachowanie przy zamykaniu pokrywy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:86
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:86
 msgid "Lid"
 msgstr "Pokrywa"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:123
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:123
 msgid "Lock screen after"
 msgstr "Zablokuj ekran po"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:128
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:128
 msgid "Turn off display after"
 msgstr "Wyłącz ekran po"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:145
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:145
 msgid "Power profile"
 msgstr "Profil zasilania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:146
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:146
 msgid "Balance between performance and battery life"
 msgstr "Równowaga między wydajnością a czasem pracy na baterii"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:158
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:158
 msgid "Power profiles are unavailable on this system"
 msgstr "Power profiles are unavailable on this system"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:188
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:188
 msgid "Put the computer to sleep after a period of inactivity."
 msgstr "Uśpij komputer po okresie bezczynności."
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:201
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:201
 msgid "Suspend after"
 msgstr "Uśpij po"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:222
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:222
 msgid "Suspend delay must be at least as long as the lock delay."
 msgstr ""
 "Opóźnienie uśpienia musi być co najmniej tak długie jak opóźnienie blokady."
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:241
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:241
 msgid "When lid is closed"
 msgstr "Gdy pokrywa jest zamknięta"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:364
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:364
 msgid "Lid action change timed out"
 msgstr "Przekroczono limit czasu zmiany działania pokrywy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:369
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:369
 msgid "Authentication tool not available"
 msgstr "Narzędzie uwierzytelniania jest niedostępne"
 
-#: ../files/usr/lib/universal-lite/settings/pages/power_lock.py:384
+#: ../files/usr/lib/adwaita-lite/settings/pages/power_lock.py:384
 msgid "Failed to change lid close action"
 msgstr "Nie udało się zmienić działania zamknięcia pokrywy"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:51
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:51
 msgid "Output"
 msgstr "Wyjście"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:44
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:63
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:44
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:63
 msgid "Output device"
 msgstr "Urządzenie wyjściowe"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:100
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:100
 msgid "Input"
 msgstr "Wejście"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:45
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:112
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:112
 msgid "Input device"
 msgstr "Urządzenie wejściowe"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:45
 msgid "Microphone"
 msgstr "Mikrofon"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:65
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:359
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:65
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:359
 msgid "(No output devices)"
 msgstr "(Brak urządzeń wyjściowych)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:82
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:82
 msgid "Output volume"
 msgstr "Output volume"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:114
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:377
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:114
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:377
 msgid "(No input devices)"
 msgstr "(Brak urządzeń wejściowych)"
 
-#: ../files/usr/lib/universal-lite/settings/pages/sound.py:131
+#: ../files/usr/lib/adwaita-lite/settings/pages/sound.py:131
 msgid "Input volume"
 msgstr "Input volume"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:43
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:99
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:43
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:99
 msgid "Display name"
 msgstr "Nazwa wyświetlana"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:45
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:45
 msgid "Auto-login"
 msgstr "Automatyczne logowanie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:46
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:90
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:46
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:90
 msgid "Account"
 msgstr "Konto"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:84
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:84
 msgid "Could not connect to AccountsService"
 msgstr "Nie udało się połączyć z AccountsService"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:85
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:85
 msgid "User account settings are unavailable."
 msgstr "Ustawienia konta użytkownika są niedostępne."
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:108
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:108
 msgid "Set a new password for your account"
 msgstr "Ustaw nowe hasło dla swojego konta"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:121
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:121
 msgid "Automatic login"
 msgstr "Automatyczne logowanie"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:122
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:122
 msgid "Log in without a password at startup"
 msgstr "Logowanie bez hasła przy uruchomieniu"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:162
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:162
 #, python-brace-format
 msgid "Could not save name: {msg}"
 msgstr "Nie udało się zapisać nazwy: {msg}"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:191
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:191
 msgid "Could not change auto-login"
 msgstr "Nie można zmienić automatycznego logowania"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:208
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:208
 msgid "Change Password"
 msgstr "Zmień hasło"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:217
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:217
 msgid "Enter a new password for your account."
 msgstr "Wprowadź nowe hasło dla swojego konta."
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:220
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:220
 msgid "New password"
 msgstr "Nowe hasło"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:224
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:224
 msgid "Confirm password"
 msgstr "Potwierdź hasło"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:232
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:232
 msgid "Apply"
 msgstr "Zastosuj"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:255
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:255
 msgid "Passwords do not match"
 msgstr "Hasła nie są zgodne"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:293
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:293
 msgid "Password changed"
 msgstr "Hasło zmienione"
 
-#: ../files/usr/lib/universal-lite/settings/pages/users.py:299
+#: ../files/usr/lib/adwaita-lite/settings/pages/users.py:299
 msgid "Failed to set password"
 msgstr "Nie udało się ustawić hasła"
 
@@ -2327,8 +2327,8 @@ msgstr "Nie udało się ustawić hasła"
 #~ msgid "Search apps…"
 #~ msgstr "Szukaj aplikacji..."
 
-#~ msgid "Universal-Lite Settings"
-#~ msgstr "Ustawienia Universal-Lite"
+#~ msgid "Adwaita-Lite Settings"
+#~ msgstr "Ustawienia Adwaita-Lite"
 
 #~ msgid "Search settings..."
 #~ msgstr "Szukaj ustawień..."

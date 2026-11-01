@@ -30,7 +30,7 @@ On every boot, a systemd service attaches the swap file to a loop device, opens 
 
 ### New files
 
-#### 1. `/usr/libexec/universal-lite-encrypted-swap`
+#### 1. `/usr/libexec/adwaita-lite-encrypted-swap`
 
 Shell script with `start` and `stop` subcommands. Uses `set -euo pipefail` with a cleanup trap on the start path to undo partial setup if any step fails.
 
@@ -38,7 +38,7 @@ Shell script with `start` and `stop` subcommands. Uses `set -euo pipefail` with 
 1. Check `/var/swap` exists, exit 0 if not (defense-in-depth with `ConditionPathExists`)
 2. Register cleanup trap: on ERR, close cryptswap and detach loop device if either was set up
 3. `losetup --find --show /var/swap` — attach to first free loop device
-4. Write loop device path to `/run/universal-lite-swap-loop`
+4. Write loop device path to `/run/adwaita-lite-swap-loop`
 5. `cryptsetup open --type plain --cipher aes-xts-plain64 --key-size 512 --key-file /dev/urandom $LOOP cryptswap`
 6. `mkswap /dev/mapper/cryptswap`
 7. `swapon /dev/mapper/cryptswap`
@@ -46,13 +46,13 @@ Shell script with `start` and `stop` subcommands. Uses `set -euo pipefail` with 
 **stop (each step tolerates missing state with `|| true`):**
 1. `swapoff /dev/mapper/cryptswap`
 2. `cryptsetup close cryptswap`
-3. Read loop device path from `/run/universal-lite-swap-loop`
+3. Read loop device path from `/run/adwaita-lite-swap-loop`
 4. `losetup -d $LOOP`
-5. Clean up `/run/universal-lite-swap-loop`
+5. Clean up `/run/adwaita-lite-swap-loop`
 
 All new files live in the repo under `files/` and are copied into the image at build time via `cp -a /ctx/files/. /` (build.sh line 80).
 
-#### 2. `files/etc/systemd/system/universal-lite-encrypted-swap.service`
+#### 2. `files/etc/systemd/system/adwaita-lite-encrypted-swap.service`
 
 ```ini
 [Unit]
@@ -64,8 +64,8 @@ ConditionPathExists=/var/swap
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/libexec/universal-lite-encrypted-swap start
-ExecStop=/usr/libexec/universal-lite-encrypted-swap stop
+ExecStart=/usr/libexec/adwaita-lite-encrypted-swap start
+ExecStop=/usr/libexec/adwaita-lite-encrypted-swap stop
 
 [Install]
 WantedBy=swap.target
@@ -83,9 +83,9 @@ Key details:
 
 Add `cryptsetup` to the dnf5 install list. Required for `cryptsetup open`/`close` commands.
 
-Add `chmod 0755` for the new `/usr/libexec/universal-lite-encrypted-swap` script.
+Add `chmod 0755` for the new `/usr/libexec/adwaita-lite-encrypted-swap` script.
 
-#### 4. `/usr/bin/universal-lite-setup-wizard`
+#### 4. `/usr/bin/adwaita-lite-setup-wizard`
 
 In the `_create_account()` method, the zswap path currently:
 1. Creates `/var/swap` with `dd`
@@ -98,7 +98,7 @@ In the `_create_account()` method, the zswap path currently:
 Change to:
 1. Creates `/var/swap` with `dd` (unchanged)
 2. `chmod 600` (unchanged)
-3. `systemctl enable universal-lite-encrypted-swap.service` (replaces steps 3-6)
+3. `systemctl enable adwaita-lite-encrypted-swap.service` (replaces steps 3-6)
 
 The `var-swap.swap` unit creation, `mkswap`, and `swapon` calls are removed entirely — not just skipped. The encrypted swap service is the sole owner of swap lifecycle.
 

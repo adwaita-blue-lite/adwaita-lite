@@ -52,7 +52,7 @@ Deferred keys:
 - `font_size`
 - `scale`
 
-The session snapshot source is the same file used by the app-menu work: `UNIVERSAL_LITE_SESSION_SETTINGS` if set, otherwise `${XDG_RUNTIME_DIR:-/run/user/$UID}/universal-lite/session-settings.json`. If no readable session snapshot exists, Settings treats this as no pending deferred changes so the banner does not show on non-Universal-Lite sessions or broken snapshot setups.
+The session snapshot source is the same file used by the app-menu work: `ADWAITA_LITE_SESSION_SETTINGS` if set, otherwise `${XDG_RUNTIME_DIR:-/run/user/$UID}/adwaita-lite/session-settings.json`. If no readable session snapshot exists, Settings treats this as no pending deferred changes so the banner does not show on non-Adwaita-Lite sessions or broken snapshot setups.
 
 ## Restart Flow
 

@@ -198,7 +198,7 @@ This is clean, handles any module ordering, and gives the seamless ChromeOS look
 
 | File | Changes |
 |---|---|
-| `files/usr/libexec/universal-lite-apply-settings` | Refactor `_waybar_css_common`, `_waybar_css_horizontal`, `_waybar_css_vertical`; add `group/status` to waybar config in `write_waybar_config` |
+| `files/usr/libexec/adwaita-lite-apply-settings` | Refactor `_waybar_css_common`, `_waybar_css_horizontal`, `_waybar_css_vertical`; add `group/status` to waybar config in `write_waybar_config` |
 | `tests/test_apply_settings.py` | Update expected CSS and config assertions |
 
 ## Out of Scope

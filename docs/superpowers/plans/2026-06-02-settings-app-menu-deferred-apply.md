@@ -4,7 +4,7 @@
 
 **Goal:** Make the start menu use a session-start settings snapshot so deferred panel settings do not affect the menu until the next session.
 
-**Architecture:** `universal-lite-session` creates a runtime-only snapshot of `settings.json` after the pre-labwc config apply and exports its path. `universal-lite-app-menu` resolves settings from that snapshot first, falling back to live `settings.json` outside a normal Universal-Lite session or if the snapshot is unreadable.
+**Architecture:** `adwaita-lite-session` creates a runtime-only snapshot of `settings.json` after the pre-labwc config apply and exports its path. `adwaita-lite-app-menu` resolves settings from that snapshot first, falling back to live `settings.json` outside a normal Adwaita-Lite session or if the snapshot is unreadable.
 
 **Tech Stack:** Bash session launcher, Python 3 app-menu script, GTK4/libadwaita, pytest.
 
@@ -12,8 +12,8 @@
 
 ## File Structure
 
-- Modify `files/usr/bin/universal-lite-app-menu`: add a small settings path resolver and route `_load_settings()` through it. This file remains responsible for rendering and positioning the GTK start menu.
-- Modify `files/usr/libexec/universal-lite-session`: create `${XDG_RUNTIME_DIR:-/run/user/$UID}/universal-lite/session-settings.json` after `universal-lite-apply-settings --mode=config` and export `UNIVERSAL_LITE_SESSION_SETTINGS` before `exec labwc`.
+- Modify `files/usr/bin/adwaita-lite-app-menu`: add a small settings path resolver and route `_load_settings()` through it. This file remains responsible for rendering and positioning the GTK start menu.
+- Modify `files/usr/libexec/adwaita-lite-session`: create `${XDG_RUNTIME_DIR:-/run/user/$UID}/adwaita-lite/session-settings.json` after `adwaita-lite-apply-settings --mode=config` and export `ADWAITA_LITE_SESSION_SETTINGS` before `exec labwc`.
 - Modify `tests/test_app_menu_css.py`: add focused tests for app-menu settings source precedence.
 - Modify `tests/test_apply_settings.py`: add a session wrapper contract test for snapshot creation/export ordering.
 
@@ -22,7 +22,7 @@
 ### Task 1: Start Menu Reads Session Snapshot First
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-app-menu`
+- Modify: `files/usr/bin/adwaita-lite-app-menu`
 - Test: `tests/test_app_menu_css.py`
 
 - [ ] **Step 1: Write the failing tests**
@@ -37,7 +37,7 @@ def test_load_settings_prefers_exported_session_snapshot(monkeypatch, tmp_path):
     session_settings.write_text(json.dumps({"edge": "top"}), encoding="utf-8")
 
     monkeypatch.setattr(app_menu, "SETTINGS_PATH", live_settings)
-    monkeypatch.setenv("UNIVERSAL_LITE_SESSION_SETTINGS", str(session_settings))
+    monkeypatch.setenv("ADWAITA_LITE_SESSION_SETTINGS", str(session_settings))
 
     assert app_menu._load_settings()["edge"] == "top"
 
@@ -46,12 +46,12 @@ def test_load_settings_uses_runtime_session_snapshot_before_live_file(monkeypatc
     live_settings = tmp_path / "settings.json"
     live_settings.write_text(json.dumps({"edge": "bottom"}), encoding="utf-8")
     runtime_dir = tmp_path / "runtime"
-    session_settings = runtime_dir / "universal-lite/session-settings.json"
+    session_settings = runtime_dir / "adwaita-lite/session-settings.json"
     session_settings.parent.mkdir(parents=True)
     session_settings.write_text(json.dumps({"edge": "left"}), encoding="utf-8")
 
     monkeypatch.setattr(app_menu, "SETTINGS_PATH", live_settings)
-    monkeypatch.delenv("UNIVERSAL_LITE_SESSION_SETTINGS", raising=False)
+    monkeypatch.delenv("ADWAITA_LITE_SESSION_SETTINGS", raising=False)
     monkeypatch.setenv("XDG_RUNTIME_DIR", str(runtime_dir))
 
     assert app_menu._load_settings()["edge"] == "left"
@@ -69,10 +69,10 @@ Expected: both tests fail because `_load_settings()` only reads `SETTINGS_PATH`.
 
 - [ ] **Step 3: Implement the settings source resolver**
 
-In `files/usr/bin/universal-lite-app-menu`, replace the single-path `_load_settings()` implementation with this resolver. Keep `SETTINGS_PATH` unchanged.
+In `files/usr/bin/adwaita-lite-app-menu`, replace the single-path `_load_settings()` implementation with this resolver. Keep `SETTINGS_PATH` unchanged.
 
 ```python
-SESSION_SETTINGS_ENV = "UNIVERSAL_LITE_SESSION_SETTINGS"
+SESSION_SETTINGS_ENV = "ADWAITA_LITE_SESSION_SETTINGS"
 SESSION_SETTINGS_NAME = "session-settings.json"
 
 
@@ -85,7 +85,7 @@ def _settings_candidates() -> tuple[Path, ...]:
     session_settings = os.environ.get(SESSION_SETTINGS_ENV)
     if session_settings:
         candidates.append(Path(session_settings))
-    candidates.append(_runtime_dir() / "universal-lite" / SESSION_SETTINGS_NAME)
+    candidates.append(_runtime_dir() / "adwaita-lite" / SESSION_SETTINGS_NAME)
     candidates.append(SETTINGS_PATH)
     return tuple(candidates)
 
@@ -103,7 +103,7 @@ Update the existing PID lock runtime directory line to use the same `_runtime_di
 
 ```python
 _XDG_RUNTIME_DIR = str(_runtime_dir())
-PID_LOCK_PATH = Path(_XDG_RUNTIME_DIR) / "universal-lite-app-menu.pid"
+PID_LOCK_PATH = Path(_XDG_RUNTIME_DIR) / "adwaita-lite-app-menu.pid"
 ```
 
 - [ ] **Step 4: Run tests to verify they pass**
@@ -131,7 +131,7 @@ Expected: all tests in `tests/test_app_menu_css.py` pass.
 Run:
 
 ```bash
-git add files/usr/bin/universal-lite-app-menu tests/test_app_menu_css.py
+git add files/usr/bin/adwaita-lite-app-menu tests/test_app_menu_css.py
 git commit -m "fix(app-menu): read session settings snapshot"
 ```
 
@@ -140,7 +140,7 @@ git commit -m "fix(app-menu): read session settings snapshot"
 ### Task 2: Session Wrapper Creates and Exports Snapshot
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-session`
+- Modify: `files/usr/libexec/adwaita-lite-session`
 - Test: `tests/test_apply_settings.py`
 
 - [ ] **Step 1: Write the failing session contract test**
@@ -150,22 +150,22 @@ Add this test after `test_session_startup_uses_config_then_autostart_uses_live_m
 ```python
 def test_session_exports_app_menu_settings_snapshot_after_config_apply():
     root = Path(__file__).resolve().parents[1]
-    session = (root / "files/usr/libexec/universal-lite-session").read_text(
+    session = (root / "files/usr/libexec/adwaita-lite-session").read_text(
         encoding="utf-8"
     )
 
-    config_idx = session.index("universal-lite-apply-settings --mode=config")
+    config_idx = session.index("adwaita-lite-apply-settings --mode=config")
     snapshot_path_idx = session.index(
-        '_session_settings="${XDG_RUNTIME_DIR:-/run/user/$UID}/universal-lite/session-settings.json"'
+        '_session_settings="${XDG_RUNTIME_DIR:-/run/user/$UID}/adwaita-lite/session-settings.json"'
     )
     copy_idx = session.index('cp "$_settings_file" "$_session_settings"')
-    export_idx = session.index("export UNIVERSAL_LITE_SESSION_SETTINGS")
+    export_idx = session.index("export ADWAITA_LITE_SESSION_SETTINGS")
     exec_idx = session.index("exec labwc")
 
     assert config_idx < snapshot_path_idx < copy_idx < export_idx < exec_idx
-    assert '_settings_file="${XDG_CONFIG_HOME:-$HOME/.config}/universal-lite/settings.json"' in session
+    assert '_settings_file="${XDG_CONFIG_HOME:-$HOME/.config}/adwaita-lite/settings.json"' in session
     assert 'mkdir -p "$_session_settings_dir"' in session
-    assert 'UNIVERSAL_LITE_SESSION_SETTINGS="$_session_settings"' in session
+    assert 'ADWAITA_LITE_SESSION_SETTINGS="$_session_settings"' in session
 ```
 
 - [ ] **Step 2: Run the test to verify it fails**
@@ -180,21 +180,21 @@ Expected: FAIL with a missing substring error because the session wrapper does n
 
 - [ ] **Step 3: Implement snapshot creation in the session wrapper**
 
-In `files/usr/libexec/universal-lite-session`, insert this block after the existing `universal-lite-apply-settings --mode=config` command and before `exec labwc`:
+In `files/usr/libexec/adwaita-lite-session`, insert this block after the existing `adwaita-lite-apply-settings --mode=config` command and before `exec labwc`:
 
 ```bash
 # Snapshot the session-start settings for runtime consumers that must
 # not observe deferred Settings changes until the next login.
-_settings_file="${XDG_CONFIG_HOME:-$HOME/.config}/universal-lite/settings.json"
-_session_settings="${XDG_RUNTIME_DIR:-/run/user/$UID}/universal-lite/session-settings.json"
+_settings_file="${XDG_CONFIG_HOME:-$HOME/.config}/adwaita-lite/settings.json"
+_session_settings="${XDG_RUNTIME_DIR:-/run/user/$UID}/adwaita-lite/session-settings.json"
 _session_settings_dir="$(dirname "$_session_settings")"
 if mkdir -p "$_session_settings_dir" && [ -f "$_settings_file" ]; then
     cp "$_settings_file" "$_session_settings" || \
-        echo "universal-lite-session: failed to snapshot settings; continuing to labwc" >&2
+        echo "adwaita-lite-session: failed to snapshot settings; continuing to labwc" >&2
 else
-    echo "universal-lite-session: settings snapshot unavailable; continuing to labwc" >&2
+    echo "adwaita-lite-session: settings snapshot unavailable; continuing to labwc" >&2
 fi
-export UNIVERSAL_LITE_SESSION_SETTINGS="$_session_settings"
+export ADWAITA_LITE_SESSION_SETTINGS="$_session_settings"
 ```
 
 - [ ] **Step 4: Run the session contract test**
@@ -222,7 +222,7 @@ Expected: all selected tests pass.
 Run:
 
 ```bash
-git add files/usr/libexec/universal-lite-session tests/test_apply_settings.py
+git add files/usr/libexec/adwaita-lite-session tests/test_apply_settings.py
 git commit -m "fix(session): snapshot app menu settings"
 ```
 
@@ -231,8 +231,8 @@ git commit -m "fix(session): snapshot app menu settings"
 ### Task 3: Final Verification
 
 **Files:**
-- Verify: `files/usr/bin/universal-lite-app-menu`
-- Verify: `files/usr/libexec/universal-lite-session`
+- Verify: `files/usr/bin/adwaita-lite-app-menu`
+- Verify: `files/usr/libexec/adwaita-lite-session`
 - Verify: `tests/test_app_menu_css.py`
 - Verify: `tests/test_apply_settings.py`
 
@@ -279,4 +279,4 @@ Expected: `git diff --check` prints no output. `git status --short` is clean aft
 
 - [ ] **Step 5: Manual desktop verification**
 
-In a Universal-Lite session, change Panel position or layout in Settings. Without restarting the session, open the start menu from the launcher and the keyboard shortcut. Expected: the menu keeps using the old session position/layout and is not broken. Restart the session and open the menu again. Expected: the menu uses the new position/layout.
+In a Adwaita-Lite session, change Panel position or layout in Settings. Without restarting the session, open the start menu from the launcher and the keyboard shortcut. Expected: the menu keeps using the old session position/layout and is not broken. Restart the session and open the menu again. Expected: the menu uses the new position/layout.

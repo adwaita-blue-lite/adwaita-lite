@@ -1,4 +1,4 @@
-"""Tests for the Universal-Lite start menu stylesheet."""
+"""Tests for the Adwaita-Lite start menu stylesheet."""
 
 import importlib.machinery
 import importlib.util
@@ -8,10 +8,10 @@ import signal
 from pathlib import Path
 
 
-_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/bin/universal-lite-app-menu"
+_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/bin/adwaita-lite-app-menu"
 _PALETTE = (
     Path(__file__).resolve().parents[1]
-    / "files/usr/share/universal-lite/palette.json"
+    / "files/usr/share/adwaita-lite/palette.json"
 )
 _loader = importlib.machinery.SourceFileLoader("app_menu", str(_SCRIPT))
 _spec = importlib.util.spec_from_loader("app_menu", _loader, origin=str(_SCRIPT))
@@ -96,7 +96,7 @@ def test_load_settings_prefers_exported_session_snapshot(monkeypatch, tmp_path):
     session_settings.write_text(json.dumps({"edge": "top"}), encoding="utf-8")
 
     monkeypatch.setattr(app_menu, "SETTINGS_PATH", live_settings)
-    monkeypatch.setenv("UNIVERSAL_LITE_SESSION_SETTINGS", str(session_settings))
+    monkeypatch.setenv("ADWAITA_LITE_SESSION_SETTINGS", str(session_settings))
 
     assert app_menu._load_settings()["edge"] == "top"
 
@@ -105,12 +105,12 @@ def test_load_settings_uses_runtime_session_snapshot_before_live_file(monkeypatc
     live_settings = tmp_path / "settings.json"
     live_settings.write_text(json.dumps({"edge": "bottom"}), encoding="utf-8")
     runtime_dir = tmp_path / "runtime"
-    session_settings = runtime_dir / "universal-lite/session-settings.json"
+    session_settings = runtime_dir / "adwaita-lite/session-settings.json"
     session_settings.parent.mkdir(parents=True)
     session_settings.write_text(json.dumps({"edge": "left"}), encoding="utf-8")
 
     monkeypatch.setattr(app_menu, "SETTINGS_PATH", live_settings)
-    monkeypatch.delenv("UNIVERSAL_LITE_SESSION_SETTINGS", raising=False)
+    monkeypatch.delenv("ADWAITA_LITE_SESSION_SETTINGS", raising=False)
     monkeypatch.setenv("XDG_RUNTIME_DIR", str(runtime_dir))
 
     assert app_menu._load_settings()["edge"] == "left"
@@ -330,7 +330,7 @@ def test_display_size_normalization_uses_configured_output_scale_once():
 
 
 def test_toggle_or_lock_replaces_foreign_live_pid_without_signalling(monkeypatch, tmp_path):
-    lock = tmp_path / "universal-lite-app-menu.pid"
+    lock = tmp_path / "adwaita-lite-app-menu.pid"
     lock.write_text("12345", encoding="utf-8")
     monkeypatch.setattr(app_menu, "PID_LOCK_PATH", lock)
     monkeypatch.setattr(app_menu, "_pid_exists", lambda pid: True)
@@ -347,7 +347,7 @@ def test_toggle_or_lock_replaces_foreign_live_pid_without_signalling(monkeypatch
 
 
 def test_toggle_or_lock_signals_verified_app_menu_process(monkeypatch, tmp_path):
-    lock = tmp_path / "universal-lite-app-menu.pid"
+    lock = tmp_path / "adwaita-lite-app-menu.pid"
     lock.write_text("12345", encoding="utf-8")
     monkeypatch.setattr(app_menu, "PID_LOCK_PATH", lock)
     monkeypatch.setattr(app_menu, "_pid_exists", lambda pid: True)

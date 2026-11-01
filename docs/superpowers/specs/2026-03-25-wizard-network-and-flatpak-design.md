@@ -5,12 +5,12 @@
 
 ## Overview
 
-Extend the Universal-Lite first-boot setup wizard with two new capabilities:
+Extend the Adwaita-Lite first-boot setup wizard with two new capabilities:
 
 1. **Network configuration page** -- WiFi scan-and-connect so the user can get online during first boot.
 2. **First-boot Flatpak installation** -- Install selected Flatpak apps (starting with Bazaar) as part of the wizard flow, with real-time progress and retry/skip on failure.
 
-The existing `universal-lite-flatpak-setup.service` and its script are removed; the wizard takes full ownership of Flatpak provisioning.
+The existing `adwaita-lite-flatpak-setup.service` and its script are removed; the wizard takes full ownership of Flatpak provisioning.
 
 ## Page Flow
 
@@ -95,7 +95,7 @@ Simple list of tuples. The page builds one row per entry. Easy to extend by addi
 
 - If all apps are unchecked, the Flatpak steps are skipped entirely during progress (no Flathub remote added).
 - If the user skipped the Network page (offline) but left apps checked, Flatpak install will fail during Progress. This is handled by the existing retry/skip flow on the Progress page -- no special pre-validation needed.
-- The wizard writes `/var/lib/universal-lite/flatpak-setup.done` on **any successful wizard completion**, regardless of whether Flatpak apps were selected or installed. This prevents the `session-init` notification from firing.
+- The wizard writes `/var/lib/adwaita-lite/flatpak-setup.done` on **any successful wizard completion**, regardless of whether Flatpak apps were selected or installed. This prevents the `session-init` notification from firing.
 
 ### Flatpak Commands
 
@@ -180,14 +180,14 @@ Each step function returns `None` on success or an error string on failure. The 
 
 The following files are deleted from the repository:
 
-- `files/etc/systemd/system/universal-lite-flatpak-setup.service`
-- `files/usr/libexec/universal-lite-flatpak-setup`
+- `files/etc/systemd/system/adwaita-lite-flatpak-setup.service`
+- `files/usr/libexec/adwaita-lite-flatpak-setup`
 
 References in `build_files/build.sh`:
-- Remove `systemctl enable universal-lite-flatpak-setup.service`
-- Remove `chmod 0755 /usr/libexec/universal-lite-flatpak-setup`
+- Remove `systemctl enable adwaita-lite-flatpak-setup.service`
+- Remove `chmod 0755 /usr/libexec/adwaita-lite-flatpak-setup`
 
-Update `files/usr/libexec/universal-lite-session-init`:
+Update `files/usr/libexec/adwaita-lite-session-init`:
 - Remove lines 53-60 (the background subshell that checks for the stamp file and sends a `notify-send` notification). The wizard now always writes the stamp file on completion, making this notification path obsolete.
 
 ## Package Dependencies
@@ -209,8 +209,8 @@ Add to `build_files/build.sh` `dnf5 install` list:
 
 | File | Change |
 |------|--------|
-| `files/usr/bin/universal-lite-setup-wizard` | Add Network page, Apps page, Progress page; update navigation; add libnm imports; update Confirm summary; step-runner threading |
+| `files/usr/bin/adwaita-lite-setup-wizard` | Add Network page, Apps page, Progress page; update navigation; add libnm imports; update Confirm summary; step-runner threading |
 | `build_files/build.sh` | Add `NetworkManager-libnm` and `flatpak` packages; remove flatpak-setup service enable and chmod |
-| `files/usr/libexec/universal-lite-session-init` | Remove stamp file notification block (lines 53-60) |
-| `files/etc/systemd/system/universal-lite-flatpak-setup.service` | Delete |
-| `files/usr/libexec/universal-lite-flatpak-setup` | Delete |
+| `files/usr/libexec/adwaita-lite-session-init` | Remove stamp file notification block (lines 53-60) |
+| `files/etc/systemd/system/adwaita-lite-flatpak-setup.service` | Delete |
+| `files/usr/libexec/adwaita-lite-flatpak-setup` | Delete |

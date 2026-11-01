@@ -253,11 +253,11 @@
     <div>
       <p class="eyebrow"><a href="index.html">Component docs</a> / greetd kiosk surface</p>
       <h1>Greeter</h1>
-      <p class="lede">Contributor map for <code>GreeterWindow</code> and <code>GreetdClient</code> in <code>files/usr/bin/universal-lite-greeter</code>. Use this page to trace the pre-login GTK kiosk flow, session chooser, palette loading, last-user state, and greetd IPC order before editing the login screen.</p>
+      <p class="lede">Contributor map for <code>GreeterWindow</code> and <code>GreetdClient</code> in <code>files/usr/bin/adwaita-lite-greeter</code>. Use this page to trace the pre-login GTK kiosk flow, session chooser, palette loading, last-user state, and greetd IPC order before editing the login screen.</p>
       <p class="density-note">HTML is used here because greeter changes cross visual CSS, pre-login file state, and a strict IPC state machine; dense maps make those boundaries visible at once.</p>
     </div>
     <aside class="source-map" aria-label="Source anchors">
-      <div class="source-card"><b>Runtime source</b><code>files/usr/bin/universal-lite-greeter</code></div>
+      <div class="source-card"><b>Runtime source</b><code>files/usr/bin/adwaita-lite-greeter</code></div>
       <div class="source-card"><b>Primary class</b><code>GreeterWindow</code> owns GTK widgets and card state.</div>
       <div class="source-card"><b>IPC adapter</b><code>GreetdClient</code> serializes greetd JSON messages over <code>GREETD_SOCK</code>.</div>
     </aside>
@@ -279,9 +279,9 @@
       <article class="component-card"><h3>Window Controller</h3><p><code>GreeterWindow</code> builds the visible clock, card, session chooser, input state, error label, and keyboard-error clearing.</p><div class="chips"><span class="chip">fullscreen</span><span class="chip">_show_password_state</span><span class="chip">_show_username_state</span></div></article>
       <article class="component-card"><h3>Greetd IPC</h3><p><code>GreetdClient</code> connects to <code>GREETD_SOCK</code>, sends length-prefixed JSON, and returns decoded greetd responses synchronously.</p><div class="chips"><span class="chip">create_session</span><span class="chip">post_auth_response</span><span class="chip">start_session</span><span class="chip">cancel_session</span></div></article>
       <article class="component-card"><h3>CSS Builder</h3><p><code>_build_css</code> turns one resolved palette into GTK selectors for the clock, date, card, controls, errors, and session dropdown.</p><div class="chips"><span class="chip">_build_css</span><span class="chip">clock</span><span class="chip">form-entry</span><span class="chip">login-button</span></div></article>
-      <article class="component-card"><h3>Palette Loader</h3><p><code>_load_palettes</code> reads <code>files/usr/share/universal-lite/palette.json</code> at runtime path <code>/usr/share/universal-lite/palette.json</code>, adds greeter shadow, entry, hover, error, and accent foreground tokens.</p><div class="chips"><span class="chip">_load_palettes</span><span class="chip">PALETTES</span><span class="chip">accent_fg</span></div></article>
-      <article class="component-card"><h3>Theme Slot</h3><p><code>_load_theme</code> reads <code>/var/lib/universal-lite/greeter-theme</code> and falls back to <code>light</code> unless the value names a loaded palette.</p><div class="chips"><span class="chip">_load_theme</span><span class="chip">GREETER_THEME_PATH</span></div></article>
-      <article class="component-card"><h3>Accent Slot</h3><p><code>_load_accent_name</code> reads <code>/var/lib/universal-lite/greeter-accent</code> and falls back to <code>blue</code> so the pre-login UI survives missing user-scoped settings.</p><div class="chips"><span class="chip">_load_accent_name</span><span class="chip">GREETER_ACCENT_PATH</span></div></article>
+      <article class="component-card"><h3>Palette Loader</h3><p><code>_load_palettes</code> reads <code>files/usr/share/adwaita-lite/palette.json</code> at runtime path <code>/usr/share/adwaita-lite/palette.json</code>, adds greeter shadow, entry, hover, error, and accent foreground tokens.</p><div class="chips"><span class="chip">_load_palettes</span><span class="chip">PALETTES</span><span class="chip">accent_fg</span></div></article>
+      <article class="component-card"><h3>Theme Slot</h3><p><code>_load_theme</code> reads <code>/var/lib/adwaita-lite/greeter-theme</code> and falls back to <code>light</code> unless the value names a loaded palette.</p><div class="chips"><span class="chip">_load_theme</span><span class="chip">GREETER_THEME_PATH</span></div></article>
+      <article class="component-card"><h3>Accent Slot</h3><p><code>_load_accent_name</code> reads <code>/var/lib/adwaita-lite/greeter-accent</code> and falls back to <code>blue</code> so the pre-login UI survives missing user-scoped settings.</p><div class="chips"><span class="chip">_load_accent_name</span><span class="chip">GREETER_ACCENT_PATH</span></div></article>
     </div>
   </section>
 
@@ -294,8 +294,8 @@
         <tr><td><code>date</code></td><td><code>self._date_label</code> below the clock.</td><td>Long localized date strings can widen the centered column.</td></tr>
         <tr><td><code>card</code></td><td>Central <code>Gtk.Box</code> containing session control, greeting, entries, error, submit, and switch-user.</td><td>Size request is 400px; padding, shadow, and radius define the greeter's focal surface.</td></tr>
         <tr><td><code>gear-button</code></td><td>Header button with <code>emblem-system-symbolic</code> icon and <code>_on_gear_clicked</code>.</td><td>Toggles session chooser visibility; avoid moving it into auth-only state.</td></tr>
-        <tr><td><code>session-dropdown</code></td><td><code>Gtk.DropDown</code> populated from <code>_discover_sessions</code>.</td><td>Selection is stored by index in <code>_selected_session</code>; default prefers names containing <code>Universal-Lite</code>.</td></tr>
-        <tr><td><code>greeting</code></td><td><code>self._greeting</code> switches between <code>Log in</code> and <code>Welcome back, {username}</code>.</td><td>Shares settings gettext domain; new strings must be available through <code>universal-lite-settings</code>.</td></tr>
+        <tr><td><code>session-dropdown</code></td><td><code>Gtk.DropDown</code> populated from <code>_discover_sessions</code>.</td><td>Selection is stored by index in <code>_selected_session</code>; default prefers names containing <code>Adwaita-Lite</code>.</td></tr>
+        <tr><td><code>greeting</code></td><td><code>self._greeting</code> switches between <code>Log in</code> and <code>Welcome back, {username}</code>.</td><td>Shares settings gettext domain; new strings must be available through <code>adwaita-lite-settings</code>.</td></tr>
         <tr><td><code>form-entry</code></td><td><code>Gtk.Entry</code> username and <code>Gtk.PasswordEntry</code> password fields.</td><td>Password entry enables peek icon; both activate <code>_on_submit</code>.</td></tr>
         <tr><td><code>error-label</code></td><td><code>self._error_label</code> with wrap and 40 character width.</td><td>Cleared on any key press by <code>_on_key_pressed</code>; do not rely on it as durable state.</td></tr>
         <tr><td><code>login-button</code></td><td><code>self._submit_btn</code>, labeled <code>Next</code> in username state and <code>Log In</code> in password state.</td><td>Disabled during password submission and re-enabled on recoverable failures.</td></tr>
@@ -307,7 +307,7 @@
   <section aria-labelledby="state-title">
     <h2 id="state-title">Greetd State Map</h2>
     <div class="state-map">
-      <article class="state-card"><h3>Last User</h3><p><code>_read_last_user</code> checks <code>/var/lib/greetd/last-user</code> then <code>/var/lib/universal-lite/last-user</code>. If found, <code>_show_password_state</code> immediately pre-creates a greetd session.</p></article>
+      <article class="state-card"><h3>Last User</h3><p><code>_read_last_user</code> checks <code>/var/lib/greetd/last-user</code> then <code>/var/lib/adwaita-lite/last-user</code>. If found, <code>_show_password_state</code> immediately pre-creates a greetd session.</p></article>
       <article class="state-card"><h3>Username Input</h3><p>With no current user, <code>_on_submit</code> trims <code>self._username_entry</code>. Empty input shows <code>Enter a username.</code>; valid input advances to password state.</p></article>
       <article class="state-card"><h3>Create Session</h3><p><code>_create_greetd_session</code> sends <code>GreetdClient.create_session</code>. A <code>secret</code> auth message leaves the password field visible; <code>info</code> is acknowledged with <code>post_auth_response(None)</code>.</p></article>
       <article class="state-card"><h3>Password Input</h3><p>Password state requires non-empty <code>self._password_entry</code>, disables <code>login-button</code>, then posts the password with <code>GreetdClient.post_auth_response</code>.</p></article>
@@ -336,7 +336,7 @@
       <article class="safe-card"><h3>greetd IPC ordering</h3><p>Keep <code>create_session</code> before any password response, acknowledge <code>info</code> messages with <code>post_auth_response(None)</code>, and call <code>cancel_session</code> before changing users or retrying auth.</p></article>
       <article class="safe-card"><h3>Password handling</h3><p>Do not persist, log, trim, or echo password text. Only pass <code>self._password_entry.get_text()</code> to <code>post_auth_response</code>, then clear it on reset.</p></article>
       <article class="safe-card"><h3>Pre-login palette fallback</h3><p>The greeter must render without user home access. Preserve <code>blue</code>, <code>light</code>, and hardcoded palette fallbacks for missing or invalid files.</p></article>
-      <article class="safe-card"><h3>Translation domain sharing</h3><p>The file binds <code>universal-lite-settings</code>; new greeter strings share settings translations and belong in that domain, not a separate greeter-only domain.</p></article>
+      <article class="safe-card"><h3>Translation domain sharing</h3><p>The file binds <code>adwaita-lite-settings</code>; new greeter strings share settings translations and belong in that domain, not a separate greeter-only domain.</p></article>
       <article class="safe-card"><h3>Kiosk/display assumptions</h3><p>The window calls <code>fullscreen</code> and centers a compact card for cage. Test layout on small displays before changing card width, clock size, or dropdown visibility.</p></article>
       <article class="safe-card"><h3>Session command trust</h3><p><code>_discover_sessions</code> reads system desktop files and passes selected <code>Exec</code> tokens to greetd; avoid adding shell interpretation around session commands.</p></article>
     </div>

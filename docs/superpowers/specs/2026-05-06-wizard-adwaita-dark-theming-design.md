@@ -92,7 +92,7 @@ Keep the existing real GTK smoke test. It should continue constructing `SetupWiz
 Verification commands:
 
 - `pytest -q tests/test_setup_wizard_app_selection.py tests/test_setup_wizard_gtk_smoke.py`
-- `python -m py_compile files/usr/bin/universal-lite-setup-wizard`
+- `python -m py_compile files/usr/bin/adwaita-lite-setup-wizard`
 - `pytest -q`
 
 ### Manual Acceptance

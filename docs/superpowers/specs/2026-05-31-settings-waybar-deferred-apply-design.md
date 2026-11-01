@@ -18,9 +18,9 @@ Manual testing proved that `pkill -U "$UID" -USR2 -x waybar` is unsafe in this l
 
 ## Current Context And Evidence
 
-- `SettingsStore.save_and_apply(..., mode="waybar")` is used by panel controls in `files/usr/lib/universal-lite/settings/pages/panel.py` and by accent changes in `files/usr/lib/universal-lite/settings/pages/appearance.py`.
+- `SettingsStore.save_and_apply(..., mode="waybar")` is used by panel controls in `files/usr/lib/adwaita-lite/settings/pages/panel.py` and by accent changes in `files/usr/lib/adwaita-lite/settings/pages/appearance.py`.
 - `SettingsStore` already detaches `mode="waybar"` apply dispatch from the GTK process.
-- `universal-lite-apply-settings --mode waybar` writes Waybar files transactionally through `apply_waybar_transaction(tokens)`.
+- `adwaita-lite-apply-settings --mode waybar` writes Waybar files transactionally through `apply_waybar_transaction(tokens)`.
 - `apply_waybar_transaction(tokens)` still calls `reload_waybar()` after changed writes.
 - Full/live apply still calls `reload_waybar()` from `_sync_live_session()` when `_write_config_files()` reports `waybar_changed`.
 - `reload_waybar()` sends `SIGUSR2` to user Waybar processes and spawns Waybar when none are running.
@@ -33,7 +33,7 @@ Manual testing proved that `pkill -U "$UID" -USR2 -x waybar` is unsafe in this l
 - Remove Waybar signal/reload/respawn side effects from Settings-driven applies.
 - Ensure full/live apply does not reload Waybar when the only Waybar files changed.
 - Add a localized restart-session notice to the Settings UI for panel-related controls.
-- Update `po/settings/universal-lite-settings.pot` and every `po/settings/*.po` catalog.
+- Update `po/settings/adwaita-lite-settings.pot` and every `po/settings/*.po` catalog.
 - Add focused regression tests for no live reload and restart-session messaging.
 
 ## Non-Goals
@@ -70,7 +70,7 @@ Full/live apply should still write Waybar files, because theme/accent and other 
 
 - Panel and Appearance pages own user-facing restart-session notices.
 - `SettingsStore` owns the toast text for Waybar-only saves and dispatches the file writer.
-- `universal-lite-apply-settings` owns sanitized settings, Waybar rendering, validation, atomic writes, and diagnostics.
+- `adwaita-lite-apply-settings` owns sanitized settings, Waybar rendering, validation, atomic writes, and diagnostics.
 - labwc autostart remains responsible for starting Waybar in a new session.
 - Waybar remains an external process and is not controlled by Settings.
 
@@ -79,8 +79,8 @@ Full/live apply should still write Waybar files, because theme/accent and other 
 For a Waybar-only setting:
 
 1. The UI handler calls `store.save_and_apply(..., mode="waybar")`.
-2. `SettingsStore` writes `~/.config/universal-lite/settings.json` atomically.
-3. `SettingsStore` starts `universal-lite-apply-settings --mode waybar` detached, or reports an immediate launch error if spawning fails.
+2. `SettingsStore` writes `~/.config/adwaita-lite/settings.json` atomically.
+3. `SettingsStore` starts `adwaita-lite-apply-settings --mode waybar` detached, or reports an immediate launch error if spawning fails.
 4. `SettingsStore` shows a localized message: `Panel changes saved. Restart your session to apply them.`
 5. The writer obtains the apply lock, sanitizes settings, renders Waybar config/CSS, validates generated content, atomically writes changed files, and exits.
 6. The writer does not call `reload_waybar()`, `pkill`, `pgrep`, `waybar`, or any other Waybar lifecycle command.

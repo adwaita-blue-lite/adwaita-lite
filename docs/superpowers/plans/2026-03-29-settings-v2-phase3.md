@@ -21,21 +21,21 @@
 ### Create
 
 ```
-files/usr/lib/universal-lite/settings/pages/datetime.py
-files/usr/lib/universal-lite/settings/pages/users.py
-files/usr/lib/universal-lite/settings/pages/language.py
+files/usr/lib/adwaita-lite/settings/pages/datetime.py
+files/usr/lib/adwaita-lite/settings/pages/users.py
+files/usr/lib/adwaita-lite/settings/pages/language.py
 ```
 
 ### Modify
 
 ```
-files/usr/share/universal-lite/defaults/settings.json        (add clock_24h, capslock_behavior)
-files/usr/libexec/universal-lite-apply-settings               (clock_24h waybar format, capslock xkb options)
-files/usr/lib/universal-lite/settings/pages/keyboard.py       (shortcuts editor, caps lock dropdown)
-files/usr/lib/universal-lite/settings/pages/appearance.py     (font size dropdown)
-files/usr/lib/universal-lite/settings/pages/default_apps.py   (fix terminal, add categories)
-files/usr/lib/universal-lite/settings/pages/about.py          (GPU info, bootc updates)
-files/usr/lib/universal-lite/settings/pages/__init__.py       (register 3 new pages)
+files/usr/share/adwaita-lite/defaults/settings.json        (add clock_24h, capslock_behavior)
+files/usr/libexec/adwaita-lite-apply-settings               (clock_24h waybar format, capslock xkb options)
+files/usr/lib/adwaita-lite/settings/pages/keyboard.py       (shortcuts editor, caps lock dropdown)
+files/usr/lib/adwaita-lite/settings/pages/appearance.py     (font size dropdown)
+files/usr/lib/adwaita-lite/settings/pages/default_apps.py   (fix terminal, add categories)
+files/usr/lib/adwaita-lite/settings/pages/about.py          (GPU info, bootc updates)
+files/usr/lib/adwaita-lite/settings/pages/__init__.py       (register 3 new pages)
 ```
 
 ---
@@ -43,8 +43,8 @@ files/usr/lib/universal-lite/settings/pages/__init__.py       (register 3 new pa
 ### Task 1: Add Phase 3 Settings Keys + apply-settings Updates
 
 **Files:**
-- Modify: `files/usr/share/universal-lite/defaults/settings.json`
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/share/adwaita-lite/defaults/settings.json`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 - [ ] **Step 1: Add new keys to settings.json defaults**
 
@@ -57,7 +57,7 @@ Add after the existing Phase 2 keys:
 
 - [ ] **Step 2: Read apply-settings and add clock_24h to waybar config**
 
-Read `files/usr/libexec/universal-lite-apply-settings`. Find the waybar config writer where the clock module format is defined. Search for `"clock"` in the waybar config section. Change the clock format to be conditional on `clock_24h`:
+Read `files/usr/libexec/adwaita-lite-apply-settings`. Find the waybar config writer where the clock module format is defined. Search for `"clock"` in the waybar config section. Change the clock format to be conditional on `clock_24h`:
 
 In the waybar config dict where `"clock"` is defined, change the format to:
 ```python
@@ -99,7 +99,7 @@ Add `"clock_24h"` and `"capslock_behavior"` to `_build_tokens()` return dict and
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/share/universal-lite/defaults/settings.json files/usr/libexec/universal-lite-apply-settings
+git add files/usr/share/adwaita-lite/defaults/settings.json files/usr/libexec/adwaita-lite-apply-settings
 git commit -m "feat: add clock_24h and capslock_behavior settings with apply-settings support"
 ```
 
@@ -108,7 +108,7 @@ git commit -m "feat: add clock_24h and capslock_behavior settings with apply-set
 ### Task 2: Appearance Page — Font Size Dropdown
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/appearance.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/appearance.py`
 
 - [ ] **Step 1: Read the current appearance.py**
 
@@ -138,7 +138,7 @@ Update `search_keywords` to include `("Font size", "Font")`.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/appearance.py
+git add files/usr/lib/adwaita-lite/settings/pages/appearance.py
 git commit -m "feat: add font size dropdown to Appearance page"
 ```
 
@@ -147,11 +147,11 @@ git commit -m "feat: add font size dropdown to Appearance page"
 ### Task 3: Keyboard Page — Shortcuts Editor + Caps Lock
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/keyboard.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/keyboard.py`
 
 This is the most complex feature. The implementing agent should read:
 - `files/etc/xdg/labwc/rc.xml` — system default keybindings (XML structure)
-- `files/usr/lib/universal-lite/settings/pages/keyboard.py` — current page
+- `files/usr/lib/adwaita-lite/settings/pages/keyboard.py` — current page
 
 - [ ] **Step 1: Read both files**
 
@@ -187,7 +187,7 @@ SHORTCUT_NAMES = {
     ("Execute", "foot"): "Open Terminal",
     ("Execute", "Thunar"): "Open File Manager",
     ("Execute", "fuzzel"): "App Launcher",
-    ("Execute", "universal-lite-settings"): "Open Settings",
+    ("Execute", "adwaita-lite-settings"): "Open Settings",
     ("Execute", "swaylock -f"): "Lock Screen",
     ("Execute", "foot -e htop"): "System Monitor",
     ("NextWindow", ""): "Switch Windows",
@@ -262,7 +262,7 @@ Add entries for Shortcuts, Caps Lock, keybinding-related terms.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/keyboard.py
+git add files/usr/lib/adwaita-lite/settings/pages/keyboard.py
 git commit -m "feat: keyboard shortcuts editor with key capture and conflict detection"
 ```
 
@@ -271,7 +271,7 @@ git commit -m "feat: keyboard shortcuts editor with key capture and conflict det
 ### Task 4: Date & Time Page
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/pages/datetime.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/datetime.py`
 
 - [ ] **Step 1: Create datetime.py**
 
@@ -383,7 +383,7 @@ class DateTimePage(BasePage):
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/datetime.py
+git add files/usr/lib/adwaita-lite/settings/pages/datetime.py
 git commit -m "feat: create Date & Time page with timezone, NTP, and 24h clock"
 ```
 
@@ -392,13 +392,13 @@ git commit -m "feat: create Date & Time page with timezone, NTP, and 24h clock"
 ### Task 5: Users Page
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/pages/users.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/users.py`
 
-Uses AccountsService D-Bus to manage user display name, password, and auto-login. The setup wizard (`files/usr/bin/universal-lite-setup-wizard`) already uses AccountsService — follow the same patterns.
+Uses AccountsService D-Bus to manage user display name, password, and auto-login. The setup wizard (`files/usr/bin/adwaita-lite-setup-wizard`) already uses AccountsService — follow the same patterns.
 
 - [ ] **Step 1: Read the wizard's AccountsService usage**
 
-Read `files/usr/bin/universal-lite-setup-wizard` and search for `AccountsService`, `SetRealName`, `SetPassword`, `SetAutomaticLogin` to understand the D-Bus patterns used.
+Read `files/usr/bin/adwaita-lite-setup-wizard` and search for `AccountsService`, `SetRealName`, `SetPassword`, `SetAutomaticLogin` to understand the D-Bus patterns used.
 
 - [ ] **Step 2: Create users.py**
 
@@ -474,7 +474,7 @@ The password change dialog should:
 - [ ] **Step 3: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/users.py
+git add files/usr/lib/adwaita-lite/settings/pages/users.py
 git commit -m "feat: create Users page with display name, password change, auto-login"
 ```
 
@@ -483,7 +483,7 @@ git commit -m "feat: create Users page with display name, password change, auto-
 ### Task 6: Language & Region Page
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/pages/language.py`
+- Create: `files/usr/lib/adwaita-lite/settings/pages/language.py`
 
 - [ ] **Step 1: Create language.py**
 
@@ -593,7 +593,7 @@ class LanguagePage(BasePage):
 - [ ] **Step 2: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/language.py
+git add files/usr/lib/adwaita-lite/settings/pages/language.py
 git commit -m "feat: create Language & Region page with locale and format selection"
 ```
 
@@ -602,7 +602,7 @@ git commit -m "feat: create Language & Region page with locale and format select
 ### Task 7: Fix Default Apps Page
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/default_apps.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/default_apps.py`
 
 - [ ] **Step 1: Read current default_apps.py**
 
@@ -643,7 +643,7 @@ APP_MIME_TYPES = [
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/default_apps.py
+git add files/usr/lib/adwaita-lite/settings/pages/default_apps.py
 git commit -m "feat: fix terminal selection, add image/PDF/email default app categories"
 ```
 
@@ -652,7 +652,7 @@ git commit -m "feat: fix terminal selection, add image/PDF/email default app cat
 ### Task 8: Expand About Page
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/about.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/about.py`
 
 - [ ] **Step 1: Read current about.py**
 
@@ -725,7 +725,7 @@ def _check_updates(self):
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/about.py
+git add files/usr/lib/adwaita-lite/settings/pages/about.py
 git commit -m "feat: expand About page with GPU info and bootc update check"
 ```
 
@@ -734,7 +734,7 @@ git commit -m "feat: expand About page with GPU info and bootc update check"
 ### Task 9: Register New Pages + Integration Verification
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/pages/__init__.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/pages/__init__.py`
 
 - [ ] **Step 1: Register Date & Time, Users, and Language pages**
 
@@ -777,7 +777,7 @@ cd /var/home/race/ublue-mike && python -m pytest tests/ -v
 
 ```bash
 python -c "
-import sys; sys.path.insert(0, 'files/usr/lib/universal-lite')
+import sys; sys.path.insert(0, 'files/usr/lib/adwaita-lite')
 from settings.pages import ALL_PAGES
 print(f'{len(ALL_PAGES)} pages registered:')
 for _, label, _ in ALL_PAGES:
@@ -790,7 +790,7 @@ Expected: 15 pages.
 - [ ] **Step 4: Verify all page files exist**
 
 ```bash
-ls files/usr/lib/universal-lite/settings/pages/*.py | wc -l
+ls files/usr/lib/adwaita-lite/settings/pages/*.py | wc -l
 ```
 
 Expected: 16 files (15 pages + `__init__.py`).
@@ -798,6 +798,6 @@ Expected: 16 files (15 pages + `__init__.py`).
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/__init__.py
+git add files/usr/lib/adwaita-lite/settings/pages/__init__.py
 git commit -m "feat: register Date/Time, Users, Language pages — all 15 pages complete"
 ```

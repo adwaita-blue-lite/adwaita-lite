@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Route routine builds through already-published Universal-Lite Quay images while limiting upstream Universal Blue GHCR pulls to daily `main` and `beta` refresh builds.
+**Goal:** Route routine builds through already-published Adwaita-Lite Quay images while limiting upstream Universal Blue GHCR pulls to daily `main` and `beta` refresh builds.
 
 **Architecture:** Keep routing logic in `.github/workflows/build.yml`. Scheduled builds use a matrix to build `main` and `beta` refresh targets from upstream GHCR; all push, PR, manual, and sync-triggered builds resolve their base image from Quay.
 
@@ -77,4 +77,4 @@
 - [ ] Push only if requested or already authorized.
 - [ ] Find the new main push build with `gh run list --workflow build.yml --branch main --limit 5 --json databaseId,status,conclusion,event,headBranch,headSha,createdAt,url`.
 - [ ] Watch it with `gh run watch <run-id> --exit-status`.
-- [ ] Expected for a push build: `Resolve stream configuration` uses `BASE_IMAGE=quay.io/noitatsidem/universal-lite:latest`, not `ghcr.io/ublue-os/base-main:latest`.
+- [ ] Expected for a push build: `Resolve stream configuration` uses `BASE_IMAGE=ghcr.io/adwaita-blue-lite/adwaita-lite:latest`, not `ghcr.io/ublue-os/base-main:latest`.
