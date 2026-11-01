@@ -2,29 +2,29 @@
 
 ## Goal
 
-Prepare Universal-Lite for release by improving first-run usability for
+Prepare Adwaita-Lite for release by improving first-run usability for
 non-English users. The work updates existing wizard and settings/greeter
 translations, adds translation coverage for the start menu, and verifies that
 all shipped gettext catalogs build cleanly.
 
 ## Current State
 
-Universal-Lite already ships gettext catalogs for 22 non-English locale codes:
+Adwaita-Lite already ships gettext catalogs for 22 non-English locale codes:
 
 `am ar de es fa fr ha hi it ja ko nl pl pt ru sv sw th tr vi yo zh`
 
 Existing gettext domains:
 
-- `universal-lite-setup-wizard`: source files in `po/*.po`, template at
-  `po/universal-lite-setup-wizard.pot`, compiled catalogs under
-  `files/usr/share/locale/<lang>/LC_MESSAGES/universal-lite-setup-wizard.mo`.
-- `universal-lite-settings`: source files in `po/settings/*.po`, template at
-  `po/settings/universal-lite-settings.pot`, compiled catalogs under
-  `files/usr/share/locale/<lang>/LC_MESSAGES/universal-lite-settings.mo`.
+- `adwaita-lite-setup-wizard`: source files in `po/*.po`, template at
+  `po/adwaita-lite-setup-wizard.pot`, compiled catalogs under
+  `files/usr/share/locale/<lang>/LC_MESSAGES/adwaita-lite-setup-wizard.mo`.
+- `adwaita-lite-settings`: source files in `po/settings/*.po`, template at
+  `po/settings/adwaita-lite-settings.pot`, compiled catalogs under
+  `files/usr/share/locale/<lang>/LC_MESSAGES/adwaita-lite-settings.mo`.
 
-The greeter intentionally shares the `universal-lite-settings` domain.
+The greeter intentionally shares the `adwaita-lite-settings` domain.
 
-The start menu at `files/usr/bin/universal-lite-app-menu` currently has
+The start menu at `files/usr/bin/adwaita-lite-app-menu` currently has
 hardcoded English shell UI strings and is not included in `po/Makefile`.
 Installed application names and generic names are read from `Gio.AppInfo`; those
 should continue to rely on each application's translated `.desktop` metadata
@@ -36,7 +36,7 @@ In scope:
 
 - Audit and update existing wizard translations.
 - Audit and update existing settings/greeter translations.
-- Add a separate start menu gettext domain named `universal-lite-app-menu`.
+- Add a separate start menu gettext domain named `adwaita-lite-app-menu`.
 - Translate the start menu's own shell UI strings.
 - Compile and verify all gettext catalogs.
 - Preserve placeholders, punctuation that affects behavior, and gettext syntax.
@@ -53,19 +53,19 @@ Out of scope:
 Add a new gettext domain for the start menu instead of reusing the settings
 domain. This keeps catalog ownership clear:
 
-- Wizard strings remain in `universal-lite-setup-wizard`.
-- Settings and greeter strings remain in `universal-lite-settings`.
-- Start menu shell strings move into `universal-lite-app-menu`.
+- Wizard strings remain in `adwaita-lite-setup-wizard`.
+- Settings and greeter strings remain in `adwaita-lite-settings`.
+- Start menu shell strings move into `adwaita-lite-app-menu`.
 
 The start menu will initialize gettext near the top of
-`files/usr/bin/universal-lite-app-menu`, bind `universal-lite-app-menu` to
+`files/usr/bin/adwaita-lite-app-menu`, bind `adwaita-lite-app-menu` to
 `/usr/share/locale`, and alias gettext as `_`. User-visible string literals in
 the start menu shell UI will be wrapped in `_()`.
 
 `po/Makefile` will gain an app-menu section with:
 
-- `APP_MENU_DOMAIN = universal-lite-app-menu`
-- `APP_MENU_SOURCE = ../files/usr/bin/universal-lite-app-menu`
+- `APP_MENU_DOMAIN = adwaita-lite-app-menu`
+- `APP_MENU_SOURCE = ../files/usr/bin/adwaita-lite-app-menu`
 - `APP_MENU_POT = app-menu/$(APP_MENU_DOMAIN).pot`
 - `APP_MENU_PO = $(LANGUAGES:%=app-menu/%.po)`
 - `APP_MENU_MO = $(LANGUAGES:%=$(LOCALEDIR)/%/LC_MESSAGES/$(APP_MENU_DOMAIN).mo)`
@@ -138,7 +138,7 @@ All agents must follow these rules:
 - Preserve escape sequences and line breaks.
 - Do not translate command names, paths, environment variables, package names,
   or project names unless they are clearly descriptive UI labels.
-- Keep product name `Universal-Lite` unchanged.
+- Keep product name `Adwaita-Lite` unchanged.
 - Keep technical terms understandable for first-run users; prefer common UI terms
   over literal technical jargon.
 - Do not mark entries fuzzy as a substitute for deciding on a translation.

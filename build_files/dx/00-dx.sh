@@ -67,7 +67,9 @@ if [[ ! "${IMAGE_NAME:-}" =~ nvidia ]]; then
         rocm-smi
 fi
 
-dnf5 config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
+if [[ ! -f /etc/yum.repos.d/docker-ce.repo ]]; then
+    dnf5 config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
+fi
 sed -i "s/enabled=.*/enabled=0/g" /etc/yum.repos.d/docker-ce.repo
 dnf5 -y install --setopt=install_weak_deps=False --enablerepo=docker-ce-stable \
     containerd.io \
@@ -93,7 +95,7 @@ systemctl enable podman.socket
 systemctl enable swtpm-workaround.service
 systemctl enable libvirt-workaround.service
 systemctl enable incus-workaround.service
-systemctl enable universal-lite-dx-groups.service
+systemctl enable adwaita-lite-dx-groups.service
 
 sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/fedora-cisco-openh264.repo
 

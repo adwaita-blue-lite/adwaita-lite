@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Theme System Component Documentation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --bg: #101116;
+      --panel: #191b23;
+      --panel-2: #222530;
+      --line: #383b48;
+      --text: #f5f5f7;
+      --muted: #c7cad3;
+      --soft: #969ba9;
+      --accent: #99c1f1;
+      --accent-2: #f6d32d;
+      --ok: #8ff0a4;
+      --danger: #ff7b72;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(153, 193, 241, 0.24), transparent 30rem),
+        radial-gradient(circle at 90% 8%, rgba(246, 211, 45, 0.13), transparent 24rem),
+        linear-gradient(135deg, #101116 0%, #161922 55%, #0d0f14 100%);
+      color: var(--text);
+      line-height: 1.48;
+    }
+
+    main {
+      width: min(1240px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 34px 0 64px;
+    }
+
+    a { color: var(--accent); }
+    p { margin: 0; }
+    h1, h2, h3 { margin: 0; }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 0.92em;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 390px;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--soft);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 7vw, 5.8rem);
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+    }
+
+    h2 {
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h3 { margin-bottom: 8px; font-size: 1.02rem; }
+
+    .lede {
+      max-width: 820px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .source-map,
+    section {
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 26px;
+      background: rgba(25, 27, 35, 0.9);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    }
+
+    .source-map {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      align-content: start;
+    }
+
+    .source-card,
+    .state-card,
+    .safe-card,
+    .behavior-card,
+    .token-card {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(34, 37, 48, 0.92), rgba(20, 22, 30, 0.92));
+    }
+
+    .source-card b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent-2);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .source-card code {
+      display: inline;
+      overflow-wrap: anywhere;
+      background: transparent;
+      padding: 0;
+    }
+
+    section { margin-top: 24px; padding: 22px; }
+
+    .state-map {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr 1fr 1fr 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .state-card.source { border-color: rgba(246, 211, 45, 0.45); }
+    .state-card.generated { border-color: rgba(153, 193, 241, 0.42); }
+    .state-card.surface { border-color: rgba(143, 240, 164, 0.36); }
+
+    .state-card p,
+    .safe-card p,
+    .behavior-card p,
+    .token-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .arrow {
+      align-self: center;
+      justify-self: center;
+      color: var(--accent);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+    }
+
+    .component-grid,
+    .safe-edit {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .token-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .token-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    th, td {
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #222735;
+      color: var(--soft);
+      font-size: 0.74rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { width: 18%; font-weight: 800; }
+
+    .density-note {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-left: 5px solid var(--accent);
+      border-radius: 16px;
+      background: rgba(153, 193, 241, 0.1);
+      color: var(--muted);
+    }
+
+    .safe-card { border-left: 4px solid var(--danger); }
+    .safe-card.ok { border-left-color: var(--ok); }
+
+    @media (max-width: 980px) {
+      header { grid-template-columns: 1fr; }
+      .state-map,
+      .component-grid,
+      .safe-edit,
+      .token-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .arrow { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      main { width: min(100% - 24px, 1240px); padding-top: 24px; }
+      section, .source-map { padding: 16px; border-radius: 20px; }
+      .state-map,
+      .component-grid,
+      .safe-edit,
+      .token-grid { grid-template-columns: 1fr; }
+      table, thead, tbody, tr, th, td { display: block; }
+      thead { display: none; }
+      tr { padding: 12px 0; border-bottom: 1px solid var(--line); }
+      tr:last-child { border-bottom: 0; }
+      td { padding: 4px 0; border: 0; }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        color: var(--soft);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      td:first-child { width: auto; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <p class="eyebrow"><a href="index.html">Components</a> / Theme System</p>
+      <h1>Theme System</h1>
+      <p class="lede">Adwaita-Lite themes are data-first: <code>palette.json</code> defines light, dark, and accent values; runtime helpers apply those values to shell surfaces, persisted greeter state, and component CSS. This page maps that path across settings, app-menu, greeter, apply-settings, and twilight panel behavior.</p>
+    </div>
+    <aside class="source-map" aria-label="Theme system source map">
+      <article class="source-card"><b>Palette data</b><code>files/usr/share/adwaita-lite/palette.json</code></article>
+      <article class="source-card"><b>GTK token builder</b><code>files/usr/lib/adwaita-lite/theme.py</code></article>
+      <article class="source-card"><b>Settings app CSS loader</b><code>files/usr/lib/adwaita-lite/settings/app.py</code></article>
+      <article class="source-card"><b>Settings CSS consumers</b><code>files/usr/lib/adwaita-lite/settings/css/style.css</code></article>
+      <article class="source-card"><b>App-menu shell CSS</b><code>files/usr/bin/adwaita-lite-app-menu</code></article>
+      <article class="source-card"><b>Greeter pre-login CSS</b><code>files/usr/bin/adwaita-lite-greeter</code></article>
+      <article class="source-card"><b>Session theme applier</b><code>files/usr/libexec/adwaita-lite-apply-settings</code></article>
+    </aside>
+  </header>
+
+  <section aria-labelledby="state-title">
+    <h2 id="state-title">State Map: Palette To Surfaces</h2>
+    <div class="state-map" aria-label="Theme token relationship diagram">
+      <article class="state-card source"><h3>Shared data</h3><p><code>palette.json</code> owns <code>light</code>, <code>dark</code>, and <code>accents</code>; <code>FALLBACK_PALETTE</code> in <code>theme.py</code> mirrors safe defaults.</p></article>
+      <div class="arrow">-&gt;</div>
+      <article class="state-card generated"><h3>App-menu GTK tokens</h3><p><code>gtk_color_defines</code> loads settings, normalizes <code>theme</code>, <code>accent</code>, and <code>high_contrast</code>, then emits <code>@define-color</code> CSS for app-menu.</p></article>
+      <div class="arrow">-&gt;</div>
+      <article class="state-card surface"><h3>Shell surfaces</h3><p>Generated tokens feed app-menu <code>BASE_CSS</code>; settings <code>style.css</code> consumes Adwaita/GTK tokens and accent CSS; greeter builds direct CSS from loaded palettes.</p></article>
+      <article class="state-card generated"><h3>Accent swatches</h3><p><code>_build_accent_css</code> reads <code>PALETTE_PATH</code>, emits <code>.accent-&lt;name&gt;</code> rules, and refreshes through <code>_reload_accent_css</code>.</p></article>
+      <div class="arrow">-&gt;</div>
+      <article class="state-card generated"><h3>Twilight override</h3><p><code>_build_twilight_css</code> generates <code>app-menu-shell-dark</code> and <code>app-menu-shell-light</code> palettes so menu tint matches panel twilight.</p></article>
+      <div class="arrow">-&gt;</div>
+      <article class="state-card surface"><h3>Pre-login mirror</h3><p><code>adwaita-lite-apply-settings</code> writes <code>/var/lib/adwaita-lite/greeter-theme</code> and <code>/var/lib/adwaita-lite/greeter-accent</code>; greeter reads those paths before login.</p></article>
+    </div>
+    <p class="density-note">Ordering matters: app-menu CSS expects generated <code>@accent_color</code>, <code>@accent_fg_color</code>, <code>@window_bg_color</code>, <code>@window_fg_color</code>, and <code>@borders</code> to exist before its token-consuming rules load; settings loads base Adwaita/GTK token consumers plus generated accent swatch rules.</p>
+  </section>
+
+  <section aria-labelledby="token-title">
+    <h2 id="token-title">Token And Data Map</h2>
+    <div class="token-grid">
+      <article class="token-card"><strong><code>gtk_color_defines</code></strong><p>Returns one GTK CSS string of <code>@define-color</code> declarations for app-menu, selecting palette colors through <code>normalize_theme</code>, <code>normalize_accent</code>, and <code>accent_foreground</code>.</p></article>
+      <article class="token-card"><strong><code>_build_accent_css</code></strong><p>Settings app runtime CSS: sets active <code>accent_color</code>, <code>accent_fg_color</code>, then generates swatch fill and checked-icon contrast rules from each accent.</p></article>
+      <article class="token-card"><strong><code>_build_twilight_css</code></strong><p>App-menu runtime CSS: converts light and dark palette entries to translucent shell tokens for <code>app-menu-shell-*</code> classes.</p></article>
+      <article class="token-card"><strong><code>DARK_THEME_COLORS</code></strong><p>Setup-wizard-local dark CSS map used by <code>files/usr/bin/adwaita-lite-setup-wizard</code>; do not treat it as the source of current shared palette truth.</p></article>
+      <article class="token-card"><strong><code>@accent_color</code> / <code>@accent_fg_color</code></strong><p>Accent fill and readable foreground pair used by focus, selection, wallpaper checks, and active accent states; destructive power affordances use error/destructive colors instead.</p></article>
+      <article class="token-card"><strong><code>@window_bg_color</code> / <code>@window_fg_color</code> / <code>@borders</code></strong><p>Core surface, foreground, and edge tokens consumed by settings CSS and app-menu CSS; <code>high_contrast</code> forces black, white, and white border definitions.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="behavior-title">
+    <h2 id="behavior-title">Behavior Matrix</h2>
+    <div class="component-grid" aria-label="Theme behavior coverage">
+      <article class="behavior-card"><h3>Light / Dark Palette</h3><p><code>palette.json</code> provides <code>window_bg</code>, <code>view_bg</code>, <code>headerbar_bg</code>, <code>card_bg</code>, <code>fg</code>, <code>secondary_fg</code>, <code>border</code>, and <code>inactive_fg</code> for both modes.</p></article>
+      <article class="behavior-card"><h3>Accent Selection</h3><p><code>normalize_accent</code> falls back to <code>blue</code>; settings swatches use generated <code>.accent-blue</code> through <code>.accent-slate</code> classes from palette data.</p></article>
+      <article class="behavior-card"><h3>High Contrast</h3><p><code>high_contrast</code> in <code>theme.py</code> normalizes theme to dark and emits black background, white foreground, and white borders for GTK token consumers.</p></article>
+      <article class="behavior-card"><h3>Panel Twilight</h3><p><code>adwaita-lite-apply-settings</code> applies <code>panel_twilight</code> by drawing panel tokens from the opposite palette; app-menu mirrors this with <code>_shell_theme_class</code> returning the inverse shell class.</p></article>
+      <article class="behavior-card"><h3>Greeter Propagation</h3><p><code>adwaita-lite-apply-settings</code> owns propagation to <code>/var/lib/adwaita-lite/greeter-theme</code> and <code>/var/lib/adwaita-lite/greeter-accent</code>; greeter reads them and calls <code>_build_css(PALETTES[theme])</code>.</p></article>
+      <article class="behavior-card"><h3>App-menu Inversion</h3><p><code>app-menu-shell-dark</code> is used over a light user theme when twilight is on; <code>app-menu-shell-light</code> is used over a dark user theme.</p></article>
+      <article class="behavior-card"><h3>Settings CSS Tokens</h3><p><code>style.css</code> consumes Adwaita/GTK <code>@window_fg_color</code>, <code>@window_bg_color</code>, <code>@accent_color</code>, <code>@accent_fg_color</code>, and <code>@error_color</code>; <code>_build_accent_css</code> generates active <code>@define-color accent_color</code> / <code>@define-color accent_fg_color</code> values plus per-accent swatch rules.</p></article>
+      <article class="behavior-card"><h3>Fallback Paths</h3><p><code>load_palette</code> tries supplied paths before <code>FALLBACK_PALETTE</code>; app-menu also checks a repo palette path before disabling twilight CSS.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="surface-title">
+    <h2 id="surface-title">Surface Consumers</h2>
+    <table>
+      <thead><tr><th>Consumer</th><th>Input</th><th>Generated / Consumed Tokens</th><th>Primary Risk</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Consumer">Settings</td><td data-label="Input"><code>SettingsApp.do_activate</code> loads <code>style.css</code> and <code>_build_accent_css</code>.</td><td data-label="Generated / Consumed Tokens">Adwaita/GTK tokens in <code>style.css</code> plus generated <code>.accent-swatch</code>, <code>@accent_color</code>, and <code>@accent_fg_color</code> swatch CSS.</td><td data-label="Primary Risk">Provider order can leave swatches blank or active accents stale.</td></tr>
+        <tr><td data-label="Consumer">App menu</td><td data-label="Input"><code>_build_css</code> prepends <code>gtk_color_defines</code> to <code>BASE_CSS</code> and twilight CSS.</td><td data-label="Generated / Consumed Tokens"><code>@window_bg_color</code>, <code>@window_fg_color</code>, <code>@borders</code>, <code>@error_color</code>; power confirmation buttons use <code>@error_color</code> with white text.</td><td data-label="Primary Risk">Moving generated defines after consumers breaks GTK token resolution.</td></tr>
+        <tr><td data-label="Consumer">Greeter</td><td data-label="Input"><code>_load_palettes</code>, <code>_load_theme</code>, and <code>_build_css</code> run before app activation.</td><td data-label="Generated / Consumed Tokens">Direct CSS values: <code>accent</code>, <code>accent_fg</code>, <code>card_shadow</code>, <code>entry_bg</code>.</td><td data-label="Primary Risk">Pre-login paths must work without user config access.</td></tr>
+        <tr><td data-label="Consumer">Apply settings</td><td data-label="Input"><code>files/usr/libexec/adwaita-lite-apply-settings</code> reads user settings and palette-derived tokens.</td><td data-label="Generated / Consumed Tokens">Writes greeter theme/accent state and applies panel palette tokens, including <code>panel_twilight</code> opposite-palette surfaces.</td><td data-label="Primary Risk">Broken writes to <code>/var/lib/adwaita-lite</code> make greeter pre-login theme stale.</td></tr>
+        <tr><td data-label="Consumer">Setup wizard</td><td data-label="Input"><code>DARK_THEME_COLORS</code> fills a template-local CSS map.</td><td data-label="Generated / Consumed Tokens">Wizard-only names such as <code>control_bg</code>, <code>accent_bg</code>, and <code>focus_border</code>.</td><td data-label="Primary Risk">Hardcoded map can drift from shared palette if copied into new surfaces.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section aria-labelledby="safe-title">
+    <h2 id="safe-title">Safe Edit Rules</h2>
+    <div class="safe-edit" aria-label="Safe theme edits">
+      <article class="safe-card ok"><h3>Preserve Contrast</h3><p>Run accent changes through the existing contrast helpers: <code>accent_foreground</code>, <code>_accent_check_fg</code>, and greeter <code>_accent_foreground</code> choose readable foregrounds.</p></article>
+      <article class="safe-card"><h3>Keep CSS Order</h3><p>Generated <code>@define-color</code> rules must stay before <code>BASE_CSS</code>, settings swatch rules must load after base <code>style.css</code>, and twilight overrides must remain last.</p></article>
+      <article class="safe-card"><h3>Respect Fallbacks</h3><p>When editing palette lookup, preserve installed and repo fallback paths: <code>DEFAULT_PALETTE_PATH</code>, <code>_REPO_PALETTE_PATH</code>, and greeter hardcoded fallback.</p></article>
+      <article class="safe-card"><h3>Avoid Duplicate Hex</h3><p>Do not add hardcoded duplicates of palette colors where <code>@accent_color</code>, <code>@window_bg_color</code>, <code>@window_fg_color</code>, <code>@borders</code>, or generated swatches already exist.</p></article>
+    </div>
+  </section>
+</main>
+</body>
+</html>

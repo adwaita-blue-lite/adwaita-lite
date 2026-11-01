@@ -1,11 +1,12 @@
 import json
 import os
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/universal-lite"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/adwaita-lite"))
 from settings.settings_store import SettingsStore
 
 
@@ -46,6 +47,306 @@ def test_save_and_apply_writes_json(tmp_path):
     assert store.get("theme") == "dark"
     written = json.loads((tmp_path / "settings.json").read_text())
     assert written["theme"] == "dark"
+
+
+def test_save_and_apply_waybar_dispatches_detached_without_tracking(monkeypatch, tmp_path):
+    calls = []
+    idle_calls = []
+
+    class Proc:
+        returncode = 0
+
+        def communicate(self, timeout=None):
+            raise AssertionError("detached waybar apply must not be waited on")
+
+    monkeypatch.setattr(
+        "settings.settings_store.subprocess.Popen",
+        lambda cmd, **kwargs: calls.append((cmd, kwargs)) or Proc(),
+    )
+    monkeypatch.setattr(
+        "settings.settings_store.GLib.idle_add",
+        lambda callback, *args: idle_calls.append((callback, args)) or 1,
+    )
+
+    store = _make_store(tmp_path)
+    store.save_and_apply("layout", {"start": [], "center": [], "end": []}, mode="waybar")
+
+    assert calls == [(
+        ["/bin/true", "--mode", "waybar"],
+        {
+            "stdin": subprocess.DEVNULL,
+            "stdout": subprocess.DEVNULL,
+            "stderr": subprocess.DEVNULL,
+            "start_new_session": True,
+        },
+    )]
+    assert idle_calls == []
+    assert store.has_apply_work() is False
+    assert store._apply_running is False
+    assert store._apply_pending is False
+    assert store._apply_pending_mode is None
+
+
+def test_waybar_apply_reports_restart_session_message(monkeypatch, tmp_path):
+    calls = []
+    toasts = []
+
+    class Proc:
+        returncode = 0
+
+        def communicate(self, timeout=None):
+            raise AssertionError("detached waybar apply must not be waited on")
+
+    monkeypatch.setattr(
+        "settings.settings_store.subprocess.Popen",
+        lambda cmd, **kwargs: calls.append((cmd, kwargs)) or Proc(),
+    )
+
+    store = _make_store(tmp_path)
+    store.set_toast_callback(lambda message, is_error: toasts.append((message, is_error)))
+    store.save_and_apply("layout", {"start": [], "center": [], "end": []}, mode="waybar")
+
+    assert calls[0][0] == ["/bin/true", "--mode", "waybar"]
+    assert toasts == [(
+        "Panel changes saved. Restart your session to apply them.",
+        False,
+    )]
+
+
+def test_waybar_apply_spawn_failure_reports_file_update_error(monkeypatch, tmp_path):
+    toasts = []
+
+    def fail_popen(_cmd, **_kwargs):
+        raise OSError("boom")
+
+    monkeypatch.setattr("settings.settings_store.subprocess.Popen", fail_popen)
+
+    store = _make_store(tmp_path)
+    store.set_toast_callback(lambda message, is_error: toasts.append((message, is_error)))
+    store.save_and_apply("layout", {"start": [], "center": [], "end": []}, mode="waybar")
+
+    assert toasts == [(
+        "Panel changes saved, but panel files could not be updated: boom",
+        True,
+    )]
+    assert store._last_apply_spawn_failed is True
+
+
+def _write_session_snapshot(monkeypatch, tmp_path, data):
+    runtime_dir = tmp_path / "runtime"
+    snapshot = runtime_dir / "adwaita-lite/session-settings.json"
+    snapshot.parent.mkdir(parents=True)
+    snapshot.write_text(json.dumps(data), encoding="utf-8")
+    monkeypatch.delenv("ADWAITA_LITE_SESSION_SETTINGS", raising=False)
+    monkeypatch.setenv("XDG_RUNTIME_DIR", str(runtime_dir))
+    return snapshot
+
+
+def test_deferred_session_changes_detect_session_snapshot_difference(monkeypatch, tmp_path):
+    _write_session_snapshot(monkeypatch, tmp_path, {"edge": "bottom", "accent": "blue"})
+    store = _make_store(
+        tmp_path,
+        defaults={"edge": "bottom", "accent": "blue"},
+        existing={"edge": "top", "accent": "blue"},
+    )
+
+    assert store.has_deferred_session_changes() is True
+
+
+def test_deferred_session_changes_hide_when_values_match_snapshot(monkeypatch, tmp_path):
+    _write_session_snapshot(monkeypatch, tmp_path, {"edge": "bottom", "accent": "blue"})
+    store = _make_store(
+        tmp_path,
+        defaults={"edge": "bottom", "accent": "blue"},
+        existing={"edge": "bottom", "accent": "blue"},
+    )
+
+    assert store.has_deferred_session_changes() is False
+
+
+def test_deferred_session_changes_ignore_live_apply_settings(monkeypatch, tmp_path):
+    _write_session_snapshot(
+        monkeypatch,
+        tmp_path,
+        {
+            "edge": "bottom",
+            "accent": "blue",
+            "theme": "light",
+            "font_size": 11,
+            "high_contrast": False,
+            "scale": 1.0,
+        },
+    )
+    store = _make_store(
+        tmp_path,
+        defaults={
+            "edge": "bottom",
+            "accent": "blue",
+            "theme": "light",
+            "font_size": 11,
+            "high_contrast": False,
+            "scale": 1.0,
+        },
+        existing={
+            "edge": "bottom",
+            "accent": "blue",
+            "theme": "dark",
+            "font_size": 15,
+            "high_contrast": True,
+            "scale": 1.25,
+        },
+    )
+
+    assert store.has_deferred_session_changes() is False
+
+
+def test_deferred_session_changes_ignore_missing_or_invalid_snapshot(monkeypatch, tmp_path):
+    runtime_dir = tmp_path / "runtime"
+    snapshot = runtime_dir / "adwaita-lite/session-settings.json"
+    snapshot.parent.mkdir(parents=True)
+    snapshot.write_text("{invalid", encoding="utf-8")
+    monkeypatch.delenv("ADWAITA_LITE_SESSION_SETTINGS", raising=False)
+    monkeypatch.setenv("XDG_RUNTIME_DIR", str(runtime_dir))
+    store = _make_store(
+        tmp_path,
+        defaults={"edge": "bottom"},
+        existing={"edge": "top"},
+    )
+
+    assert store.has_deferred_session_changes() is False
+
+    snapshot.unlink()
+    assert store.has_deferred_session_changes() is False
+
+
+def test_deferred_session_changes_env_snapshot_does_not_fallback_to_runtime(monkeypatch, tmp_path):
+    runtime_snapshot = _write_session_snapshot(monkeypatch, tmp_path, {"edge": "bottom"})
+    env_snapshot = runtime_snapshot.parent / "bad-session-settings.json"
+    env_snapshot.write_text("{invalid", encoding="utf-8")
+    monkeypatch.setenv("ADWAITA_LITE_SESSION_SETTINGS", str(env_snapshot))
+    store = _make_store(
+        tmp_path,
+        defaults={"edge": "bottom"},
+        existing={"edge": "top"},
+    )
+
+    assert store.has_deferred_session_changes() is False
+
+
+def test_deferred_session_callback_runs_after_save_and_apply(monkeypatch, tmp_path):
+    _write_session_snapshot(monkeypatch, tmp_path, {"edge": "bottom"})
+    store = _make_store(
+        tmp_path,
+        defaults={"edge": "bottom"},
+        existing={"edge": "bottom"},
+    )
+    states = []
+    store.set_deferred_changes_callback(states.append)
+
+    with patch.object(store, "_run_apply"):
+        store.save_and_apply("edge", "top", mode="waybar")
+        store.save_and_apply("edge", "bottom", mode="waybar")
+
+    assert states == [True, False]
+
+
+def test_deferred_session_callback_runs_after_save_dict_and_apply(monkeypatch, tmp_path):
+    _write_session_snapshot(monkeypatch, tmp_path, {"edge": "bottom", "accent": "blue"})
+    store = _make_store(
+        tmp_path,
+        defaults={"edge": "bottom", "accent": "blue"},
+        existing={"edge": "bottom", "accent": "blue"},
+    )
+    states = []
+    store.set_deferred_changes_callback(states.append)
+
+    with patch.object(store, "_run_apply"):
+        store.save_dict_and_apply({"accent": "red"})
+
+    assert states == [True]
+
+
+def test_deferred_session_callback_runs_after_restore_keys_and_flush(monkeypatch, tmp_path):
+    _write_session_snapshot(monkeypatch, tmp_path, {"accent": "blue"})
+    store = _make_store(
+        tmp_path,
+        defaults={"accent": "blue"},
+        existing={"accent": "red"},
+    )
+    states = []
+    store.set_deferred_changes_callback(states.append)
+
+    with patch.object(store, "_run_apply"):
+        assert store.restore_keys(["accent"], {"accent": "blue"}) is True
+    with patch("settings.settings_store.GLib.timeout_add", return_value=123), \
+         patch("settings.settings_store.GLib.source_remove"), \
+         patch.object(store, "_run_apply"):
+        store.save_debounced("accent", "red")
+        store.flush_and_detach()
+
+    assert states == [False, True]
+
+
+def test_full_apply_still_uses_tracked_wait_path(monkeypatch, tmp_path):
+    calls = []
+    idle_calls = []
+
+    class Proc:
+        returncode = 0
+
+        def communicate(self, timeout=None):
+            return b"", b""
+
+    monkeypatch.setattr(
+        "settings.settings_store.subprocess.Popen",
+        lambda cmd, **kwargs: calls.append((cmd, kwargs)) or Proc(),
+    )
+    monkeypatch.setattr(
+        "settings.settings_store.GLib.idle_add",
+        lambda callback, *args: idle_calls.append((callback, args)) or 1,
+    )
+    monkeypatch.setattr(
+        "settings.settings_store.threading.Thread",
+        lambda target, daemon=True: type(
+            "ThreadStub",
+            (),
+            {"start": lambda self: target()},
+        )(),
+    )
+
+    store = _make_store(tmp_path)
+    store.save_and_apply("theme", "dark")
+
+    assert calls == [(
+        ["/bin/true"],
+        {"stdout": subprocess.DEVNULL, "stderr": subprocess.PIPE},
+    )]
+    assert len(idle_calls) == 1
+
+
+def test_pending_apply_uses_strongest_requested_mode(monkeypatch, tmp_path):
+    commands = []
+
+    class Proc:
+        returncode = 0
+
+        def communicate(self, timeout=None):
+            return b"", b""
+
+    store = _make_store(tmp_path)
+    store._apply_running = True
+
+    store._run_apply("waybar")
+    store._run_apply("full")
+
+    monkeypatch.setattr(
+        "settings.settings_store.subprocess.Popen",
+        lambda cmd, **kwargs: commands.append(cmd) or Proc(),
+    )
+
+    store._on_apply_done(0, b"")
+
+    assert commands == [["/bin/true"]]
 
 
 def test_save_dict_and_apply(tmp_path):

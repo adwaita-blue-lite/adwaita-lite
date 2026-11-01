@@ -4,7 +4,7 @@
 
 **Goal:** Add a visible, durable `Skip app setup` path to first-boot Flatpak installation while keeping complete-before-login as the default.
 
-**Architecture:** Use `/var/lib/universal-lite/flatpak-setup.skip` as an explicit opt-out marker distinct from `/var/lib/universal-lite/flatpak-setup.done`. The greeter writes the marker after user confirmation and treats it as non-blocking; the install service and setup script both honor it so the automatic initial install is not retried after skip.
+**Architecture:** Use `/var/lib/adwaita-lite/flatpak-setup.skip` as an explicit opt-out marker distinct from `/var/lib/adwaita-lite/flatpak-setup.done`. The greeter writes the marker after user confirmation and treats it as non-blocking; the install service and setup script both honor it so the automatic initial install is not retried after skip.
 
 **Tech Stack:** Python 3, GTK4/PyGObject greeter, systemd unit conditions, Bash Flatpak setup script, pytest contract tests.
 
@@ -12,17 +12,17 @@
 
 ## File Structure
 
-- Modify `files/usr/bin/universal-lite-greeter`
+- Modify `files/usr/bin/adwaita-lite-greeter`
   - Add `FLATPAK_SKIP_PATH` beside the existing Flatpak state constants.
   - Add `Skip app setup` button to the setup overlay.
   - Add confirmation prompt using GTK4 `Gtk.AlertDialog` when available, with a non-dialog fallback for testability and older GTK behavior.
-  - Add marker-writing helper that creates `/var/lib/universal-lite` and only reveals login after the marker is written.
+  - Add marker-writing helper that creates `/var/lib/adwaita-lite` and only reveals login after the marker is written.
   - Treat the skip marker as a non-blocking state in setup polling.
-- Modify `files/usr/libexec/universal-lite-flatpak-setup`
-  - Add `SKIP_STAMP=/var/lib/universal-lite/flatpak-setup.skip`.
+- Modify `files/usr/libexec/adwaita-lite-flatpak-setup`
+  - Add `SKIP_STAMP=/var/lib/adwaita-lite/flatpak-setup.skip`.
   - Exit early if the skip marker exists before doing network or Flatpak work.
-- Modify `files/usr/lib/systemd/system/universal-lite-flatpak-install.service`
-  - Add `ConditionPathExists=!/var/lib/universal-lite/flatpak-setup.skip`.
+- Modify `files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service`
+  - Add `ConditionPathExists=!/var/lib/adwaita-lite/flatpak-setup.skip`.
 - Modify `tests/test_flatpak_setup_contract.py`
   - Extend existing Flatpak setup contract coverage for service and script skip behavior.
 - Create `tests/test_flatpak_greeter_skip.py`
@@ -45,11 +45,11 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FLATPAK_SETUP = ROOT / "files/usr/libexec/universal-lite-flatpak-setup"
+FLATPAK_SETUP = ROOT / "files/usr/libexec/adwaita-lite-flatpak-setup"
 FLATPAK_INSTALL_SERVICE = (
-    ROOT / "files/usr/lib/systemd/system/universal-lite-flatpak-install.service"
+    ROOT / "files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service"
 )
-SKIP_MARKER = "/var/lib/universal-lite/flatpak-setup.skip"
+SKIP_MARKER = "/var/lib/adwaita-lite/flatpak-setup.skip"
 
 
 def test_initial_install_completion_checks_apps_and_runtimes():
@@ -84,7 +84,7 @@ Run:
 pytest -q tests/test_flatpak_setup_contract.py
 ```
 
-Expected: the two new tests fail because the service does not yet contain `ConditionPathExists=!/var/lib/universal-lite/flatpak-setup.skip` and the script does not yet define or check `SKIP_STAMP`.
+Expected: the two new tests fail because the service does not yet contain `ConditionPathExists=!/var/lib/adwaita-lite/flatpak-setup.skip` and the script does not yet define or check `SKIP_STAMP`.
 
 - [ ] **Step 3: Commit the failing contract tests**
 
@@ -100,20 +100,20 @@ git commit -m "test(flatpak): define first-boot skip contract"
 ### Task 2: Service and Script Skip Enforcement
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-flatpak-setup:19-27`
-- Modify: `files/usr/libexec/universal-lite-flatpak-setup:56-59`
-- Modify: `files/usr/lib/systemd/system/universal-lite-flatpak-install.service:11-16`
+- Modify: `files/usr/libexec/adwaita-lite-flatpak-setup:19-27`
+- Modify: `files/usr/libexec/adwaita-lite-flatpak-setup:56-59`
+- Modify: `files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service:11-16`
 - Test: `tests/test_flatpak_setup_contract.py`
 
 - [ ] **Step 1: Add the skip marker constant to the setup script**
 
-In `files/usr/libexec/universal-lite-flatpak-setup`, change the constants block to:
+In `files/usr/libexec/adwaita-lite-flatpak-setup`, change the constants block to:
 
 ```bash
-APPS_FILE=/var/lib/universal-lite/flatpak-apps
-STAMP=/var/lib/universal-lite/flatpak-setup.done
-SKIP_STAMP=/var/lib/universal-lite/flatpak-setup.skip
-PROGRESS_DIR=/run/universal-lite
+APPS_FILE=/var/lib/adwaita-lite/flatpak-apps
+STAMP=/var/lib/adwaita-lite/flatpak-setup.done
+SKIP_STAMP=/var/lib/adwaita-lite/flatpak-setup.skip
+PROGRESS_DIR=/run/adwaita-lite
 PROGRESS_FILE=$PROGRESS_DIR/flatpak-progress
 LOGIN_READY_FILE=$PROGRESS_DIR/flatpak-login-ready
 MAX_NET_WAIT=120
@@ -135,12 +135,12 @@ fi
 
 - [ ] **Step 3: Gate the install service on the skip marker**
 
-In `files/usr/lib/systemd/system/universal-lite-flatpak-install.service`, update the condition block to:
+In `files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service`, update the condition block to:
 
 ```ini
-ConditionPathExists=/var/lib/universal-lite/setup-done
-ConditionPathExists=!/var/lib/universal-lite/flatpak-setup.done
-ConditionPathExists=!/var/lib/universal-lite/flatpak-setup.skip
+ConditionPathExists=/var/lib/adwaita-lite/setup-done
+ConditionPathExists=!/var/lib/adwaita-lite/flatpak-setup.done
+ConditionPathExists=!/var/lib/adwaita-lite/flatpak-setup.skip
 ```
 
 - [ ] **Step 4: Run focused verification**
@@ -149,7 +149,7 @@ Run:
 
 ```bash
 pytest -q tests/test_flatpak_setup_contract.py
-bash -n files/usr/libexec/universal-lite-flatpak-setup
+bash -n files/usr/libexec/adwaita-lite-flatpak-setup
 ```
 
 Expected: all `tests/test_flatpak_setup_contract.py` tests pass and `bash -n` exits with no output.
@@ -159,8 +159,8 @@ Expected: all `tests/test_flatpak_setup_contract.py` tests pass and `bash -n` ex
 Run:
 
 ```bash
-git add files/usr/libexec/universal-lite-flatpak-setup \
-        files/usr/lib/systemd/system/universal-lite-flatpak-install.service
+git add files/usr/libexec/adwaita-lite-flatpak-setup \
+        files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service
 git commit -m "fix(flatpak): honor first-boot setup skip marker"
 ```
 
@@ -183,14 +183,14 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-GREETER = ROOT / "files/usr/bin/universal-lite-greeter"
-SKIP_MARKER = "/var/lib/universal-lite/flatpak-setup.skip"
+GREETER = ROOT / "files/usr/bin/adwaita-lite-greeter"
+SKIP_MARKER = "/var/lib/adwaita-lite/flatpak-setup.skip"
 
 
 def _load_greeter_module():
-    loader = importlib.machinery.SourceFileLoader("universal_lite_greeter", str(GREETER))
+    loader = importlib.machinery.SourceFileLoader("adwaita_lite_greeter", str(GREETER))
     spec = importlib.util.spec_from_loader(
-        "universal_lite_greeter", loader, origin=str(GREETER)
+        "adwaita_lite_greeter", loader, origin=str(GREETER)
     )
     module = importlib.util.module_from_spec(spec)
     module.__file__ = str(GREETER)
@@ -269,7 +269,7 @@ def test_greeter_skip_confirmation_copy_mentions_flatpak_not_bazaar():
 
 def test_apply_flatpak_skip_writes_marker_and_reveals_login(tmp_path, monkeypatch):
     module = _load_greeter_module()
-    marker = tmp_path / "var/lib/universal-lite/flatpak-setup.skip"
+    marker = tmp_path / "var/lib/adwaita-lite/flatpak-setup.skip"
     window = module.GreeterWindow.__new__(module.GreeterWindow)
     window._setup_spinner = _FakeSpinner()
     window._stack = _FakeStack()
@@ -329,21 +329,21 @@ git commit -m "test(greeter): define Flatpak setup skip behavior"
 ### Task 4: Greeter Skip UI and State Handling
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-greeter:41-53`
-- Modify: `files/usr/bin/universal-lite-greeter:608-614`
-- Modify: `files/usr/bin/universal-lite-greeter:654-688`
+- Modify: `files/usr/bin/adwaita-lite-greeter:41-53`
+- Modify: `files/usr/bin/adwaita-lite-greeter:608-614`
+- Modify: `files/usr/bin/adwaita-lite-greeter:654-688`
 - Test: `tests/test_flatpak_greeter_skip.py`
 
 - [ ] **Step 1: Add the skip path constant**
 
-In `files/usr/bin/universal-lite-greeter`, update the Flatpak state constants to:
+In `files/usr/bin/adwaita-lite-greeter`, update the Flatpak state constants to:
 
 ```python
-SETUP_DONE_PATH = Path("/var/lib/universal-lite/setup-done")
-FLATPAK_DONE_PATH = Path("/var/lib/universal-lite/flatpak-setup.done")
-FLATPAK_SKIP_PATH = Path("/var/lib/universal-lite/flatpak-setup.skip")
-FLATPAK_PROGRESS_PATH = Path("/run/universal-lite/flatpak-progress")
-FLATPAK_LOGIN_READY_PATH = Path("/run/universal-lite/flatpak-login-ready")
+SETUP_DONE_PATH = Path("/var/lib/adwaita-lite/setup-done")
+FLATPAK_DONE_PATH = Path("/var/lib/adwaita-lite/flatpak-setup.done")
+FLATPAK_SKIP_PATH = Path("/var/lib/adwaita-lite/flatpak-setup.skip")
+FLATPAK_PROGRESS_PATH = Path("/run/adwaita-lite/flatpak-progress")
+FLATPAK_LOGIN_READY_PATH = Path("/run/adwaita-lite/flatpak-login-ready")
 ```
 
 - [ ] **Step 2: Add the skip button to the setup overlay**
@@ -440,7 +440,7 @@ Run:
 
 ```bash
 pytest -q tests/test_flatpak_greeter_skip.py
-python -m py_compile files/usr/bin/universal-lite-greeter
+python -m py_compile files/usr/bin/adwaita-lite-greeter
 ```
 
 Expected: all greeter skip tests pass and `py_compile` exits with no output.
@@ -450,7 +450,7 @@ Expected: all greeter skip tests pass and `py_compile` exits with no output.
 Run:
 
 ```bash
-git add files/usr/bin/universal-lite-greeter tests/test_flatpak_greeter_skip.py
+git add files/usr/bin/adwaita-lite-greeter tests/test_flatpak_greeter_skip.py
 git commit -m "feat(greeter): allow skipping first-boot app setup"
 ```
 
@@ -461,9 +461,9 @@ git commit -m "feat(greeter): allow skipping first-boot app setup"
 **Files:**
 - Test: `tests/test_flatpak_setup_contract.py`
 - Test: `tests/test_flatpak_greeter_skip.py`
-- Verify: `files/usr/libexec/universal-lite-flatpak-setup`
-- Verify: `files/usr/bin/universal-lite-greeter`
-- Verify: `files/usr/lib/systemd/system/universal-lite-flatpak-install.service`
+- Verify: `files/usr/libexec/adwaita-lite-flatpak-setup`
+- Verify: `files/usr/bin/adwaita-lite-greeter`
+- Verify: `files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service`
 
 - [ ] **Step 1: Run Flatpak and greeter skip tests**
 
@@ -480,8 +480,8 @@ Expected: all tests pass.
 Run:
 
 ```bash
-bash -n files/usr/libexec/universal-lite-flatpak-setup
-python -m py_compile files/usr/bin/universal-lite-greeter
+bash -n files/usr/libexec/adwaita-lite-flatpak-setup
+python -m py_compile files/usr/bin/adwaita-lite-greeter
 ```
 
 Expected: both commands exit with no output.
@@ -491,10 +491,10 @@ Expected: both commands exit with no output.
 Run:
 
 ```bash
-systemd-analyze verify files/usr/lib/systemd/system/universal-lite-flatpak-install.service
+systemd-analyze verify files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service
 ```
 
-Expected: exit code 0. If it reports `/usr/libexec/universal-lite-flatpak-setup` missing on the development host, record that limitation and rely on the unit-file contract test plus image-build placement through `build_files/build.sh`.
+Expected: exit code 0. If it reports `/usr/libexec/adwaita-lite-flatpak-setup` missing on the development host, record that limitation and rely on the unit-file contract test plus image-build placement through `build_files/build.sh`.
 
 - [ ] **Step 4: Run related existing tests**
 
@@ -512,9 +512,9 @@ Run:
 
 ```bash
 git status --short
-git diff -- files/usr/bin/universal-lite-greeter \
-          files/usr/libexec/universal-lite-flatpak-setup \
-          files/usr/lib/systemd/system/universal-lite-flatpak-install.service \
+git diff -- files/usr/bin/adwaita-lite-greeter \
+          files/usr/libexec/adwaita-lite-flatpak-setup \
+          files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service \
           tests/test_flatpak_setup_contract.py \
           tests/test_flatpak_greeter_skip.py
 ```
@@ -526,9 +526,9 @@ Expected: only the skip-flow files from this plan are modified. Pre-existing unr
 If Task 5 required no file changes, do not create a commit. If Task 5 required a small fix, commit only the files touched by that fix:
 
 ```bash
-git add files/usr/bin/universal-lite-greeter \
-        files/usr/libexec/universal-lite-flatpak-setup \
-        files/usr/lib/systemd/system/universal-lite-flatpak-install.service \
+git add files/usr/bin/adwaita-lite-greeter \
+        files/usr/libexec/adwaita-lite-flatpak-setup \
+        files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service \
         tests/test_flatpak_setup_contract.py \
         tests/test_flatpak_greeter_skip.py
 git commit -m "fix(flatpak): complete setup skip verification"
@@ -540,4 +540,4 @@ git commit -m "fix(flatpak): complete setup skip verification"
 
 - Spec coverage: Tasks 1-4 cover the service condition, script defensive check, greeter skip marker, non-blocking setup state, confirmation copy, failure behavior, and tests. Task 5 covers final verification.
 - Placeholder scan: no `TBD`, `TODO`, or unspecified implementation steps remain.
-- Type consistency: The plan uses one path constant name, `FLATPAK_SKIP_PATH`, in tests and implementation; the Bash script uses `SKIP_STAMP`; the durable marker path is consistently `/var/lib/universal-lite/flatpak-setup.skip`.
+- Type consistency: The plan uses one path constant name, `FLATPAK_SKIP_PATH`, in tests and implementation; the Bash script uses `SKIP_STAMP`; the durable marker path is consistently `/var/lib/adwaita-lite/flatpak-setup.skip`.

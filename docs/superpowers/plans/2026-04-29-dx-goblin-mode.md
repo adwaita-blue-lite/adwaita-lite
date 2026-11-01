@@ -12,12 +12,12 @@
 
 ## File Structure
 
-- Create: `files/usr/bin/universal-lite-goblin`
+- Create: `files/usr/bin/adwaita-lite-goblin`
   - Executable Python script.
   - Owns procedural generation, turn resolution, rendering, controls, and terminal-size fallback.
   - Exposes pure helpers (`generate_floor`, `reachable_tiles`, `new_game`, `move_player`, `enemy_turn`) so tests can load it without starting curses.
-- Modify: `files/usr/share/ublue-os/just/90-universal-lite.just`
-  - Add a DX-only `goblin` recipe that runs `/usr/bin/universal-lite-goblin`.
+- Modify: `files/usr/share/ublue-os/just/90-adwaita-lite.just`
+  - Add a DX-only `goblin` recipe that runs `/usr/bin/adwaita-lite-goblin`.
 - Modify: `tests/test_dx_payload.py`
   - Assert the DX payload includes the goblin script and `ujust goblin` recipe.
 - Create: `tests/test_goblin_mode.py`
@@ -34,18 +34,18 @@ Add this test near the existing DX file/recipe tests:
 
 ```python
 def test_dx_includes_goblin_mode_easter_egg():
-    justfile = _read("files/usr/share/ublue-os/just/90-universal-lite.just")
+    justfile = _read("files/usr/share/ublue-os/just/90-adwaita-lite.just")
 
-    assert (ROOT / "files/usr/bin/universal-lite-goblin").exists()
+    assert (ROOT / "files/usr/bin/adwaita-lite-goblin").exists()
     assert "goblin:" in justfile
-    assert "/usr/bin/universal-lite-goblin" in justfile
+    assert "/usr/bin/adwaita-lite-goblin" in justfile
 ```
 
 - [ ] **Step 2: Run the test and verify it fails**
 
 Run: `pytest tests/test_dx_payload.py::test_dx_includes_goblin_mode_easter_egg -v`
 
-Expected: FAIL because `files/usr/bin/universal-lite-goblin` does not exist yet.
+Expected: FAIL because `files/usr/bin/adwaita-lite-goblin` does not exist yet.
 
 ## Task 2: Add Pure Generator Tests
 
@@ -62,11 +62,11 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "files/usr/bin/universal-lite-goblin"
+SCRIPT = ROOT / "files/usr/bin/adwaita-lite-goblin"
 
 
 def _load_goblin():
-    spec = importlib.util.spec_from_file_location("universal_lite_goblin", SCRIPT)
+    spec = importlib.util.spec_from_file_location("adwaita_lite_goblin", SCRIPT)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
     spec.loader.exec_module(module)
@@ -127,16 +127,16 @@ def test_bump_combat_defeats_enemy_and_preserves_player_position():
 
 Run: `pytest tests/test_goblin_mode.py -v`
 
-Expected: FAIL because `files/usr/bin/universal-lite-goblin` does not exist yet.
+Expected: FAIL because `files/usr/bin/adwaita-lite-goblin` does not exist yet.
 
 ## Task 3: Implement Generator and Game State Helpers
 
 **Files:**
-- Create: `files/usr/bin/universal-lite-goblin`
+- Create: `files/usr/bin/adwaita-lite-goblin`
 
 - [ ] **Step 1: Add the executable Python script**
 
-Create `files/usr/bin/universal-lite-goblin` with a shebang and these public helpers/classes:
+Create `files/usr/bin/adwaita-lite-goblin` with a shebang and these public helpers/classes:
 
 ```python
 #!/usr/bin/env python3
@@ -266,7 +266,7 @@ Implement `generate_floor`, `new_game`, `move_player`, and `enemy_turn` in the s
 
 - [ ] **Step 2: Make the script executable**
 
-Run: `chmod +x files/usr/bin/universal-lite-goblin`
+Run: `chmod +x files/usr/bin/adwaita-lite-goblin`
 
 Expected: command exits 0.
 
@@ -279,7 +279,7 @@ Expected: PASS.
 ## Task 4: Add Curses UI Loop
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-goblin`
+- Modify: `files/usr/bin/adwaita-lite-goblin`
 
 - [ ] **Step 1: Add rendering and controls**
 
@@ -304,7 +304,7 @@ MOVE_KEYS = {
 
 - [ ] **Step 2: Run syntax and import checks**
 
-Run: `python3 -m py_compile files/usr/bin/universal-lite-goblin`
+Run: `python3 -m py_compile files/usr/bin/adwaita-lite-goblin`
 
 Expected: PASS with no output.
 
@@ -315,7 +315,7 @@ Expected: PASS.
 ## Task 5: Wire Into DX ujust Recipes
 
 **Files:**
-- Modify: `files/usr/share/ublue-os/just/90-universal-lite.just`
+- Modify: `files/usr/share/ublue-os/just/90-adwaita-lite.just`
 
 - [ ] **Step 1: Add the `goblin` recipe**
 
@@ -324,7 +324,7 @@ Append this recipe after `dx-group`:
 ```just
 # Launch the DX-only Goblin Mode easter egg.
 goblin:
-    /usr/bin/universal-lite-goblin
+    /usr/bin/adwaita-lite-goblin
 ```
 
 - [ ] **Step 2: Run contract tests**
@@ -333,7 +333,7 @@ Run: `pytest tests/test_dx_payload.py::test_dx_includes_goblin_mode_easter_egg -
 
 Expected: PASS.
 
-Run: `just --unstable --fmt --check -f files/usr/share/ublue-os/just/90-universal-lite.just`
+Run: `just --unstable --fmt --check -f files/usr/share/ublue-os/just/90-adwaita-lite.just`
 
 Expected: PASS.
 
@@ -356,7 +356,7 @@ Expected: PASS.
 
 - [ ] **Step 3: Run static checks**
 
-Run: `python3 -m py_compile files/usr/bin/universal-lite-goblin`
+Run: `python3 -m py_compile files/usr/bin/adwaita-lite-goblin`
 
 Expected: PASS.
 

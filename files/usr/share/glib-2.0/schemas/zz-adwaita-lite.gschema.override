@@ -1,0 +1,15 @@
+# Adwaita-Lite gsettings overrides.
+#
+# button-layout controls the window-control buttons drawn by any app
+# that reads org.gnome.desktop.wm.preferences directly (Chrome/Chromium,
+# Firefox, Electron apps, GTK apps falling back when gtk-decoration-
+# layout is absent from settings.ini, and Flatpak apps via
+# xdg-desktop-portal's Settings namespace). Fedora's default is
+# 'appmenu:close', which leaves only a close button - wrong for this
+# distro's ChromeOS-like UX.
+#
+# Per-app settings.ini still wins for GTK apps via normal precedence;
+# this override is the baseline for everything else.
+
+[org.gnome.desktop.wm.preferences]
+button-layout=':minimize,maximize,close'

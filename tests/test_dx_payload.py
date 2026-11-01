@@ -92,6 +92,14 @@ def test_dx_installs_bluefin_dx_package_contract():
         assert package in dx_script
 
 
+def test_dx_docker_repo_setup_is_idempotent_for_quay_rebuilds():
+    dx_script = _read("build_files/dx/00-dx.sh")
+
+    assert "if [[ ! -f /etc/yum.repos.d/docker-ce.repo ]]; then" in dx_script
+    assert "dnf5 config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo" in dx_script
+    assert "File \"/etc/yum.repos.d/docker-ce.repo\" already exists" not in dx_script
+
+
 def test_dx_enables_bluefin_dx_services():
     dx_script = _read("build_files/dx/00-dx.sh")
 
@@ -101,7 +109,7 @@ def test_dx_enables_bluefin_dx_services():
         "swtpm-workaround.service",
         "libvirt-workaround.service",
         "incus-workaround.service",
-        "universal-lite-dx-groups.service",
+        "adwaita-lite-dx-groups.service",
     ):
         assert f"systemctl enable {unit}" in dx_script
 
@@ -128,9 +136,9 @@ def test_dx_image_build_validates_key_packages_and_services():
 
 def test_dx_files_include_user_setup_and_workarounds():
     expected_files = (
-        "files/usr/bin/universal-lite-goblin",
-        "files/usr/bin/universal-lite-dx-groups",
-        "files/usr/lib/systemd/system/universal-lite-dx-groups.service",
+        "files/usr/bin/adwaita-lite-goblin",
+        "files/usr/bin/adwaita-lite-dx-groups",
+        "files/usr/lib/systemd/system/adwaita-lite-dx-groups.service",
         "files/usr/lib/systemd/system/libvirt-workaround.service",
         "files/usr/lib/systemd/system/swtpm-workaround.service",
         "files/usr/lib/systemd/system/incus-workaround.service",
@@ -147,7 +155,7 @@ def test_dx_files_include_user_setup_and_workarounds():
 
 
 def test_dx_exposes_universal_blue_style_devmode_recipes():
-    justfile = _read("files/usr/share/ublue-os/just/90-universal-lite.just")
+    justfile = _read("files/usr/share/ublue-os/just/90-adwaita-lite.just")
 
     assert "devmode:" in justfile
     assert "toggle-devmode:" in justfile
@@ -169,20 +177,21 @@ def test_dx_regenerates_current_ublue_ujust_entrypoint():
 
 
 def test_dx_includes_goblin_mode_easter_egg():
-    justfile = _read("files/usr/share/ublue-os/just/90-universal-lite.just")
+    justfile = _read("files/usr/share/ublue-os/just/90-adwaita-lite.just")
 
-    assert (ROOT / "files/usr/bin/universal-lite-goblin").exists()
+    assert (ROOT / "files/usr/bin/adwaita-lite-goblin").exists()
     assert "goblin:" in justfile
-    assert "/usr/bin/universal-lite-goblin" in justfile
+    assert "/usr/bin/adwaita-lite-goblin" in justfile
 
 
-def test_dx_devmode_uses_universal_lite_stream_tags_not_upstream_image_suffix():
-    justfile = _read("files/usr/share/ublue-os/just/90-universal-lite.just")
+def test_dx_devmode_uses_adwaita_lite_stream_tags_not_upstream_image_suffix():
+    justfile = _read("files/usr/share/ublue-os/just/90-adwaita-lite.just")
 
-    assert "quay.io/noitatsidem/universal-lite:dx" in justfile
-    assert "quay.io/noitatsidem/universal-lite:latest" in justfile
-    assert "ghcr.io/universal-lite/universal-lite" not in justfile
-    assert "ostree-image-signed:docker://" in justfile
+    assert "ghcr.io/adwaita-blue-lite/adwaita-lite:dx" in justfile
+    assert "ghcr.io/adwaita-blue-lite/adwaita-lite:latest" in justfile
+    assert "quay.io/" not in justfile
+    assert "pkexec bootc switch --enforce-container-sigpolicy" in justfile
+    assert "ostree-image-signed:docker://" not in justfile
     assert "rpm-ostree rebase" not in justfile
     assert 'sed "s/$IMAGE_BASE_NAME/$IMAGE_BASE_NAME-dx/"' not in justfile
     assert 'sed "s/\\-dx//"' not in justfile

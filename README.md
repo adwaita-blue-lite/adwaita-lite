@@ -1,4 +1,4 @@
-# Universal-Lite
+# Adwaita-Lite
 
 A lightweight, auto-updating Linux desktop for old x86_64 Chromebooks and
 old or low-end computers. Built on [Universal Blue](https://universal-blue.org/) —
@@ -37,7 +37,7 @@ Flathub via Bazaar.
 > device-specific instructions. x86_64 only — ARM Chromebooks are not
 > supported.
 
-> **Storage note:** Universal-Lite needs **32 GB minimum** target storage.
+> **Storage note:** Adwaita-Lite needs **32 GB minimum** target storage.
 > Many old Chromebooks shipped with 16 GB eMMC, and by now that storage is
 > often worn out. For those machines, use a high-endurance, application-rated
 > SD card instead of the internal eMMC; look for A2/U3/V30-class media from a
@@ -61,7 +61,7 @@ You need:
 **Step 1 — Download the image.** Open
 [GitHub Actions → Build disk images](../../actions/workflows/build-disk.yml),
 click the most recent successful run, and download the
-**universal-lite-raw** artifact from the Artifacts section at the
+**adwaita-lite-raw** artifact from the Artifacts section at the
 bottom of the page. Unzip it — you'll get a `disk.raw` file a few GB
 in size.
 
@@ -88,7 +88,7 @@ until requested app installation completes.
 ### ISO installer (Anaconda)
 
 For machines with 4+ GB of RAM or anything where the raw USB path is
-inconvenient, grab the **universal-lite-anaconda-iso** artifact from
+inconvenient, grab the **adwaita-lite-anaconda-iso** artifact from
 the most recent successful run of
 [Build disk images](../../actions/workflows/build-disk.yml), unzip it,
 and flash the `.iso` file inside to a USB drive the same way as the
@@ -96,7 +96,7 @@ raw image.
 
 Anaconda handles partitioning, user creation, and timezone setup on
 boot. A kickstart `%post` rebases the installed system to the published
-Universal-Lite image, seeds `/var/lib/universal-lite/install-config.json`
+Adwaita-Lite image, seeds `/var/lib/adwaita-lite/install-config.json`
 with sensible defaults (zram memory strategy, anaconda-created UID 1000
 as the primary user), and triggers the same first-boot flow the USB
 path uses.
@@ -114,7 +114,7 @@ reflashing.
 **On Fedora 42+ / Universal Blue (bootc):**
 
 ```bash
-sudo bootc switch quay.io/noitatsidem/universal-lite:latest
+sudo bootc switch ghcr.io/adwaita-blue-lite/adwaita-lite:latest
 sudo systemctl reboot
 ```
 
@@ -122,43 +122,43 @@ sudo systemctl reboot
 
 ```bash
 # Unsigned rebase (works everywhere)
-rpm-ostree rebase ostree-unverified-registry:quay.io/noitatsidem/universal-lite:latest
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/adwaita-blue-lite/adwaita-lite:latest
 systemctl reboot
 
 # Then, for signature verification on subsequent updates:
-rpm-ostree rebase ostree-image-signed:docker://quay.io/noitatsidem/universal-lite:latest
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/adwaita-blue-lite/adwaita-lite:latest
 systemctl reboot
 ```
 
 ### After install
 
 The system manages itself. Daily image builds publish to
-`quay.io/noitatsidem/universal-lite:latest` and the unified updater
+`ghcr.io/adwaita-blue-lite/adwaita-lite:latest` and the unified updater
 (`uupd`) pulls them on a timer, handling both the bootc image and
 Flatpak apps. If an update ever causes a problem, the previous image is
 always available in the boot menu — select it to roll back.
 
-Universal-Lite's published update image is hosted on Quay. Older test
+Adwaita-Lite's published update image is hosted on Quay. Older test
 installs that still track GHCR can move to the current update stream with
 one manual rebase:
 
 ```bash
-sudo rpm-ostree rebase ostree-unverified-registry:quay.io/noitatsidem/universal-lite:latest
+sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/adwaita-blue-lite/adwaita-lite:latest
 sudo systemctl reboot
 ```
 
 ## Image streams
 
-Universal-Lite publishes one container image with multiple stream tags:
+Adwaita-Lite publishes one container image with multiple stream tags:
 
 | Stream | Branch | Base | Purpose |
 |--------|--------|------|---------|
-| `latest` | `main` | `ghcr.io/ublue-os/base-main:latest` | Stable, low-resource consumer image |
-| `dx` | `dx` | `ghcr.io/ublue-os/base-main:latest` | Stable developer-mode image with Homebrew, Distrobox, Docker, Podman, libvirt/QEMU, Incus, Cockpit, VS Code, and DX group/workaround services |
-| `testing` | `testing` | `ghcr.io/ublue-os/base-main:latest` | WIP stream; currently inherits `dx` and is where DX-adjacent experiments can bake |
-| `beta` | `beta` | `ghcr.io/ublue-os/base-main:beta` | Fedora-next compatibility canary based on `main`; intentionally does not inherit DX payload |
+| `latest` | `main` | Daily refresh from `ghcr.io/ublue-os/base-main:latest`; routine main builds from Quay `latest` | Stable, low-resource consumer image |
+| `dx` | `dx` | Quay `latest` | Stable developer-mode image with Homebrew, Distrobox, Docker, Podman, libvirt/QEMU, Incus, Cockpit, VS Code, and DX group/workaround services |
+| `testing` | `testing` | Quay `dx` | WIP stream; currently inherits `dx` and is where DX-adjacent experiments can bake |
+| `beta` | `beta` | Daily refresh from `ghcr.io/ublue-os/base-main:beta`; routine beta builds from Quay `beta` | Fedora-next compatibility canary based on `main`; intentionally does not inherit DX payload |
 
-Published tags use `quay.io/noitatsidem/universal-lite:<stream>`. Stream
+Published tags use `ghcr.io/adwaita-blue-lite/adwaita-lite:<stream>`. Stream
 builds also publish date tags like `dx.YYYYMMDD`, `testing.YYYYMMDD`, and
 `beta.YYYYMMDD`; `latest` additionally publishes bare `YYYYMMDD` tags.
 
@@ -170,7 +170,7 @@ image:
 
 Install `latest` first, then enable DX with `ujust devmode`. Direct DX
 installer artifacts are not the supported path; they may exist from branch
-builds, but Universal-Lite follows upstream by treating DX as a post-install
+builds, but Adwaita-Lite follows upstream by treating DX as a post-install
 transition.
 
 ```bash
@@ -188,21 +188,21 @@ is provided by the DX image; if it does not exist yet, reboot into the pending
 DX deployment first.
 
 `ujust devmode` intentionally maps `latest` <-> `dx` directly because
-Universal-Lite publishes DX as a stream tag, not as a separate `-dx` image
+Adwaita-Lite publishes DX as a stream tag, not as a separate `-dx` image
 name. If you are on `testing`, `beta`, or a date-pinned tag, switch manually:
 
 ```bash
 # Stable consumer image
-pkexec bootc switch --enforce-container-sigpolicy quay.io/noitatsidem/universal-lite:latest
+pkexec bootc switch --enforce-container-sigpolicy ghcr.io/adwaita-blue-lite/adwaita-lite:latest
 
 # Stable developer image
-pkexec bootc switch --enforce-container-sigpolicy quay.io/noitatsidem/universal-lite:dx
+pkexec bootc switch --enforce-container-sigpolicy ghcr.io/adwaita-blue-lite/adwaita-lite:dx
 
 # WIP developer/testing image
-pkexec bootc switch --enforce-container-sigpolicy quay.io/noitatsidem/universal-lite:testing
+pkexec bootc switch --enforce-container-sigpolicy ghcr.io/adwaita-blue-lite/adwaita-lite:testing
 
 # Fedora-next compatibility canary
-pkexec bootc switch --enforce-container-sigpolicy quay.io/noitatsidem/universal-lite:beta
+pkexec bootc switch --enforce-container-sigpolicy ghcr.io/adwaita-blue-lite/adwaita-lite:beta
 
 sudo systemctl reboot
 ```
@@ -269,7 +269,7 @@ changes take effect on the next reboot.
 | Base image | `ghcr.io/ublue-os/base-main:latest` | Lightest Universal Blue base — no bundled DE |
 | Compositor | `labwc` | wlroots-based, minimal memory footprint |
 | Panel | `waybar` | Chromebook-style shelf (bottom by default) |
-| App menu | `universal-lite-app-menu` (in-process GTK4) | Token-aware search, categorized launcher, triggered by Super+Space or the panel launcher |
+| App menu | `adwaita-lite-app-menu` (in-process GTK4) | Token-aware search, categorized launcher, triggered by Super+Space or the panel launcher |
 | Browser | Google Chrome (Flatpak, first boot) | Chrome to replace ChromeOS effectively; other browsers can be installed from Flathub |
 | File manager | `Thunar` | Lightweight, thumbnail support |
 | Terminal | `foot` | GPU-accelerated, minimal (~8-15 MiB resident) |
@@ -281,7 +281,7 @@ changes take effect on the next reboot.
 | Bluetooth | `bluez` | Pair devices via Settings app or system tray |
 | Printing | `CUPS` | Local and network printers |
 | App store | `Bazaar` (Flatpak, first-boot) | Browse and install apps from Flathub |
-| Settings | `universal-lite-settings` | Full libadwaita settings app — 15 pages, responsive layout, 22 locale codes |
+| Settings | `adwaita-lite-settings` | Full libadwaita settings app — 15 pages, responsive layout, 22 locale codes |
 | Night light | `gammastep` + per-user systemd timer | Reconciles every 15 min during a configured schedule |
 | Multimedia | RPM Fusion + GStreamer + JPEG-XL/WebP loaders | Codec + image-format support out of the box |
 
@@ -340,7 +340,7 @@ Settings app's Default Apps page.
 
 ### Settings app
 
-`Super+,` or the panel tray opens `universal-lite-settings`, a full
+`Super+,` or the panel tray opens `adwaita-lite-settings`, a full
 libadwaita settings app with an adaptive sidebar+content layout (sidebar
 collapses to push-navigation below 700sp for narrow windows or Large Text
 accessibility scaling).
@@ -431,12 +431,12 @@ python -m pytest tests
 
 Pull requests, non-README pushes to `main`, `dx`, `testing`, and `beta`,
 plus the daily schedule build the OCI image. Stream branches publish
-`quay.io/noitatsidem/universal-lite` tags and sign images with
+`ghcr.io/adwaita-blue-lite/adwaita-lite` tags and sign images with
 [cosign](https://github.com/sigstore/cosign): `main` publishes `latest`,
 `dx` publishes `dx`, `testing` publishes `testing`, and `beta` publishes
 `beta`. Pull requests validate builds but do not publish or sign images.
 
-The Quay repository is the primary public update source for Universal-Lite.
+The Quay repository is the primary public update source for Adwaita-Lite.
 
 To set up signing on a fresh fork:
 
@@ -487,53 +487,53 @@ files/
       zram-generator.conf                  # Default 125%-of-RAM zram config
   usr/
     bin/
-      universal-lite-app-menu              # In-process GTK4 start menu
-      universal-lite-greeter               # Custom GTK4 login greeter
-      universal-lite-settings              # Settings app entry point
-      universal-lite-setup-wizard          # Installer wizard (GTK4)
+      adwaita-lite-app-menu              # In-process GTK4 start menu
+      adwaita-lite-greeter               # Custom GTK4 login greeter
+      adwaita-lite-settings              # Settings app entry point
+      adwaita-lite-setup-wizard          # Installer wizard (GTK4)
       ul-debug-nm                          # NetworkManager diagnostic snapshot
     lib/
-      bootc/install/00-universal-lite.toml # bootc install config
+      bootc/install/00-adwaita-lite.toml # bootc install config
       systemd/
         system/                            # Canonical location for our systemd units
-          universal-lite-first-boot.service
-          universal-lite-flatpak-install.service
-          universal-lite-flatpak-update.service
-          universal-lite-swap-init.service
-          universal-lite-encrypted-swap.service
-          universal-lite-zswap.service
+          adwaita-lite-first-boot.service
+          adwaita-lite-flatpak-install.service
+          adwaita-lite-flatpak-update.service
+          adwaita-lite-swap-init.service
+          adwaita-lite-encrypted-swap.service
+          adwaita-lite-zswap.service
           greetd.service.d/                # Drop-ins on the greetd unit
         user/                              # Per-user systemd units
-          universal-lite-nightlight.{service,timer}
-      universal-lite/settings/             # Settings app Python package
+          adwaita-lite-nightlight.{service,timer}
+      adwaita-lite/settings/             # Settings app Python package
         pages/                             # 15 settings pages (all libadwaita)
         app.py, window.py, base.py         # App shell, sidebar, base page
         settings_store.py, events.py       # Persistent store + event bus
     libexec/
-      universal-lite-apply-settings        # Reconciles settings → compositor/panel/etc.
-      universal-lite-encrypted-swap        # dm-crypt swap setup
-      universal-lite-first-boot            # Post-install reconciliation
-      universal-lite-flatpak-setup         # Flatpak app installer
-      universal-lite-greeter-launch        # Cage kiosk wrapper for greeter
-      universal-lite-greeter-setup         # Detects users, sets greetd initial session
-      universal-lite-lid-action            # Lid close action helper
-      universal-lite-menu                  # labwc pipemenu generator
-      universal-lite-nightlight            # Reconcile gammastep with night-light state
-      universal-lite-session               # Wayland session startup
-      universal-lite-set-memory-strategy   # zram ↔ zswap toggle helper (called by ujust)
-      universal-lite-swap-init             # Creates /var/swap at configured size
-      universal-lite-volume, -brightness   # Media-key helpers
-      universal-lite-wizard-session        # Wizard-mode labwc session
+      adwaita-lite-apply-settings        # Reconciles settings → compositor/panel/etc.
+      adwaita-lite-encrypted-swap        # dm-crypt swap setup
+      adwaita-lite-first-boot            # Post-install reconciliation
+      adwaita-lite-flatpak-setup         # Flatpak app installer
+      adwaita-lite-greeter-launch        # Cage kiosk wrapper for greeter
+      adwaita-lite-greeter-setup         # Detects users, sets greetd initial session
+      adwaita-lite-lid-action            # Lid close action helper
+      adwaita-lite-menu                  # labwc pipemenu generator
+      adwaita-lite-nightlight            # Reconcile gammastep with night-light state
+      adwaita-lite-session               # Wayland session startup
+      adwaita-lite-set-memory-strategy   # zram ↔ zswap toggle helper (called by ujust)
+      adwaita-lite-swap-init             # Creates /var/swap at configured size
+      adwaita-lite-volume, -brightness   # Media-key helpers
+      adwaita-lite-wizard-session        # Wizard-mode labwc session
     share/
       applications/                        # .desktop files
-      backgrounds/universal-lite/          # Bundled wallpapers
+      backgrounds/adwaita-lite/          # Bundled wallpapers
       glib-2.0/schemas/
-        zz-universal-lite.gschema.override # Window button layout (min/max/close)
+        zz-adwaita-lite.gschema.override # Window button layout (min/max/close)
       locale/<lang>/LC_MESSAGES/           # Compiled .mo files per language
       polkit-1/actions/                    # Polkit policy for lid action
-      themes/Universal-Lite/               # labwc theme (openbox-3 compat)
-      ublue-os/just/90-universal-lite.just # ujust recipes (swap toggle, etc.)
-      universal-lite/
+      themes/Adwaita-Lite/               # labwc theme (openbox-3 compat)
+      ublue-os/just/90-adwaita-lite.just # ujust recipes (swap toggle, etc.)
+      adwaita-lite/
         defaults/                          # Default settings (JSON)
         palette.json                       # Single source of truth for theme colors
 .github/workflows/

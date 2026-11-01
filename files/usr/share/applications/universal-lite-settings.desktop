@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Universal-Lite Settings
-Comment=System settings for Universal-Lite
-Exec=universal-lite-settings
-Terminal=false
-Type=Application
-Icon=preferences-desktop
-Categories=GTK;Settings;DesktopSettings;

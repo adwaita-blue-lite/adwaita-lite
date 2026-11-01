@@ -4,8 +4,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "files/usr/bin/universal-lite-app-setup"
-HELPER = "/usr/libexec/universal-lite-app-setup-helper"
+SCRIPT = ROOT / "files/usr/bin/adwaita-lite-app-setup"
+HELPER = "/usr/libexec/adwaita-lite-app-setup-helper"
 
 
 def _load_module():

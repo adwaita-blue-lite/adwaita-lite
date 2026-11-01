@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings Component Documentation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --bg: #101319;
+      --panel: #181d25;
+      --panel-2: #222936;
+      --line: #333c4c;
+      --text: #f5f7fb;
+      --muted: #c5ccd8;
+      --soft: #96a0b2;
+      --accent: #99c1f1;
+      --accent-2: #8ff0a4;
+      --warn: #f6d32d;
+      --danger: #ff7b72;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(153, 193, 241, 0.22), transparent 28rem),
+        radial-gradient(circle at 86% 12%, rgba(143, 240, 164, 0.12), transparent 24rem),
+        linear-gradient(135deg, #101319 0%, #171c25 56%, #0f1218 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1220px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 34px 0 64px;
+    }
+
+    a { color: var(--accent); }
+    p { margin: 0; }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 0.92em;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--soft);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 7vw, 5.7rem);
+      line-height: 0.9;
+      letter-spacing: -0.068em;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h3 { margin: 0 0 8px; font-size: 1.04rem; }
+
+    .lede {
+      max-width: 820px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .source-map,
+    section {
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 26px;
+      background: rgba(24, 29, 37, 0.9);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    }
+
+    .source-map {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      align-content: start;
+    }
+
+    .source-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(34, 41, 54, 0.96), rgba(18, 22, 30, 0.96));
+    }
+
+    .source-card b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--warn);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .source-card code {
+      display: inline;
+      overflow-wrap: anywhere;
+      background: transparent;
+      padding: 0;
+    }
+
+    section { margin-top: 24px; padding: 22px; }
+
+    .component-grid,
+    .state-map,
+    .safe-edit,
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .component-card,
+    .state-card,
+    .safe-card,
+    .test-card {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(34, 41, 54, 0.78);
+    }
+
+    .component-card p,
+    .state-card p,
+    .safe-card p,
+    .test-card p { color: var(--muted); font-size: 0.93rem; }
+
+    .component-card.wide,
+    .state-card.wide,
+    .safe-card.wide { grid-column: span 2; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      border: 1px solid rgba(153, 193, 241, 0.3);
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: #e5f1ff;
+      background: rgba(153, 193, 241, 0.09);
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    th, td {
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #202838;
+      color: var(--soft);
+      font-size: 0.74rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { width: 18%; font-weight: 800; }
+
+    .density-note {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-left: 5px solid var(--accent);
+      border-radius: 16px;
+      background: rgba(153, 193, 241, 0.1);
+      color: var(--muted);
+    }
+
+    .arch-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .arch-card {
+      min-height: 150px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(34, 41, 54, 0.84), rgba(18, 22, 30, 0.84));
+    }
+
+    .arch-card b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent-2);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .arch-card p { color: var(--muted); font-size: 0.94rem; }
+
+    @media (max-width: 980px) {
+      header { grid-template-columns: 1fr; }
+      .component-grid, .state-map, .safe-edit, .test-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .arch-strip { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      main { width: calc(100% - 24px); padding-top: 24px; }
+      section, .source-map { padding: 16px; border-radius: 20px; }
+      .component-grid, .state-map, .safe-edit, .test-grid { grid-template-columns: 1fr; }
+      .component-card.wide, .state-card.wide, .safe-card.wide { grid-column: auto; }
+      table, thead, tbody, tr, th, td { display: block; }
+      thead { display: none; }
+      tr { border-bottom: 1px solid var(--line); padding: 10px 0; }
+      td { border: 0; padding: 7px 0; }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 2px;
+        color: var(--soft);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      td:first-child { width: auto; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <p class="eyebrow"><a href="index.html">Component docs</a> / Settings</p>
+      <h1>Settings UI Reference</h1>
+      <p class="lede">Dense ownership map for the libadwaita Settings application. Start here before editing navigation, custom picker surfaces, page cleanup, or CSS-backed controls in <code>files/usr/lib/adwaita-lite/settings/</code>.</p>
+    </div>
+    <aside class="source-map" aria-label="Settings source map">
+      <article class="source-card"><b>Package</b><code>files/usr/lib/adwaita-lite/settings/</code></article>
+      <article class="source-card"><b>Window shell</b><code>files/usr/lib/adwaita-lite/settings/window.py</code></article>
+      <article class="source-card"><b>Page protocol</b><code>files/usr/lib/adwaita-lite/settings/base.py</code></article>
+      <article class="source-card"><b>CSS exceptions</b><code>files/usr/lib/adwaita-lite/settings/css/style.css</code></article>
+    </aside>
+  </header>
+
+  <section aria-labelledby="arch-title">
+    <h2 id="arch-title">Architecture</h2>
+    <div class="arch-strip">
+      <article class="arch-card"><b>Window chrome</b><p><code>SettingsWindow</code> owns the <code>Adw.NavigationSplitView</code>, sidebar <code>Gtk.ListBox</code>, content <code>Gtk.Stack</code>, search bar, and <code>Adw.ToastOverlay</code>.</p></article>
+      <article class="arch-card"><b>Lazy pages</b><p><code>_build_pages</code> instantiates page objects cheaply; <code>_ensure_page_built</code> calls <code>build()</code> only on first selection and caches the widget in the stack.</p></article>
+      <article class="arch-card"><b>Responsive nav</b><p>The split view collapses below <code>max-width: 700sp</code>, using native push/pop navigation and the automatic content-header back button.</p></article>
+      <article class="arch-card"><b>Search</b><p><code>_on_search_changed</code> is driven by each page's <code>search_keywords</code> tuples, so search coverage belongs in page classes rather than in sidebar labels.</p></article>
+      <article class="arch-card"><b>Toast path</b><p><code>SettingsStore.set_toast_callback</code> points to <code>_show_toast</code>; close handling calls <code>flush_and_detach</code> so no delayed apply targets a disposed overlay.</p></article>
+      <article class="arch-card"><b>Cleanup</b><p><code>BasePage.setup_cleanup</code> connects <code>unrealize</code> to <code>unsubscribe_all</code>; do not move this back to transient <code>unmap</code> cleanup.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="pages-title">
+    <h2 id="pages-title">Custom Surface Page Map</h2>
+    <p class="density-note">These are the custom-heavy pages to inspect before bespoke UI edits. Stock or low-custom settings pages still live in <code>ALL_PAGES</code>; this doc focuses on surfaces that depart from plain Adw row composition.</p>
+    <div class="component-grid" aria-label="Major settings pages">
+      <article class="component-card"><h3>AppearancePage</h3><p>Theme, accent, font size, wallpaper thumbnails, custom wallpaper add/remove.</p><div class="chips"><span class="chip">appearance.py</span><span class="chip">wallpaper-tile</span><span class="chip">accent-swatch</span></div></article>
+      <article class="component-card"><h3>PanelPage</h3><p>Position, density, twilight, module layout editor, pinned apps, add-pinned-app navigation page.</p><div class="chips"><span class="chip">panel.py</span><span class="chip">Adw.NavigationView</span><span class="chip">layout rows</span></div></article>
+      <article class="component-card"><h3>KeyboardPage</h3><p>Layout/variant, repeat, caps-lock remap, shortcut rows, capture sub-page, reset buttons.</p><div class="chips"><span class="chip">keyboard.py</span><span class="chip">capture page</span><span class="chip">reset dialogs</span></div></article>
+      <article class="component-card"><h3>NetworkPage</h3><p>WiFi toggle, scanned AP rows, active/wired status, password and hidden-network sub-pages.</p><div class="chips"><span class="chip">network.py</span><span class="chip">connect/forget</span><span class="chip">Adw.NavigationView</span></div></article>
+      <article class="component-card"><h3>DisplayPage</h3><p>Scale, resolution/refresh, night light, advanced display launcher, timed revert dialogs.</p><div class="chips"><span class="chip">display.py</span><span class="chip">Adw.AlertDialog</span><span class="chip">wlr-randr</span></div></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="surface-title">
+    <h2 id="surface-title">Custom Surface Matrix</h2>
+    <table aria-label="Custom UI surfaces and ownership">
+      <thead><tr><th>Area</th><th>Surface</th><th>Owning source</th><th>Key behavior</th><th>Tests / scan targets</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Area">Appearance</td><td data-label="Surface"><code>wallpaper-grid</code>, <code>wallpaper-tile</code>, <code>wallpaper-add</code>, <code>wallpaper-remove</code></td><td data-label="Owning source"><code>pages/appearance.py</code> <code>_populate_wallpapers</code>, <code>_make_wallpaper_tile</code>, <code>_make_add_tile</code></td><td data-label="Key behavior">Single-selection toggle semantics, thumbnail fallback, custom remove overlay, file picker validation.</td><td data-label="Tests / scan targets"><code>tests/test_settings_css.py</code>, <code>tests/test_settings_appearance.py</code></td></tr>
+        <tr><td data-label="Area">Appearance</td><td data-label="Surface"><code>accent-swatch-grid</code>, <code>accent-swatch</code></td><td data-label="Owning source"><code>pages/appearance.py</code> <code>_load_accent_names</code>, <code>_accent_display_name</code></td><td data-label="Key behavior">Palette-driven buttons, generated <code>accent-&lt;name&gt;</code> classes, accessible names, recursion guard.</td><td data-label="Tests / scan targets"><code>tests/test_settings_css.py</code>, palette/theme generation tests.</td></tr>
+        <tr><td data-label="Area">Panel</td><td data-label="Surface">module layout editor</td><td data-label="Owning source"><code>pages/panel.py</code> <code>_build_module_layout_groups</code>, <code>_build_module_row</code></td><td data-label="Key behavior">Three section groups change labels by edge; icon-only suffix buttons reorder within or move across sections.</td><td data-label="Tests / scan targets"><code>tests/test_settings_app_logic.py</code>, store layout defaults.</td></tr>
+        <tr><td data-label="Area">Panel</td><td data-label="Surface">pinned apps rows, add-pinned-app navigation page</td><td data-label="Owning source"><code>pages/panel.py</code> <code>_build_pinned_apps_group</code>, <code>_push_add_pinned_page</code></td><td data-label="Key behavior"><code>Adw.ActionRow</code> app rows, remove buttons, searchable <code>Adw.EntryRow</code>, <code>Gio.AppInfo</code> import, nav pop after add.</td><td data-label="Tests / scan targets"><code>tests/test_settings_store.py</code>, manual Gio desktop-entry paths.</td></tr>
+        <tr><td data-label="Area">Keyboard</td><td data-label="Surface">custom shortcut rows, capture sub-page, reset buttons</td><td data-label="Owning source"><code>pages/keyboard.py</code> <code>_build_shortcut_row</code>, <code>_push_capture_page</code>, <code>_reset_shortcut</code></td><td data-label="Key behavior">Shortcut rows are <code>Adw.ActionRow</code>; capture uses pushed <code>Adw.NavigationPage</code>; per-row and reset-all paths use confirmation dialogs.</td><td data-label="Tests / scan targets"><code>tests/test_settings_app_logic.py</code>, <code>tests/test_settings_store.py</code></td></tr>
+        <tr><td data-label="Area">Network</td><td data-label="Surface"><code>Adw.NavigationView</code> sub-pages, hidden network form, connect/forget rows</td><td data-label="Owning source"><code>pages/network.py</code> <code>_build_network_row</code>, <code>_push_password_page</code>, <code>_push_hidden_network</code>, <code>_forget</code></td><td data-label="Key behavior">Rows diff by SSID, preserve focus, validate password/SSID before connect, destructive forget uses <code>Adw.AlertDialog</code>.</td><td data-label="Tests / scan targets"><code>tests/test_event_bus.py</code>, NetworkManager helper tests/manual scan.</td></tr>
+        <tr><td data-label="Area">Display</td><td data-label="Surface"><code>Adw.AlertDialog</code> revert flows for scale and resolution</td><td data-label="Owning source"><code>pages/display.py</code> <code>_show_revert_dialog</code>, <code>_show_res_revert_dialog</code>, <code>_cleanup_dialogs</code></td><td data-label="Key behavior">15-second countdown; Keep persists; Revert restores previous compositor state; unmap treats pending dialog as implicit Keep.</td><td data-label="Tests / scan targets"><code>tests/test_settings_app_logic.py</code>, display parser/revert scenarios.</td></tr>
+      </tbody>
+    </table>
+    <p class="density-note">Use this as the source-map for jumping from a visible custom surface to the owning function and closest tests. The settings app should remain mostly stock libadwaita; custom code is concentrated where visual density or domain-specific interaction needs it.</p>
+  </section>
+
+  <section aria-labelledby="styling-title">
+    <h2 id="styling-title">Styling Boundary</h2>
+    <div class="state-map" aria-label="Settings styling boundaries">
+      <article class="state-card wide"><h3>Stock first</h3><p>Most settings UI should be native <code>Adw.PreferencesPage</code>, <code>Adw.PreferencesGroup</code>, <code>Adw.SwitchRow</code>, <code>Adw.ComboRow</code>, <code>Adw.EntryRow</code>, and <code>Adw.ActionRow</code>. Do not add CSS for standard row spacing, headers, toasts, or dialogs.</p></article>
+      <article class="state-card"><h3>Wallpaper CSS</h3><p><code>files/usr/lib/adwaita-lite/settings/css/style.css</code> owns <code>wallpaper-grid</code>, <code>wallpaper-tile</code>, <code>wallpaper-add</code>, <code>wallpaper-remove</code>, and <code>wallpaper-placeholder</code>.</p></article>
+      <article class="state-card"><h3>Accent CSS</h3><p><code>accent-swatch-grid</code> and <code>accent-swatch</code> provide only the circular picker chrome; per-accent fill classes are generated at app startup from palette data.</p></article>
+      <article class="state-card"><h3>Search focus</h3><p><code>settings-search-entry</code> is a narrow exception for focus ring and selection colors on the global <code>Gtk.SearchEntry</code>.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="safe-title">
+    <h2 id="safe-title">Safe-Edit Notes</h2>
+    <div class="safe-edit" aria-label="Settings safe edit constraints">
+      <article class="safe-card wide"><h3>Read the Adwaita reference</h3><p>Before changing page structure, scan <code>docs/superpowers/specs/2026-04-20-settings-adwaita-reference.md</code> for row patterns, navigation push guidance, and dialog expectations.</p></article>
+      <article class="safe-card"><h3>Event-bus cleanup</h3><p>Pages subscribe through <code>BasePage.subscribe</code>; outer widgets must call <code>BasePage.setup_cleanup</code> so <code>unsubscribe_all</code> runs when destroyed.</p></article>
+      <article class="safe-card"><h3>No unmap regression</h3><p>Do not use <code>unmap</code> for event-bus cleanup. Collapsed split navigation, <code>Adw.NavigationView</code> pushes, and minimize can unmap live pages.</p></article>
+      <article class="safe-card"><h3>Navigation sub-pages</h3><p>For Panel, Keyboard, and Network, attach cleanup to the outer <code>Adw.NavigationView</code>, not the root preferences page that unmaps during pushes.</p></article>
+      <article class="safe-card"><h3>Adw row patterns</h3><p>Prefer <code>Adw.SwitchRow</code>, <code>Adw.ComboRow</code>, <code>Adw.EntryRow</code>, <code>Adw.PasswordEntryRow</code>, and <code>Adw.ActionRow</code> before inventing Gtk box layouts.</p></article>
+      <article class="safe-card"><h3>Dialogs</h3><p>Use <code>Adw.AlertDialog</code> for confirm/revert/destructive flows. Existing Display and Network code show timer, close-response, and destructive response patterns.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="tests-title">
+    <h2 id="tests-title">Tests</h2>
+    <div class="test-grid" aria-label="Settings test links">
+      <article class="test-card"><h3>CSS</h3><p><code>tests/test_settings_css.py</code> verifies custom style selectors and generated CSS expectations.</p></article>
+      <article class="test-card"><h3>App logic</h3><p><code>tests/test_settings_app_logic.py</code> covers app/window behavior and page-level logic that can run headless.</p></article>
+      <article class="test-card"><h3>Appearance</h3><p><code>tests/test_settings_appearance.py</code> covers wallpaper and appearance-specific helpers.</p></article>
+      <article class="test-card"><h3>Store</h3><p><code>tests/test_settings_store.py</code> covers persisted values, defaults, debounced apply, and toast/store edges.</p></article>
+      <article class="test-card"><h3>Events</h3><p><code>tests/test_event_bus.py</code> protects publish/subscribe cleanup behavior that page widgets rely on.</p></article>
+    </div>
+  </section>
+</main>
+</body>
+</html>

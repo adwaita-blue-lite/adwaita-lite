@@ -2,15 +2,15 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FLATPAK_SETUP = ROOT / "files/usr/libexec/universal-lite-flatpak-setup"
-FLATPAK_SKIP_HELPER = ROOT / "files/usr/libexec/universal-lite-flatpak-skip"
+FLATPAK_SETUP = ROOT / "files/usr/libexec/adwaita-lite-flatpak-setup"
+FLATPAK_SKIP_HELPER = ROOT / "files/usr/libexec/adwaita-lite-flatpak-skip"
 FLATPAK_INSTALL_SERVICE = (
-    ROOT / "files/usr/lib/systemd/system/universal-lite-flatpak-install.service"
+    ROOT / "files/usr/lib/systemd/system/adwaita-lite-flatpak-install.service"
 )
-FLATPAK_SKIP_SUDOERS = ROOT / "files/etc/sudoers.d/universal-lite-flatpak-skip"
+FLATPAK_SKIP_SUDOERS = ROOT / "files/etc/sudoers.d/adwaita-lite-flatpak-skip"
 BUILD_SCRIPT = ROOT / "build_files/build.sh"
-SKIP_MARKER = "/var/lib/universal-lite/flatpak-setup.skip"
-SKIP_HELPER = "/usr/libexec/universal-lite-flatpak-skip"
+SKIP_MARKER = "/var/lib/adwaita-lite/flatpak-setup.skip"
+SKIP_HELPER = "/usr/libexec/adwaita-lite-flatpak-skip"
 
 
 def test_initial_install_completion_checks_apps_and_runtimes():
@@ -43,10 +43,10 @@ def test_flatpak_skip_helper_and_sudoers_contract():
 
     assert helper.startswith("#!/bin/bash\n")
     assert "set -euo pipefail" in helper
-    assert "mkdir -p /var/lib/universal-lite" in helper
+    assert "mkdir -p /var/lib/adwaita-lite" in helper
     assert f": > {SKIP_MARKER}" in helper
     assert f"chmod 0644 {SKIP_MARKER}" in helper
-    assert "systemctl stop universal-lite-flatpak-install.service" in helper
+    assert "systemctl stop adwaita-lite-flatpak-install.service" in helper
     assert f"greetd ALL=(root) NOPASSWD: {SKIP_HELPER}" in sudoers
     assert SKIP_HELPER in build
 
@@ -92,12 +92,12 @@ def test_flatpak_setup_recovery_copy_uses_flatpak_only():
     assert "Bazaar or flatpak CLI" not in script
 
 
-APP_SETUP = ROOT / "files/usr/bin/universal-lite-app-setup"
-APP_SETUP_HELPER = ROOT / "files/usr/libexec/universal-lite-app-setup-helper"
-APP_SETUP_SUDOERS = ROOT / "files/etc/sudoers.d/universal-lite-app-setup"
+APP_SETUP = ROOT / "files/usr/bin/adwaita-lite-app-setup"
+APP_SETUP_HELPER = ROOT / "files/usr/libexec/adwaita-lite-app-setup-helper"
+APP_SETUP_SUDOERS = ROOT / "files/etc/sudoers.d/adwaita-lite-app-setup"
 LABWC_AUTOSTART = ROOT / "files/etc/xdg/labwc/autostart"
-APP_SETUP_PATH = "/usr/bin/universal-lite-app-setup"
-APP_SETUP_HELPER_PATH = "/usr/libexec/universal-lite-app-setup-helper"
+APP_SETUP_PATH = "/usr/bin/adwaita-lite-app-setup"
+APP_SETUP_HELPER_PATH = "/usr/libexec/adwaita-lite-app-setup-helper"
 
 
 def build_chmod_0755_block(build):
@@ -120,8 +120,8 @@ def test_prelogin_flatpak_install_is_not_enabled_by_default():
     build = BUILD_SCRIPT.read_text()
 
     assert "WantedBy=graphical.target" not in service
-    assert "systemctl enable universal-lite-flatpak-install.service" not in build
-    assert "systemctl mask universal-lite-flatpak-install.service" in build
+    assert "systemctl enable adwaita-lite-flatpak-install.service" not in build
+    assert "systemctl mask adwaita-lite-flatpak-install.service" in build
 
 
 def test_legacy_flatpak_installer_has_no_greeter_coordination():
@@ -160,18 +160,18 @@ def test_post_login_app_setup_helper_and_sudoers_contract():
     assert "install)" in helper
     assert "skip)" in helper
     assert "status)" in helper
-    assert "/var/lib/universal-lite/flatpak-apps" in helper
-    assert "/var/lib/universal-lite/flatpak-setup.done" in helper
-    assert "/var/lib/universal-lite/flatpak-setup.skip" in helper
+    assert "/var/lib/adwaita-lite/flatpak-apps" in helper
+    assert "/var/lib/adwaita-lite/flatpak-setup.done" in helper
+    assert "/var/lib/adwaita-lite/flatpak-setup.skip" in helper
     assert "if ! ensure_flathub" in helper
     assert 'echo "ERROR flathub"' in helper
     assert "flatpak install --or-update --system --noninteractive" in helper
     assert (
         "%wheel ALL=(root) NOPASSWD: "
-        "/usr/libexec/universal-lite-app-setup-helper install, "
-        "/usr/libexec/universal-lite-app-setup-helper skip, "
-        "/usr/libexec/universal-lite-app-setup-helper status, "
-        "/usr/libexec/universal-lite-app-setup-helper count"
+        "/usr/libexec/adwaita-lite-app-setup-helper install, "
+        "/usr/libexec/adwaita-lite-app-setup-helper skip, "
+        "/usr/libexec/adwaita-lite-app-setup-helper status, "
+        "/usr/libexec/adwaita-lite-app-setup-helper count"
     ) in sudoers
-    assert "ALL ALL=(root) NOPASSWD: /usr/libexec/universal-lite-app-setup-helper" not in sudoers
-    assert "/usr/libexec/universal-lite-app-setup-helper\n" not in sudoers
+    assert "ALL ALL=(root) NOPASSWD: /usr/libexec/adwaita-lite-app-setup-helper" not in sudoers
+    assert "/usr/libexec/adwaita-lite-app-setup-helper\n" not in sudoers

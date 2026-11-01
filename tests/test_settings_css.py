@@ -3,11 +3,11 @@ from pathlib import Path
 
 CSS_PATH = (
     Path(__file__).resolve().parents[1]
-    / "files/usr/lib/universal-lite/settings/css/style.css"
+    / "files/usr/lib/adwaita-lite/settings/css/style.css"
 )
 WINDOW_PATH = (
     Path(__file__).resolve().parents[1]
-    / "files/usr/lib/universal-lite/settings/window.py"
+    / "files/usr/lib/adwaita-lite/settings/window.py"
 )
 
 

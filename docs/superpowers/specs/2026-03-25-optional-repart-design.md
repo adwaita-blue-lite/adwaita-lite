@@ -26,7 +26,7 @@ When the user clicks "Set Up", `_step_configure_system` conditionally runs `syst
 | File | Change |
 |------|--------|
 | `build_files/build.sh` | Remove `systemctl enable systemd-repart.service` |
-| `files/usr/bin/universal-lite-setup-wizard` | Add checkbox to System page, capture value in `_on_setup_clicked`, conditionally enable service in `_step_configure_system` |
+| `files/usr/bin/adwaita-lite-setup-wizard` | Add checkbox to System page, capture value in `_on_setup_clicked`, conditionally enable service in `_step_configure_system` |
 
 The repart config files (`files/etc/systemd/repart.d/`) are unchanged -- they are inert without the service enabled.
 

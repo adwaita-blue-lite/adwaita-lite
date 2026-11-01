@@ -16,12 +16,12 @@
 |------|--------|---------|
 | `po/language-names.json` | Create | 23×23 language name matrix (native + translated names) |
 | `po/generate-language-names.py` | Create | Script to build language-names.json from CLDR JSON data |
-| `files/usr/bin/universal-lite-setup-wizard` | Modify | Add gettext, Language page, retranslation, page shift |
+| `files/usr/bin/adwaita-lite-setup-wizard` | Modify | Add gettext, Language page, retranslation, page shift |
 | `tests/test_language_names.py` | Create | Validate language name data structure |
 | `tests/test_wizard_i18n.py` | Create | Test gettext plumbing and retranslation registry |
-| `po/universal-lite-setup-wizard.pot` | Create | Extracted source template |
+| `po/adwaita-lite-setup-wizard.pot` | Create | Extracted source template |
 | `po/*.po` | Create | One per language (22 files) |
-| `files/usr/share/locale/*/LC_MESSAGES/universal-lite-setup-wizard.mo` | Create | Compiled message catalogs (22 directories) |
+| `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-setup-wizard.mo` | Create | Compiled message catalogs (22 directories) |
 | `po/Makefile` | Create | POT extraction, PO update, MO compilation |
 
 ---
@@ -260,16 +260,16 @@ git commit -m "feat(i18n): add CLDR-sourced 23×23 language name matrix"
 ### Task 2: gettext Plumbing and String Wrapping
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard:1-36` (imports)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:259-283` (constants)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:355-427` (init + shared UI)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:432-833` (all page builders)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:1188-1205` (helpers)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:1243-1268` (navigation)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:1283-1341` (validation)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:1347-1381` (summary)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:1801-1858` (install steps)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:1926-1954` (progress messages)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:1-36` (imports)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:259-283` (constants)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:355-427` (init + shared UI)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:432-833` (all page builders)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:1188-1205` (helpers)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:1243-1268` (navigation)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:1283-1341` (validation)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:1347-1381` (summary)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:1801-1858` (install steps)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:1926-1954` (progress messages)
 - Test: `tests/test_wizard_i18n.py`
 
 This is the largest task. It wraps every user-facing string in `_()`, stores widget references for retranslation, and adds the `_retranslate()` method.
@@ -321,7 +321,7 @@ def test_retranslate_calls_all_setters():
 def test_gettext_fallback_returns_english():
     """When no .mo file exists, gettext returns the original string."""
     t = gettext.translation(
-        "universal-lite-setup-wizard",
+        "adwaita-lite-setup-wizard",
         localedir="/nonexistent",
         languages=["en"],
         fallback=True,
@@ -349,7 +349,7 @@ Expected: `test_language_names_loadable` may fail if Task 1 not yet done; the mo
 
 - [ ] **Step 3: Add gettext imports and translation setup**
 
-At the top of `files/usr/bin/universal-lite-setup-wizard`, add `import gettext` to the imports and set up the translation plumbing after the existing imports:
+At the top of `files/usr/bin/adwaita-lite-setup-wizard`, add `import gettext` to the imports and set up the translation plumbing after the existing imports:
 
 ```python
 import gettext
@@ -367,8 +367,8 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("NM", "1.0")
 from gi.repository import Gtk, Gdk, GLib, Gio, NM, Pango  # noqa: E402
 
-APP_ID = "org.universallite.SetupWizard"
-TEXTDOMAIN = "universal-lite-setup-wizard"
+APP_ID = "org.adwaitabluelite.SetupWizard"
+TEXTDOMAIN = "adwaita-lite-setup-wizard"
 LOCALEDIR = "/usr/share/locale"
 
 # Initialize gettext — English fallback when no .mo file found
@@ -404,7 +404,7 @@ Add the `_retranslatable` list and `_tr` helper method at the start of `__init__
 ```python
 class SetupWizardWindow(Gtk.ApplicationWindow):
     def __init__(self, app: Gtk.Application) -> None:
-        super().__init__(application=app, title="Universal-Lite Setup Wizard")
+        super().__init__(application=app, title="Adwaita-Lite Setup Wizard")
         self.set_default_size(800, 600)
         self.fullscreen()
 
@@ -457,11 +457,11 @@ Convert each `_build_*_page()` method to use `_()` and `self._tr()`. Here is the
         card.add_css_class("card")
         card.set_size_request(480, -1)
 
-        self._account_title = Gtk.Label(label=_("Welcome to Universal-Lite"))
+        self._account_title = Gtk.Label(label=_("Welcome to Adwaita-Lite"))
         self._account_title.add_css_class("welcome-title")
         self._account_title.set_halign(Gtk.Align.CENTER)
         card.append(self._account_title)
-        self._retranslatable.append((self._account_title.set_label, "Welcome to Universal-Lite"))
+        self._retranslatable.append((self._account_title.set_label, "Welcome to Adwaita-Lite"))
 
         self._account_subtitle = Gtk.Label(label=_("Create your account to get started."))
         self._account_subtitle.add_css_class("welcome-subtitle")
@@ -644,7 +644,7 @@ Expected: All tests PASS.
 - [ ] **Step 11: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard tests/test_wizard_i18n.py
+git add files/usr/bin/adwaita-lite-setup-wizard tests/test_wizard_i18n.py
 git commit -m "feat(i18n): wrap all wizard strings in gettext, add retranslation registry"
 ```
 
@@ -653,9 +653,9 @@ git commit -m "feat(i18n): wrap all wizard strings in gettext, add retranslation
 ### Task 3: Page Constant Shift and Language Page
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard:270-276` (page constants)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:355-421` (init, stack, navigation)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:1211-1278` (navigation methods)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:270-276` (page constants)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:355-421` (init, stack, navigation)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:1211-1278` (navigation methods)
 
 This task adds `PAGE_LANGUAGE = 0`, shifts all existing constants by 1, builds the Language page UI, and wires it into the navigation flow.
 
@@ -678,7 +678,7 @@ Add to `__init__`, before the page stack creation:
 
 ```python
         # Load language name matrix
-        _lang_names_path = Path("/usr/share/universal-lite/language-names.json")
+        _lang_names_path = Path("/usr/share/adwaita-lite/language-names.json")
         if not _lang_names_path.exists():
             # Dev fallback: load from source tree
             _lang_names_path = Path(__file__).resolve().parents[0] / "../../po/language-names.json"
@@ -690,7 +690,7 @@ Add to `__init__`, before the page stack creation:
 
 Also update the `language-names.json` install path. Add to `build.sh`:
 ```bash
-install -Dm644 /ctx/po/language-names.json /usr/share/universal-lite/language-names.json
+install -Dm644 /ctx/po/language-names.json /usr/share/adwaita-lite/language-names.json
 ```
 
 - [ ] **Step 3: Build the Language page**
@@ -1020,7 +1020,7 @@ Update `_go_back` similarly:
 - [ ] **Step 7: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard build_files/build.sh
+git add files/usr/bin/adwaita-lite-setup-wizard build_files/build.sh
 git commit -m "feat(i18n): add Language page (Page 0), shift page constants"
 ```
 
@@ -1029,7 +1029,7 @@ git commit -m "feat(i18n): add Language page (Page 0), shift page constants"
 ### Task 4: Runtime Language Switching
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard` (add `_switch_language` method)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard` (add `_switch_language` method)
 
 When the user taps a language in the list, the wizard immediately re-renders all UI text.
 
@@ -1102,7 +1102,7 @@ The SWAP_STRATEGIES dropdown uses a `Gtk.StringList` which can't be updated in-p
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat(i18n): implement runtime language switching with _retranslate()"
 ```
 
@@ -1111,8 +1111,8 @@ git commit -m "feat(i18n): implement runtime language switching with _retranslat
 ### Task 5: Write Selected Locale to Installed System
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard:1652-1658` (`_step_configure_user`)
-- Modify: `files/usr/bin/universal-lite-setup-wizard:1801-1820` (`_on_setup_clicked`)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:1652-1658` (`_step_configure_user`)
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:1801-1820` (`_on_setup_clicked`)
 
 - [ ] **Step 1: Capture selected locale in _on_setup_clicked()**
 
@@ -1162,7 +1162,7 @@ In `_populate_summary()`, add:
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard
+git add files/usr/bin/adwaita-lite-setup-wizard
 git commit -m "feat(i18n): write selected locale to installed system, show in summary"
 ```
 
@@ -1172,14 +1172,14 @@ git commit -m "feat(i18n): write selected locale to installed system, show in su
 
 **Files:**
 - Create: `po/Makefile`
-- Create: `po/universal-lite-setup-wizard.pot`
+- Create: `po/adwaita-lite-setup-wizard.pot`
 - Create: `po/*.po` (22 files)
-- Create: `files/usr/share/locale/*/LC_MESSAGES/universal-lite-setup-wizard.mo` (22 directories)
+- Create: `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-setup-wizard.mo` (22 directories)
 
 - [ ] **Step 1: Create po/Makefile**
 
 ```makefile
-DOMAIN = universal-lite-setup-wizard
+DOMAIN = adwaita-lite-setup-wizard
 SOURCE = ../files/usr/bin/$(DOMAIN)
 POTFILE = $(DOMAIN).pot
 LOCALEDIR = ../files/usr/share/locale
@@ -1224,15 +1224,15 @@ all: pot po mo
 - [ ] **Step 2: Extract POT template**
 
 Run: `cd /var/home/race/ublue-mike/po && make pot`
-Expected: Creates `universal-lite-setup-wizard.pot` with all `_()` and `N_()` marked strings.
+Expected: Creates `adwaita-lite-setup-wizard.pot` with all `_()` and `N_()` marked strings.
 
 - [ ] **Step 3: Verify the POT file contains expected strings**
 
-Run: `grep -c msgid /var/home/race/ublue-mike/po/universal-lite-setup-wizard.pot`
+Run: `grep -c msgid /var/home/race/ublue-mike/po/adwaita-lite-setup-wizard.pot`
 Expected: ~60-70 translatable strings (count will depend on exact wrapping).
 
 Spot-check:
-Run: `grep "Full Name" /var/home/race/ublue-mike/po/universal-lite-setup-wizard.pot`
+Run: `grep "Full Name" /var/home/race/ublue-mike/po/adwaita-lite-setup-wizard.pot`
 Expected: `msgid "Full Name"`
 
 - [ ] **Step 4: Initialize PO files**
@@ -1266,7 +1266,7 @@ For Amharic (am), Hausa (ha), Swahili (sw), and Yoruba (yo), generate initial tr
 Run: `cd /var/home/race/ublue-mike/po && make mo`
 Expected: Creates 22 `.mo` files under `files/usr/share/locale/*/LC_MESSAGES/`.
 
-Verify: `ls files/usr/share/locale/*/LC_MESSAGES/universal-lite-setup-wizard.mo | wc -l`
+Verify: `ls files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-setup-wizard.mo | wc -l`
 Expected: `22`
 
 - [ ] **Step 8: Commit**
@@ -1292,19 +1292,19 @@ Add this line to `build_files/build.sh` after the `cp -a /ctx/files/. /` line:
 
 ```bash
 # Install language name matrix for installer wizard
-install -Dm644 /ctx/po/language-names.json /usr/share/universal-lite/language-names.json
+install -Dm644 /ctx/po/language-names.json /usr/share/adwaita-lite/language-names.json
 ```
 
 - [ ] **Step 2: Update the wizard to use the installed path**
 
-Verify that the `__init__` code in the wizard looks for `/usr/share/universal-lite/language-names.json` first (already done in Task 3 Step 2).
+Verify that the `__init__` code in the wizard looks for `/usr/share/adwaita-lite/language-names.json` first (already done in Task 3 Step 2).
 
 - [ ] **Step 3: Verify the build works**
 
-Run: `cd /var/home/race/ublue-mike && podman build -t universal-lite-test .`
+Run: `cd /var/home/race/ublue-mike && podman build -t adwaita-lite-test .`
 Expected: Build succeeds. The container has:
-- `/usr/share/locale/*/LC_MESSAGES/universal-lite-setup-wizard.mo` (22 locales)
-- `/usr/share/universal-lite/language-names.json`
+- `/usr/share/locale/*/LC_MESSAGES/adwaita-lite-setup-wizard.mo` (22 locales)
+- `/usr/share/adwaita-lite/language-names.json`
 
 - [ ] **Step 4: Run all tests**
 

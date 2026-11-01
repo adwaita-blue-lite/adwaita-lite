@@ -34,9 +34,35 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  check-scheduled-main-build:
+    name: Check scheduled main build
+    if: ${{ github.event.workflow_run.event == 'schedule' && github.event_name == 'workflow_run' && github.event.workflow_run.head_branch == 'main' }}
+    runs-on: ubuntu-24.04
+    outputs:
+      main_success: ${{ steps.check.outputs.main_success }}
+    steps:
+      - name: Check main matrix job result
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          conclusion=$(
+            gh api "repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}/jobs" \
+              --jq '.jobs[] | select(.name == "Build and push image (main)") | .conclusion'
+          )
+
+          if [[ "${conclusion}" == "success" ]]; then
+            echo "main_success=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "main_success=false" >> "${GITHUB_OUTPUT}"
+          fi
+
   sync-main-to-dx:
     name: Sync main to dx
-    if: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.event == 'schedule' }}
+    needs: check-scheduled-main-build
+    if: ${{ github.event_name == 'workflow_run' && always() && github.event.workflow_run.head_branch == 'main' && ((github.event.workflow_run.event == 'push' && github.event.workflow_run.conclusion == 'success') || (github.event.workflow_run.event == 'schedule' && needs.check-scheduled-main-build.outputs.main_success == 'true')) }}
     uses: ./.github/workflows/sync-one-stream.yml
     with:
       source: "main"
@@ -44,7 +70,8 @@ jobs:
 
   sync-main-to-beta:
     name: Sync main to beta
-    if: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.event == 'schedule' }}
+    needs: check-scheduled-main-build
+    if: ${{ github.event_name == 'workflow_run' && always() && github.event.workflow_run.head_branch == 'main' && ((github.event.workflow_run.event == 'push' && github.event.workflow_run.conclusion == 'success') || (github.event.workflow_run.event == 'schedule' && needs.check-scheduled-main-build.outputs.main_success == 'true')) }}
     uses: ./.github/workflows/sync-one-stream.yml
     with:
       source: "main"

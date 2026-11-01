@@ -1,11 +1,11 @@
-# Hindi translations for universal-lite-setup-wizard package.
-# Copyright (C) 2026 THE universal-lite-setup-wizard'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the universal-lite-setup-wizard package.
+# Hindi translations for adwaita-lite-setup-wizard package.
+# Copyright (C) 2026 THE adwaita-lite-setup-wizard'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the adwaita-lite-setup-wizard package.
 # Automatically generated, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: universal-lite-setup-wizard\n"
+"Project-Id-Version: adwaita-lite-setup-wizard\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-27 06:12-0400\n"
 "PO-Revision-Date: 2026-04-03 13:32-0400\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:481
+#: ../files/usr/bin/adwaita-lite-setup-wizard:481
 msgid "Compressed RAM only (zram) — fast, but apps may close if memory fills"
 msgstr "केवल संपीड़ित मेमोरी (zram) — तेज़, लेकिन मेमोरी भरने पर ऐप्स बंद हो सकते हैं"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:482
+#: ../files/usr/bin/adwaita-lite-setup-wizard:482
 msgid ""
 "Compressed RAM + disk backup (zswap) — slower overflow to disk, apps stay "
 "open"
@@ -28,193 +28,193 @@ msgstr ""
 "संपीड़ित मेमोरी + डिस्क बैकअप (zswap) — डिस्क पर ओवरफ़्लो धीमा होता है, लेकिन ऐप्स खुले "
 "रहते हैं"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:485
+#: ../files/usr/bin/adwaita-lite-setup-wizard:485
 msgid "Custom"
 msgstr "कस्टम"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:530
+#: ../files/usr/bin/adwaita-lite-setup-wizard:530
 msgid "Web browser"
 msgstr "वेब ब्राउज़र"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:531
+#: ../files/usr/bin/adwaita-lite-setup-wizard:531
 msgid "Browse and install apps"
 msgstr "ऐप्स ब्राउज़ और इंस्टॉल करें"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:532
+#: ../files/usr/bin/adwaita-lite-setup-wizard:532
 msgid "Modern styling for classic apps"
 msgstr "क्लासिक ऐप्स के लिए आधुनिक शैली"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:533
+#: ../files/usr/bin/adwaita-lite-setup-wizard:533
 msgid "Dark variant for classic apps"
 msgstr "क्लासिक ऐप्स के लिए गहरी शैली"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:902
-#: ../files/usr/bin/universal-lite-setup-wizard:1946
+#: ../files/usr/bin/adwaita-lite-setup-wizard:902
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1946
 msgid "Back"
 msgstr "पिछला"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:909
-#: ../files/usr/bin/universal-lite-setup-wizard:2567
+#: ../files/usr/bin/adwaita-lite-setup-wizard:909
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2567
 msgid "Next"
 msgstr "अगला"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:970
+#: ../files/usr/bin/adwaita-lite-setup-wizard:970
 msgid "Install in progress"
 msgstr "इंस्टॉल जारी है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:972
+#: ../files/usr/bin/adwaita-lite-setup-wizard:972
 msgid ""
 "An install is running. Wait for it to finish before closing this window."
 msgstr "एक इंस्टॉल चल रहा है। इस विंडो को बंद करने से पहले इसके पूरा होने तक प्रतीक्षा करें।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1057
-#: ../files/usr/bin/universal-lite-setup-wizard:1840
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1057
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1840
 msgid "Language"
 msgstr "भाषा"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1063
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1063
 msgid "Select your language."
 msgstr "अपनी भाषा चुनें।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1167
-#: ../files/usr/bin/universal-lite-setup-wizard:1261
-#: ../files/usr/bin/universal-lite-setup-wizard:1276
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1167
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1261
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1276
 #, python-brace-format
 msgid "Keyboard layout: {layout}"
 msgstr "कीबोर्ड लेआउट: {layout}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1189
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1189
 msgid ""
 "Auto-selected from your language. Override if your physical keyboard differs."
 msgstr "आपकी भाषा से स्वतः चुना गया। यदि आपका भौतिक कीबोर्ड अलग है, तो इसे बदलें।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1334
-msgid "Welcome to Universal-Lite"
-msgstr "Universal-Lite में आपका स्वागत है"
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1334
+msgid "Welcome to Adwaita-Lite"
+msgstr "Adwaita-Lite में आपका स्वागत है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1340
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1340
 msgid "Create your account to get started."
 msgstr "शुरू करने के लिए अपना खाता बनाएँ।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1346
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1346
 msgid "Full Name"
 msgstr "पूरा नाम"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1349
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1349
 msgid "Jane Doe"
 msgstr "अमित कुमार"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1359
-#: ../files/usr/bin/universal-lite-setup-wizard:1846
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1359
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1846
 msgid "Username"
 msgstr "उपयोगकर्ता नाम"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1370
-#: ../files/usr/bin/universal-lite-setup-wizard:1520
-#: ../files/usr/bin/universal-lite-setup-wizard:2258
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1370
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1520
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2258
 msgid "Password"
 msgstr "पासवर्ड"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1381
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1381
 msgid "Confirm Password"
 msgstr "पासवर्ड की पुष्टि करें"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1394
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1394
 msgid "Administrator account (sudo)"
 msgstr "प्रशासक खाता (sudo)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1402
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1402
 msgid "Root Password (optional)"
 msgstr "Root पासवर्ड (वैकल्पिक)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1433
-#: ../files/usr/bin/universal-lite-setup-wizard:1841
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1433
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1841
 msgid "Network"
 msgstr "नेटवर्क"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1439
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1439
 msgid "Connect to the internet to continue."
 msgstr "जारी रखने के लिए इंटरनेट से कनेक्ट करें।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1449
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1449
 msgid "Wired"
 msgstr "वायर्ड"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1458
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1458
 msgid "Checking..."
 msgstr "जाँच हो रही है..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1462
-#: ../files/usr/bin/universal-lite-setup-wizard:1530
-#: ../files/usr/bin/universal-lite-setup-wizard:2102
-#: ../files/usr/bin/universal-lite-setup-wizard:2109
-#: ../files/usr/bin/universal-lite-setup-wizard:2261
-#: ../files/usr/bin/universal-lite-setup-wizard:2267
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1462
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1530
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2102
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2109
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2261
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2267
 msgid "Connect"
 msgstr "कनेक्ट करें"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1474
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1474
 msgid "Wi-Fi"
 msgstr "वाई-फ़ाई"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1490
-#: ../files/usr/bin/universal-lite-setup-wizard:2154
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1490
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2154
 msgid "Scanning for networks..."
 msgstr "नेटवर्क खोजे जा रहे हैं..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1498
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1498
 msgid "Rescan"
 msgstr "पुनः खोजें"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1511
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1511
 msgid "Network Name (SSID)"
 msgstr "नेटवर्क का नाम (SSID)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1541
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1541
 msgid "Join hidden network..."
 msgstr "छिपे नेटवर्क से जुड़ें..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1578
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1578
 msgid "Choose Installation Disk"
 msgstr "इंस्टॉलेशन डिस्क चुनें"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1584
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1584
 msgid "Select the target drive and installation options."
 msgstr "लक्ष्य ड्राइव और इंस्टॉलेशन विकल्प चुनें।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1591
-#: ../files/usr/bin/universal-lite-setup-wizard:1842
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1591
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1842
 msgid "Target drive"
 msgstr "लक्ष्य ड्राइव"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1595
-#: ../files/usr/bin/universal-lite-setup-wizard:2890
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1595
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2890
 msgid "Unknown"
 msgstr "अज्ञात"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1603
-#: ../files/usr/bin/universal-lite-setup-wizard:2484
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1603
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2484
 msgid "No eligible drives found"
 msgstr "कोई उपयुक्त ड्राइव नहीं मिली"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1610
-#: ../files/usr/bin/universal-lite-setup-wizard:1843
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1610
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1843
 msgid "Filesystem"
 msgstr "फ़ाइल सिस्टम"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1618
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1618
 msgid "Memory management"
 msgstr "मेमोरी प्रबंधन"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1628
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1628
 msgid "Disk swap size"
 msgstr "डिस्क स्वैप आकार"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1636
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1636
 msgid "Custom size (GB)"
 msgstr "कस्टम आकार (GB)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1652
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1652
 msgid ""
 "zswap uses compressed RAM as a cache and spills to a disk swap file when "
 "full."
@@ -222,273 +222,273 @@ msgstr ""
 "zswap संपीड़ित मेमोरी को कैश के रूप में उपयोग करता है और भर जाने पर डिस्क स्वैप फ़ाइल में "
 "डेटा स्थानांतरित करता है।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1669
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1669
 msgid "All data on the selected drive will be erased."
 msgstr "चयनित ड्राइव का सारा डेटा मिटा दिया जाएगा।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1692
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1692
 msgid "System Setup"
 msgstr "सिस्टम सेटअप"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1699
-#: ../files/usr/bin/universal-lite-setup-wizard:1849
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1699
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1849
 msgid "Timezone"
 msgstr "समय क्षेत्र"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1728
-#: ../files/usr/bin/universal-lite-setup-wizard:1850
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1728
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1850
 msgid "Hostname"
 msgstr "होस्टनाम"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1738
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1738
 msgid "Your computer's name on the network. Leave blank to auto-generate."
 msgstr "नेटवर्क पर आपके कंप्यूटर का नाम। स्वतः जनरेट करने के लिए खाली छोड़ें।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1764
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1764
 msgid "Install Apps"
 msgstr "ऐप्स इंस्टॉल करें"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1771
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1771
 msgid "These apps will be installed on first boot. Uncheck any you don't want."
 msgstr "ये ऐप्स पहली बार बूट करने पर इंस्टॉल होंगे। जो आप नहीं चाहते उनका चयन हटा दें।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1828
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1828
 msgid "Ready to Install"
 msgstr "इंस्टॉल के लिए तैयार"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1834
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1834
 msgid "Review your settings and click Install to begin."
 msgstr "अपनी सेटिंग्स की समीक्षा करें और शुरू करने के लिए 'इंस्टॉल' पर क्लिक करें।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1844
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1844
 msgid "Memory"
 msgstr "मेमोरी"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1845
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1845
 msgid "Name"
 msgstr "नाम"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1847
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1847
 msgid "Administrator"
 msgstr "प्रशासक"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1848
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1848
 msgid "Root password"
 msgstr "Root पासवर्ड"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1851
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1851
 msgid "Keyboard layout"
 msgstr "कीबोर्ड लेआउट"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1852
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1852
 msgid "Apps"
 msgstr "ऐप्स"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1857
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1857
 msgid "I understand this will erase the selected drive."
 msgstr "मुझे समझ है कि इससे चयनित ड्राइव मिट जाएगी।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1892
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1892
 msgid "Installing..."
 msgstr "इंस्टॉल हो रहा है..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1904
-#: ../files/usr/bin/universal-lite-setup-wizard:1934
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1904
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1934
 msgid "Show details ▼"
 msgstr "विवरण दिखाएँ ▼"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1934
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1934
 msgid "Hide details ▲"
 msgstr "विवरण छिपाएँ ▲"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1953
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1953
 msgid "Skip"
 msgstr "छोड़ें"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1960
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1960
 msgid "Retry"
 msgstr "पुनः प्रयास"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1967
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1967
 msgid "Reboot"
 msgstr "रीबूट"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:1994
+#: ../files/usr/bin/adwaita-lite-setup-wizard:1994
 msgid "NetworkManager unavailable — install requires internet."
 msgstr "NetworkManager उपलब्ध नहीं है — इंस्टॉल के लिए इंटरनेट आवश्यक है।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2085
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2085
 msgid "No wired adapter detected"
 msgstr "कोई वायर्ड एडाप्टर नहीं मिला"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2092
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2092
 msgid "Connected"
 msgstr "कनेक्टेड"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2093
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2093
 msgid "Disconnect"
 msgstr "डिस्कनेक्ट करें"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2098
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2098
 msgid "Connecting..."
 msgstr "कनेक्ट हो रहा है..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2101
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2101
 msgid "Disconnected"
 msgstr "डिस्कनेक्टेड"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2105
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2105
 msgid "Cable unplugged"
 msgstr "केबल नहीं लगा है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2108
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2108
 msgid "Not connected"
 msgstr "कनेक्ट नहीं है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2195
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2195
 msgid "No networks found."
 msgstr "कोई नेटवर्क नहीं मिला।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2223
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2223
 msgid "Strong"
 msgstr "मज़बूत"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2225
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2225
 msgid "Medium"
 msgstr "मध्यम"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2227
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2227
 msgid "Weak"
 msgstr "कमज़ोर"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2233
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2233
 msgid "WPA3"
 msgstr "WPA3"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2235
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2235
 msgid "Secured"
 msgstr "सुरक्षित"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2237
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2237
 msgid "Open"
 msgstr "खुला"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2303
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2303
 #, python-brace-format
 msgid "Connecting to {ssid}..."
 msgstr "{ssid} से जुड़ रहे हैं..."
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2373
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2373
 msgid "Enter a network name."
 msgstr "नेटवर्क का नाम दर्ज करें।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2391
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2391
 msgid "Wrong password"
 msgstr "गलत पासवर्ड"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2393
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2393
 msgid "Connection timed out"
 msgstr "कनेक्शन का समय समाप्त हो गया"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2395
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2395
 msgid "Network not found"
 msgstr "नेटवर्क नहीं मिला"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2396
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2396
 msgid "Could not connect to the network"
 msgstr "नेटवर्क से कनेक्ट नहीं हो सका"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2407
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2407
 #, python-brace-format
 msgid "Connected to {ssid}!"
 msgstr "{ssid} से जुड़ गए!"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2412
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2412
 msgid "Connected, but no internet access detected."
 msgstr "कनेक्ट है, लेकिन इंटरनेट पहुँच नहीं मिली।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2512
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2512
 #, python-brace-format
 msgid "Install failed: {err}"
 msgstr "इंस्टॉल विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2558
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2558
 #, python-brace-format
 msgid "Step {n} of {total}"
 msgstr "चरण {n} / {total}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2567
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2567
 msgid "Install"
 msgstr "इंस्टॉल"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2604
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2604
 msgid "Please confirm you understand the drive will be erased."
 msgstr "कृपया पुष्टि करें कि आप समझते हैं कि ड्राइव मिटा दी जाएगी।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2612
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2612
 msgid "No target drives found. Connect a drive and restart the installer."
 msgstr "कोई लक्ष्य ड्राइव नहीं मिली। ड्राइव कनेक्ट करें और इंस्टॉलर पुनः शुरू करें।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2627
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2627
 #, python-brace-format
 msgid "Selected drive is too small ({size} GB). Minimum required: 16 GB."
 msgstr "चयनित ड्राइव बहुत छोटी है ({size} GB)। न्यूनतम आवश्यक: 16 GB।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2634
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2634
 msgid "Custom swap size must be a positive whole number (in GB, up to 256)."
 msgstr "कस्टम स्वैप आकार एक धनात्मक पूर्ण संख्या होना चाहिए (GB में, 256 तक)।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2642
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2642
 #, python-brace-format
 msgid ""
 "Swap size ({swap} GB) is too large for this drive. Maximum recommended: "
 "{max} GB."
 msgstr "स्वैप आकार ({swap} GB) इस ड्राइव के लिए बहुत बड़ा है। अधिकतम अनुशंसित: {max} GB।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2672
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2672
 msgid "Full name is required."
 msgstr "पूरा नाम आवश्यक है।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2679
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2679
 msgid "Full name contains invalid characters."
 msgstr "पूर्ण नाम में अमान्य वर्ण हैं।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2683
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2683
 msgid "Username is required."
 msgstr "उपयोगकर्ता नाम आवश्यक है।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2687
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2687
 msgid "Username must be 32 characters or fewer."
 msgstr "उपयोगकर्ता नाम 32 अक्षर या उससे कम होना चाहिए।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2692
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2692
 msgid ""
 "Username must start with a lowercase letter or underscore, contain only "
 "lowercase letters, numbers, underscores, and hyphens, and cannot end with a "
 "hyphen."
 msgstr "उपयोगकर्ता नाम छोटे अक्षर या अंडरस्कोर से शुरू होना चाहिए, इसमें केवल छोटे अक्षर, अंक, अंडरस्कोर और हाइफ़न हो सकते हैं, और यह हाइफ़न पर समाप्त नहीं हो सकता।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2699
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2699
 msgid "This username is reserved for the system."
 msgstr "यह उपयोगकर्ता नाम सिस्टम के लिए आरक्षित है।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2703
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2703
 msgid "Password is required."
 msgstr "पासवर्ड आवश्यक है।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2707
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2707
 msgid "Password must be at least 6 characters."
 msgstr "पासवर्ड कम से कम 6 वर्णों का होना चाहिए।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2713
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2713
 msgid "Password must be 256 characters or fewer."
 msgstr "पासवर्ड 256 वर्णों या उससे कम का होना चाहिए।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2717
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2717
 msgid "Passwords do not match."
 msgstr "पासवर्ड मेल नहीं खाते।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2724
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2724
 msgid ""
 "Either enable administrator access or set a root password. Without one of "
 "these you will be locked out of system management."
@@ -496,324 +496,324 @@ msgstr ""
 "कृपया प्रशासक पहुँच सक्षम करें या root पासवर्ड सेट करें। इनमें से कोई भी नहीं होने पर आप "
 "सिस्टम को प्रबंधित नहीं कर पाएँगे।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2731
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2731
 msgid "Root password must be at least 6 characters."
 msgstr "Root पासवर्ड कम से कम 6 वर्णों का होना चाहिए।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2735
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2735
 msgid "Root password must be 256 characters or fewer."
 msgstr "Root पासवर्ड 256 वर्णों या उससे कम का होना चाहिए।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2744
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2744
 msgid "Hostname must be 63 characters or fewer."
 msgstr "होस्टनाम 63 वर्णों या उससे कम का होना चाहिए।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2749
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2749
 msgid ""
 "Hostname must contain only letters, numbers, and hyphens, and cannot start "
 "or end with a hyphen."
 msgstr "होस्टनाम में केवल अक्षर, अंक और हाइफ़न हो सकते हैं, और यह हाइफ़न से शुरू या समाप्त नहीं हो सकता।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2759
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2759
 msgid ""
 "Network is not available. An internet connection is required to install."
 msgstr "नेटवर्क उपलब्ध नहीं है। इंस्टॉल के लिए इंटरनेट कनेक्शन आवश्यक है।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2763
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2763
 msgid "No internet connection. Connect to a network and try again."
 msgstr "इंटरनेट कनेक्शन नहीं है। किसी नेटवर्क से कनेक्ट करें और फिर प्रयास करें।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2779
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2779
 msgid "Wired connection"
 msgstr "वायर्ड कनेक्शन"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2782
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2782
 #, python-brace-format
 msgid "Connected to {ssid}"
 msgstr "{ssid} से जुड़ा हुआ"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2785
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2785
 msgid "No network (offline install)"
 msgstr "कोई नेटवर्क नहीं (ऑफ़लाइन इंस्टॉल)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2795
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2795
 #, python-brace-format
 msgid "zswap with {swap_gb} GB disk swap"
 msgstr "zswap ({swap_gb} GB डिस्क स्वैप के साथ)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2798
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2798
 msgid "zram only (compressed RAM)"
 msgstr "केवल zram (संपीड़ित मेमोरी)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2803
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2803
 msgid "Yes"
 msgstr "हाँ"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2803
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2803
 msgid "No"
 msgstr "नहीं"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2805
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2805
 msgid "Set"
 msgstr "सेट है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2805
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2805
 msgid "Not set"
 msgstr "सेट नहीं है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2826
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2826
 msgid "No apps selected"
 msgstr "कोई ऐप चयनित नहीं"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2885
-#: ../files/usr/bin/universal-lite-setup-wizard:2888
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2885
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2888
 msgid "None"
 msgstr "कोई नहीं"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2942
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2942
 #, python-brace-format
 msgid "Cannot unmount {mnt}: {err}"
 msgstr "{mnt} को अनमाउंट नहीं किया जा सकता: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2945
-#: ../files/usr/bin/universal-lite-setup-wizard:2959
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2945
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2959
 #, python-brace-format
 msgid "Could not list target partitions: {err}"
 msgstr "लक्ष्य पार्टिशन सूचीबद्ध नहीं किए जा सके: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2947
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2947
 msgid "Could not unmount target partitions (command timed out)"
 msgstr "लक्ष्य पार्टिशन अनमाउंट नहीं किए जा सके (कमांड का समय समाप्त हो गया)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2949
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2949
 #, python-brace-format
 msgid "Could not unmount target partitions: {err}"
 msgstr "लक्ष्य पार्टिशन अनमाउंट नहीं किए जा सके: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2956
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2956
 #, python-brace-format
 msgid "Cannot proceed: partitions still mounted: {mounts}"
 msgstr "आगे नहीं बढ़ सकते: पार्टिशन अभी भी माउंट हैं: {mounts}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2963
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2963
 msgid "Could not verify partitions are unmounted (findmnt timeout)"
 msgstr "यह सत्यापित नहीं किया जा सका कि पार्टिशन अनमाउंट हैं (findmnt समय समाप्त)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:2965
+#: ../files/usr/bin/adwaita-lite-setup-wizard:2965
 #, python-brace-format
 msgid "Could not verify partitions are unmounted: {err}"
 msgstr "यह सत्यापित नहीं किया जा सका कि पार्टिशन अनमाउंट हैं: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3000
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3000
 #, python-brace-format
 msgid "Partitioning failed: {tail}"
 msgstr "पार्टिशनिंग विफल: {tail}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3002
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3002
 msgid "Partitioning timed out"
 msgstr "पार्टिशनिंग का समय समाप्त हो गया"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3020
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3020
 #, python-brace-format
 msgid "Expected {expected} partitions, found {found}: {parts}"
 msgstr "{expected} पार्टिशन अपेक्षित थे, {found} मिले: {parts}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3023
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3023
 #, python-brace-format
 msgid "Failed to list partitions: {err}"
 msgstr "पार्टिशन सूचीबद्ध करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3053
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3053
 #, python-brace-format
 msgid "Failed to format {label} partition: {err}"
 msgstr "{label} पार्टिशन फ़ॉर्मैट करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3056
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3056
 #, python-brace-format
 msgid "Formatting {label} partition timed out"
 msgstr "{label} पार्टिशन फ़ॉर्मैट करने का समय समाप्त हो गया"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3079
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3079
 #, python-brace-format
 msgid "Failed to mount {mnt}: {err}"
 msgstr "{mnt} माउंट करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3115
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3115
 #, python-brace-format
 msgid "Failed to remount {mnt}: {err}"
 msgstr "{mnt} को फिर से माउंट करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3120
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3120
 #, python-brace-format
 msgid "Remounting {mnt} timed out"
 msgstr "{mnt} को फिर से माउंट करने का समय समाप्त हो गया"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3127
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3127
 msgid ""
 "Cannot resolve ghcr.io — check your network connection. The container "
 "registry must be reachable to install."
 msgstr "ghcr.io resolve नहीं हो सका — अपना नेटवर्क कनेक्शन जाँचें। इंस्टॉल के लिए कंटेनर रजिस्ट्री तक पहुँचना आवश्यक है।"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3135
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3135
 msgid "Target disk too small (need 6 GB free after partitioning)"
 msgstr "लक्ष्य डिस्क बहुत छोटी है (पार्टिशनिंग के बाद 6 GB खाली चाहिए)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3137
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3137
 #, python-brace-format
 msgid "Could not check target disk free space: {err}"
 msgstr "लक्ष्य डिस्क की खाली जगह जाँची नहीं जा सकी: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3148
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3148
 #, python-brace-format
 msgid "bootc status failed: {err}"
 msgstr "bootc status विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3151
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3151
 msgid "bootc status timed out after 30 seconds"
 msgstr "bootc status का समय 30 सेकंड बाद समाप्त हो गया"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3153
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3153
 #, python-brace-format
 msgid "Could not parse bootc status output: {err}"
 msgstr "bootc status आउटपुट पार्स नहीं किया जा सका: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3155
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3155
 msgid ""
 "Could not determine the booted image reference. Is this system booted from a "
 "bootc image?"
 msgstr "बूट की गई इमेज reference निर्धारित नहीं की जा सकी। क्या यह सिस्टम bootc इमेज से बूट हुआ है?"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3178
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3178
 #, python-brace-format
 msgid "Failed to prepare install environment: {err}"
 msgstr "इंस्टॉल वातावरण तैयार करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3271
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3271
 msgid "bootc install failed to start"
 msgstr "bootc install शुरू होने में विफल"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3275
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3275
 #, python-brace-format
 msgid "bootc install failed (exit {code}); full log at {path}"
 msgstr "bootc install विफल (exit {code}); पूरा लॉग {path} पर है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3292
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3292
 #, python-brace-format
 msgid "Failed to remount target read-write: {err}"
 msgstr "लक्ष्य को read-write के रूप में फिर से माउंट करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3419
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3419
 #, python-brace-format
 msgid "User {user} found in passwd but entry is missing"
 msgstr "उपयोगकर्ता {user} passwd में मिला लेकिन प्रविष्टि गायब है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3423
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3423
 #, python-brace-format
 msgid "Malformed passwd entry for {user}"
 msgstr "{user} के लिए passwd प्रविष्टि गलत स्वरूप में है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3560
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3560
 #, python-brace-format
 msgid "Failed to set home directory ownership: {err}"
 msgstr "home directory का स्वामित्व सेट करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3577
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3577
 #, python-brace-format
 msgid "Failed to set root password: {err}"
 msgstr "root पासवर्ड सेट करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3595
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3595
 #, python-brace-format
 msgid "Failed to configure timezone/locale: {err}"
 msgstr "समय क्षेत्र/locale कॉन्फ़िगर करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3607
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3607
 #, python-brace-format
 msgid "Failed to set hostname: {err}"
 msgstr "होस्टनाम सेट करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3629
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3629
 #, python-brace-format
 msgid "Failed to configure keyboard layout: {err}"
 msgstr "कीबोर्ड लेआउट कॉन्फ़िगर करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3663
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3663
 #, python-brace-format
 msgid "Failed to copy network configuration: {err}"
 msgstr "नेटवर्क कॉन्फ़िगरेशन कॉपी करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3875
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3875
 #, python-brace-format
 msgid "SELinux relabeling /etc failed: {err}"
 msgstr "SELinux relabeling /etc विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3899
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3899
 #, python-brace-format
 msgid "SELinux relabeling /var failed: {err}"
 msgstr "SELinux relabeling /var विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:3931
+#: ../files/usr/bin/adwaita-lite-setup-wizard:3931
 #, python-brace-format
 msgid "Failed to unmount target: {err}"
 msgstr "लक्ष्य अनमाउंट करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4115
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4115
 #, python-brace-format
 msgid "Failed to hash password: {err}"
 msgstr "पासवर्ड hash करने में विफल: {err}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4151
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4151
 msgid "Partitioning disk"
 msgstr "डिस्क पार्टीशन हो रहा है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4152
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4152
 msgid "Installing system"
 msgstr "सिस्टम इंस्टॉल हो रहा है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4153
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4153
 msgid "Configuring user account"
 msgstr "उपयोगकर्ता खाता कॉन्फ़िगर हो रहा है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4154
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4154
 msgid "Copying network configuration"
 msgstr "नेटवर्क कॉन्फ़िगरेशन कॉपी हो रहा है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4157
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4157
 msgid "Saving app selection"
 msgstr "ऐप चयन सहेजा जा रहा है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4161
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4161
 msgid "Configuring memory management"
 msgstr "मेमोरी प्रबंधन कॉन्फ़िगर हो रहा है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4162
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4162
 msgid "Finalizing"
 msgstr "अंतिम रूप दिया जा रहा है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4235
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4235
 #, python-brace-format
 msgid "Unexpected error: {type}: {msg}"
 msgstr "अप्रत्याशित त्रुटि: {type}: {msg}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4282
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4282
 msgid "(skipped)"
 msgstr "(छोड़ दिया गया)"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4305
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4305
 #, python-brace-format
 msgid "Full log: {path}"
 msgstr "पूरा लॉग: {path}"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4308
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4308
 #, python-brace-format
 msgid "Install step failed. See details; full log at {path}"
 msgstr "इंस्टॉल चरण विफल। विवरण देखें; पूरा लॉग {path} पर है"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4325
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4325
 msgid "Installation Complete!"
 msgstr "इंस्टॉलेशन पूर्ण!"
 
-#: ../files/usr/bin/universal-lite-setup-wizard:4356
+#: ../files/usr/bin/adwaita-lite-setup-wizard:4356
 msgid "Reboot failed — please restart manually."
 msgstr "रीबूट विफल — कृपया मैन्युअल रूप से पुनः शुरू करें।"
 

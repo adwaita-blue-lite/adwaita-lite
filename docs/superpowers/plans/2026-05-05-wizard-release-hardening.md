@@ -12,7 +12,7 @@
 
 ## File Structure
 
-- Modify `files/usr/bin/universal-lite-setup-wizard`: fix GLib source ID lifecycle, install preflight state handling, current GTK alert API, and current accessibility announcement API.
+- Modify `files/usr/bin/adwaita-lite-setup-wizard`: fix GLib source ID lifecycle, install preflight state handling, current GTK alert API, and current accessibility announcement API.
 - Modify `tests/test_setup_wizard_app_selection.py`: extend AST-based GTK compatibility checks for deprecated/missing GTK APIs.
 - Modify `tests/test_installer_mount_handling.py`: add focused method tests for `_enable_rescan()` and `_on_setup_clicked()` hash-failure recovery.
 - Create `tests/test_setup_wizard_gtk_smoke.py`: best-effort real-GTK startup smoke test that skips when no GTK display/runtime is available and never runs destructive install steps.
@@ -140,7 +140,7 @@ def test_setup_hash_failure_does_not_leave_installing_stuck(monkeypatch):
     window._root_password_entry = _FakeButton(text="")
     window._fullname_entry = _FakeButton(text="Jane Doe")
     window._username_entry = _FakeButton(text="jane")
-    window._hostname_entry = _FakeButton(text="universal-lite")
+    window._hostname_entry = _FakeButton(text="adwaita-lite")
     window._admin_check = _FakeButton(active=True)
     statuses = []
     window._set_status = lambda message, error=True: statuses.append((message, error))
@@ -172,11 +172,11 @@ Expected: first test fails because `_rescan_timer_id` remains `123`; second test
 ### Task 3: Implement Source Lifecycle, Install Recovery, Alerts, and Announcements
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-setup-wizard:966-983`
-- Modify: `files/usr/bin/universal-lite-setup-wizard:2172-2174`
-- Modify: `files/usr/bin/universal-lite-setup-wizard:2447-2454`
-- Modify: `files/usr/bin/universal-lite-setup-wizard:2846-2852`
-- Modify: `files/usr/bin/universal-lite-setup-wizard:4127-4161`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:966-983`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:2172-2174`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:2447-2454`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:2846-2852`
+- Modify: `files/usr/bin/adwaita-lite-setup-wizard:4127-4161`
 - Test: `tests/test_setup_wizard_app_selection.py`, `tests/test_installer_mount_handling.py`
 
 - [ ] **Step 1: Replace the close warning dialog path**
@@ -295,7 +295,7 @@ Expected: all four tests pass.
 Run:
 
 ```bash
-git add files/usr/bin/universal-lite-setup-wizard tests/test_setup_wizard_app_selection.py tests/test_installer_mount_handling.py
+git add files/usr/bin/adwaita-lite-setup-wizard tests/test_setup_wizard_app_selection.py tests/test_installer_mount_handling.py
 git commit -m "fix(wizard): harden GTK startup helpers"
 ```
 
@@ -321,7 +321,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "files/usr/bin/universal-lite-setup-wizard"
+SCRIPT = ROOT / "files/usr/bin/adwaita-lite-setup-wizard"
 
 
 def _load_wizard_module():
@@ -361,7 +361,7 @@ def test_setup_wizard_window_constructs_with_real_gtk(monkeypatch):
             stderr = ""
         return Result()
 
-    app = Gtk.Application(application_id="org.universallite.SetupWizard.Test")
+    app = Gtk.Application(application_id="org.adwaitabluelite.SetupWizard.Test")
     app.register(None)
 
     with patch.object(module.subprocess, "run", side_effect=fake_run), \
@@ -414,7 +414,7 @@ Expected: all non-skipped tests pass; smoke test may skip only for unavailable G
 Run:
 
 ```bash
-python -m py_compile files/usr/bin/universal-lite-setup-wizard
+python -m py_compile files/usr/bin/adwaita-lite-setup-wizard
 ```
 
 Expected: exit code 0, no output.

@@ -14,7 +14,7 @@ Current documentation consulted:
 
 ## Goal
 
-Make a release-safe hardening pass over `files/usr/bin/universal-lite-setup-wizard` that fixes concrete runtime hazards and adds regression coverage without taking on a large startup architecture refactor immediately before release.
+Make a release-safe hardening pass over `files/usr/bin/adwaita-lite-setup-wizard` that fixes concrete runtime hazards and adds regression coverage without taking on a large startup architecture refactor immediately before release.
 
 ## Non-Goals
 
@@ -87,7 +87,7 @@ Run these checks after implementation:
 - New focused regression tests for rescan timer cleanup, install preflight failure recovery, accessibility API denylist, and alert dialog modernization.
 - Wizard-related tests: `pytest -q tests/test_setup_wizard_app_selection.py tests/test_installer_mount_handling.py tests/test_wizard_i18n.py`.
 - Full suite: `pytest -q`.
-- Syntax check: `python -m py_compile files/usr/bin/universal-lite-setup-wizard`.
+- Syntax check: `python -m py_compile files/usr/bin/adwaita-lite-setup-wizard`.
 - Manual VM check after rebuild: boot the raw image, confirm the wizard window appears, navigate through language/account/system pages, and verify `/tmp/wizard-crash.log` remains empty or contains only non-fatal portal warnings.
 
 ## Release Criteria

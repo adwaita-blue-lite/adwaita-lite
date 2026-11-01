@@ -4,7 +4,7 @@
 
 **Goal:** Update all release translation catalogs and add a separate translated start menu domain so non-English users can complete first-run setup and basic desktop navigation.
 
-**Architecture:** Keep gettext domain ownership explicit: wizard strings stay in `universal-lite-setup-wizard`, settings and greeter stay in `universal-lite-settings`, and start menu shell strings move into a new `universal-lite-app-menu` domain. Shared source/build/test changes are done by the coordinator; locale file updates are split by non-overlapping language groups so subagents do not edit the same files.
+**Architecture:** Keep gettext domain ownership explicit: wizard strings stay in `adwaita-lite-setup-wizard`, settings and greeter stay in `adwaita-lite-settings`, and start menu shell strings move into a new `adwaita-lite-app-menu` domain. Shared source/build/test changes are done by the coordinator; locale file updates are split by non-overlapping language groups so subagents do not edit the same files.
 
 **Tech Stack:** Python 3, GTK4 via PyGObject, GNU gettext (`xgettext`, `msgmerge`, `msginit`, `msgfmt`), `make`, `pytest`.
 
@@ -12,8 +12,8 @@
 
 ## File Structure
 
-- Modify `files/usr/bin/universal-lite-app-menu`: add gettext setup, wrap start-menu shell UI strings, and change power/category data so translated display labels do not become logic keys.
-- Modify `po/Makefile`: add `universal-lite-app-menu` extraction, merge, and compile targets under `po/app-menu/`.
+- Modify `files/usr/bin/adwaita-lite-app-menu`: add gettext setup, wrap start-menu shell UI strings, and change power/category data so translated display labels do not become logic keys.
+- Modify `po/Makefile`: add `adwaita-lite-app-menu` extraction, merge, and compile targets under `po/app-menu/`.
 - Create `po/app-menu/`: source PO files for the new app-menu domain.
 - Create `tests/test_app_menu_i18n.py`: focused tests that prove gettext wiring and Makefile app-menu targets exist.
 - Create `tests/test_translation_catalogs.py`: release checks for PO existence, syntax, fuzzy entries, untranslated entries, and compiled `.mo` coverage.
@@ -34,7 +34,7 @@ am ar de es fa fr ha hi it ja ko nl pl pt ru sv sw th tr vi yo zh
 
 **Files:**
 - Create: `tests/test_app_menu_i18n.py`
-- Read: `files/usr/bin/universal-lite-app-menu`
+- Read: `files/usr/bin/adwaita-lite-app-menu`
 - Read: `po/Makefile`
 
 - [ ] **Step 1: Create a failing gettext wiring test**
@@ -48,7 +48,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "files/usr/bin/universal-lite-app-menu"
+SCRIPT = ROOT / "files/usr/bin/adwaita-lite-app-menu"
 MAKEFILE = ROOT / "po/Makefile"
 
 
@@ -60,7 +60,7 @@ def test_app_menu_declares_separate_gettext_domain():
     source = _source()
 
     assert "import gettext" in source
-    assert 'TEXTDOMAIN = "universal-lite-app-menu"' in source
+    assert 'TEXTDOMAIN = "adwaita-lite-app-menu"' in source
     assert 'LOCALEDIR = "/usr/share/locale"' in source
     assert 'gettext.bindtextdomain(TEXTDOMAIN, LOCALEDIR)' in source
     assert 'gettext.textdomain(TEXTDOMAIN)' in source
@@ -119,8 +119,8 @@ def test_makefile_has_app_menu_gettext_targets():
     makefile = MAKEFILE.read_text(encoding="utf-8")
 
     expected_lines = [
-        "APP_MENU_DOMAIN = universal-lite-app-menu",
-        "APP_MENU_SOURCE = ../files/usr/bin/universal-lite-app-menu",
+        "APP_MENU_DOMAIN = adwaita-lite-app-menu",
+        "APP_MENU_SOURCE = ../files/usr/bin/adwaita-lite-app-menu",
         "APP_MENU_POT = app-menu/$(APP_MENU_DOMAIN).pot",
         "APP_MENU_PO = $(LANGUAGES:%=app-menu/%.po)",
         "APP_MENU_MO = $(LANGUAGES:%=$(LOCALEDIR)/%/LC_MESSAGES/$(APP_MENU_DOMAIN).mo)",
@@ -148,7 +148,7 @@ def test_makefile_dry_runs_app_menu_targets():
 
     assert result.returncode == 0, result.stderr
     assert "xgettext" in result.stdout
-    assert "universal-lite-app-menu" in result.stdout
+    assert "adwaita-lite-app-menu" in result.stdout
     assert "msgmerge" in result.stdout or "msginit" in result.stdout
     assert "msgfmt" in result.stdout
 ```
@@ -179,16 +179,16 @@ Expected: commit succeeds. Do not skip hooks.
 ### Task 2: Wire App Menu to gettext
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-app-menu`
+- Modify: `files/usr/bin/adwaita-lite-app-menu`
 - Test: `tests/test_app_menu_i18n.py`
 - Test: `tests/test_app_menu_css.py`
 
 - [ ] **Step 1: Add gettext setup before translated constants**
 
-In `files/usr/bin/universal-lite-app-menu`, add `import gettext` in the import block after `import json`, then add this setup before `SETTINGS_PATH`:
+In `files/usr/bin/adwaita-lite-app-menu`, add `import gettext` in the import block after `import json`, then add this setup before `SETTINGS_PATH`:
 
 ```python
-TEXTDOMAIN = "universal-lite-app-menu"
+TEXTDOMAIN = "adwaita-lite-app-menu"
 LOCALEDIR = "/usr/share/locale"
 
 gettext.bindtextdomain(TEXTDOMAIN, LOCALEDIR)
@@ -312,7 +312,7 @@ Replace `_prompt_confirm` with this implementation:
 
 - [ ] **Step 4: Translate widget labels, tooltips, placeholders, and accessibility labels**
 
-Make these exact replacements in `files/usr/bin/universal-lite-app-menu`:
+Make these exact replacements in `files/usr/bin/adwaita-lite-app-menu`:
 
 ```python
 self._search.set_placeholder_text(_("Search apps…"))
@@ -355,7 +355,7 @@ Expected: PASS. The default locale returns English strings, so tests that compar
 Run:
 
 ```bash
-git add files/usr/bin/universal-lite-app-menu
+git add files/usr/bin/adwaita-lite-app-menu
 git commit -m "feat: add gettext wiring to app menu"
 ```
 
@@ -376,8 +376,8 @@ After the settings domain variables, add:
 
 ```make
 # --- App menu domain ---
-APP_MENU_DOMAIN = universal-lite-app-menu
-APP_MENU_SOURCE = ../files/usr/bin/universal-lite-app-menu
+APP_MENU_DOMAIN = adwaita-lite-app-menu
+APP_MENU_SOURCE = ../files/usr/bin/adwaita-lite-app-menu
 APP_MENU_POT = app-menu/$(APP_MENU_DOMAIN).pot
 APP_MENU_PO = $(LANGUAGES:%=app-menu/%.po)
 APP_MENU_MO = $(LANGUAGES:%=$(LOCALEDIR)/%/LC_MESSAGES/$(APP_MENU_DOMAIN).mo)
@@ -472,9 +472,9 @@ Expected: commit succeeds.
 ### Task 4: Generate and Merge Translation Templates
 
 **Files:**
-- Modify: `po/universal-lite-setup-wizard.pot`
-- Modify: `po/settings/universal-lite-settings.pot`
-- Create: `po/app-menu/universal-lite-app-menu.pot`
+- Modify: `po/adwaita-lite-setup-wizard.pot`
+- Modify: `po/settings/adwaita-lite-settings.pot`
+- Create: `po/app-menu/adwaita-lite-app-menu.pot`
 - Modify: `po/*.po`
 - Modify: `po/settings/*.po`
 - Create: `po/app-menu/*.po`
@@ -490,9 +490,9 @@ make pot
 Expected: command exits 0 and writes these templates:
 
 ```text
-po/universal-lite-setup-wizard.pot
-po/settings/universal-lite-settings.pot
-po/app-menu/universal-lite-app-menu.pot
+po/adwaita-lite-setup-wizard.pot
+po/settings/adwaita-lite-settings.pot
+po/app-menu/adwaita-lite-app-menu.pot
 ```
 
 - [ ] **Step 2: Verify app-menu POT contains required strings**
@@ -503,7 +503,7 @@ Run from repository root:
 python - <<'PY'
 from pathlib import Path
 
-pot = Path("po/app-menu/universal-lite-app-menu.pot").read_text(encoding="utf-8")
+pot = Path("po/app-menu/adwaita-lite-app-menu.pot").read_text(encoding="utf-8")
 required = [
     "All Apps",
     "Accessories",
@@ -572,7 +572,7 @@ Expected: prints `found 22 app-menu PO files`.
 Run:
 
 ```bash
-git add po/universal-lite-setup-wizard.pot po/settings/universal-lite-settings.pot po/app-menu po/*.po po/settings/*.po
+git add po/adwaita-lite-setup-wizard.pot po/settings/adwaita-lite-settings.pot po/app-menu po/*.po po/settings/*.po
 git commit -m "chore: refresh translation templates"
 ```
 
@@ -598,9 +598,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = "am ar de es fa fr ha hi it ja ko nl pl pt ru sv sw th tr vi yo zh".split()
 CATALOGS = [
-    ("wizard", ROOT / "po", "universal-lite-setup-wizard"),
-    ("settings", ROOT / "po/settings", "universal-lite-settings"),
-    ("app-menu", ROOT / "po/app-menu", "universal-lite-app-menu"),
+    ("wizard", ROOT / "po", "adwaita-lite-setup-wizard"),
+    ("settings", ROOT / "po/settings", "adwaita-lite-settings"),
+    ("app-menu", ROOT / "po/app-menu", "adwaita-lite-app-menu"),
 ]
 
 
@@ -726,7 +726,7 @@ Run:
 python -m pytest tests/test_translation_catalogs.py -v
 ```
 
-Expected before translation completion: FAIL. The expected failures are untranslated entries in `po/app-menu/*.po` and missing compiled `universal-lite-app-menu.mo` files until app-menu translations are completed and `make mo-app-menu` runs.
+Expected before translation completion: FAIL. The expected failures are untranslated entries in `po/app-menu/*.po` and missing compiled `adwaita-lite-app-menu.mo` files until app-menu translations are completed and `make mo-app-menu` runs.
 
 - [ ] **Step 3: Commit catalog validation tests**
 
@@ -753,7 +753,7 @@ Expected: commit succeeds.
 Use this exact header at the start of every language subagent prompt:
 
 ```markdown
-You are updating release translations for Universal-Lite. Edit only the language files explicitly assigned in this prompt.
+You are updating release translations for Adwaita-Lite. Edit only the language files explicitly assigned in this prompt.
 
 Goal: make first-run setup and basic desktop navigation understandable for non-English users.
 
@@ -765,7 +765,7 @@ Rules:
 - Preserve every `msgid` exactly.
 - Preserve placeholders exactly, including `{username}`, `{layout}`, `{ssid}`, `{exc}`, `{detail}`, `{name}`, `{app}`, and any other brace-delimited placeholder.
 - Preserve escape sequences and line breaks.
-- Keep `Universal-Lite` unchanged.
+- Keep `Adwaita-Lite` unchanged.
 - Do not translate command names, paths, environment variables, package names, or project names unless the string is clearly a descriptive UI label.
 - Remove fuzzy markers only when you have made the translation match the current `msgid`.
 - Prefer simple, clear UI wording over literal technical phrasing.
@@ -898,9 +898,9 @@ Expected: commit succeeds after language updates validate.
 ### Task 7: Compile Catalogs and Fix Validation Failures
 
 **Files:**
-- Modify existing wizard `.mo` files under `files/usr/share/locale/*/LC_MESSAGES/universal-lite-setup-wizard.mo` for the 22 supported languages.
-- Modify existing settings `.mo` files under `files/usr/share/locale/*/LC_MESSAGES/universal-lite-settings.mo` for the 22 supported languages.
-- Create app-menu `.mo` files under `files/usr/share/locale/*/LC_MESSAGES/universal-lite-app-menu.mo` for the 22 supported languages.
+- Modify existing wizard `.mo` files under `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-setup-wizard.mo` for the 22 supported languages.
+- Modify existing settings `.mo` files under `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-settings.mo` for the 22 supported languages.
+- Create app-menu `.mo` files under `files/usr/share/locale/*/LC_MESSAGES/adwaita-lite-app-menu.mo` for the 22 supported languages.
 - Modify PO files reported by validation failures, limited to `po/*.po`, `po/settings/*.po`, and `po/app-menu/*.po` for the 22 supported languages.
 
 - [ ] **Step 1: Compile all gettext catalogs**
@@ -948,7 +948,7 @@ python - <<'PY'
 from pathlib import Path
 
 langs = "am ar de es fa fr ha hi it ja ko nl pl pt ru sv sw th tr vi yo zh".split()
-domain = "universal-lite-app-menu"
+domain = "adwaita-lite-app-menu"
 missing = []
 for lang in langs:
     path = Path("files/usr/share/locale") / lang / "LC_MESSAGES" / f"{domain}.mo"
@@ -980,7 +980,7 @@ Expected: commit succeeds. This commit may include `.po` fixes made in Step 3 an
 **Files:**
 - Read: `docs/superpowers/specs/2026-04-29-release-translation-audit-design.md`
 - Read: `po/Makefile`
-- Read: `files/usr/bin/universal-lite-app-menu`
+- Read: `files/usr/bin/adwaita-lite-app-menu`
 - Test: `tests/test_app_menu_i18n.py`
 - Test: `tests/test_translation_catalogs.py`
 - Test: `tests/test_language_names.py`
@@ -1026,14 +1026,14 @@ git status --short
 git diff --stat
 ```
 
-Expected: any remaining changes are limited to translation source files, compiled catalogs, tests, `po/Makefile`, and `files/usr/bin/universal-lite-app-menu` from this plan.
+Expected: any remaining changes are limited to translation source files, compiled catalogs, tests, `po/Makefile`, and `files/usr/bin/adwaita-lite-app-menu` from this plan.
 
 - [ ] **Step 5: Commit final generated updates if `make all` changed files**
 
 If Step 4 shows changes, run:
 
 ```bash
-git add files/usr/bin/universal-lite-app-menu po/Makefile po/*.po po/settings/*.po po/app-menu files/usr/share/locale tests/test_app_menu_i18n.py tests/test_translation_catalogs.py
+git add files/usr/bin/adwaita-lite-app-menu po/Makefile po/*.po po/settings/*.po po/app-menu files/usr/share/locale tests/test_app_menu_i18n.py tests/test_translation_catalogs.py
 git commit -m "chore: finalize release translation audit"
 ```
 

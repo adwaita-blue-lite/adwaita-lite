@@ -1,0 +1,63 @@
+#!/bin/bash
+# Wrapper for the GTK4 greeter with crash fallback.
+# If the greeter crashes 3 times consecutively, fall back to a plain
+# TTY login so the user isn't locked out on a black screen.
+
+MAX_FAILURES=3
+
+uid=$(id -u)
+FAIL_COUNT_DIR="/run/adwaita-lite-greeter"
+if [ ! -d "$FAIL_COUNT_DIR" ] || [ ! -w "$FAIL_COUNT_DIR" ]; then
+    FAIL_COUNT_DIR="/tmp/adwaita-lite-greeter-$uid"
+    mkdir -p "$FAIL_COUNT_DIR"
+    if [ "$(stat -c %u "$FAIL_COUNT_DIR" 2>/dev/null)" = "$uid" ]; then
+        chmod 700 "$FAIL_COUNT_DIR" 2>/dev/null || true
+    else
+        FAIL_COUNT_DIR="${XDG_RUNTIME_DIR:-/tmp}/adwaita-lite-greeter-fallback"
+        mkdir -p "$FAIL_COUNT_DIR"
+        chmod 700 "$FAIL_COUNT_DIR" 2>/dev/null || true
+    fi
+fi
+FAIL_COUNT_FILE="$FAIL_COUNT_DIR/failures"
+
+# Read current failure count (0 if file doesn't exist)
+failures=0
+[ -f "$FAIL_COUNT_FILE" ] && failures=$(cat "$FAIL_COUNT_FILE")
+failures=${failures:-0}
+case "$failures" in
+    ''|*[!0-9]*) failures=0 ;;
+esac
+
+if [ "$failures" -ge "$MAX_FAILURES" ]; then
+    echo "Greeter crashed $failures times. Falling back to TTY login." >&2
+    echo "Fix the greeter, then: rm $FAIL_COUNT_FILE && systemctl restart greetd" >&2
+    exec /bin/login
+fi
+
+# Fix wlroots hardware cursor rendering upside-down / misplaced in VMs.
+if systemd-detect-virt -q; then
+    export WLR_NO_HARDWARE_CURSORS=1
+fi
+
+# GTK 4.16+ defaults to the Vulkan renderer on Wayland.  On weak GPUs
+# (VMs, Chromebooks, ARM boards) Vulkan can silently produce blank
+# windows.  Force GL (OpenGL) which is the proven fix for cage + GTK4
+# (see ReGreet issue #95, cage issue #323).  "ngl" was renamed to "gl"
+# in GTK 4.18+.
+export GSK_RENDERER=gl
+
+# Ensure GTK uses Wayland (cage provides the Wayland socket)
+export GDK_BACKEND=wayland
+
+# Launch the greeter via cage, log stderr for debugging
+cage -s -- /usr/bin/adwaita-lite-greeter 2>/tmp/greeter-crash.log
+status=$?
+
+if [ "$status" -ne 0 ]; then
+    echo $(( failures + 1 )) > "$FAIL_COUNT_FILE"
+else
+    # Successful exit (login completed) — reset counter
+    rm -f "$FAIL_COUNT_FILE"
+fi
+
+exit "$status"

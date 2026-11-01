@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Adwaita-Lite
+Comment=Lightweight Chromebook-style Wayland session
+Exec=/usr/libexec/adwaita-lite-session
+Type=Application
+DesktopNames=labwc;Adwaita-Lite

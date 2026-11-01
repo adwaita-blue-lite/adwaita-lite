@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -euo pipefail
-
-mkdir -p /var/lib/universal-lite
-: > /var/lib/universal-lite/flatpak-setup.skip
-chmod 0644 /var/lib/universal-lite/flatpak-setup.skip
-systemctl stop universal-lite-flatpak-install.service 2>/dev/null || true

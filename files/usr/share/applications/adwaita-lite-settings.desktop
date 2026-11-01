@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Adwaita-Lite Settings
+Comment=System settings for Adwaita-Lite
+Exec=adwaita-lite-settings
+Terminal=false
+Type=Application
+Icon=preferences-desktop
+Categories=GTK;Settings;DesktopSettings;

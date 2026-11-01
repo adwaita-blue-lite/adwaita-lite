@@ -19,17 +19,17 @@ All audits below were sampled while writing this plan. Agents/controllers execut
 ```bash
 # Zero callers of the 5 widget factories:
 grep -rnE 'self\.make_(page_box|group|setting_row|info_row|toggle_cards)' \
-    files/usr/lib/universal-lite/settings/ 2>/dev/null | grep -v pycache
+    files/usr/lib/adwaita-lite/settings/ 2>/dev/null | grep -v pycache
 # Expected: no output
 
 # Zero callers of BasePage.enable_escape_close:
 grep -rn 'BasePage\.enable_escape_close' \
-    files/usr/lib/universal-lite/settings/ 2>/dev/null | grep -v pycache
+    files/usr/lib/adwaita-lite/settings/ 2>/dev/null | grep -v pycache
 # Expected: no output
 
 # Zero importers of settings.utils:
 grep -rn 'from .*utils import\|settings\.utils' \
-    files/usr/lib/universal-lite/settings/ 2>/dev/null | grep -v pycache
+    files/usr/lib/adwaita-lite/settings/ 2>/dev/null | grep -v pycache
 # Expected: no output (enable_escape_close is standalone but no one calls it -
 # all pages replaced Gtk.Window with AdwAlertDialog / nav-push)
 ```
@@ -38,10 +38,10 @@ grep -rn 'from .*utils import\|settings\.utils' \
 
 | File | Change | Purpose |
 |---|---|---|
-| `files/usr/lib/universal-lite/settings/base.py` | Slim | Remove the 5 dead widget factory staticmethods + the dead `enable_escape_close` staticmethod. What's left: the `BasePage.__init__` store/event_bus wiring, `search_keywords` property, `build()` abstract, `subscribe`, `unsubscribe_all`, `setup_cleanup` — the pure page-protocol contract. |
-| `files/usr/lib/universal-lite/settings/utils.py` | **Delete** | Zero importers. We added this file in Phase 0 to host `enable_escape_close` — but every page that would have needed it has since migrated to Adwaita-native dismissal (AdwAlertDialog handles Escape natively, AdwNavigationView handles back-button/Escape on sub-pages). A 20-line helper with no callers is noise; if we need standalone helpers later a new module is trivial to create. |
-| `files/usr/lib/universal-lite/settings/css/style.css` | Trim | Delete rules whose classes now have zero callers: `.content-page`, `.setting-row`, `.toggle-card`, `.boxed-list`. The `.setting-subtitle` class keeps one caller in `window.py`'s error-fallback label; drop that one caller (just use a plain `Gtk.Label` without the class) and delete the rule. The `.group-title` class keeps one caller in `panel.py`'s bespoke module-layout editor section headers — keep the rule for that. Every `accent-*`, `wallpaper-*`, `category-*`, `content-area`, `dialog-*` (dialog-* already deleted in wave 2) stays or stays-deleted as noted. |
-| `files/usr/lib/universal-lite/settings/window.py` | Touch-up | Drop the single `widget.add_css_class("setting-subtitle")` in the failed-to-load fallback (Task 3). Outer `Gtk.ScrolledWindow` wrapping the page stack is **kept** — it enables scroll-position reset on page switch via `_content_scroll.get_vadjustment().set_value(0)`, which AdwPreferencesPage doesn't expose a simple equivalent for. Not a Phase 4 regression. |
+| `files/usr/lib/adwaita-lite/settings/base.py` | Slim | Remove the 5 dead widget factory staticmethods + the dead `enable_escape_close` staticmethod. What's left: the `BasePage.__init__` store/event_bus wiring, `search_keywords` property, `build()` abstract, `subscribe`, `unsubscribe_all`, `setup_cleanup` — the pure page-protocol contract. |
+| `files/usr/lib/adwaita-lite/settings/utils.py` | **Delete** | Zero importers. We added this file in Phase 0 to host `enable_escape_close` — but every page that would have needed it has since migrated to Adwaita-native dismissal (AdwAlertDialog handles Escape natively, AdwNavigationView handles back-button/Escape on sub-pages). A 20-line helper with no callers is noise; if we need standalone helpers later a new module is trivial to create. |
+| `files/usr/lib/adwaita-lite/settings/css/style.css` | Trim | Delete rules whose classes now have zero callers: `.content-page`, `.setting-row`, `.toggle-card`, `.boxed-list`. The `.setting-subtitle` class keeps one caller in `window.py`'s error-fallback label; drop that one caller (just use a plain `Gtk.Label` without the class) and delete the rule. The `.group-title` class keeps one caller in `panel.py`'s bespoke module-layout editor section headers — keep the rule for that. Every `accent-*`, `wallpaper-*`, `category-*`, `content-area`, `dialog-*` (dialog-* already deleted in wave 2) stays or stays-deleted as noted. |
+| `files/usr/lib/adwaita-lite/settings/window.py` | Touch-up | Drop the single `widget.add_css_class("setting-subtitle")` in the failed-to-load fallback (Task 3). Outer `Gtk.ScrolledWindow` wrapping the page stack is **kept** — it enables scroll-position reset on page switch via `_content_scroll.get_vadjustment().set_value(0)`, which AdwPreferencesPage doesn't expose a simple equivalent for. Not a Phase 4 regression. |
 
 ---
 
@@ -57,15 +57,15 @@ Commands:
 cd /var/home/race/ublue-mike
 
 grep -rnE 'self\.make_(page_box|group|setting_row|info_row|toggle_cards)' \
-    files/usr/lib/universal-lite/settings/ 2>/dev/null | grep -v pycache
+    files/usr/lib/adwaita-lite/settings/ 2>/dev/null | grep -v pycache
 # Expected: (empty)
 
 grep -rn 'BasePage\.enable_escape_close' \
-    files/usr/lib/universal-lite/settings/ 2>/dev/null | grep -v pycache
+    files/usr/lib/adwaita-lite/settings/ 2>/dev/null | grep -v pycache
 # Expected: (empty)
 
 grep -rn 'from .*utils import\|settings\.utils' \
-    files/usr/lib/universal-lite/settings/ 2>/dev/null | grep -v pycache
+    files/usr/lib/adwaita-lite/settings/ 2>/dev/null | grep -v pycache
 # Expected: (empty)
 ```
 
@@ -76,7 +76,7 @@ If ANY of these produce output, STOP. A page missed the migration. Do not procee
 ```bash
 for cls in 'content-page' 'setting-row' 'toggle-card' 'boxed-list'; do
     count=$(grep -rnE "add_css_class\(\"$cls\"\)" \
-        files/usr/lib/universal-lite/settings/ 2>/dev/null \
+        files/usr/lib/adwaita-lite/settings/ 2>/dev/null \
         | grep -v pycache | grep -v base.py | wc -l)
     printf "%-20s non-base.py callers: %d\n" "$cls" "$count"
 done
@@ -97,7 +97,7 @@ boxed-list           non-base.py callers: 0
 ## Task 2: Slim `base.py`
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/base.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/base.py`
 
 - [ ] **Step 1: Replace `base.py` with the slim version**
 
@@ -171,7 +171,7 @@ class BasePage:
 - [ ] **Step 2: Syntax-check**
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/base.py').read()); print('OK')"
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/base.py').read()); print('OK')"
 ```
 
 Expected: `OK`
@@ -179,22 +179,22 @@ Expected: `OK`
 - [ ] **Step 3: Verify the file shrunk and protocol is intact**
 
 ```bash
-wc -l files/usr/lib/universal-lite/settings/base.py
+wc -l files/usr/lib/adwaita-lite/settings/base.py
 # Expected: ~50 (down from 161)
 
 grep -cE 'def (subscribe|unsubscribe_all|setup_cleanup|build|refresh|__init__)' \
-    files/usr/lib/universal-lite/settings/base.py
+    files/usr/lib/adwaita-lite/settings/base.py
 # Expected: 6
 
 grep -cE 'def (make_|enable_escape_close)' \
-    files/usr/lib/universal-lite/settings/base.py
+    files/usr/lib/adwaita-lite/settings/base.py
 # Expected: 0
 ```
 
 - [ ] **Step 4: Stage**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/base.py
+git add files/usr/lib/adwaita-lite/settings/base.py
 ```
 
 Do NOT commit yet. Phase 4 commits atomically at the end of Task 5.
@@ -204,22 +204,22 @@ Do NOT commit yet. Phase 4 commits atomically at the end of Task 5.
 ## Task 3: Prune dead CSS + window.py touch-up
 
 **Files:**
-- Modify: `files/usr/lib/universal-lite/settings/css/style.css`
-- Modify: `files/usr/lib/universal-lite/settings/window.py`
+- Modify: `files/usr/lib/adwaita-lite/settings/css/style.css`
+- Modify: `files/usr/lib/adwaita-lite/settings/window.py`
 
 - [ ] **Step 1: Read the current `style.css` to identify the dead rules**
 
 Run:
 ```bash
 grep -nE '^\.(content-page|setting-row|setting-subtitle|toggle-card|boxed-list)\b' \
-    files/usr/lib/universal-lite/settings/css/style.css
+    files/usr/lib/adwaita-lite/settings/css/style.css
 ```
 
 Expected output lists each class as a CSS selector (one per dead rule). Note the line numbers — you'll be deleting the rule blocks (from the selector line through the closing `}`).
 
 - [ ] **Step 2: Delete the dead CSS rule blocks**
 
-Open `files/usr/lib/universal-lite/settings/css/style.css` and remove the complete rule blocks for each of:
+Open `files/usr/lib/adwaita-lite/settings/css/style.css` and remove the complete rule blocks for each of:
 
 - `.content-page { … }`
 - `.setting-row { … }` (if present — may already have been dropped mid-migration; no-op if so)
@@ -233,16 +233,16 @@ Leave `.group-title`, `.accent-*`, `.wallpaper-*`, `.category-icon`, `.category-
 
 The only remaining caller of `.setting-subtitle` was the failed-to-load fallback label. Since we've deleted the CSS rule, drop the class application — the plain Gtk.Label renders fine with default theme styling.
 
-Edit `files/usr/lib/universal-lite/settings/window.py` around the `_ensure_page_built` method. Find the fallback widget construction (it constructs a Gtk.Label("Failed to load {label}") and adds the class). Remove just the `widget.add_css_class("setting-subtitle")` line.
+Edit `files/usr/lib/adwaita-lite/settings/window.py` around the `_ensure_page_built` method. Find the fallback widget construction (it constructs a Gtk.Label("Failed to load {label}") and adds the class). Remove just the `widget.add_css_class("setting-subtitle")` line.
 
 - [ ] **Step 4: Re-run the CSS audit to verify cleanup is complete**
 
 ```bash
 for cls in 'content-page' 'setting-row' 'setting-subtitle' 'toggle-card' 'boxed-list'; do
     class_count=$(grep -rnE "add_css_class\(\"$cls\"\)" \
-        files/usr/lib/universal-lite/settings/ 2>/dev/null | grep -v pycache | wc -l)
+        files/usr/lib/adwaita-lite/settings/ 2>/dev/null | grep -v pycache | wc -l)
     rule_count=$(grep -nE "^\.$cls\b" \
-        files/usr/lib/universal-lite/settings/css/style.css | wc -l)
+        files/usr/lib/adwaita-lite/settings/css/style.css | wc -l)
     printf "%-20s callers: %d  rules: %d\n" "$cls" "$class_count" "$rule_count"
 done
 ```
@@ -261,8 +261,8 @@ If any line has callers > 0 or rules > 0, the edit missed something. Fix before 
 - [ ] **Step 5: Stage**
 
 ```bash
-git add files/usr/lib/universal-lite/settings/css/style.css \
-        files/usr/lib/universal-lite/settings/window.py
+git add files/usr/lib/adwaita-lite/settings/css/style.css \
+        files/usr/lib/adwaita-lite/settings/window.py
 ```
 
 ---
@@ -270,13 +270,13 @@ git add files/usr/lib/universal-lite/settings/css/style.css \
 ## Task 4: Delete `settings/utils.py`
 
 **Files:**
-- Delete: `files/usr/lib/universal-lite/settings/utils.py`
+- Delete: `files/usr/lib/adwaita-lite/settings/utils.py`
 
 - [ ] **Step 1: Final audit — confirm zero importers**
 
 ```bash
 grep -rn 'from .*utils import\|settings\.utils\|from settings\.utils' \
-    files/usr/lib/universal-lite/settings/ 2>/dev/null | grep -v pycache
+    files/usr/lib/adwaita-lite/settings/ 2>/dev/null | grep -v pycache
 ```
 
 Expected: empty.
@@ -286,13 +286,13 @@ If any line shows up, STOP. A page still needs the helper; either keep the file 
 - [ ] **Step 2: Delete the file**
 
 ```bash
-git rm files/usr/lib/universal-lite/settings/utils.py
+git rm files/usr/lib/adwaita-lite/settings/utils.py
 ```
 
 - [ ] **Step 3: Clean up the adjacent `__pycache__` stale entry if present**
 
 ```bash
-rm -f files/usr/lib/universal-lite/settings/__pycache__/utils.cpython-*.pyc
+rm -f files/usr/lib/adwaita-lite/settings/__pycache__/utils.cpython-*.pyc
 ```
 
 (The build regenerates pycaches, but removing this one locally prevents confusion during review.)
@@ -312,10 +312,10 @@ git diff --cached --name-status
 
 Expected output:
 ```
-M   files/usr/lib/universal-lite/settings/base.py
-M   files/usr/lib/universal-lite/settings/css/style.css
-M   files/usr/lib/universal-lite/settings/window.py
-D   files/usr/lib/universal-lite/settings/utils.py
+M   files/usr/lib/adwaita-lite/settings/base.py
+M   files/usr/lib/adwaita-lite/settings/css/style.css
+M   files/usr/lib/adwaita-lite/settings/window.py
+D   files/usr/lib/adwaita-lite/settings/utils.py
 ```
 
 If anything else is staged, unstage it with `git reset HEAD <path>` before committing.
@@ -326,8 +326,8 @@ If anything else is staged, unstage it with `git reset HEAD <path>` before commi
 python3 -c "
 import ast
 for p in [
-    'files/usr/lib/universal-lite/settings/base.py',
-    'files/usr/lib/universal-lite/settings/window.py',
+    'files/usr/lib/adwaita-lite/settings/base.py',
+    'files/usr/lib/adwaita-lite/settings/window.py',
 ]:
     ast.parse(open(p).read())
     print(f'{p}: OK')
@@ -399,7 +399,7 @@ Expected: push completes, commit visible on `origin/main`.
 After CI finishes (~4 min), update the target machine and open the settings app. Verify:
 
 1. Every sidebar category still opens its page (all 16: Appearance, Display, Network, Bluetooth, Panel, Mouse & Touchpad, Keyboard, Sound, Power & Lock, Accessibility, Date & Time, Users, Language & Region, Default Apps, About).
-2. No Python stack-trace in `journalctl --user -b | grep universal-lite-settings` from the slimmer BasePage (missing method / import errors).
+2. No Python stack-trace in `journalctl --user -b | grep adwaita-lite-settings` from the slimmer BasePage (missing method / import errors).
 3. Panel's Module Layout section headers still render with the bold uppercase styling (that's `.group-title`, kept).
 4. Appearance's accent circles still render with color backgrounds (`.accent-*`, kept).
 5. Appearance's wallpaper tiles still render with their custom overlays (`.wallpaper-*`, kept).

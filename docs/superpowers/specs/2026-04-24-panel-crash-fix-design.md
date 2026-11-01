@@ -28,7 +28,7 @@ Add re-entrancy and construction guards to `PanelPage`, matching the existing
 `_updating` / `_updating_variant` / `_group_updating` pattern used throughout
 the codebase.
 
-### Changes (single file: `files/usr/lib/universal-lite/settings/pages/panel.py`)
+### Changes (single file: `files/usr/lib/adwaita-lite/settings/pages/panel.py`)
 
 1. **Add guard flags to `__init__`:** `_updating: bool` and `_built: bool`
 2. **Guard all three signal handlers** (position, density, twilight) with
