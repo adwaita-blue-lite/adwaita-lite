@@ -57,6 +57,19 @@ clean:
 sudo-clean:
     just sudoif just clean
 
+# Merge the latest ublue-os/image-template into a local sync branch.
+[group('Utility')]
+upstream-sync:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if ! git remote get-url upstream >/dev/null 2>&1; then
+        git remote add upstream https://github.com/ublue-os/image-template.git
+    fi
+    git fetch upstream main
+    branch="upstream-sync/$(date -u +%Y%m%d)"
+    git switch -C "$branch"
+    git merge --no-edit upstream/main
+
 # sudoif bash function
 [group('Utility')]
 [private]
