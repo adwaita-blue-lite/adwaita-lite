@@ -2,7 +2,7 @@
 
 **Status:** Approved
 **Date:** 2026-04-20
-**Scope:** Convert the 16 pages of `universal-lite-settings` from hand-built `Gtk.Box` rows + custom CSS to the Adwaita preference patterns (`AdwPreferencesPage` / `AdwPreferencesGroup` / `Adw*Row`), with targeted UX improvements where libadwaita enables a genuinely better experience.
+**Scope:** Convert the 16 pages of `adwaita-lite-settings` from hand-built `Gtk.Box` rows + custom CSS to the Adwaita preference patterns (`AdwPreferencesPage` / `AdwPreferencesGroup` / `Adw*Row`), with targeted UX improvements where libadwaita enables a genuinely better experience.
 
 ## Goals
 

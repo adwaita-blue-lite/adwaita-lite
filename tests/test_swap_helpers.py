@@ -6,7 +6,7 @@ import pytest
 
 
 _REPO = Path(__file__).resolve().parents[1]
-_SWAP_INIT = _REPO / "files/usr/libexec/universal-lite-swap-init"
+_SWAP_INIT = _REPO / "files/usr/libexec/adwaita-lite-swap-init"
 
 
 def _run_swap_init(tmp_path, size_text=None):

@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Greeter Component Documentation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --bg: #111116;
+      --panel: #1b1b23;
+      --panel-2: #24242e;
+      --line: #383846;
+      --text: #f7f7fb;
+      --muted: #c8c8d4;
+      --soft: #9494a3;
+      --accent: #8ab4ff;
+      --accent-2: #cba6f7;
+      --warn: #ffd479;
+      --danger: #ff7b7b;
+      --ok: #57e389;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 14% 0%, rgba(138, 180, 255, 0.22), transparent 29rem),
+        radial-gradient(circle at 84% 8%, rgba(203, 166, 247, 0.14), transparent 24rem),
+        linear-gradient(135deg, #111116 0%, #171720 58%, #101016 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 34px 0 64px;
+    }
+
+    a { color: var(--accent); }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 0.92em;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--soft);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 7vw, 5.8rem);
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h3 { margin: 0 0 8px; font-size: 1.04rem; }
+    p { margin: 0; }
+
+    .lede {
+      max-width: 810px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .source-map,
+    section {
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 26px;
+      background: rgba(27, 27, 35, 0.9);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    }
+
+    .source-map {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      align-content: start;
+    }
+
+    .source-card,
+    .component-card,
+    .state-card,
+    .safe-card,
+    .behavior-card {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(36, 36, 46, 0.92), rgba(20, 20, 28, 0.92));
+    }
+
+    .source-card b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--warn);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .source-card code {
+      display: inline;
+      overflow-wrap: anywhere;
+      background: transparent;
+      padding: 0;
+    }
+
+    section { margin-top: 24px; padding: 22px; }
+
+    .arch-strip {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .arch-card {
+      min-height: 150px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(36, 36, 46, 0.78);
+    }
+
+    .arch-card b {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--accent-2);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .component-grid,
+    .state-map,
+    .safe-edit,
+    .behavior-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .component-card p,
+    .state-card p,
+    .safe-card p,
+    .behavior-card p,
+    .arch-card p { color: var(--muted); font-size: 0.93rem; }
+
+    .state-card.wide { grid-column: span 2; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      border: 1px solid rgba(138, 180, 255, 0.32);
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: #e4efff;
+      background: rgba(138, 180, 255, 0.1);
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    th, td {
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #20202a;
+      color: var(--soft);
+      font-size: 0.74rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { width: 22%; font-weight: 800; }
+
+    .density-note {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-left: 5px solid var(--accent);
+      border-radius: 16px;
+      background: rgba(138, 180, 255, 0.1);
+      color: var(--muted);
+    }
+
+    @media (max-width: 980px) {
+      header { grid-template-columns: 1fr; }
+      .arch-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .component-grid, .state-map, .safe-edit, .behavior-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      main { width: min(100% - 24px, 1180px); padding-top: 24px; }
+      section { padding: 16px; border-radius: 20px; }
+      .arch-strip, .component-grid, .state-map, .safe-edit, .behavior-grid { grid-template-columns: 1fr; }
+      .state-card.wide { grid-column: auto; }
+      table, thead, tbody, tr, th, td { display: block; }
+      thead tr { padding: 0; }
+      th { border-bottom: 1px solid rgba(255, 255, 255, 0.16); }
+      tr { padding: 12px 0; border-bottom: 1px solid var(--line); }
+      td { width: 100%; padding: 5px 0; border: 0; }
+      td:first-child { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <p class="eyebrow"><a href="index.html">Component docs</a> / greetd kiosk surface</p>
+      <h1>Greeter</h1>
+      <p class="lede">Contributor map for <code>GreeterWindow</code> and <code>GreetdClient</code> in <code>files/usr/bin/adwaita-lite-greeter</code>. Use this page to trace the pre-login GTK kiosk flow, session chooser, palette loading, last-user state, and greetd IPC order before editing the login screen.</p>
+      <p class="density-note">HTML is used here because greeter changes cross visual CSS, pre-login file state, and a strict IPC state machine; dense maps make those boundaries visible at once.</p>
+    </div>
+    <aside class="source-map" aria-label="Source anchors">
+      <div class="source-card"><b>Runtime source</b><code>files/usr/bin/adwaita-lite-greeter</code></div>
+      <div class="source-card"><b>Primary class</b><code>GreeterWindow</code> owns GTK widgets and card state.</div>
+      <div class="source-card"><b>IPC adapter</b><code>GreetdClient</code> serializes greetd JSON messages over <code>GREETD_SOCK</code>.</div>
+    </aside>
+  </header>
+
+  <section aria-labelledby="architecture-title">
+    <h2 id="architecture-title">Architecture</h2>
+    <div class="arch-strip">
+      <article class="arch-card"><b>Launch contract</b><p><code>main</code> exits unless <code>GREETD_SOCK</code> is present, matching the greetd-launched cage kiosk assumption rather than a normal desktop app launch.</p></article>
+      <article class="arch-card"><b>Pre-login theme</b><p><code>_load_accent_name</code>, <code>_load_palettes</code>, <code>_load_theme</code>, and <code>_build_css</code> resolve shared palette data before <code>GreeterApp</code> installs the GTK provider.</p></article>
+      <article class="arch-card"><b>Window shell</b><p><code>GreeterWindow</code> fullscreens an 800x600-centered layout with clock/date above a single login <code>card</code>.</p></article>
+      <article class="arch-card"><b>Auth boundary</b><p><code>GreetdClient</code> exposes only <code>create_session</code>, <code>post_auth_response</code>, <code>start_session</code>, and <code>cancel_session</code>; UI state reacts to those response types.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="components-title">
+    <h2 id="components-title">Component Map</h2>
+    <div class="component-grid">
+      <article class="component-card"><h3>Window Controller</h3><p><code>GreeterWindow</code> builds the visible clock, card, session chooser, input state, error label, and keyboard-error clearing.</p><div class="chips"><span class="chip">fullscreen</span><span class="chip">_show_password_state</span><span class="chip">_show_username_state</span></div></article>
+      <article class="component-card"><h3>Greetd IPC</h3><p><code>GreetdClient</code> connects to <code>GREETD_SOCK</code>, sends length-prefixed JSON, and returns decoded greetd responses synchronously.</p><div class="chips"><span class="chip">create_session</span><span class="chip">post_auth_response</span><span class="chip">start_session</span><span class="chip">cancel_session</span></div></article>
+      <article class="component-card"><h3>CSS Builder</h3><p><code>_build_css</code> turns one resolved palette into GTK selectors for the clock, date, card, controls, errors, and session dropdown.</p><div class="chips"><span class="chip">_build_css</span><span class="chip">clock</span><span class="chip">form-entry</span><span class="chip">login-button</span></div></article>
+      <article class="component-card"><h3>Palette Loader</h3><p><code>_load_palettes</code> reads <code>files/usr/share/adwaita-lite/palette.json</code> at runtime path <code>/usr/share/adwaita-lite/palette.json</code>, adds greeter shadow, entry, hover, error, and accent foreground tokens.</p><div class="chips"><span class="chip">_load_palettes</span><span class="chip">PALETTES</span><span class="chip">accent_fg</span></div></article>
+      <article class="component-card"><h3>Theme Slot</h3><p><code>_load_theme</code> reads <code>/var/lib/adwaita-lite/greeter-theme</code> and falls back to <code>light</code> unless the value names a loaded palette.</p><div class="chips"><span class="chip">_load_theme</span><span class="chip">GREETER_THEME_PATH</span></div></article>
+      <article class="component-card"><h3>Accent Slot</h3><p><code>_load_accent_name</code> reads <code>/var/lib/adwaita-lite/greeter-accent</code> and falls back to <code>blue</code> so the pre-login UI survives missing user-scoped settings.</p><div class="chips"><span class="chip">_load_accent_name</span><span class="chip">GREETER_ACCENT_PATH</span></div></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="ownership-title">
+    <h2 id="ownership-title">UI Ownership Table</h2>
+    <table>
+      <thead><tr><th>CSS or widget anchor</th><th>Owned by</th><th>Edit risk</th></tr></thead>
+      <tbody>
+        <tr><td><code>clock</code></td><td><code>self._clock_label</code> in the outer vertical box.</td><td>Updated every 30 seconds by <code>_update_clock</code>; keep large text legible on kiosk displays.</td></tr>
+        <tr><td><code>date</code></td><td><code>self._date_label</code> below the clock.</td><td>Long localized date strings can widen the centered column.</td></tr>
+        <tr><td><code>card</code></td><td>Central <code>Gtk.Box</code> containing session control, greeting, entries, error, submit, and switch-user.</td><td>Size request is 400px; padding, shadow, and radius define the greeter's focal surface.</td></tr>
+        <tr><td><code>gear-button</code></td><td>Header button with <code>emblem-system-symbolic</code> icon and <code>_on_gear_clicked</code>.</td><td>Toggles session chooser visibility; avoid moving it into auth-only state.</td></tr>
+        <tr><td><code>session-dropdown</code></td><td><code>Gtk.DropDown</code> populated from <code>_discover_sessions</code>.</td><td>Selection is stored by index in <code>_selected_session</code>; default prefers names containing <code>Adwaita-Lite</code>.</td></tr>
+        <tr><td><code>greeting</code></td><td><code>self._greeting</code> switches between <code>Log in</code> and <code>Welcome back, {username}</code>.</td><td>Shares settings gettext domain; new strings must be available through <code>adwaita-lite-settings</code>.</td></tr>
+        <tr><td><code>form-entry</code></td><td><code>Gtk.Entry</code> username and <code>Gtk.PasswordEntry</code> password fields.</td><td>Password entry enables peek icon; both activate <code>_on_submit</code>.</td></tr>
+        <tr><td><code>error-label</code></td><td><code>self._error_label</code> with wrap and 40 character width.</td><td>Cleared on any key press by <code>_on_key_pressed</code>; do not rely on it as durable state.</td></tr>
+        <tr><td><code>login-button</code></td><td><code>self._submit_btn</code>, labeled <code>Next</code> in username state and <code>Log In</code> in password state.</td><td>Disabled during password submission and re-enabled on recoverable failures.</td></tr>
+        <tr><td><code>switch-user</code></td><td><code>self._switch_btn</code> shown in password state, whether reached from remembered last-user data or a freshly entered username.</td><td>Calls <code>_show_username_state</code>, which cancels any active greetd session before changing users.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section aria-labelledby="state-title">
+    <h2 id="state-title">Greetd State Map</h2>
+    <div class="state-map">
+      <article class="state-card"><h3>Last User</h3><p><code>_read_last_user</code> checks <code>/var/lib/greetd/last-user</code> then <code>/var/lib/adwaita-lite/last-user</code>. If found, <code>_show_password_state</code> immediately pre-creates a greetd session.</p></article>
+      <article class="state-card"><h3>Username Input</h3><p>With no current user, <code>_on_submit</code> trims <code>self._username_entry</code>. Empty input shows <code>Enter a username.</code>; valid input advances to password state.</p></article>
+      <article class="state-card"><h3>Create Session</h3><p><code>_create_greetd_session</code> sends <code>GreetdClient.create_session</code>. A <code>secret</code> auth message leaves the password field visible; <code>info</code> is acknowledged with <code>post_auth_response(None)</code>.</p></article>
+      <article class="state-card"><h3>Password Input</h3><p>Password state requires non-empty <code>self._password_entry</code>, disables <code>login-button</code>, then posts the password with <code>GreetdClient.post_auth_response</code>.</p></article>
+      <article class="state-card wide"><h3>Responses and Errors</h3><p><code>_create_greetd_session</code> may call <code>_start_session</code> directly when greetd returns <code>success</code> before password submission. <code>_write_last_user</code> runs only in password-submit success paths. <code>auth_error</code> becomes <code>Incorrect password.</code>; other errors use greetd descriptions or localized fallbacks. <code>_reset_auth</code> cancels, clears the password, and recreates the session for retry.</p></article>
+      <article class="state-card"><h3>Session Start</h3><p><code>_start_session</code> sends the selected desktop command from <code>_sessions</code>. On greetd <code>success</code>, the GTK application quits because greetd owns the launched session.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="behavior-title">
+    <h2 id="behavior-title">Behavior Checklist</h2>
+    <div class="behavior-grid">
+      <article class="behavior-card"><h3>Last-user loading</h3><p>Known users skip the username field and show <code>Welcome back, {username}</code>; stale greetd user errors fall back to username state and show the description.</p></article>
+      <article class="behavior-card"><h3>Theme and accent files</h3><p><code>GREETER_THEME_PATH</code> and <code>GREETER_ACCENT_PATH</code> are pre-login <code>/var/lib</code> slots propagated by settings/session behavior, not user home files.</p></article>
+      <article class="behavior-card"><h3>Session discovery</h3><p><code>_discover_sessions</code> parses <code>/usr/share/wayland-sessions/*.desktop</code>, splits <code>Exec</code>, and falls back to <code>labwc</code> when no sessions are usable.</p></article>
+      <article class="behavior-card"><h3>Username/password entry</h3><p>Both fields activate on Enter. Username is stripped before session creation; password is posted as typed and never written to last-user state.</p></article>
+      <article class="behavior-card"><h3>Error states</h3><p><code>_show_error</code> writes <code>error-label</code>. Key presses hide the label. Connection failures re-enable submit when they occur after password submission.</p></article>
+      <article class="behavior-card"><h3>Login submission</h3><p>After password submission succeeds, <code>_write_last_user</code> stores only the username in <code>/var/lib/greetd/last-user</code>, then <code>_start_session</code> launches the selected command.</p></article>
+      <article class="behavior-card"><h3>User switching</h3><p><code>switch-user</code> appears in password state to return to username entry. It cancels active greetd auth first, preventing a stale PAM conversation from receiving another user's password.</p></article>
+      <article class="behavior-card"><h3>Time/date refresh</h3><p><code>_update_clock</code> sets 12-hour clock and full date text during construction and through <code>GLib.timeout_add_seconds(30, ...)</code>.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="safe-title">
+    <h2 id="safe-title">Safe Edit Rules</h2>
+    <div class="safe-edit">
+      <article class="safe-card"><h3>greetd IPC ordering</h3><p>Keep <code>create_session</code> before any password response, acknowledge <code>info</code> messages with <code>post_auth_response(None)</code>, and call <code>cancel_session</code> before changing users or retrying auth.</p></article>
+      <article class="safe-card"><h3>Password handling</h3><p>Do not persist, log, trim, or echo password text. Only pass <code>self._password_entry.get_text()</code> to <code>post_auth_response</code>, then clear it on reset.</p></article>
+      <article class="safe-card"><h3>Pre-login palette fallback</h3><p>The greeter must render without user home access. Preserve <code>blue</code>, <code>light</code>, and hardcoded palette fallbacks for missing or invalid files.</p></article>
+      <article class="safe-card"><h3>Translation domain sharing</h3><p>The file binds <code>adwaita-lite-settings</code>; new greeter strings share settings translations and belong in that domain, not a separate greeter-only domain.</p></article>
+      <article class="safe-card"><h3>Kiosk/display assumptions</h3><p>The window calls <code>fullscreen</code> and centers a compact card for cage. Test layout on small displays before changing card width, clock size, or dropdown visibility.</p></article>
+      <article class="safe-card"><h3>Session command trust</h3><p><code>_discover_sessions</code> reads system desktop files and passes selected <code>Exec</code> tokens to greetd; avoid adding shell interpretation around session commands.</p></article>
+    </div>
+  </section>
+</main>
+</body>
+</html>

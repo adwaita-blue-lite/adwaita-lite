@@ -1,4 +1,4 @@
-# Universal-Lite CLAUDE.md
+# Adwaita-Lite CLAUDE.md
 
 ## Memory
 

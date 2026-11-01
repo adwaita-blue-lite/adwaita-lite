@@ -16,12 +16,12 @@ Controller runs spec + quality reviewers per commit after all four finish, addre
 **Tech stack:** Python 3.13, PyGObject, GTK 4, libadwaita. `BasePage.make_*` factories still in place until Phase 4.
 
 **References:**
-- Pilot: `files/usr/lib/universal-lite/settings/pages/power_lock.py` (commit `7f9473f`)
-- Wave-1: `files/usr/lib/universal-lite/settings/pages/sound.py` (dynamic widget refs + lifecycle)
-- Wave-2: `files/usr/lib/universal-lite/settings/pages/about.py` (AdwNavigationView + sub-page with AdwSwitchRows + handler_block_by_func)
-- Wave-2: `files/usr/lib/universal-lite/settings/pages/users.py` (AdwNavigationView + navigation-push sub-page with password entries + apply)
-- Wave-2: `files/usr/lib/universal-lite/settings/pages/bluetooth.py` (dynamic list rebuild + device rows + scan lifecycle)
-- Wave-2: `files/usr/lib/universal-lite/settings/pages/appearance.py` (custom Gtk widgets wrapped in `Adw.ActionRow` via `add_suffix`)
+- Pilot: `files/usr/lib/adwaita-lite/settings/pages/power_lock.py` (commit `7f9473f`)
+- Wave-1: `files/usr/lib/adwaita-lite/settings/pages/sound.py` (dynamic widget refs + lifecycle)
+- Wave-2: `files/usr/lib/adwaita-lite/settings/pages/about.py` (AdwNavigationView + sub-page with AdwSwitchRows + handler_block_by_func)
+- Wave-2: `files/usr/lib/adwaita-lite/settings/pages/users.py` (AdwNavigationView + navigation-push sub-page with password entries + apply)
+- Wave-2: `files/usr/lib/adwaita-lite/settings/pages/bluetooth.py` (dynamic list rebuild + device rows + scan lifecycle)
+- Wave-2: `files/usr/lib/adwaita-lite/settings/pages/appearance.py` (custom Gtk widgets wrapped in `Adw.ActionRow` via `add_suffix`)
 - Design: `docs/superpowers/specs/2026-04-20-settings-adwaita-migration-design.md`
 - Reference pack: `docs/superpowers/specs/2026-04-20-settings-adwaita-reference.md`
 
@@ -151,16 +151,16 @@ The conflict AdwAlertDialog stays the same (it's already Adw in the pre-migratio
 
 | Page | File | Model | Key complexity |
 |---|---|---|---|
-| Display | `files/usr/lib/universal-lite/settings/pages/display.py` | Opus | Two countdown revert dialogs (scale + resolution), conditionally-visible custom schedule entries, wlr-randr subprocess flows |
-| Network | `files/usr/lib/universal-lite/settings/pages/network.py` | Opus | Dynamic WiFi list, password + hidden-network nav pushes, .property info rows for active connection, wired status |
-| Panel | `files/usr/lib/universal-lite/settings/pages/panel.py` | Opus | Drag-button layout editor (stays custom), pinned apps nav-push picker with search |
-| Keyboard | `files/usr/lib/universal-lite/settings/pages/keyboard.py` | Opus | Layout + variant combos, shortcut list with capture-page nav push, conflict AdwAlertDialog (already Adw) |
+| Display | `files/usr/lib/adwaita-lite/settings/pages/display.py` | Opus | Two countdown revert dialogs (scale + resolution), conditionally-visible custom schedule entries, wlr-randr subprocess flows |
+| Network | `files/usr/lib/adwaita-lite/settings/pages/network.py` | Opus | Dynamic WiFi list, password + hidden-network nav pushes, .property info rows for active connection, wired status |
+| Panel | `files/usr/lib/adwaita-lite/settings/pages/panel.py` | Opus | Drag-button layout editor (stays custom), pinned apps nav-push picker with search |
+| Keyboard | `files/usr/lib/adwaita-lite/settings/pages/keyboard.py` | Opus | Layout + variant combos, shortcut list with capture-page nav push, conflict AdwAlertDialog (already Adw) |
 
 ---
 
 ## Task: Agent 1 — `display` (Opus)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/display.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/display.py`
 
 ### Groups (top-down)
 
@@ -201,14 +201,14 @@ Both `_show_revert_dialog` (scale) and `_show_res_revert_dialog` (resolution) be
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/display.py').read()); print('OK')"
-grep -cE 'wlr-randr' files/usr/lib/universal-lite/settings/pages/display.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/display.py').read()); print('OK')"
+grep -cE 'wlr-randr' files/usr/lib/adwaita-lite/settings/pages/display.py
 # Expected: >= 4
-grep -cE 'save_and_apply|save_debounced' files/usr/lib/universal-lite/settings/pages/display.py
+grep -cE 'save_and_apply|save_debounced' files/usr/lib/adwaita-lite/settings/pages/display.py
 # Expected: >= 5 (scale, night_light_enabled, night_light_temp debounced, night_light_schedule, night_light_start, night_light_end, resolution_)
-grep -cE 'Adw\.AlertDialog|Gtk\.Window' files/usr/lib/universal-lite/settings/pages/display.py
+grep -cE 'Adw\.AlertDialog|Gtk\.Window' files/usr/lib/adwaita-lite/settings/pages/display.py
 # Expected: >= 2 AlertDialog, 0 Gtk.Window
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/display.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/display.py
 # Expected: 0
 ```
 
@@ -222,7 +222,7 @@ Preservation line: *"5 wlr-randr subprocess flows, scale + resolution revert tim
 
 ## Task: Agent 2 — `network` (Opus)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/network.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/network.py`
 
 ### Top-level structure
 
@@ -306,14 +306,14 @@ Replaces `_show_hidden_dialog`. Similar structure: sub-page with a group contain
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/network.py').read()); print('OK')"
-grep -cE 'NetworkManagerHelper|nm-ready|network-changed|network-connect' files/usr/lib/universal-lite/settings/pages/network.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/network.py').read()); print('OK')"
+grep -cE 'NetworkManagerHelper|nm-ready|network-changed|network-connect' files/usr/lib/adwaita-lite/settings/pages/network.py
 # Expected: >= 6 (helper import + instantiation + 4 subscriptions)
-grep -cE 'Gtk\.Window' files/usr/lib/universal-lite/settings/pages/network.py
+grep -cE 'Gtk\.Window' files/usr/lib/adwaita-lite/settings/pages/network.py
 # Expected: 0
-grep -cE '_status_label' files/usr/lib/universal-lite/settings/pages/network.py
+grep -cE '_status_label' files/usr/lib/adwaita-lite/settings/pages/network.py
 # Expected: 0 (removed in favour of toasts)
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/network.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/network.py
 # Expected: 0
 ```
 
@@ -327,7 +327,7 @@ Preservation line: *"NetworkManagerHelper lazy init, _updating guard, all 4 even
 
 ## Task: Agent 3 — `panel` (Opus)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/panel.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/panel.py`
 
 ### Top-level structure
 
@@ -392,14 +392,14 @@ Each app row's Add button calls `_add_app_from_info(app_info)` and then `self._n
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/panel.py').read()); print('OK')"
-grep -cE 'save_and_apply' files/usr/lib/universal-lite/settings/pages/panel.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/panel.py').read()); print('OK')"
+grep -cE 'save_and_apply' files/usr/lib/adwaita-lite/settings/pages/panel.py
 # Expected: >= 5 (edge, density, panel_twilight, layout, pinned)
-grep -cE 'MODULE_NAMES|DEFAULT_LAYOUT|HORIZONTAL_LABELS|VERTICAL_LABELS' files/usr/lib/universal-lite/settings/pages/panel.py
+grep -cE 'MODULE_NAMES|DEFAULT_LAYOUT|HORIZONTAL_LABELS|VERTICAL_LABELS' files/usr/lib/adwaita-lite/settings/pages/panel.py
 # Expected: >= 4 (each constant referenced at least once)
-grep -cE 'Gtk\.Window' files/usr/lib/universal-lite/settings/pages/panel.py
+grep -cE 'Gtk\.Window' files/usr/lib/adwaita-lite/settings/pages/panel.py
 # Expected: 0
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/panel.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/panel.py
 # Expected: 0
 ```
 
@@ -413,7 +413,7 @@ Preservation line: *"all 5 save_and_apply call sites, MODULE_NAMES / DEFAULT_LAY
 
 ## Task: Agent 4 — `keyboard` (Opus)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/keyboard.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/keyboard.py`
 
 ### Top-level structure
 
@@ -459,16 +459,16 @@ The `_shortcut_buttons` list that cached capture-button refs goes away. Instead,
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/keyboard.py').read()); print('OK')"
-grep -cE '_parse_system_keybindings|_load_user_keybindings|_save_user_keybindings' files/usr/lib/universal-lite/settings/pages/keyboard.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/keyboard.py').read()); print('OK')"
+grep -cE '_parse_system_keybindings|_load_user_keybindings|_save_user_keybindings' files/usr/lib/adwaita-lite/settings/pages/keyboard.py
 # Expected: >= 4 (definitions + call sites)
-grep -cE 'SHORTCUT_NAMES|LAYOUT_NAMES|_MODIFIER_KEYVALS' files/usr/lib/universal-lite/settings/pages/keyboard.py
+grep -cE 'SHORTCUT_NAMES|LAYOUT_NAMES|_MODIFIER_KEYVALS' files/usr/lib/adwaita-lite/settings/pages/keyboard.py
 # Expected: >= 3
-grep -cE 'localectl' files/usr/lib/universal-lite/settings/pages/keyboard.py
+grep -cE 'localectl' files/usr/lib/adwaita-lite/settings/pages/keyboard.py
 # Expected: >= 2 (list-x11-keymap-layouts + list-x11-keymap-variants)
-grep -cE 'save_and_apply|save_debounced|save_dict_and_apply' files/usr/lib/universal-lite/settings/pages/keyboard.py
+grep -cE 'save_and_apply|save_debounced|save_dict_and_apply' files/usr/lib/adwaita-lite/settings/pages/keyboard.py
 # Expected: >= 4 (repeat_delay debounced, repeat_rate debounced, capslock, keyboard_layout+variant dict)
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/keyboard.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/keyboard.py
 # Expected: 0
 ```
 

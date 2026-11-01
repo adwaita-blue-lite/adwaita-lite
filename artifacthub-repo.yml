@@ -2,7 +2,7 @@
 # Sign up and add the Repository ID to the right field. Owners fields are optional.
 # Examples: https://artifacthub.io/packages/search?ts_query_web=ublue&sort=relevance&page=1 
 
-repositoryID: universal-lite # Replace with your Artifact Hub repository ID when claiming the image.
+repositoryID: adwaita-lite # Replace with your Artifact Hub repository ID when claiming the image.
 owners: # (optional, used to claim repository ownership)
-  - name: Universal-Lite
-    email: universal-lite@users.noreply.github.com
+  - name: Adwaita-Lite
+    email: adwaita-lite@users.noreply.github.com

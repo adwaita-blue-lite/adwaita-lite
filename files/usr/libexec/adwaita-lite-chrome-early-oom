@@ -1,0 +1,210 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import logging
+import subprocess
+import time
+from dataclasses import dataclass
+from pathlib import Path
+
+
+MEM_AVAILABLE_THRESHOLD_MIB = 200
+SWAP_FREE_THRESHOLD_MIB = 300
+SAMPLE_INTERVAL_SECONDS = 2
+REQUIRED_CRITICAL_SAMPLES = 2
+COOLDOWN_SECONDS = 60
+CHROME_SCOPE_PATTERN = "app-flatpak-com.google.Chrome-*.scope"
+
+
+def parse_meminfo(text: str) -> dict[str, int | None]:
+    values: dict[str, int | None] = {
+        "mem_available_mib": None,
+        "swap_free_mib": None,
+    }
+    for line in text.splitlines():
+        fields = line.split()
+        if len(fields) < 2:
+            continue
+        if fields[0] == "MemAvailable:":
+            values["mem_available_mib"] = int(fields[1]) // 1024
+        elif fields[0] == "SwapFree:":
+            values["swap_free_mib"] = int(fields[1]) // 1024
+    return values
+
+
+def read_meminfo(path: Path = Path("/proc/meminfo")) -> dict[str, int | None]:
+    return parse_meminfo(path.read_text(encoding="utf-8"))
+
+
+@dataclass
+class PressureState:
+    required_samples: int = REQUIRED_CRITICAL_SAMPLES
+    cooldown_seconds: int = COOLDOWN_SECONDS
+    critical_samples: int = 0
+    last_triggered_at: float | None = None
+
+    def record_sample(
+        self,
+        mem_available_mib: int | None,
+        swap_free_mib: int | None,
+        now: float,
+    ) -> bool:
+        if self.last_triggered_at is not None:
+            if now - self.last_triggered_at < self.cooldown_seconds:
+                return False
+
+        critical = (
+            mem_available_mib is not None
+            and swap_free_mib is not None
+            and mem_available_mib < MEM_AVAILABLE_THRESHOLD_MIB
+            and swap_free_mib < SWAP_FREE_THRESHOLD_MIB
+        )
+        if not critical:
+            self.critical_samples = 0
+            return False
+
+        self.critical_samples += 1
+        return self.critical_samples >= self.required_samples
+
+    def mark_triggered(self, now: float) -> None:
+        self.last_triggered_at = now
+        self.critical_samples = 0
+
+
+def run_command(command: list[str], **kwargs) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(command, text=True, capture_output=True, check=False, **kwargs)
+
+
+def list_logged_in_uids(runner=run_command) -> list[str]:
+    result = runner(["loginctl", "list-users", "--no-legend"])
+    if result.returncode != 0:
+        logging.warning("failed to list logged-in users: %s", result.stderr.strip())
+        return []
+
+    uids: list[str] = []
+    for line in result.stdout.splitlines():
+        fields = line.split()
+        if fields and fields[0].isdigit():
+            uids.append(fields[0])
+    return uids
+
+
+def user_systemctl(uid: str, *args: str) -> list[str]:
+    return ["systemctl", "--user", f"--machine={uid}@", *args]
+
+
+def list_active_chrome_scopes(uid: str, runner=run_command) -> list[str]:
+    result = runner(
+        user_systemctl(
+            uid,
+            "list-units",
+            CHROME_SCOPE_PATTERN,
+            "--all",
+            "--no-pager",
+            "--plain",
+            "--full",
+            "--no-legend",
+        )
+    )
+    if result.returncode != 0:
+        logging.warning(
+            "failed to list Chrome scopes for uid %s: %s",
+            uid,
+            result.stderr.strip(),
+        )
+        return []
+
+    scopes: list[str] = []
+    for line in result.stdout.splitlines():
+        fields = line.split()
+        if len(fields) < 4:
+            continue
+        unit = fields[0]
+        active = fields[2]
+        if not unit.startswith("app-flatpak-com.google.Chrome-"):
+            continue
+        if not unit.endswith(".scope"):
+            continue
+        if active in {"active", "activating"}:
+            scopes.append(unit)
+    return scopes
+
+
+def kill_chrome_scopes(runner=run_command) -> list[str]:
+    killed: list[str] = []
+    for uid in list_logged_in_uids(runner=runner):
+        for scope in list_active_chrome_scopes(uid, runner=runner):
+            result = runner(
+                user_systemctl(uid, "kill", "--kill-who=all", scope)
+            )
+            if result.returncode == 0:
+                logging.warning("killed Chrome scope uid=%s unit=%s", uid, scope)
+                killed.append(f"{uid}:{scope}")
+            else:
+                logging.warning(
+                    "failed to kill Chrome scope uid=%s unit=%s: %s",
+                    uid,
+                    scope,
+                    result.stderr.strip(),
+                )
+    return killed
+
+
+def run_once(
+    state: PressureState,
+    read_meminfo_func=read_meminfo,
+    kill_chrome_scopes_func=kill_chrome_scopes,
+    now: float | None = None,
+) -> bool:
+    now = time.monotonic() if now is None else now
+    meminfo = read_meminfo_func()
+    mem_available_mib = meminfo.get("mem_available_mib")
+    swap_free_mib = meminfo.get("swap_free_mib")
+
+    if state.record_sample(mem_available_mib, swap_free_mib, now=now):
+        logging.warning(
+            "critical memory pressure: MemAvailable=%s MiB SwapFree=%s MiB; closing Chrome",
+            mem_available_mib,
+            swap_free_mib,
+        )
+        killed = kill_chrome_scopes_func()
+        if killed:
+            state.mark_triggered(now=now)
+            return True
+        logging.warning("critical memory pressure but no active Chrome Flatpak scopes were found")
+    return False
+
+
+def run_loop() -> None:
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    state = PressureState()
+    while True:
+        try:
+            run_once(state)
+        except Exception:
+            logging.exception("Chrome early-OOM monitor iteration failed")
+        time.sleep(SAMPLE_INTERVAL_SECONDS)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Close Chrome Flatpak scopes before extreme memory pressure wedges the desktop."
+    )
+    parser.add_argument(
+        "--once",
+        action="store_true",
+        help="Run one sample and exit; intended for diagnostics.",
+    )
+    args = parser.parse_args()
+
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    if args.once:
+        run_once(PressureState(required_samples=1))
+        return 0
+    run_loop()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

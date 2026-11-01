@@ -1,6 +1,6 @@
 # Settings App Audit & Fixes — 2026-03-31
 
-Audit of the GTK4 settings app (`files/usr/lib/universal-lite/settings/`).
+Audit of the GTK4 settings app (`files/usr/lib/adwaita-lite/settings/`).
 Four parallel agents reviewed all 17 source files across the infrastructure,
 network/system, display/hardware, and UI/info layers.
 
@@ -11,7 +11,7 @@ network/system, display/hardware, and UI/info layers.
 ### 1. `settings/settings_store.py` — Startup crash on missing defaults file
 
 **Bug:** Two unguarded `_defaults_path.read_text()` calls in `_load()`. A
-missing `/usr/share/universal-lite/defaults/settings.json` (partial install,
+missing `/usr/share/adwaita-lite/defaults/settings.json` (partial install,
 developer checkout) raised `FileNotFoundError` before any window opened.
 
 **Fix:** Extracted `_load_defaults()` helper that wraps all reads in
@@ -163,12 +163,12 @@ first, falls back to stdout for forward compatibility.
 ## Files Changed
 
 ```
-files/usr/lib/universal-lite/settings/settings_store.py
-files/usr/lib/universal-lite/settings/base.py
-files/usr/lib/universal-lite/settings/pages/display.py
-files/usr/lib/universal-lite/settings/pages/default_apps.py
-files/usr/lib/universal-lite/settings/pages/accessibility.py
-files/usr/lib/universal-lite/settings/pages/about.py
-files/usr/lib/universal-lite/settings/dbus_helpers.py
+files/usr/lib/adwaita-lite/settings/settings_store.py
+files/usr/lib/adwaita-lite/settings/base.py
+files/usr/lib/adwaita-lite/settings/pages/display.py
+files/usr/lib/adwaita-lite/settings/pages/default_apps.py
+files/usr/lib/adwaita-lite/settings/pages/accessibility.py
+files/usr/lib/adwaita-lite/settings/pages/about.py
+files/usr/lib/adwaita-lite/settings/dbus_helpers.py
 tests/test_settings_store.py
 ```

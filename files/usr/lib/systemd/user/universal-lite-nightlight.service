@@ -1,6 +1,0 @@
-[Unit]
-Description=Reconcile night-light state with current time
-
-[Service]
-Type=oneshot
-ExecStart=/usr/libexec/universal-lite-nightlight

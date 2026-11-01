@@ -1,0 +1,120 @@
+# Yoruba translations for adwaita-lite-app-menu package.
+# Copyright (C) 2026 THE adwaita-lite-app-menu'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the adwaita-lite-app-menu package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: adwaita-lite-app-menu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-29 08:23-0400\n"
+"PO-Revision-Date: 2026-04-29 08:16-0400\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: yo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:119
+msgid "Accessories"
+msgstr "Àwọn irinṣẹ́"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:120
+msgid "Development"
+msgstr "Ìdàgbàsókè"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:121
+msgid "Games"
+msgstr "Àwọn eré"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:122
+msgid "Graphics"
+msgstr "Àwòrán"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:124
+msgid "Internet"
+msgstr "Íńtánẹ́ẹ̀tì"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:126
+msgid "Multimedia"
+msgstr "Mídíà"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:128
+msgid "Settings"
+msgstr "Ètò"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:130
+msgid "System"
+msgstr "Ètò ẹrọ"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:134
+msgid "All Apps"
+msgstr "Gbogbo App"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:135
+msgid "Other"
+msgstr "Mìíràn"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:166
+msgid "Lock"
+msgstr "Tì í"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:167
+#: ../files/usr/bin/adwaita-lite-app-menu:1671
+msgid "Log Out"
+msgstr "Jáde"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:168
+#: ../files/usr/bin/adwaita-lite-app-menu:1672
+msgid "Restart"
+msgstr "Tún bẹ̀rẹ̀"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:169
+#: ../files/usr/bin/adwaita-lite-app-menu:1673
+msgid "Shut Down"
+msgstr "Pa a"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1237
+msgid "Search apps…"
+msgstr "Ṣàwárí àwọn app…"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1240
+msgid "Search apps"
+msgstr "Ṣàwárí àwọn app"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1249
+#: ../files/usr/bin/adwaita-lite-app-menu:1250
+msgid "Filter by category"
+msgstr "Ṣe àlẹmọ́ nípa ẹ̀ka"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1259
+msgid "Frequent"
+msgstr "Tí a máa ń lò púpọ̀"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1566
+#: ../files/usr/bin/adwaita-lite-app-menu:1596
+#: ../files/usr/bin/adwaita-lite-app-menu:1598
+#, python-brace-format
+msgid "Launch {app}"
+msgstr "Ṣí {app}"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1653
+msgid "Cancel"
+msgstr "Fagilé"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1658
+msgid "Confirm"
+msgstr "Jẹ́rísí"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1671
+msgid "Log out now?"
+msgstr "Ṣe o fẹ́ jáde báyìí?"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1672
+msgid "Restart the computer?"
+msgstr "Ṣe o fẹ́ tún kọ̀ǹpútà bẹ̀rẹ̀?"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1673
+msgid "Shut down the computer?"
+msgstr "Ṣe o fẹ́ pa kọ̀ǹpútà?"

@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+
+systemctl --user list-units 'app-flatpak-com.google.Chrome-*.scope' --all --no-pager --plain --full --no-legend |
+while read -r unit _load active _sub _description; do
+    case "$unit" in
+        app-flatpak-com.google.Chrome-*.scope) ;;
+        *) continue ;;
+    esac
+
+    case "$active" in
+        active|activating)
+            systemctl --user kill --kill-who=all "$unit"
+            ;;
+    esac
+done

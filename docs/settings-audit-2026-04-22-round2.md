@@ -132,7 +132,7 @@ After deduplication: **~40 distinct findings**, 12 production-blocking. All 40 a
 
 ### [x] B13. Custom wallpapers persisted after Restore Defaults → Appearance
 - `about.py:_run_restore`
-- Reset reverted `wallpaper` setting but left manifests + image files in `~/.local/share/universal-lite/custom-wallpapers/` and `~/.local/share/gnome-background-properties/`. Custom tiles stayed in the picker after "factory reset."
+- Reset reverted `wallpaper` setting but left manifests + image files in `~/.local/share/adwaita-lite/custom-wallpapers/` and `~/.local/share/gnome-background-properties/`. Custom tiles stayed in the picker after "factory reset."
 - **Fix:** `list_wallpapers()` + `remove_custom(wp.id)` for every `is_custom` tile when Appearance is in selected categories.
 
 ---

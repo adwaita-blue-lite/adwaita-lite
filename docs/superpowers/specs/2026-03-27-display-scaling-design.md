@@ -5,7 +5,7 @@
 
 ## Overview
 
-Add a Display Scale control to the Universal-Lite settings app so users can change the compositor output scale (75%–250%) with immediate live preview and a revert dialog.
+Add a Display Scale control to the Adwaita-Lite settings app so users can change the compositor output scale (75%–250%) with immediate live preview and a revert dialog.
 
 ## Scope
 
@@ -83,7 +83,7 @@ Failures are silenced — environments without `wlr-output-management` support (
 
 ## Session-Start Apply (autostart)
 
-Added to the `UNIVERSAL_LITE=1` gated block of `/etc/xdg/labwc/autostart`, after the wallpaper line:
+Added to the `ADWAITA_LITE=1` gated block of `/etc/xdg/labwc/autostart`, after the wallpaper line:
 
 ```sh
 _scale=$(python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(d.get('scale', 1.0))" "$_settings" 2>/dev/null || echo "1.0")
@@ -104,8 +104,8 @@ Skips all wlr-randr calls at `1.0` (default — no-op). Tolerates failures silen
 
 | File | Change |
 |---|---|
-| `files/usr/libexec/universal-lite-apply-settings` | Add `VALID_SCALE`, scale validation in `ensure_settings()`, pass through in `_build_tokens()` |
-| `files/usr/bin/universal-lite-settings` | Add Display tab, scale dropdown, revert dialog logic |
-| `files/usr/share/universal-lite/defaults/settings.json` | Add `"scale": 1.0` |
+| `files/usr/libexec/adwaita-lite-apply-settings` | Add `VALID_SCALE`, scale validation in `ensure_settings()`, pass through in `_build_tokens()` |
+| `files/usr/bin/adwaita-lite-settings` | Add Display tab, scale dropdown, revert dialog logic |
+| `files/usr/share/adwaita-lite/defaults/settings.json` | Add `"scale": 1.0` |
 | `files/etc/xdg/labwc/autostart` | Add session-start wlr-randr apply block |
 | `build_files/build.sh` | Add `wlr-randr` to dnf5 install |

@@ -14,9 +14,9 @@
 
 | File | Change |
 |------|--------|
-| `files/usr/libexec/universal-lite-apply-settings` | Add `_build_tokens()`, update `ensure_settings()`, `main()`, and all `write_*` functions |
-| `files/usr/share/universal-lite/defaults/settings.json` | Add `pinned` array |
-| `files/usr/bin/universal-lite-settings` | Add pinned apps UI to Layout tab |
+| `files/usr/libexec/adwaita-lite-apply-settings` | Add `_build_tokens()`, update `ensure_settings()`, `main()`, and all `write_*` functions |
+| `files/usr/share/adwaita-lite/defaults/settings.json` | Add `pinned` array |
+| `files/usr/bin/adwaita-lite-settings` | Add pinned apps UI to Layout tab |
 | `files/etc/xdg/fuzzel/fuzzel.ini` | Add `selection-match` field |
 | `files/etc/xdg/swaylock/config` | Fix `inside-wrong-color` to match generated |
 | `files/etc/greetd/gtkgreet.css` | Replace dark hardcode with Adwaita light |
@@ -28,7 +28,7 @@
 ## Task 1: Token System + ensure_settings() pinned validation
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 ### Overview
 
@@ -167,7 +167,7 @@ def main() -> int:
 - [ ] **Step 4: Verify — run apply-settings and confirm it exits cleanly**
 
 ```bash
-python3 files/usr/libexec/universal-lite-apply-settings
+python3 files/usr/libexec/adwaita-lite-apply-settings
 echo "Exit code: $?"
 ```
 
@@ -178,7 +178,7 @@ Also check that the token keys are accessible by adding a quick sanity check (th
 python3 -c "
 import sys; sys.path.insert(0, 'files/usr/libexec')
 import importlib.util, pathlib
-spec = importlib.util.spec_from_file_location('a', 'files/usr/libexec/universal-lite-apply-settings')
+spec = importlib.util.spec_from_file_location('a', 'files/usr/libexec/adwaita-lite-apply-settings')
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 s = m.ensure_settings()
 t = m._build_tokens(s)
@@ -195,7 +195,7 @@ Expected: prints `tokens OK:` with all keys, no AssertionError.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings
+git add files/usr/libexec/adwaita-lite-apply-settings
 git commit -m "feat: add _build_tokens() and pinned validation to apply-settings"
 ```
 
@@ -204,7 +204,7 @@ git commit -m "feat: add _build_tokens() and pinned validation to apply-settings
 ## Task 2: Waybar Config Rewrite
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 ### Overview
 
@@ -500,7 +500,7 @@ def write_waybar_config(tokens: dict) -> None:
 - [ ] **Step 3: Verify — horizontal bar (default)**
 
 ```bash
-python3 files/usr/libexec/universal-lite-apply-settings
+python3 files/usr/libexec/adwaita-lite-apply-settings
 ```
 
 Check `~/.config/waybar/config.jsonc` — confirm icon-only modules:
@@ -522,23 +522,23 @@ Expected: `min-height` lines present, `min-width` absent (horizontal).
 # Temporarily test vertical orientation
 python3 -c "
 import json, pathlib
-p = pathlib.Path.home() / '.config/universal-lite/settings.json'
+p = pathlib.Path.home() / '.config/adwaita-lite/settings.json'
 d = json.loads(p.read_text())
 d['edge'] = 'left'
 p.write_text(json.dumps(d, indent=2) + '\n')
 "
-python3 files/usr/libexec/universal-lite-apply-settings
+python3 files/usr/libexec/adwaita-lite-apply-settings
 grep "min-width" ~/.config/waybar/style.css | head -3
 grep "min-height" ~/.config/waybar/style.css
 # Restore
 python3 -c "
 import json, pathlib
-p = pathlib.Path.home() / '.config/universal-lite/settings.json'
+p = pathlib.Path.home() / '.config/adwaita-lite/settings.json'
 d = json.loads(p.read_text())
 d['edge'] = 'bottom'
 p.write_text(json.dumps(d, indent=2) + '\n')
 "
-python3 files/usr/libexec/universal-lite-apply-settings
+python3 files/usr/libexec/adwaita-lite-apply-settings
 ```
 
 Expected: when edge=left, `min-width` is present in CSS, `min-height` is absent.
@@ -546,7 +546,7 @@ Expected: when edge=left, `min-width` is present in CSS, `min-height` is absent.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings
+git add files/usr/libexec/adwaita-lite-apply-settings
 git commit -m "feat: rewrite write_waybar_config() with icons, pinned launchers, orientation-aware CSS"
 ```
 
@@ -555,7 +555,7 @@ git commit -m "feat: rewrite write_waybar_config() with icons, pinned launchers,
 ## Task 3: Fuzzel, Mako, Foot
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 ### Overview
 
@@ -652,7 +652,7 @@ pad=12x12 center
 - [ ] **Step 4: Verify**
 
 ```bash
-python3 files/usr/libexec/universal-lite-apply-settings
+python3 files/usr/libexec/adwaita-lite-apply-settings
 grep "icons-enabled" ~/.config/fuzzel/fuzzel.ini
 grep "layer=overlay" ~/.config/fuzzel/fuzzel.ini
 grep "selection-match" ~/.config/fuzzel/fuzzel.ini
@@ -666,7 +666,7 @@ Expected: all greps find their lines.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings
+git add files/usr/libexec/adwaita-lite-apply-settings
 git commit -m "feat: update fuzzel/mako/foot generators to use tokens and add missing fields"
 ```
 
@@ -675,7 +675,7 @@ git commit -m "feat: update fuzzel/mako/foot generators to use tokens and add mi
 ## Task 4: Swaylock, Labwc
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 ### Overview
 
@@ -757,7 +757,7 @@ Note: `write_labwc_themerc()` still uses `palette` and `accent` derived locally 
 - [ ] **Step 3: Verify**
 
 ```bash
-python3 files/usr/libexec/universal-lite-apply-settings
+python3 files/usr/libexec/adwaita-lite-apply-settings
 grep "indicator-radius" ~/.config/swaylock/config
 grep "show-failed-attempts" ~/.config/swaylock/config
 grep "menu.border.width" ~/.config/labwc/themerc
@@ -768,7 +768,7 @@ Expected: all three lines found.
 - [ ] **Step 4: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings
+git add files/usr/libexec/adwaita-lite-apply-settings
 git commit -m "feat: update swaylock and labwc generators with missing fields"
 ```
 
@@ -853,7 +853,7 @@ git commit -m "fix: replace dark hardcode in gtkgreet.css with Adwaita light the
 ## Task 6: Static Fallback Files + Defaults
 
 **Files:**
-- Modify: `files/usr/share/universal-lite/defaults/settings.json`
+- Modify: `files/usr/share/adwaita-lite/defaults/settings.json`
 - Modify: `files/etc/xdg/fuzzel/fuzzel.ini`
 - Modify: `files/etc/xdg/swaylock/config`
 
@@ -874,7 +874,7 @@ Sync the static fallback files to match what the updated generators now produce.
     "center": ["wlr/taskbar"],
     "end": ["network", "pulseaudio", "backlight", "battery", "clock", "tray"]
   },
-  "wallpaper": "/usr/share/backgrounds/universal-lite/chrome-dawn.svg",
+  "wallpaper": "/usr/share/backgrounds/adwaita-lite/chrome-dawn.svg",
   "pinned": [
     {"name": "Chrome",  "command": "flatpak run com.google.Chrome", "icon": "com.google.Chrome"},
     {"name": "Bazaar",  "command": "flatpak run dev.bazaar.app",    "icon": "dev.bazaar.app"}
@@ -946,7 +946,7 @@ text-wrong-color=c01c28
 - [ ] **Step 4: Verify**
 
 ```bash
-grep "pinned" files/usr/share/universal-lite/defaults/settings.json
+grep "pinned" files/usr/share/adwaita-lite/defaults/settings.json
 grep "selection-match" files/etc/xdg/fuzzel/fuzzel.ini
 grep "inside-wrong-color=ffffff" files/etc/xdg/swaylock/config
 ```
@@ -956,7 +956,7 @@ Expected: all three lines found.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/share/universal-lite/defaults/settings.json \
+git add files/usr/share/adwaita-lite/defaults/settings.json \
         files/etc/xdg/fuzzel/fuzzel.ini \
         files/etc/xdg/swaylock/config
 git commit -m "feat: add pinned defaults and sync static fallback configs"
@@ -967,7 +967,7 @@ git commit -m "feat: add pinned defaults and sync static fallback configs"
 ## Task 7: Settings App — Pinned Apps UI
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-settings`
+- Modify: `files/usr/bin/adwaita-lite-settings`
 
 ### Overview
 
@@ -1185,7 +1185,7 @@ In the `on_apply()` method, update the `payload` dict:
 - [ ] **Step 8: Verify — launch the settings app**
 
 ```bash
-python3 files/usr/bin/universal-lite-settings
+python3 files/usr/bin/adwaita-lite-settings
 ```
 
 In the Layout tab: confirm "Pinned apps" section appears at the bottom with Chrome and Bazaar listed (if defaults were applied). Click Add…, enter `Command: foot`, click Add. Confirm foot appears in list and apply-settings runs. Check `~/.config/waybar/config.jsonc` for `custom/pin-2` or similar.
@@ -1193,7 +1193,7 @@ In the Layout tab: confirm "Pinned apps" section appears at the bottom with Chro
 - [ ] **Step 9: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-settings
+git add files/usr/bin/adwaita-lite-settings
 git commit -m "feat: add pinned apps UI to settings app Layout tab"
 ```
 

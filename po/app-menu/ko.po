@@ -1,0 +1,121 @@
+# Korean translations for adwaita-lite-app-menu package.
+# Copyright (C) 2026 THE adwaita-lite-app-menu'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the adwaita-lite-app-menu package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: adwaita-lite-app-menu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-29 08:23-0400\n"
+"PO-Revision-Date: 2026-04-29 08:16-0400\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:119
+msgid "Accessories"
+msgstr "보조 프로그램"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:120
+msgid "Development"
+msgstr "개발"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:121
+msgid "Games"
+msgstr "게임"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:122
+msgid "Graphics"
+msgstr "그래픽"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:124
+msgid "Internet"
+msgstr "인터넷"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:126
+msgid "Multimedia"
+msgstr "멀티미디어"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:128
+msgid "Settings"
+msgstr "설정"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:130
+msgid "System"
+msgstr "시스템"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:134
+msgid "All Apps"
+msgstr "모든 앱"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:135
+msgid "Other"
+msgstr "기타"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:166
+msgid "Lock"
+msgstr "잠금"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:167
+#: ../files/usr/bin/adwaita-lite-app-menu:1671
+msgid "Log Out"
+msgstr "로그아웃"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:168
+#: ../files/usr/bin/adwaita-lite-app-menu:1672
+msgid "Restart"
+msgstr "다시 시작"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:169
+#: ../files/usr/bin/adwaita-lite-app-menu:1673
+msgid "Shut Down"
+msgstr "전원 끄기"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1237
+msgid "Search apps…"
+msgstr "앱 검색…"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1240
+msgid "Search apps"
+msgstr "앱 검색"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1249
+#: ../files/usr/bin/adwaita-lite-app-menu:1250
+msgid "Filter by category"
+msgstr "범주별 필터"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1259
+msgid "Frequent"
+msgstr "자주 사용"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1566
+#: ../files/usr/bin/adwaita-lite-app-menu:1596
+#: ../files/usr/bin/adwaita-lite-app-menu:1598
+#, python-brace-format
+msgid "Launch {app}"
+msgstr "{app} 실행"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1653
+msgid "Cancel"
+msgstr "취소"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1658
+msgid "Confirm"
+msgstr "확인"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1671
+msgid "Log out now?"
+msgstr "지금 로그아웃할까요?"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1672
+msgid "Restart the computer?"
+msgstr "컴퓨터를 다시 시작할까요?"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1673
+msgid "Shut down the computer?"
+msgstr "컴퓨터 전원을 끌까요?"

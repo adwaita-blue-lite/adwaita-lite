@@ -5,7 +5,7 @@ set -ouex pipefail
 FEDORA_MAJOR="$(rpm -E %fedora)"
 
 install -d /usr/share/wayland-sessions
-install -Dm644 /ctx/files/usr/share/wayland-sessions/universal-lite.desktop /usr/share/wayland-sessions/universal-lite.desktop
+install -Dm644 /ctx/files/usr/share/wayland-sessions/adwaita-lite.desktop /usr/share/wayland-sessions/adwaita-lite.desktop
 install -Dm644 /ctx/files/usr/share/wayland-sessions/vanilla-labwc.desktop /usr/share/wayland-sessions/vanilla-labwc.desktop
 
 dnf5 install -y \
@@ -83,7 +83,6 @@ dnf5 install -y --setopt=install_weak_deps=False \
     gnome-text-editor \
     fedora-workstation-backgrounds \
     libjxl \
-    webp-pixbuf-loader \
     google-noto-emoji-fonts \
     google-noto-sans-cjk-fonts \
     google-noto-sans-fonts \
@@ -92,6 +91,7 @@ dnf5 install -y --setopt=install_weak_deps=False \
     liberation-sans-fonts \
     greetd \
     grubby \
+    gum \
     grim \
     gtk4-layer-shell \
     libadwaita \
@@ -212,12 +212,34 @@ gdk-pixbuf-query-loaders-64 --update-cache
 rm -rf "$_jxl_src"
 dnf5 remove -y gcc libjxl-devel gdk-pixbuf2-devel git-core
 
+# Keep DX user-group setup aligned with upstream's image-managed group model.
+# Existing installs keep /etc/group as mutable state, so `ujust dx-group`
+# copies entries from /usr/lib/group into /etc/group before adding users.
+ensure_usr_lib_group() {
+    local group_name="$1"
+
+    if grep -q "^${group_name}:" /usr/lib/group; then
+        return
+    fi
+
+    if ! grep -q "^${group_name}:" /etc/group; then
+        groupadd --system "$group_name"
+    fi
+
+    grep "^${group_name}:" /etc/group >> /usr/lib/group
+}
+
+dx_groups=(docker incus-admin libvirt dialout)
+for group_name in "${dx_groups[@]}"; do
+    ensure_usr_lib_group "$group_name"
+done
+
 cp -a /ctx/files/. /
 
 # Language name matrix and all MO files (wizard + settings) are
 # pre-compiled and shipped in files/, installed by the cp above.
 
-# Recompile the GSettings schema cache so our zz-universal-lite
+# Recompile the GSettings schema cache so our zz-adwaita-lite
 # override (button-layout: minimize/maximize/close) wins over
 # Fedora's 'appmenu:close' default. Chrome/Chromium, Firefox,
 # Electron apps, and Flatpak apps via xdg-desktop-portal's Settings
@@ -230,9 +252,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 python3 -c "
 import json
 p = json.load(open('/etc/containers/policy.json'))
-p.setdefault('transports', {}).setdefault('docker', {})['quay.io/noitatsidem'] = [{
+p.setdefault('transports', {}).setdefault('docker', {})['ghcr.io/adwaita-blue-lite'] = [{
     'type': 'sigstoreSigned',
-    'keyPath': '/etc/pki/containers/universal-lite.pub',
+    'keyPath': '/etc/pki/containers/adwaita-lite.pub',
     'signedIdentity': {'type': 'matchRepository'},
 }]
 json.dump(p, open('/etc/containers/policy.json', 'w'), indent=2)
@@ -248,9 +270,9 @@ install -d /etc/xdg/labwc
 cat > /etc/xdg/labwc/menu.xml <<'MENU_EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <openbox_menu>
-  <menu id="root-menu" label="" execute="/usr/libexec/universal-lite-menu"/>
+  <menu id="root-menu" label="" execute="/usr/libexec/adwaita-lite-menu"/>
   <menu id="desktop-menu" label="Desktop">
-    <item label="Settings"><action name="Execute" command="universal-lite-settings"/></item>
+    <item label="Settings"><action name="Execute" command="adwaita-lite-settings"/></item>
     <item label="File Manager"><action name="Execute" command="Thunar"/></item>
     <item label="Terminal"><action name="Execute" command="foot"/></item>
     <separator/>
@@ -265,25 +287,28 @@ MENU_EOF
 chmod 0755 \
     /etc/xdg/labwc/autostart \
     /usr/bin/ul-debug-nm \
-    /usr/bin/universal-lite-settings \
-    /usr/bin/universal-lite-setup-wizard \
-    /usr/bin/universal-lite-greeter \
-    /usr/libexec/universal-lite-apply-settings \
-    /usr/libexec/universal-lite-encrypted-swap \
-    /usr/libexec/universal-lite-first-boot \
-    /usr/libexec/universal-lite-flatpak-setup \
-    /usr/libexec/universal-lite-wallpaper-thumbnailer \
-    /usr/libexec/universal-lite-nightlight \
-    /usr/libexec/universal-lite-set-memory-strategy \
-    /usr/libexec/universal-lite-swap-init \
-    /usr/libexec/universal-lite-greeter-launch \
-    /usr/libexec/universal-lite-greeter-setup \
-    /usr/libexec/universal-lite-wizard-session \
-    /usr/libexec/universal-lite-menu \
-    /usr/bin/universal-lite-app-menu \
-    /usr/libexec/universal-lite-session \
-    /usr/libexec/universal-lite-volume \
-    /usr/libexec/universal-lite-brightness
+    /usr/bin/adwaita-lite-settings \
+    /usr/bin/adwaita-lite-setup-wizard \
+    /usr/bin/adwaita-lite-greeter \
+    /usr/libexec/adwaita-lite-apply-settings \
+    /usr/libexec/adwaita-lite-encrypted-swap \
+    /usr/libexec/adwaita-lite-first-boot \
+    /usr/libexec/adwaita-lite-flatpak-setup \
+    /usr/libexec/adwaita-lite-flatpak-skip \
+    /usr/libexec/adwaita-lite-wallpaper-thumbnailer \
+    /usr/libexec/adwaita-lite-nightlight \
+    /usr/libexec/adwaita-lite-set-memory-strategy \
+    /usr/libexec/adwaita-lite-swap-init \
+    /usr/libexec/adwaita-lite-greeter-launch \
+    /usr/libexec/adwaita-lite-greeter-setup \
+    /usr/libexec/adwaita-lite-wizard-session \
+    /usr/libexec/adwaita-lite-menu \
+    /usr/bin/adwaita-lite-app-menu \
+    /usr/libexec/adwaita-lite-session \
+    /usr/libexec/adwaita-lite-volume \
+    /usr/libexec/adwaita-lite-brightness
+[ -e /usr/bin/adwaita-lite-app-setup ] && chmod 0755 /usr/bin/adwaita-lite-app-setup
+[ -e /usr/libexec/adwaita-lite-app-setup-helper ] && chmod 0755 /usr/libexec/adwaita-lite-app-setup-helper
 
 # Disable Plymouth entirely by masking the unit that starts it.
 #
@@ -347,7 +372,7 @@ systemctl disable firewalld.service 2>/dev/null || true
 systemctl mask firewalld.service
 mkdir -p /etc/sysconfig
 cat > /etc/sysconfig/nftables.conf <<'NFT_EOF'
-# Universal-Lite minimal nftables ruleset.
+# Adwaita-Lite minimal nftables ruleset.
 # Replaces firewalld on this image. Intended for a single-user
 # laptop behind a home router NAT: drop unsolicited inbound, allow
 # everything outbound plus return traffic for connections we
@@ -443,13 +468,18 @@ systemctl enable avahi-daemon.socket 2>/dev/null || true
 # flatpak-setup polls DNS itself), so the unit being enabled costs
 # nothing on the common case and keeps us aligned with the base image.
 systemctl enable NetworkManager.service
-systemctl enable universal-lite-first-boot.service
-systemctl enable universal-lite-flatpak-install.service
-systemctl enable universal-lite-flatpak-update.service
+systemctl enable adwaita-lite-first-boot.service
+# App installation is a post-login user choice. Mask the old pre-login
+# installer so presets, stale enablement, or manual dependencies cannot
+# resurrect login-blocking Flatpak setup.
+systemctl mask adwaita-lite-flatpak-install.service 2>/dev/null || true
+systemctl enable adwaita-lite-flatpak-update.service
 # OOM protection on 2 GB hardware — oomd kills the heaviest cgroup under
 # memory/swap pressure before the kernel OOM killer engages and freezes
-# the whole machine.
+# the whole machine. Chrome gets an earlier safety valve because Flatpak
+# Chrome can keep a sibling app scope alive after oomd kills one scope.
 systemctl enable systemd-oomd.service
+systemctl enable adwaita-lite-chrome-early-oom.service
 
 # Add ublue-os COPR for uupd (unified updater with hardware safety checks).
 dnf5 copr enable -y ublue-os/packages fedora-"${FEDORA_MAJOR}"-x86_64
@@ -487,7 +517,7 @@ rm -f /usr/share/applications/xfce4-panel.desktop \
 
 # distrobox ships on ublue-os/base-main and comes with a ujust recipe
 # file. We keep it off main for memory reasons on 2 GB targets;
-# container workflows belong on the forthcoming universal-lite-dx
+# container workflows belong on the forthcoming adwaita-lite-dx
 # variant (distrobox + brew). Remove both the binary and the recipes
 # so `ujust` doesn't list unreachable commands.
 dnf5 remove -y distrobox || true
@@ -531,13 +561,13 @@ gtk-update-icon-cache -f /usr/share/icons/hicolor 2>/dev/null || true
 # launching the settings app on a freshly-booted 2 GB machine
 # compiles ~25 modules totalling ~6 kLOC before the window even
 # appears. `-q` silences per-file log output; `-j 0` parallelises
-# across available cores. We only target /usr/lib/universal-lite —
+# across available cores. We only target /usr/lib/adwaita-lite —
 # the top-level /usr/bin scripts are shebang files without a .py
 # extension, so compileall skips them anyway, and their bytecode
 # cache directory would be non-writable on a booted ostree system.
-python3 -m compileall -q -j 0 /usr/lib/universal-lite 2>/dev/null || true
+python3 -m compileall -q -j 0 /usr/lib/adwaita-lite 2>/dev/null || true
 
-# Regenerate initramfs so /usr/lib/modprobe.d/universal-lite-i915.conf
+# Regenerate initramfs so /usr/lib/modprobe.d/adwaita-lite-i915.conf
 # reaches the early-KMS load of i915. Without this step the options only
 # take effect after the first kernel update triggers its own regen.
 if command -v dracut >/dev/null 2>&1; then

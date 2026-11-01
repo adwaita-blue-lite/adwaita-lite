@@ -16,11 +16,11 @@ Controller runs spec + quality reviewers per commit after all four finish, addre
 **Tech stack:** Python 3.13, PyGObject, GTK 4, libadwaita. `BasePage.make_*` factories still in place (waves 1–3 don't delete them; Phase 4 does).
 
 **References:**
-- Pilot: `files/usr/lib/universal-lite/settings/pages/power_lock.py` (commit `7f9473f`)
+- Pilot: `files/usr/lib/adwaita-lite/settings/pages/power_lock.py` (commit `7f9473f`)
 - Wave-1 reference (similar-complexity conversions for patterns):
-  - `files/usr/lib/universal-lite/settings/pages/sound.py` (complex widget refs + lifecycle)
-  - `files/usr/lib/universal-lite/settings/pages/datetime.py` (entry + switches + live timer + subprocess)
-  - `files/usr/lib/universal-lite/settings/pages/language.py` (banner + guarded dropdowns)
+  - `files/usr/lib/adwaita-lite/settings/pages/sound.py` (complex widget refs + lifecycle)
+  - `files/usr/lib/adwaita-lite/settings/pages/datetime.py` (entry + switches + live timer + subprocess)
+  - `files/usr/lib/adwaita-lite/settings/pages/language.py` (banner + guarded dropdowns)
 - Design: `docs/superpowers/specs/2026-04-20-settings-adwaita-migration-design.md`
 - Reference pack: `docs/superpowers/specs/2026-04-20-settings-adwaita-reference.md`
 
@@ -105,16 +105,16 @@ The back button and Escape both pop automatically.
 
 | Page | File | Complexity | Model |
 |---|---|---|---|
-| About | `files/usr/lib/universal-lite/settings/pages/about.py` | High (info rows + updates flow + restore-defaults nav-push with category checkboxes) | Opus |
-| Bluetooth | `files/usr/lib/universal-lite/settings/pages/bluetooth.py` | Med (dynamic device list, banner, status page, scan lifecycle) | Sonnet |
-| Users | `files/usr/lib/universal-lite/settings/pages/users.py` | Med (entry + switch + button, password nav-push) | Sonnet |
-| Appearance | `files/usr/lib/universal-lite/settings/pages/appearance.py` | Med (2 bespoke widgets in groups + theme + font size) | Sonnet |
+| About | `files/usr/lib/adwaita-lite/settings/pages/about.py` | High (info rows + updates flow + restore-defaults nav-push with category checkboxes) | Opus |
+| Bluetooth | `files/usr/lib/adwaita-lite/settings/pages/bluetooth.py` | Med (dynamic device list, banner, status page, scan lifecycle) | Sonnet |
+| Users | `files/usr/lib/adwaita-lite/settings/pages/users.py` | Med (entry + switch + button, password nav-push) | Sonnet |
+| Appearance | `files/usr/lib/adwaita-lite/settings/pages/appearance.py` | Med (2 bespoke widgets in groups + theme + font size) | Sonnet |
 
 ---
 
 ## Task: Agent 1 — `about` (Opus)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/about.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/about.py`
 
 ### Overview
 
@@ -236,14 +236,14 @@ The `_on_reset_clicked` method:
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/about.py').read()); print('OK')"
-grep -cE 'CATEGORY_KEYS|wait_for_apply|remove_keys_matching|keybindings.json' files/usr/lib/universal-lite/settings/pages/about.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/about.py').read()); print('OK')"
+grep -cE 'CATEGORY_KEYS|wait_for_apply|remove_keys_matching|keybindings.json' files/usr/lib/adwaita-lite/settings/pages/about.py
 # Expected: >= 5
-grep -cE 'uupd|ujust|foot' files/usr/lib/universal-lite/settings/pages/about.py
+grep -cE 'uupd|ujust|foot' files/usr/lib/adwaita-lite/settings/pages/about.py
 # Expected: >= 3
-grep -cE 'RestoreDefaultsDialog|class.*Dialog' files/usr/lib/universal-lite/settings/pages/about.py
+grep -cE 'RestoreDefaultsDialog|class.*Dialog' files/usr/lib/adwaita-lite/settings/pages/about.py
 # Expected: 0 (dialog class removed, logic moves into methods)
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/about.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/about.py
 # Expected: 0
 ```
 
@@ -257,7 +257,7 @@ Preservation line: *"all 7 system-info probes, uupd check / ujust update-in-foot
 
 ## Task: Agent 2 — `bluetooth` (Sonnet)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/bluetooth.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/bluetooth.py`
 
 ### Groups (top-down)
 
@@ -334,12 +334,12 @@ def _build_device_row(self, dev):
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/bluetooth.py').read()); print('OK')"
-grep -cE 'BlueZHelper|bluetooth-changed|bluetooth-pair' files/usr/lib/universal-lite/settings/pages/bluetooth.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/bluetooth.py').read()); print('OK')"
+grep -cE 'BlueZHelper|bluetooth-changed|bluetooth-pair' files/usr/lib/adwaita-lite/settings/pages/bluetooth.py
 # Expected: >= 5 (import, instantiation, 3 subscribe calls)
-grep -cE 'start_discovery|stop_discovery' files/usr/lib/universal-lite/settings/pages/bluetooth.py
+grep -cE 'start_discovery|stop_discovery' files/usr/lib/adwaita-lite/settings/pages/bluetooth.py
 # Expected: >= 4
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/bluetooth.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/bluetooth.py
 # Expected: 0
 ```
 
@@ -353,7 +353,7 @@ Preservation line: *"_updating guard on the toggle, 30-second scan auto-stop, sc
 
 ## Task: Agent 3 — `users` (Sonnet)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/users.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/users.py`
 
 ### Groups
 
@@ -451,12 +451,12 @@ Returns an `AdwNavigationView` because of the password push. Root `AdwNavigation
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/users.py').read()); print('OK')"
-grep -cE 'call_sync|FindUserById|SetRealName|SetAutomaticLogin|SetPassword' files/usr/lib/universal-lite/settings/pages/users.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/users.py').read()); print('OK')"
+grep -cE 'call_sync|FindUserById|SetRealName|SetAutomaticLogin|SetPassword' files/usr/lib/adwaita-lite/settings/pages/users.py
 # Expected: >= 5
-grep -cE 'openssl|_hash_password' files/usr/lib/universal-lite/settings/pages/users.py
+grep -cE 'openssl|_hash_password' files/usr/lib/adwaita-lite/settings/pages/users.py
 # Expected: >= 3
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/users.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/users.py
 # Expected: 0
 ```
 
@@ -470,7 +470,7 @@ Preservation line: *"_hash_password openssl subprocess, all 4 D-Bus call_sync si
 
 ## Task: Agent 4 — `appearance` (Sonnet)
 
-**File:** `files/usr/lib/universal-lite/settings/pages/appearance.py`
+**File:** `files/usr/lib/adwaita-lite/settings/pages/appearance.py`
 
 ### Groups (top-down)
 
@@ -503,14 +503,14 @@ Preservation line: *"_hash_password openssl subprocess, all 4 D-Bus call_sync si
 ### Verification
 
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/appearance.py').read()); print('OK')"
-grep -cE 'save_and_apply' files/usr/lib/universal-lite/settings/pages/appearance.py
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/appearance.py').read()); print('OK')"
+grep -cE 'save_and_apply' files/usr/lib/adwaita-lite/settings/pages/appearance.py
 # Expected: >= 4 (theme, accent, font_size, wallpaper x2 via toggle and on-custom-clicked)
-grep -cE 'list_wallpapers|add_custom|remove_custom|Wallpaper' files/usr/lib/universal-lite/settings/pages/appearance.py
+grep -cE 'list_wallpapers|add_custom|remove_custom|Wallpaper' files/usr/lib/adwaita-lite/settings/pages/appearance.py
 # Expected: >= 5
-grep -cE 'ACCENT_COLORS' files/usr/lib/universal-lite/settings/pages/appearance.py
+grep -cE 'ACCENT_COLORS' files/usr/lib/adwaita-lite/settings/pages/appearance.py
 # Expected: 2 (definition + usage)
-grep -cE 'self\.make_' files/usr/lib/universal-lite/settings/pages/appearance.py
+grep -cE 'self\.make_' files/usr/lib/adwaita-lite/settings/pages/appearance.py
 # Expected: 0
 ```
 

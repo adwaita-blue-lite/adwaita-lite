@@ -14,7 +14,7 @@
 
 **Files:**
 - Modify: `build_files/build.sh`
-- Modify: `files/usr/share/universal-lite/defaults/settings.json`
+- Modify: `files/usr/share/adwaita-lite/defaults/settings.json`
 
 - [ ] **Step 1: Add wlr-randr to dnf5 install list**
 
@@ -27,7 +27,7 @@ In `build_files/build.sh`, add `wlr-randr \` on the line after `waybar \` (line 
 
 - [ ] **Step 2: Add scale to the defaults file**
 
-Replace the contents of `files/usr/share/universal-lite/defaults/settings.json`:
+Replace the contents of `files/usr/share/adwaita-lite/defaults/settings.json`:
 
 ```json
 {
@@ -41,7 +41,7 @@ Replace the contents of `files/usr/share/universal-lite/defaults/settings.json`:
     "center": ["wlr/taskbar"],
     "end": ["network", "pulseaudio", "backlight", "battery", "clock", "tray"]
   },
-  "wallpaper": "/usr/share/backgrounds/universal-lite/chrome-dawn.svg",
+  "wallpaper": "/usr/share/backgrounds/adwaita-lite/chrome-dawn.svg",
   "pinned": [
     {"name": "Chrome",  "command": "flatpak run com.google.Chrome", "icon": "com.google.Chrome"},
     {"name": "Bazaar",  "command": "flatpak run dev.bazaar.app",    "icon": "dev.bazaar.app"}
@@ -52,7 +52,7 @@ Replace the contents of `files/usr/share/universal-lite/defaults/settings.json`:
 - [ ] **Step 3: Commit**
 
 ```bash
-git add build_files/build.sh files/usr/share/universal-lite/defaults/settings.json
+git add build_files/build.sh files/usr/share/adwaita-lite/defaults/settings.json
 git commit -m "feat: add wlr-randr dep and scale default to settings schema"
 ```
 
@@ -61,11 +61,11 @@ git commit -m "feat: add wlr-randr dep and scale default to settings schema"
 ### Task 2: Validate and persist `scale` in apply-settings
 
 **Files:**
-- Modify: `files/usr/libexec/universal-lite-apply-settings`
+- Modify: `files/usr/libexec/adwaita-lite-apply-settings`
 
 - [ ] **Step 1: Add VALID_SCALE constant**
 
-In `files/usr/libexec/universal-lite-apply-settings`, after the `VALID_ACCENT` line (line 33), add:
+In `files/usr/libexec/adwaita-lite-apply-settings`, after the `VALID_ACCENT` line (line 33), add:
 
 ```python
 VALID_SCALE = {0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5}
@@ -107,7 +107,7 @@ cd /var/home/race/ublue-mike
 python3 -c "
 import sys; sys.path.insert(0, 'files/usr/libexec')
 import importlib.util, pathlib
-spec = importlib.util.spec_from_file_location('apply', 'files/usr/libexec/universal-lite-apply-settings')
+spec = importlib.util.spec_from_file_location('apply', 'files/usr/libexec/adwaita-lite-apply-settings')
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 # Valid scale passes through
 assert 1.5 in m.VALID_SCALE
@@ -123,7 +123,7 @@ Expected output: `VALID_SCALE OK`
 - [ ] **Step 5: Commit**
 
 ```bash
-git add files/usr/libexec/universal-lite-apply-settings
+git add files/usr/libexec/adwaita-lite-apply-settings
 git commit -m "feat: add scale validation and persistence to apply-settings"
 ```
 
@@ -151,11 +151,11 @@ fi
 The full updated UL-gated section should read:
 
 ```sh
-# Only start Universal-Lite daemons in a Universal-Lite session.
-[ "${UNIVERSAL_LITE:-}" = "1" ] || exit 0
+# Only start Adwaita-Lite daemons in a Adwaita-Lite session.
+[ "${ADWAITA_LITE:-}" = "1" ] || exit 0
 
 # Read wallpaper path from user settings and start the wallpaper daemon.
-_settings="${XDG_CONFIG_HOME:-$HOME/.config}/universal-lite/settings.json"
+_settings="${XDG_CONFIG_HOME:-$HOME/.config}/adwaita-lite/settings.json"
 _wallpaper=$(python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(d.get('wallpaper',''))" "$_settings" 2>/dev/null || true)
 [ -n "$_wallpaper" ] && swaybg -i "$_wallpaper" -m fill >/dev/null 2>&1 &
 
@@ -191,13 +191,13 @@ git commit -m "feat: apply display scale at session start via autostart"
 ### Task 4: Add Display tab to settings app
 
 **Files:**
-- Modify: `files/usr/bin/universal-lite-settings`
+- Modify: `files/usr/bin/adwaita-lite-settings`
 
 This task adds the Display tab, scale dropdown, wlr-randr helper, revert dialog, and wires everything up.
 
 - [ ] **Step 1: Add GLib import**
 
-At the top of `files/usr/bin/universal-lite-settings`, after the `gi.require_version("Gtk", "4.0")` line, add:
+At the top of `files/usr/bin/adwaita-lite-settings`, after the `gi.require_version("Gtk", "4.0")` line, add:
 
 ```python
 gi.require_version("GLib", "2.0")
@@ -419,7 +419,7 @@ Expected: `GTK4 + GLib import OK`
 - [ ] **Step 10: Commit**
 
 ```bash
-git add files/usr/bin/universal-lite-settings
+git add files/usr/bin/adwaita-lite-settings
 git commit -m "feat: add Display tab with scale dropdown and revert dialog"
 ```
 

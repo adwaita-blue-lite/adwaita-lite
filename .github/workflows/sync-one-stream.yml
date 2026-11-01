@@ -12,6 +12,7 @@ on:
         type: string
 
 permissions:
+  actions: write
   contents: write
   pull-requests: write
 
@@ -21,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout target branch
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
           ref: ${{ inputs.target }}
           fetch-depth: 0
@@ -35,13 +36,26 @@ jobs:
         run: |
           set -euo pipefail
 
+          dispatch_target_build() {
+            gh workflow run build.yml \
+              --ref "${TARGET_BRANCH}" \
+              -f sync_promotion=true
+          }
+
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin "${SOURCE_BRANCH}" "${TARGET_BRANCH}"
           git checkout -B "${TARGET_BRANCH}" "origin/${TARGET_BRANCH}"
 
           if git merge --no-edit "origin/${SOURCE_BRANCH}"; then
-            git push origin "HEAD:${TARGET_BRANCH}"
+            if [[ "$(git rev-parse HEAD)" == "$(git rev-parse "origin/${TARGET_BRANCH}")" ]]; then
+              echo "Already aligned ${TARGET_BRANCH}; dispatching ${TARGET_BRANCH} build."
+              dispatch_target_build
+            else
+              git push origin "HEAD:${TARGET_BRANCH}"
+              echo "Pushed ${TARGET_BRANCH}; dispatching ${TARGET_BRANCH} build."
+              dispatch_target_build
+            fi
             exit 0
           fi
 
@@ -56,7 +70,7 @@ jobs:
             --jq '.[0].url // ""')
 
           if [[ -n "${existing_pr_url}" ]]; then
-            echo "Sync PR already exists: ${existing_pr_url}"
+            echo "Sync PR already exists: ${existing_pr_url}; dispatch skipped."
             exit 0
           fi
 
@@ -67,4 +81,5 @@ jobs:
             --base "${TARGET_BRANCH}" \
             --head "${PR_BRANCH}" \
             --title "Sync ${SOURCE_BRANCH} into ${TARGET_BRANCH}" \
-            --body "Automated branch alignment could not merge ${SOURCE_BRANCH} into ${TARGET_BRANCH} cleanly. Resolve this PR to restore daily stream alignment."
+            --body "Automated branch alignment could not merge ${SOURCE_BRANCH} into ${TARGET_BRANCH} cleanly. Resolve this PR to restore daily stream alignment; target build dispatch skipped until the branch is aligned."
+          echo "Opened sync PR for ${SOURCE_BRANCH} -> ${TARGET_BRANCH}; dispatch skipped."

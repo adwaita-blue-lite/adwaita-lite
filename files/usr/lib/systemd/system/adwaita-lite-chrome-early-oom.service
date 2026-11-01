@@ -1,0 +1,13 @@
+[Unit]
+Description=Adwaita-Lite Chrome early-OOM safety valve
+Documentation=file:/usr/share/doc/adwaita-lite/chrome-early-oom.md
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/libexec/adwaita-lite-chrome-early-oom
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

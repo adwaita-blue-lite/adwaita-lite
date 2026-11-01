@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Setup Wizard Component Documentation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --bg: #111217;
+      --panel: #1b1c24;
+      --panel-2: #23252e;
+      --line: #343744;
+      --text: #f5f6fb;
+      --muted: #c3c7d4;
+      --soft: #8f96a8;
+      --accent: #62a0ea;
+      --warn: #f6d32d;
+      --danger: #ff6b6b;
+      --ok: #57e389;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(98, 160, 234, 0.22), transparent 30rem),
+        radial-gradient(circle at 85% 12%, rgba(87, 227, 137, 0.12), transparent 24rem),
+        linear-gradient(135deg, #111217 0%, #171922 54%, #101116 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 34px 0 64px;
+    }
+
+    a { color: var(--accent); }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 0.92em;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--soft);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 7vw, 5.4rem);
+      line-height: 0.92;
+      letter-spacing: -0.065em;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    p { margin: 0; }
+
+    .lede {
+      max-width: 780px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .source-map,
+    section {
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 26px;
+      background: rgba(27, 28, 36, 0.9);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.26);
+    }
+
+    .source-map {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      align-content: start;
+    }
+
+    .source-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(35, 37, 46, 0.95), rgba(23, 25, 32, 0.95));
+    }
+
+    .source-card b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--warn);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .source-card code {
+      display: inline;
+      overflow-wrap: anywhere;
+      background: transparent;
+      padding: 0;
+    }
+
+    section { margin-top: 24px; padding: 22px; }
+
+    .flow-strip {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(112px, 1fr));
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+
+    .flow-step {
+      min-height: 150px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(35, 37, 46, 0.96), rgba(19, 21, 28, 0.96));
+    }
+
+    .flow-step b {
+      display: block;
+      color: var(--accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .flow-step code {
+      display: block;
+      margin: 10px 0;
+      background: rgba(98, 160, 234, 0.12);
+      overflow-wrap: anywhere;
+    }
+
+    .flow-step span { color: var(--muted); font-size: 0.9rem; }
+
+    .component-grid,
+    .state-map,
+    .safe-edit,
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .component-card,
+    .state-card,
+    .safe-card,
+    .test-card {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(35, 37, 46, 0.78);
+    }
+
+    .component-card p,
+    .state-card p,
+    .safe-card p,
+    .test-card p { color: var(--muted); font-size: 0.94rem; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      border: 1px solid rgba(98, 160, 234, 0.3);
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: #dcecff;
+      background: rgba(98, 160, 234, 0.09);
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    th, td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #20222c;
+      color: var(--soft);
+      font-size: 0.74rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    td:first-child { width: 24%; font-weight: 800; }
+
+    .density-note {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-left: 5px solid var(--accent);
+      border-radius: 16px;
+      background: rgba(98, 160, 234, 0.1);
+      color: var(--muted);
+    }
+
+    @media (max-width: 960px) {
+      header { grid-template-columns: 1fr; }
+      .component-grid, .state-map, .safe-edit, .test-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      main { width: min(100% - 24px, 1180px); padding-top: 24px; }
+      section { padding: 16px; border-radius: 20px; }
+      .component-grid, .state-map, .safe-edit, .test-grid { grid-template-columns: 1fr; }
+      table, thead, tbody, tr, th, td { display: block; }
+      thead tr { padding: 0; }
+      th { border-bottom: 1px solid rgba(255, 255, 255, 0.16); }
+      tr { padding: 12px 0; border-bottom: 1px solid var(--line); }
+      td { width: 100%; padding: 5px 0; border: 0; }
+      td:first-child { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <p class="eyebrow"><a href="index.html">Component docs</a> / installer surface</p>
+      <h1>Setup Wizard</h1>
+      <p class="lede">Contributor map for <code>SetupWizardWindow</code> in <code>files/usr/bin/adwaita-lite-setup-wizard</code>. Use this page to locate GTK page builders, CSS class ownership, state transitions, and installer safety boundaries before touching the 4k+ line wizard.</p>
+      <p class="density-note">HTML is used here for scan speed: page flow, CSS ownership, mutable state, and safe-edit constraints are grouped visually instead of buried in prose.</p>
+    </div>
+    <aside class="source-map" aria-label="Source anchors">
+      <div class="source-card"><b>Runtime source</b><code>files/usr/bin/adwaita-lite-setup-wizard</code></div>
+      <div class="source-card"><b>Primary class</b><code>SetupWizardWindow</code></div>
+      <div class="source-card"><b>App wrapper</b><code>SetupWizardApp</code> loads <code>CSS</code> and presents the window.</div>
+    </aside>
+  </header>
+
+  <section aria-labelledby="flow-title">
+    <h2 id="flow-title">Page Flow Strip</h2>
+    <div class="flow-strip">
+      <article class="flow-step"><b>Page 0</b><code>_build_language_page</code><span>Language list, locale variants, <code>keyboard-toggle</code>, and <code>keyboard-panel</code>. Starts as the first visible page.</span></article>
+      <article class="flow-step"><b>Page 1</b><code>_build_network_page</code><span>Wired status, Wi-Fi scan rows, hidden SSID form, and network status. Auto-skipped while <code>_network_skipped</code> stays true.</span></article>
+      <article class="flow-step"><b>Page 2</b><code>_build_disk_page</code><span>Drive, filesystem, zram/zswap choice, optional disk swap size, and destructive-drive warning.</span></article>
+      <article class="flow-step"><b>Page 3</b><code>_build_account_page</code><span>Full name, username, password, sudo checkbox, root password, and username auto-fill.</span></article>
+      <article class="flow-step"><b>Page 4</b><code>_build_system_page</code><span>Timezone detection/search and optional hostname. Memory controls live on disk page, not here.</span></article>
+      <article class="flow-step"><b>Page 5</b><code>_build_apps_page</code><span>Default Flatpak choices from <code>DEFAULT_FLATPAKS</code>, displayed as app rows with checkboxes.</span></article>
+      <article class="flow-step"><b>Page 6</b><code>_build_confirm_page</code><span>Summary rows plus mandatory erase acknowledgment before Install can proceed.</span></article>
+      <article class="flow-step"><b>Page 7</b><code>_build_progress_page</code><span>Progress steps, <code>details-toggle</code>, <code>log-view</code>, retry/skip/back/reboot actions.</span></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="components-title">
+    <h2 id="components-title">Component Map</h2>
+    <div class="component-grid">
+      <article class="component-card"><h3>Card Shell</h3><p>Main 480px-centered panels and title/subtitle typography.</p><div class="chips"><span class="chip">card</span><span class="chip">welcome-title</span><span class="chip">welcome-subtitle</span></div></article>
+      <article class="component-card"><h3>Form Inputs</h3><p>Labels, entries, helper copy, mnemonic binding, and accessible labels.</p><div class="chips"><span class="chip">form-entry</span><span class="chip">form-label</span><span class="chip">form-description</span></div></article>
+      <article class="component-card"><h3>Language and Wi-Fi Lists</h3><p>ListBox rows share Wi-Fi row styling for language choices and scanned access points.</p><div class="chips"><span class="chip">dark-list</span><span class="chip">wifi-row</span><span class="chip">wifi-ssid</span><span class="chip">wifi-detail</span><span class="chip">wifi-connected</span></div></article>
+      <article class="component-card"><h3>Keyboard Disclosure</h3><p>Locale-synced keyboard picker that remains visible under the language scroll area.</p><div class="chips"><span class="chip">keyboard-toggle</span><span class="chip">keyboard-panel</span></div></article>
+      <article class="component-card"><h3>Rows</h3><p>Wired status rows, app selections, app names, and app descriptions.</p><div class="chips"><span class="chip">setting-row</span><span class="chip">app-row</span><span class="chip">app-name</span><span class="chip">app-description</span></div></article>
+      <article class="component-card"><h3>Status and Actions</h3><p>Shared feedback, validation errors, navigation, install actions, and detailed logs.</p><div class="chips"><span class="chip">warning-label</span><span class="chip">status-label</span><span class="chip">status-error</span><span class="chip">back-button</span><span class="chip">create-button</span><span class="chip">details-toggle</span><span class="chip">log-view</span></div></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="css-title">
+    <h2 id="css-title">CSS Ownership Table</h2>
+    <table>
+      <thead><tr><th>Selector family</th><th>Owned by</th><th>Edit risk</th></tr></thead>
+      <tbody>
+        <tr><td><code>card</code>, <code>welcome-title</code>, <code>welcome-subtitle</code></td><td>All builder cards and headers.</td><td>Global wizard layout and title rhythm; test with every page because cards are reused.</td></tr>
+        <tr><td><code>form-entry</code>, <code>form-label</code>, <code>form-description</code></td><td>Account, hidden network, disk custom swap, system hostname.</td><td>Entry contrast and focus rings affect GTK <code>Entry</code> and <code>PasswordEntry</code>.</td></tr>
+        <tr><td><code>dark-list</code>, <code>wifi-row</code>, <code>wifi-ssid</code>, <code>wifi-detail</code>, <code>wifi-connected</code></td><td>Language selector and NetworkManager access-point list.</td><td>Rows are keyboard activatable; preserve hover/selected contrast and connected marker clarity.</td></tr>
+        <tr><td><code>keyboard-toggle</code>, <code>keyboard-panel</code></td><td>Language page keyboard override disclosure.</td><td>Panel must remain usable on small displays below the scrollable language list.</td></tr>
+        <tr><td><code>status-label</code>, <code>status-error</code>, <code>warning-label</code></td><td>Shared validation/install status and network-page status styling.</td><td>Shared bottom status flows through <code>_set_status</code> and <code>_announce_status</code>. Network labels such as <code>_net_status_label</code> often call <code>set_text</code> directly, so treat their announcement behavior as visual/status styling only.</td></tr>
+        <tr><td><code>details-toggle</code>, <code>log-view</code></td><td>Progress page log revealer.</td><td>Log output can be large; CSS must not force unbounded growth.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section aria-labelledby="state-title">
+    <h2 id="state-title">State and Data Map</h2>
+    <div class="state-map">
+      <article class="state-card"><h3>Install Config</h3><p><code>_step_finalize</code> writes <code>/var/lib/adwaita-lite/install-config.json</code> with <code>memory_strategy</code>, <code>swap_size_gb</code>, and <code>username</code> via <code>_atomic_write_text</code> mode <code>0o600</code>.</p></article>
+      <article class="state-card"><h3>Flatpak Selection</h3><p><code>_get_selected_apps</code> feeds <code>_step_save_app_selection</code>. <code>_flatpak_app_list_contents</code> writes a deterministic newline list or zero-byte file; pinned defaults follow <code>_pinned_apps_for_selected_flatpaks</code>.</p></article>
+      <article class="state-card"><h3>Disk and Filesystem</h3><p><code>_setup_target_drive</code> and <code>_setup_filesystem</code> drive <code>_step_partition_disk</code>, which wipes, partitions, formats <code>ext4</code>/<code>xfs</code>/<code>btrfs</code>, mounts root, boot, and EFI.</p></article>
+      <article class="state-card"><h3>Memory Strategy</h3><p><code>_get_swap_config</code> selects zram only or zswap with 2/4/8/custom GB. <code>_step_configure_memory</code> writes zram-generator config or enables the zswap/encrypted swap units.</p></article>
+      <article class="state-card"><h3>Network State</h3><p><code>_network_skipped</code>, <code>_connected_ssid</code>, <code>_wifi_device</code>, and connectivity checks decide whether the network page appears and whether Confirm can install.</p></article>
+      <article class="state-card"><h3>Validation Gates</h3><p><code>_validate_page</code> delegates to <code>_validate_disk</code>, <code>_validate_account</code>, <code>_validate_system</code>, and <code>_validate_connectivity</code>. Confirm also requires <code>_confirm_ack</code>.</p></article>
+      <article class="state-card"><h3>Skip Behavior</h3><p>Navigation skips Network when already online. Progress supports <code>skippable</code> step behavior through <code>_progress_skip</code>, though current install steps are fatal or retry.</p></article>
+      <article class="state-card"><h3>Async Install Execution</h3><p><code>_start_step_runner</code> runs install steps in a daemon thread, updates GTK through <code>GLib.idle_add</code>, and toggles SELinux permissive while post-install files are written.</p></article>
+      <article class="state-card"><h3>Atomic Writes</h3><p><code>_atomic_write_text</code> protects state files with tmp/fsync/rename. <code>_sysroot_unlink_write</code> breaks ostree hardlinks before atomic sysroot writes.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="safe-title">
+    <h2 id="safe-title">Safe Edit Rules</h2>
+    <div class="safe-edit">
+      <article class="safe-card"><h3>Translation Markers</h3><p>Visible strings use <code>_()</code>; deferred labels use <code>N_()</code>. New dynamic text should register in <code>self._retranslatable</code> or be refreshed by <code>_retranslate</code>.</p></article>
+      <article class="safe-card"><h3>Low-Memory Safeguards</h3><p>Do not remove the log buffer cap, tail deque, temp-log-on-target behavior, or 256-character password limits; they protect 2 GB devices.</p></article>
+      <article class="safe-card"><h3>Subprocess Behavior</h3><p>Long commands run through <code>_run_logged</code> or controlled <code>subprocess.Popen</code> with <code>start_new_session</code>, timeouts, and child signal reset.</p></article>
+      <article class="safe-card"><h3>Password Limits</h3><p><code>Gtk.PasswordEntry</code> uses activate signals instead of unavailable <code>set_activates_default</code>; <code>_limit_entry_length</code> and validation cap passwords at 256 chars.</p></article>
+      <article class="safe-card"><h3>Alert Dialog Compatibility</h3><p><code>_show_install_in_progress_alert</code> guards <code>Gtk.AlertDialog</code> with <code>hasattr</code> and falls back to a modal <code>Gtk.Window</code>; do not reintroduce <code>Gtk.MessageDialog</code>.</p></article>
+      <article class="safe-card"><h3>Accessibility Announcements</h3><p>Labels bind to entries through <code>_bind_label_to_entry</code>. Shared bottom status updates call <code>_announce_status</code> via <code>_set_status</code>; network-page status labels may update directly and intentionally avoid removed live-region APIs.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="tests-title">
+    <h2 id="tests-title">Test Anchors</h2>
+    <div class="test-grid">
+      <article class="test-card"><h3>GTK smoke</h3><p><a href="../../tests/test_setup_wizard_gtk_smoke.py"><code>tests/test_setup_wizard_gtk_smoke.py</code></a> constructs <code>SetupWizardWindow</code> with real GTK when available.</p></article>
+      <article class="test-card"><h3>Apps and CSS</h3><p><a href="../../tests/test_setup_wizard_app_selection.py"><code>tests/test_setup_wizard_app_selection.py</code></a> covers Flatpak selection, dark CSS selectors, password entry behavior, alerts, and accessibility API constraints.</p></article>
+      <article class="test-card"><h3>i18n</h3><p><a href="../../tests/test_wizard_i18n.py"><code>tests/test_wizard_i18n.py</code></a> covers retranslation mechanics, gettext fallback, and language-name data.</p></article>
+      <article class="test-card"><h3>Mount and memory</h3><p><a href="../../tests/test_installer_mount_handling.py"><code>tests/test_installer_mount_handling.py</code></a> covers child partition unmounting, retry remount errors, memory unit configuration, rescan timers, and hash failure state.</p></article>
+      <article class="test-card"><h3>ISO contract</h3><p><a href="../../tests/test_iso_install_contract.py"><code>tests/test_iso_install_contract.py</code></a> keeps ISO seeded install config and default Flatpak selection aligned with the wizard contract.</p></article>
+      <article class="test-card"><h3>Flatpak first boot</h3><p><a href="../../tests/test_flatpak_setup_contract.py"><code>tests/test_flatpak_setup_contract.py</code></a> verifies selected-app files, skip markers, helper permissions, and post-login setup behavior.</p></article>
+    </div>
+  </section>
+</main>
+</body>
+</html>

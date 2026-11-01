@@ -18,10 +18,10 @@ Transform the settings app from a functional-but-incomplete 9-page utility into 
 
 ### Package Structure
 
-The single-file monolith (`/usr/bin/universal-lite-settings`, 1609 lines) is replaced by a proper Python package:
+The single-file monolith (`/usr/bin/adwaita-lite-settings`, 1609 lines) is replaced by a proper Python package:
 
 ```
-/usr/lib/universal-lite/settings/
+/usr/lib/adwaita-lite/settings/
 ├── __init__.py
 ├── app.py              # SettingsApp, CSS loading, entry point
 ├── window.py           # SettingsWindow, sidebar, stack, search bar
@@ -50,12 +50,12 @@ The single-file monolith (`/usr/bin/universal-lite-settings`, 1609 lines) is rep
     └── about.py
 ```
 
-`/usr/bin/universal-lite-settings` becomes a thin launcher that adds the package root to `sys.path`:
+`/usr/bin/adwaita-lite-settings` becomes a thin launcher that adds the package root to `sys.path`:
 
 ```python
 #!/usr/bin/env python3
 import sys
-sys.path.insert(0, "/usr/lib/universal-lite")
+sys.path.insert(0, "/usr/lib/adwaita-lite")
 from settings.app import main
 main()
 ```
@@ -74,13 +74,13 @@ All page classes inherit from `BasePage`, which provides:
 
 Encapsulates all settings persistence:
 
-- Reads/writes `~/.config/universal-lite/settings.json`
-- Defaults from `/usr/share/universal-lite/defaults/settings.json`
+- Reads/writes `~/.config/adwaita-lite/settings.json`
+- Defaults from `/usr/share/adwaita-lite/defaults/settings.json`
 - Atomic file writes (write to `.tmp`, then `os.rename`)
 - `save_and_apply(key, value)` and `save_dict_and_apply(updates)` — return success/failure
 - Built-in debounce for slider-type settings (configurable delay, default 300ms), replacing per-page timer boilerplate
 - Triggers toast notification on apply completion or failure
-- Runs `/usr/libexec/universal-lite-apply-settings` via `subprocess.Popen`, then monitors the process with `GLib.child_watch_add` to detect exit code. Exit 0 triggers success toast; non-zero triggers error toast with stderr excerpt.
+- Runs `/usr/libexec/adwaita-lite-apply-settings` via `subprocess.Popen`, then monitors the process with `GLib.child_watch_add` to detect exit code. Exit 0 triggers success toast; non-zero triggers error toast with stderr excerpt.
 
 ### Event Bus
 
@@ -235,7 +235,7 @@ No other changes. Cursor size moves to Accessibility page.
 **New settings:**
 - **Power profile:** Toggle cards for Balanced / Power Saver / Performance. Read/written via `net.hadess.PowerProfiles` D-Bus interface. Live-updates via D-Bus signal subscription.
 - **Suspend on idle:** Dropdown with timeout options (same intervals as lock timeout). Integrated with swayidle.
-- **Lid close behavior:** Dropdown (Suspend / Lock / Do Nothing). Requires root to write `/etc/systemd/logind.conf.d/`. Implementation: a small helper script at `/usr/libexec/universal-lite-lid-action` that accepts the action as an argument, writes the logind override, and calls `systemctl kill -s HUP systemd-logind`. The helper is authorized via a polkit policy file at `/usr/share/polkit-1/actions/org.universallite.lid-action.policy` that grants the active session user permission to run it via `pkexec`.
+- **Lid close behavior:** Dropdown (Suspend / Lock / Do Nothing). Requires root to write `/etc/systemd/logind.conf.d/`. Implementation: a small helper script at `/usr/libexec/adwaita-lite-lid-action` that accepts the action as an argument, writes the logind override, and calls `systemctl kill -s HUP systemd-logind`. The helper is authorized via a polkit policy file at `/usr/share/polkit-1/actions/org.adwaitabluelite.lid-action.policy` that grants the active session user permission to run it via `pkexec`.
 
 ### Keyboard Page
 
@@ -316,7 +316,7 @@ Keys not stored in settings.json (managed by their respective systems):
 
 ### Phase 1 — Architecture + Connectivity
 
-1. Split monolith into `universal_lite_settings/` package structure
+1. Split monolith into `adwaita_lite_settings/` package structure
 2. Extract CSS to `css/style.css`
 3. Implement `BasePage`, `SettingsStore` (with atomic writes, debounce, toast feedback)
 4. Implement event bus (`events.py`)

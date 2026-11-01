@@ -1,0 +1,38 @@
+[Unit]
+Description=First-boot configuration for installer-deployed Adwaita-Lite
+# Before=swap.target was the cycle source: combined with the default
+# After=basic.target it forced sysinit→basic→first-boot→swap ordering,
+# which collided with swap.target's placement in the boot sequence.
+# First-boot writes swap-size and idempotently starts the swap units when
+# needed (see /usr/libexec/adwaita-lite-first-boot), so blocking
+# swap.target from systemd's side is unnecessary.
+After=local-fs.target
+Before=greetd.service
+ConditionPathExists=/var/lib/adwaita-lite/install-config.json
+ConditionPathExists=!/var/lib/adwaita-lite/setup-done
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/adwaita-lite-first-boot
+TimeoutStartSec=600
+
+# --- Hardening ---
+# Intentionally light: this script calls systemctl start, sysctl -w, and
+# writes /var/lib/adwaita-lite state. Too much to lock down without
+# breaking it. Apply only the directives that are safely compatible:
+#   - ProtectSystem=strict + ReadWritePaths covers /var and sysctl writes.
+#   - NoNewPrivileges=yes is fine (no setuid execs involved).
+#   - Skip ProtectKernelTunables (sysctl).
+ProtectSystem=strict
+ReadWritePaths=/var /proc/sys/vm
+NoNewPrivileges=yes
+RestrictSUIDSGID=yes
+ProtectControlGroups=yes
+ProtectHostname=yes
+ProtectClock=yes
+LockPersonality=yes
+RestrictRealtime=yes
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,3 @@
+docker:
+  ghcr.io/adwaita-blue-lite:
+    use-sigstore-attachments: true

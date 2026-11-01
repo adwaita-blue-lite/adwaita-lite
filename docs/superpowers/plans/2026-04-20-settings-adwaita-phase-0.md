@@ -20,17 +20,17 @@
 
 | File | Change | Purpose |
 |---|---|---|
-| `files/usr/lib/universal-lite/settings/utils.py` | **Create** | Housing for standalone helpers (`enable_escape_close`) that don't belong on `BasePage`. New imports by wave agents land here instead of accruing on `BasePage`. |
-| `files/usr/lib/universal-lite/settings/pages/power_lock.py` | **Rewrite** | Pilot conversion. Establishes the inheritance pattern, `AdwComboRow` usage, event-bus subscription preservation, and `setup_cleanup` wiring. |
-| `files/usr/lib/universal-lite/settings/base.py` | No change | Widget factories stay for waves 1–3. Deleted in Phase 4. |
-| `files/usr/lib/universal-lite/settings/pages/__init__.py` | No change | Registration tuple still references `PowerLockPage`. |
+| `files/usr/lib/adwaita-lite/settings/utils.py` | **Create** | Housing for standalone helpers (`enable_escape_close`) that don't belong on `BasePage`. New imports by wave agents land here instead of accruing on `BasePage`. |
+| `files/usr/lib/adwaita-lite/settings/pages/power_lock.py` | **Rewrite** | Pilot conversion. Establishes the inheritance pattern, `AdwComboRow` usage, event-bus subscription preservation, and `setup_cleanup` wiring. |
+| `files/usr/lib/adwaita-lite/settings/base.py` | No change | Widget factories stay for waves 1–3. Deleted in Phase 4. |
+| `files/usr/lib/adwaita-lite/settings/pages/__init__.py` | No change | Registration tuple still references `PowerLockPage`. |
 
 ---
 
 ## Task 1: Create `settings/utils.py`
 
 **Files:**
-- Create: `files/usr/lib/universal-lite/settings/utils.py`
+- Create: `files/usr/lib/adwaita-lite/settings/utils.py`
 
 - [ ] **Step 1: Write the module with the extracted helper**
 
@@ -78,7 +78,7 @@ def enable_escape_close(dialog: Gtk.Window) -> None:
 
 Run:
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/utils.py').read()); print('OK')"
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/utils.py').read()); print('OK')"
 ```
 
 Expected: `OK`
@@ -87,7 +87,7 @@ Expected: `OK`
 
 Run:
 ```bash
-git add files/usr/lib/universal-lite/settings/utils.py
+git add files/usr/lib/adwaita-lite/settings/utils.py
 ```
 
 Do NOT commit yet. Phase 0 commits as one atomic change at the end of Task 4.
@@ -97,7 +97,7 @@ Do NOT commit yet. Phase 0 commits as one atomic change at the end of Task 4.
 ## Task 2: Convert `power_lock.py` to the new pattern
 
 **Files:**
-- Modify (full rewrite): `files/usr/lib/universal-lite/settings/pages/power_lock.py`
+- Modify (full rewrite): `files/usr/lib/adwaita-lite/settings/pages/power_lock.py`
 
 **Design decisions specific to this page:**
 
@@ -334,7 +334,7 @@ class PowerLockPage(BasePage, Adw.PreferencesPage):
         def _run() -> None:
             try:
                 result = subprocess.run(
-                    ["pkexec", "/usr/libexec/universal-lite-lid-action", action],
+                    ["pkexec", "/usr/libexec/adwaita-lite-lid-action", action],
                     capture_output=True, timeout=60,
                 )
             except subprocess.TimeoutExpired:
@@ -371,7 +371,7 @@ class PowerLockPage(BasePage, Adw.PreferencesPage):
 
 Run:
 ```bash
-python3 -c "import ast; ast.parse(open('files/usr/lib/universal-lite/settings/pages/power_lock.py').read()); print('OK')"
+python3 -c "import ast; ast.parse(open('files/usr/lib/adwaita-lite/settings/pages/power_lock.py').read()); print('OK')"
 ```
 
 Expected: `OK`
@@ -380,7 +380,7 @@ Expected: `OK`
 
 Run:
 ```bash
-grep -c 'save_and_apply\|self.subscribe\|setup_cleanup\|PowerProfilesHelper\|pkexec' files/usr/lib/universal-lite/settings/pages/power_lock.py
+grep -c 'save_and_apply\|self.subscribe\|setup_cleanup\|PowerProfilesHelper\|pkexec' files/usr/lib/adwaita-lite/settings/pages/power_lock.py
 ```
 
 Expected: ≥ 7 (three save_and_apply calls — lock_timeout, display_off_timeout, suspend_timeout, lid_close_action; one self.subscribe; one setup_cleanup; one PowerProfilesHelper; one pkexec).
@@ -391,7 +391,7 @@ If the count is lower, a signal handler was dropped during the rewrite. Review w
 
 Run:
 ```bash
-git add files/usr/lib/universal-lite/settings/pages/power_lock.py
+git add files/usr/lib/adwaita-lite/settings/pages/power_lock.py
 ```
 
 ---
@@ -409,7 +409,7 @@ Run:
 ```bash
 python3 -c "
 import ast, pathlib
-src = pathlib.Path('files/usr/lib/universal-lite/settings/pages/__init__.py').read_text()
+src = pathlib.Path('files/usr/lib/adwaita-lite/settings/pages/__init__.py').read_text()
 ast.parse(src)
 assert 'PowerLockPage' in src, 'registration import missing'
 print('registration OK')
@@ -422,18 +422,18 @@ Expected: `registration OK`
 
 Run:
 ```bash
-grep -cE 'def make_(page_box|group|setting_row|info_row|toggle_cards)' files/usr/lib/universal-lite/settings/base.py
+grep -cE 'def make_(page_box|group|setting_row|info_row|toggle_cards)' files/usr/lib/adwaita-lite/settings/base.py
 ```
 
 Expected: `5`
 
-If the number is less than 5, someone deleted a factory prematurely. Phase 4 is where that deletion lives, not Phase 0. Restore it from `git show HEAD:files/usr/lib/universal-lite/settings/base.py` before continuing.
+If the number is less than 5, someone deleted a factory prematurely. Phase 4 is where that deletion lives, not Phase 0. Restore it from `git show HEAD:files/usr/lib/adwaita-lite/settings/base.py` before continuing.
 
 - [ ] **Step 3: Verify power_lock no longer uses the deprecated factories**
 
 Run:
 ```bash
-grep -cE 'self\.(make_page_box|make_group|make_setting_row|make_info_row|make_toggle_cards)' files/usr/lib/universal-lite/settings/pages/power_lock.py
+grep -cE 'self\.(make_page_box|make_group|make_setting_row|make_info_row|make_toggle_cards)' files/usr/lib/adwaita-lite/settings/pages/power_lock.py
 ```
 
 Expected: `0`
@@ -449,8 +449,8 @@ git diff --name-only HEAD
 
 Expected output contains exactly these two paths (in any order):
 ```
-files/usr/lib/universal-lite/settings/pages/power_lock.py
-files/usr/lib/universal-lite/settings/utils.py
+files/usr/lib/adwaita-lite/settings/pages/power_lock.py
+files/usr/lib/adwaita-lite/settings/utils.py
 ```
 
 `utils.py` is a new file; `git diff --name-only HEAD` lists it once it has been staged via `git add`. If anything else shows up, inspect and revert unless intentional.
@@ -471,8 +471,8 @@ git diff --cached --name-only
 
 Expected output (two lines, any order):
 ```
-files/usr/lib/universal-lite/settings/pages/power_lock.py
-files/usr/lib/universal-lite/settings/utils.py
+files/usr/lib/adwaita-lite/settings/pages/power_lock.py
+files/usr/lib/adwaita-lite/settings/utils.py
 ```
 
 If anything else is staged, unstage it with `git reset HEAD <path>` before committing.
@@ -532,7 +532,7 @@ After the GitHub Actions build completes (≈ 4 min, as per recent history), upd
 1. Sidebar shows the "Power & Lock" category in its expected position.
 2. Clicking "Power & Lock" renders four groups: *Lock & Display*, *Power Profile*, *Suspend on Idle*, *Lid Close Behavior*.
 3. Each group shows AdwComboRow controls (rows clickable anywhere, dropdown popover opens on tap).
-4. Changing "Lock screen after" to a new value triggers the lock timeout (wait it out, or check `cat ~/.config/universal-lite/settings.json` to confirm the key was written).
+4. Changing "Lock screen after" to a new value triggers the lock timeout (wait it out, or check `cat ~/.config/adwaita-lite/settings.json` to confirm the key was written).
 5. Changing "Power profile" updates the value live; running `powerprofilesctl get` in a terminal matches the selected profile.
 6. Changing "When lid is closed" prompts for pkexec authorization (polkit popup).
 7. Navigating away and back does not leak or duplicate event-bus subscriptions — do it 3 times and the page should build once (watch `journalctl --user` for any PowerProfilesHelper errors).

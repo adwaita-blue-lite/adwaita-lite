@@ -18,13 +18,19 @@ on:
     paths-ignore:
       - '**/README.md'
   workflow_dispatch:
+    inputs:
+      sync_promotion:
+        description: "Internal stream sync promotion"
+        required: false
+        type: boolean
+        default: false
 
 env:
-  IMAGE_DESC: "Universal-Lite: a Chromebook-inspired Universal Blue image for old low-RAM laptops"
+  IMAGE_DESC: "Adwaita-Lite: a Chromebook-inspired Universal Blue image for old low-RAM laptops"
   IMAGE_KEYWORDS: "bootc,ublue,universal-blue,wayland,labwc,chromebook,low-ram"
   IMAGE_LOGO_URL: "https://avatars.githubusercontent.com/u/120078124?s=200&v=4"  # Put your own image here for a fancy profile on https://artifacthub.io/!
-  IMAGE_NAME: "universal-lite"
-  IMAGE_REGISTRY: "quay.io/noitatsidem"
+  IMAGE_NAME: "adwaita-lite"
+  IMAGE_REGISTRY: "ghcr.io/adwaita-blue-lite"
   DEFAULT_TAG: "latest"
 
 concurrency:
@@ -33,10 +39,16 @@ concurrency:
 
 jobs:
   build_push:
-    name: Build and push image
-    runs-on: ubicloud-premium-8-ubuntu-2404
+    name: Build and push image (${{ matrix.stream }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        stream: ${{ github.event_name == 'schedule' && fromJSON('["main","beta"]') || fromJSON('["main"]') }}
+      max-parallel: 1
 
     permissions:
+      actions: write
       contents: read
       packages: write
       id-token: write
@@ -48,6 +60,12 @@ jobs:
           echo "IMAGE_REGISTRY=${IMAGE_REGISTRY,,}" >> ${GITHUB_ENV}
           echo "IMAGE_NAME=${IMAGE_NAME,,}" >> ${GITHUB_ENV}
 
+      - name: Login to GHCR
+        shell: bash
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | podman login ghcr.io \
+            --username "${{ github.actor }}" --password-stdin
+
       - name: Resolve stream configuration
         id: stream
         shell: bash
@@ -55,11 +73,17 @@ jobs:
           publish="false"
           include_date_alias="false"
           tag="pr"
-          base_image="ghcr.io/ublue-os/base-main:latest"
+          base_image="${IMAGE_REGISTRY}/${IMAGE_NAME}:latest"
           ref_name="${GITHUB_REF_NAME}"
+          upstream_refresh="false"
 
           if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
             ref_name="${GITHUB_BASE_REF}"
+          fi
+
+          if [[ "${GITHUB_EVENT_NAME}" == "schedule" ]]; then
+            ref_name="${{ matrix.stream }}"
+            upstream_refresh="true"
           fi
 
           case "${ref_name}" in
@@ -67,24 +91,43 @@ jobs:
               publish="true"
               include_date_alias="true"
               tag="latest"
-              base_image="ghcr.io/ublue-os/base-main:latest"
+              base_image="${IMAGE_REGISTRY}/${IMAGE_NAME}:latest"
               ;;
             dx)
               publish="true"
               tag="dx"
-              base_image="ghcr.io/ublue-os/base-main:latest"
+              base_image="${IMAGE_REGISTRY}/${IMAGE_NAME}:latest"
               ;;
             testing)
               publish="true"
               tag="testing"
-              base_image="ghcr.io/ublue-os/base-main:latest"
+              base_image="${IMAGE_REGISTRY}/${IMAGE_NAME}:dx"
               ;;
             beta)
               publish="true"
               tag="beta"
-              base_image="ghcr.io/ublue-os/base-main:beta"
+              base_image="${IMAGE_REGISTRY}/${IMAGE_NAME}:beta"
               ;;
           esac
+
+          if [[ "${upstream_refresh}" == "true" ]]; then
+            case "${tag}" in
+              latest) base_image="ghcr.io/ublue-os/base-main:latest" ;;
+              beta) base_image="ghcr.io/ublue-os/base-main:beta" ;;
+            esac
+          fi
+
+          # Bootstrap guard: routine builds layer on a previously published
+          # image. A brand-new repo or stream has none yet, so fall back to
+          # the matching upstream base instead of failing the registry pull.
+          if [[ "${base_image}" == "${IMAGE_REGISTRY}/"* ]] \
+             && ! skopeo inspect "docker://${base_image}" >/dev/null 2>&1; then
+            case "${tag}" in
+              beta) base_image="ghcr.io/ublue-os/base-main:beta" ;;
+              *) base_image="ghcr.io/ublue-os/base-main:latest" ;;
+            esac
+            echo "Base ${IMAGE_REGISTRY}/${IMAGE_NAME}:${tag} is not published yet; bootstrapping from ${base_image}"
+          fi
 
           if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
             publish="false"
@@ -98,11 +141,57 @@ jobs:
 
       # These stage versions are pinned by https://github.com/renovatebot/renovate
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        if: github.event_name != 'schedule'
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
-      # This is optional, but if you see that your builds are way too big for the runners, you can enable this by uncommenting the following lines:
+      - name: Checkout scheduled stream
+        if: github.event_name == 'schedule'
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          ref: ${{ matrix.stream }}
+
+      - name: Resolve source revision
+        id: source
+        shell: bash
+        run: |
+          echo "revision=$(git rev-parse HEAD)" >> "${GITHUB_OUTPUT}"
+
+      # Keep this inline so runner setup does not need to download another action archive.
       - name: Maximize build space
-        uses: ublue-os/remove-unwanted-software@695eb75bc387dbcd9685a8e72d23439d8686cba6
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "==> Available space before cleanup"
+          df -h
+
+          verbose=""
+          echo "Removing unwanted software..."
+          sudo rm -rf ${verbose} /usr/share/dotnet
+          sudo rm -rf ${verbose} /usr/local/lib/android
+          sudo rm -rf ${verbose} /opt/ghc
+          sudo rm -rf ${verbose} /usr/local/.ghcup
+          sudo rm -rf ${verbose} /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force > /dev/null
+          sudo apt-get remove -y '^aspnetcore-.*' > /dev/null
+          sudo apt-get remove -y '^dotnet-.*' > /dev/null
+          sudo apt-get remove -y '^llvm-.*' > /dev/null
+          sudo apt-get remove -y 'php.*' > /dev/null
+          sudo apt-get remove -y '^mongodb-.*' > /dev/null
+          sudo apt-get remove -y '^mysql-.*' > /dev/null
+          if [[ "$(uname -m)" == "x86_64" ]]; then
+            sudo apt-get remove -y google-chrome-stable microsoft-edge-stable > /dev/null
+            sudo apt-get remove -y google-cloud-cli --fix-missing > /dev/null
+            sudo apt-get remove -y powershell --fix-missing > /dev/null
+          fi
+          sudo apt-get remove -y azure-cli firefox mono-devel libgl1-mesa-dri --fix-missing > /dev/null
+          sudo apt-get autoremove -y > /dev/null
+          sudo apt-get clean > /dev/null
+          sudo rm -rf ${verbose} "$AGENT_TOOLSDIRECTORY"
+          echo "... done"
+
+          echo "==> Available space after cleanup"
+          df -h
 
       - name: Get current date
         id: date
@@ -116,7 +205,7 @@ jobs:
       # Image metadata for https://artifacthub.io/ - This is optional but is highly recommended so we all can get a index of all the custom images
       # The metadata by itself is not going to do anything, you choose if you want your image to be on ArtifactHub or not.
       - name: Image Metadata
-        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
         id: metadata
         with:
           # This generates all the tags for your image, you can add custom tags here too!
@@ -128,13 +217,13 @@ jobs:
             type=sha,enable=${{ github.event_name == 'pull_request' }}
             type=ref,event=pr
           labels: |
-            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ github.sha }}/README.md
+            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ steps.source.outputs.revision }}/README.md
             org.opencontainers.image.created=${{ steps.date.outputs.date }}
             org.opencontainers.image.description=${{ env.IMAGE_DESC }}
-            org.opencontainers.image.documentation=https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ github.sha }}/README.md
-            org.opencontainers.image.source=https://github.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/blob/${{ github.sha }}/Containerfile
+            org.opencontainers.image.documentation=https://raw.githubusercontent.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ steps.source.outputs.revision }}/README.md
+            org.opencontainers.image.source=https://github.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/blob/${{ steps.source.outputs.revision }}/Containerfile
             org.opencontainers.image.title=${{ env.IMAGE_NAME }}
-            org.opencontainers.image.url=https://github.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/tree/${{ github.sha }}
+            org.opencontainers.image.url=https://github.com/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/tree/${{ steps.source.outputs.revision }}
             org.opencontainers.image.vendor=${{ github.repository_owner }}
             org.opencontainers.image.version=${{ steps.stream.outputs.tag }}.{{date 'YYYYMMDD'}}
             io.artifacthub.package.deprecated=false
@@ -145,6 +234,10 @@ jobs:
             containers.bootc=1
           sep-tags: " "
           sep-annotations: " "
+
+      # Authenticate before building so stream builds can pull their own
+      # previously published base image from GHCR (dx <- latest, testing <- dx).
+      # Login happens once in the "Login to GHCR" step before stream resolution.
 
       - name: Build Image
         id: build_image
@@ -187,15 +280,7 @@ jobs:
 
       # These `if` statements are so that pull requests for your custom images do not make it publish any packages under your name without you knowing
       # They also check if the runner is on the default branch so that things like the merge queue (if you enable it), are going to work
-      - name: Login to Quay
-        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
-        if: steps.stream.outputs.publish == 'true'
-        with:
-          registry: quay.io
-          username: ${{ secrets.QUAY_USERNAME }}
-          password: ${{ secrets.QUAY_PASSWORD }}
-
-      - name: Push To Quay
+      - name: Push To GHCR
         uses: redhat-actions/push-to-registry@5ed88d269cf581ea9ef6dd6806d01562096bee9c # v2
         if: steps.stream.outputs.publish == 'true'
         id: push
@@ -203,27 +288,46 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ steps.metadata.outputs.tags }}
-          username: ${{ secrets.QUAY_USERNAME }}
-          password: ${{ secrets.QUAY_PASSWORD }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       # This section is optional and only needs to be enabled if you plan on distributing
       # your project for others to consume. You will need to create a public and private key
       # using Cosign and save the private key as a repository secret in Github for this workflow
       # to consume. For more details, review the image signing section of the README.
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@cad07c2e89fa2edd6e2d7bab4c1aa38e53f76003 # v4.1.1
+      # cosign (go-containerregistry) reads Docker's auth file, not podman's.
+      # The earlier podman login covers buildah/base pulls; this covers signing.
+      - name: Login to GHCR for signing
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         if: steps.stream.outputs.publish == 'true'
         with:
-          cosign-release: 'v2.6.1'
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+        if: steps.stream.outputs.publish == 'true'
+        with:
+          cosign-release: 'v3.1.2'
 
       - name: Sign container image
         if: steps.stream.outputs.publish == 'true'
         run: |
-          IMAGE_FULL="${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}"
-          for tag in ${{ steps.metadata.outputs.tags }}; do
-            cosign sign -y --key env://COSIGN_PRIVATE_KEY $IMAGE_FULL:$tag
-          done
+          # Keep the legacy bundle format so bootc/rpm-ostree can verify the
+          # signature (same compatibility flags upstream Universal Blue uses).
+          cosign sign -y --new-bundle-format=false --use-signing-config=false \
+            --key env://COSIGN_PRIVATE_KEY \
+            "${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}"
         env:
-          TAGS: ${{ steps.push.outputs.digest }}
-          COSIGN_EXPERIMENTAL: false
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
+
+      - name: Continue sync promotion
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.sync_promotion == true && steps.stream.outputs.tag == 'dx' && steps.stream.outputs.publish == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run sync-streams.yml \
+            --ref main \
+            -f source=dx \
+            -f target=testing

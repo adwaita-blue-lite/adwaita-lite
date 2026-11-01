@@ -1,6 +1,6 @@
 # Settings App Audit — 2026-04-22
 
-Comprehensive multi-agent (Opus) review of the Universal-Lite settings app. Five parallel agents, each scoped to a distinct slice of the codebase, produced 25 deduplicated findings. Audit scope excludes the two bug classes already fixed earlier in the same session:
+Comprehensive multi-agent (Opus) review of the Adwaita-Lite settings app. Five parallel agents, each scoped to a distinct slice of the codebase, produced 25 deduplicated findings. Audit scope excludes the two bug classes already fixed earlier in the same session:
 
 - **Config generators that replace system defaults** (fixed: labwc rc.xml `Client` context missing in both static and generated copies — commits `2ceb161`, `326d1ad`).
 - **`subprocess.Popen` without `start_new_session=True`** (fixed in `apply-settings` + 4 settings pages — commits `c79201a`, `c23f044`).

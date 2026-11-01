@@ -2,8 +2,8 @@
 
 # Wizard mode: launch only the setup wizard, skip all desktop daemons.
 # Keeps RAM minimal on 2 GB Chromebooks that use the DD install path.
-if [ "${UNIVERSAL_LITE_WIZARD:-}" = "1" ]; then
-    /usr/bin/universal-lite-setup-wizard 2>/tmp/wizard-crash.log &
+if [ "${ADWAITA_LITE_WIZARD:-}" = "1" ]; then
+    /usr/bin/adwaita-lite-setup-wizard 2>/tmp/wizard-crash.log &
     exit 0
 fi
 
@@ -11,10 +11,12 @@ fi
 # These must run after labwc creates the Wayland socket.
 dbus-update-activation-environment --systemd \
   WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP \
-  XDG_SESSION_TYPE GTK_USE_PORTAL GSK_RENDERER UNIVERSAL_LITE || true
+  XDG_SESSION_TYPE GTK_USE_PORTAL ADW_DISABLE_PORTAL GSK_RENDERER \
+  ADWAITA_LITE || true
 systemctl --user import-environment \
   WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP \
-  XDG_SESSION_TYPE GTK_USE_PORTAL GSK_RENDERER UNIVERSAL_LITE || true
+  XDG_SESSION_TYPE GTK_USE_PORTAL ADW_DISABLE_PORTAL GSK_RENDERER \
+  ADWAITA_LITE || true
 xdg-user-dirs-update >/dev/null 2>&1 || true
 
 # Start gnome-keyring-daemon for secret storage (Chrome passwords, WiFi keys, etc.)
@@ -25,15 +27,15 @@ dbus-update-activation-environment --systemd \
 systemctl --user import-environment \
   SSH_AUTH_SOCK GNOME_KEYRING_CONTROL || true
 
-# Only start Universal-Lite daemons in a Universal-Lite session.
-[ "${UNIVERSAL_LITE:-}" = "1" ] || exit 0
+# Only start Adwaita-Lite daemons in a Adwaita-Lite session.
+[ "${ADWAITA_LITE:-}" = "1" ] || exit 0
 
 # Seed settings.json from image defaults on first login. The autostart
 # helpers below (wallpaper, idle timeouts) all parse this file and need
 # it to exist — apply-settings only runs when settings change, not at
 # login, so we can't rely on it to create the file.
-_settings_dir="${XDG_CONFIG_HOME:-$HOME/.config}/universal-lite"
-_defaults="/usr/share/universal-lite/defaults/settings.json"
+_settings_dir="${XDG_CONFIG_HOME:-$HOME/.config}/adwaita-lite"
+_defaults="/usr/share/adwaita-lite/defaults/settings.json"
 if [ ! -f "$_settings_dir/settings.json" ] && [ -f "$_defaults" ]; then
     mkdir -p "$_settings_dir"
     cp "$_defaults" "$_settings_dir/settings.json" 2>/dev/null || true
@@ -46,7 +48,7 @@ fi
 _settings="$_settings_dir/settings.json"
 python3 -c "
 import json, os, subprocess, sys, time
-sys.path.insert(0, '/usr/lib/universal-lite')
+sys.path.insert(0, '/usr/lib/adwaita-lite')
 from settings.wallpapers import resolve_for_theme
 try:
     d = json.load(open(sys.argv[1]))
@@ -55,7 +57,7 @@ except Exception:
 theme = 'dark' if d.get('theme') == 'dark' or d.get('high_contrast') is True else 'light'
 seen = set()
 candidates = []
-for value in (d.get('wallpaper', ''), 'fedora-default', 'universal-lite'):
+for value in (d.get('wallpaper', ''), 'fedora-default', 'adwaita-lite'):
     try:
         wallpaper = resolve_for_theme(value, theme)
     except Exception:
@@ -64,9 +66,9 @@ for value in (d.get('wallpaper', ''), 'fedora-default', 'universal-lite'):
         candidates.append(wallpaper)
         seen.add(wallpaper)
 for wallpaper in (
-    '/usr/share/backgrounds/universal-lite/chrome-sky.svg' if theme == 'dark'
-    else '/usr/share/backgrounds/universal-lite/chrome-dawn.svg',
-    '/usr/share/backgrounds/universal-lite/chrome-dawn.svg',
+    '/usr/share/backgrounds/adwaita-lite/chrome-sky.svg' if theme == 'dark'
+    else '/usr/share/backgrounds/adwaita-lite/chrome-dawn.svg',
+    '/usr/share/backgrounds/adwaita-lite/chrome-dawn.svg',
     '/usr/share/backgrounds/f43/default/f43-01-day.jxl',
 ):
     if os.path.isfile(wallpaper) and wallpaper not in seen:
@@ -162,5 +164,10 @@ set -- "$@" before-sleep 'swaylock -f'
 # environment, and polkit are available. The session wrapper only writes
 # static config files before labwc starts so first login cannot stall on
 # gsettings, powerprofilesctl, pkexec, Wayland reloads, or wallpaper swaps.
-/usr/libexec/universal-lite-apply-settings --mode=live \
+/usr/libexec/adwaita-lite-apply-settings --mode=live \
   >/dev/null 2>"$_logdir/apply-settings.log" &
+
+# Offer post-login installation for apps selected during setup. This is
+# intentionally after the desktop is usable; Flatpak setup must never block login.
+[ -x /usr/bin/adwaita-lite-app-setup ] && /usr/bin/adwaita-lite-app-setup \
+  >/dev/null 2>"$_logdir/app-setup.log" &

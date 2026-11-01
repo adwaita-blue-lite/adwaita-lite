@@ -2,19 +2,19 @@
 
 ## Purpose
 
-Universal-Lite now has branch and tag plumbing for `main`, `dx`, `testing`, and `beta`, but the downstream branch contents still need to diverge intentionally. The first useful `dx` and `testing` images should carry the developer payload expected from Universal Blue DX streams, while `main` stays lean for low-memory consumer targets and `beta` remains a main-based compatibility canary for the next Fedora/rawhide-style base.
+Adwaita-Lite now has branch and tag plumbing for `main`, `dx`, `testing`, and `beta`, but the downstream branch contents still need to diverge intentionally. The first useful `dx` and `testing` images should carry the developer payload expected from Universal Blue DX streams, while `main` stays lean for low-memory consumer targets and `beta` remains a main-based compatibility canary for the next Fedora/rawhide-style base.
 
 ## Stream Contents
 
 `main` remains the stable consumer image. It continues to remove Distrobox and its `ujust` recipe so low-memory systems do not expose container workflows that are not intended for the default install.
 
-`dx` is the stable developer image. It should match the extras Bluefin DX ships relative to mainline Bluefin as closely as practical for Universal-Lite. The initial DX payload should include:
+`dx` is the stable developer image. It should match the extras Bluefin DX ships relative to mainline Bluefin as closely as practical for Adwaita-Lite. The initial DX payload should include:
 
 - Distrobox retained from the Universal Blue base image, including its `ujust` recipe.
 - Homebrew support via the upstream Universal Blue `brew` image/files pattern used by Bluefin.
 - Container and virtualization tooling from Bluefin DX, including Docker, containerd, Docker compose/buildx/model plugins, libvirt, QEMU, virt-manager, Cockpit, podman tooling, Incus/LXC, and related SELinux/support packages.
 - Developer and debugging utilities from Bluefin DX, including flatpak-builder, git subtree/SVN helpers, Android tools, tracing/performance tools, qemu-user helpers, p7zip, and VS Code.
-- DX service defaults from Bluefin DX where they apply to Universal-Lite, including enabling Docker and Podman sockets and required virtualization/group setup services.
+- DX service defaults from Bluefin DX where they apply to Adwaita-Lite, including enabling Docker and Podman sockets and required virtualization/group setup services.
 
 `testing` is created from `dx` and initially carries the same payload. It exists so future WIP changes can ride on top of DX without affecting stable DX users. The first testing image may be equivalent to the first DX image.
 
@@ -34,7 +34,7 @@ The implementation should update the branch contents, not just trigger empty wor
 
 ## Implementation Boundaries
 
-The first pass should avoid inventing Universal-Lite-only developer behavior. Prefer upstream Bluefin DX package lists, repo setup, service enables, tests, and file overlays where they are compatible with Universal-Lite. If a Bluefin DX item is GNOME-specific, hardware-specific, or too heavyweight for the goal, document why it is excluded instead of silently omitting it.
+The first pass should avoid inventing Adwaita-Lite-only developer behavior. Prefer upstream Bluefin DX package lists, repo setup, service enables, tests, and file overlays where they are compatible with Adwaita-Lite. If a Bluefin DX item is GNOME-specific, hardware-specific, or too heavyweight for the goal, document why it is excluded instead of silently omitting it.
 
 The DX payload should be branch-local for now. `main` should not gain stream-mode build arguments or conditional package logic during this pass unless implementation reveals that branch-local changes are unmaintainable.
 
@@ -47,7 +47,7 @@ Local validation should include static tests proving the intended stream split w
 - `testing` is updated from `dx`, so its branch contents should match the DX contract until WIP testing-only changes are introduced.
 - `beta` remains main-based and uses the beta base image.
 
-Remote validation should observe successful GitHub Actions image builds for `dx`, `testing`, and `beta`. The `beta` build is especially important as a rawhide/next-Fedora compatibility signal. If it fails, investigation should determine whether the failure is caused by Universal-Lite payload assumptions or upstream beta base changes before making fixes.
+Remote validation should observe successful GitHub Actions image builds for `dx`, `testing`, and `beta`. The `beta` build is especially important as a rawhide/next-Fedora compatibility signal. If it fails, investigation should determine whether the failure is caused by Adwaita-Lite payload assumptions or upstream beta base changes before making fixes.
 
 ## Out Of Scope
 

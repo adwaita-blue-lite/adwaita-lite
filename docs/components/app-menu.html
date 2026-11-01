@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>App Menu Component Documentation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --bg: #0d1117;
+      --panel: #161b22;
+      --panel-2: #1f2630;
+      --line: #303846;
+      --text: #f4f7fb;
+      --muted: #c5ccd8;
+      --soft: #8f9bad;
+      --accent: #78c2ff;
+      --accent-2: #cba6f7;
+      --warn: #f6d32d;
+      --danger: #ff7b72;
+      --ok: #57e389;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(120, 194, 255, 0.2), transparent 28rem),
+        radial-gradient(circle at 88% 10%, rgba(203, 166, 247, 0.14), transparent 26rem),
+        linear-gradient(135deg, #0d1117 0%, #141922 58%, #0e1118 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 34px 0 64px;
+    }
+
+    a { color: var(--accent); }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 0.92em;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 350px;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--soft);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 7vw, 5.6rem);
+      line-height: 0.9;
+      letter-spacing: -0.068em;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.04rem;
+    }
+
+    p { margin: 0; }
+
+    .lede {
+      max-width: 800px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .source-map,
+    section {
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 26px;
+      background: rgba(22, 27, 34, 0.9);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    }
+
+    .source-map {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      align-content: start;
+    }
+
+    .source-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(31, 38, 48, 0.96), rgba(17, 22, 30, 0.96));
+    }
+
+    .source-card b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--warn);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .source-card code {
+      display: inline;
+      overflow-wrap: anywhere;
+      background: transparent;
+      padding: 0;
+    }
+
+    section { margin-top: 24px; padding: 22px; }
+
+    .component-grid,
+    .state-map,
+    .safe-edit,
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .component-card,
+    .state-card,
+    .safe-card,
+    .test-card {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(31, 38, 48, 0.78);
+    }
+
+    .component-card p,
+    .state-card p,
+    .safe-card p,
+    .test-card p { color: var(--muted); font-size: 0.93rem; }
+
+    .component-card.wide,
+    .state-card.wide { grid-column: span 2; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      border: 1px solid rgba(120, 194, 255, 0.3);
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: #dff2ff;
+      background: rgba(120, 194, 255, 0.09);
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    th, td {
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #1b222d;
+      color: var(--soft);
+      font-size: 0.74rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    td:first-child { width: 24%; font-weight: 800; }
+
+    .density-note {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-left: 5px solid var(--accent);
+      border-radius: 16px;
+      background: rgba(120, 194, 255, 0.1);
+      color: var(--muted);
+    }
+
+    .arch-strip {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .arch-node {
+      min-height: 132px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(31, 38, 48, 0.9), rgba(14, 18, 25, 0.9));
+    }
+
+    .arch-node strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent-2);
+    }
+
+    @media (max-width: 1060px) {
+      header { grid-template-columns: 1fr; }
+      .component-grid, .state-map, .safe-edit, .test-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .arch-strip { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      main { width: min(100% - 24px, 1180px); padding-top: 24px; }
+      section { padding: 16px; border-radius: 20px; }
+      .component-grid, .state-map, .safe-edit, .test-grid { grid-template-columns: 1fr; }
+      .component-card.wide, .state-card.wide { grid-column: span 1; }
+      table, thead, tbody, tr, th, td { display: block; }
+      thead tr { padding: 0; }
+      th { border-bottom: 1px solid rgba(255, 255, 255, 0.16); }
+      tr { padding: 12px 0; border-bottom: 1px solid var(--line); }
+      td { width: 100%; padding: 5px 0; border: 0; }
+      td:first-child { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <p class="eyebrow"><a href="index.html">Component docs</a> / launcher surface</p>
+      <h1>App Menu</h1>
+      <p class="lede">Contributor map for <code>AppMenu</code> in <code>files/usr/bin/adwaita-lite-app-menu</code>. Use this page to locate layer-shell setup, GTK model boundaries, tile CSS ownership, sizing modes, and power-action state before changing the launcher.</p>
+      <p class="density-note">HTML is used here because the launcher is a compact intersection of surface geometry, metadata models, filters, and CSS tokens; dense grids make those ownership boundaries visible at once.</p>
+    </div>
+    <aside class="source-map" aria-label="Source anchors">
+      <div class="source-card"><b>Runtime source</b><code>files/usr/bin/adwaita-lite-app-menu</code></div>
+      <div class="source-card"><b>Primary class</b><code>AppMenu</code> extends <code>Gtk.Window</code>, not <code>Gtk.ApplicationWindow</code>.</div>
+      <div class="source-card"><b>CSS entry</b><code>_build_css</code> combines theme tokens, <code>BASE_CSS</code>, and <code>_build_twilight_css</code>.</div>
+    </aside>
+  </header>
+
+  <section aria-labelledby="architecture-title">
+    <h2 id="architecture-title">Architecture</h2>
+    <div class="arch-strip">
+      <article class="arch-node"><strong>Window Shell</strong><p><code>AppMenu</code> is a decorated-off <code>Gtk.Window</code> manually added to the <code>Gtk.Application</code>. It prefers <code>Gtk4LayerShell</code> as an overlay layer surface and falls back to a normal toplevel when layer shell is unavailable or init fails.</p></article>
+      <article class="arch-node"><strong>Surface Placement</strong><p><code>_setup_surface</code> anchors the layer window to all four edges with exclusive zone 0; the visible <code>app-menu-surface</code> is positioned inside a full-window <code>Gtk.Overlay</code> by panel edge and section.</p></article>
+      <article class="arch-node"><strong>Launcher Contract</strong><p><code>_toggle_or_lock</code> provides click-to-toggle singleton behavior, while click-outside dismissal is handled by a capture-phase gesture comparing pointer coordinates to the surface bounds.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="components-title">
+    <h2 id="components-title">Component and Data Map</h2>
+    <div class="component-grid">
+      <article class="component-card wide"><h3>Window Controller</h3><p><code>AppMenu</code> loads settings, panel geometry, <code>_menu_metrics</code>, CSS mode classes, search/filter widgets, app models, and optional power bar.</p><div class="chips"><span class="chip">AppMenu</span><span class="chip">Gtk.Window</span><span class="chip">Gtk4LayerShell</span></div></article>
+      <article class="component-card"><h3>App Metadata</h3><p><code>AppItem</code> wraps <code>Gio.AppInfo</code> with display, generic name, category, executable, desktop id, tooltip, search text, and accessible name.</p><div class="chips"><span class="chip">AppItem</span><span class="chip">_app_item_matches</span></div></article>
+      <article class="component-card"><h3>CSS Pipeline</h3><p><code>_build_css</code> emits shared GTK color defines, launcher CSS, and twilight override CSS.</p><div class="chips"><span class="chip">_build_css</span><span class="chip">_build_twilight_css</span></div></article>
+      <article class="component-card"><h3>Responsive Metrics</h3><p><code>_menu_metrics</code> selects width, height, columns, tile/icon sizes, grid height, surface margin, and <code>popover</code>/<code>compact</code>/<code>ultra</code> feature flags.</p><div class="chips"><span class="chip">_menu_metrics</span><span class="chip">app-menu-surface-compact</span><span class="chip">app-menu-surface-ultra</span></div></article>
+      <article class="component-card"><h3>Frequent Rendering</h3><p><code>_make_flowbox</code> creates the fixed-column frequent app row using button tiles and launch history sorted by count then last launch.</p><div class="chips"><span class="chip">_make_flowbox</span><span class="chip">app-menu-grid</span><span class="chip">app-menu-tile</span></div></article>
+      <article class="component-card"><h3>All Apps Rendering</h3><p><code>_make_gridview</code> builds <code>Gio.ListStore</code> → <code>Gtk.CustomFilter</code> → <code>Gtk.FilterListModel</code> → <code>Gtk.NoSelection</code> → <code>Gtk.GridView</code>.</p><div class="chips"><span class="chip">_make_gridview</span><span class="chip">Gtk.GridView</span><span class="chip">Gtk.SignalListItemFactory</span></div></article>
+      <article class="component-card"><h3>Power Actions</h3><p><code>_build_power_bar</code> owns the inline stack for lock, logout, restart, shutdown, and destructive confirmation without opening a modal dialog.</p><div class="chips"><span class="chip">_build_power_bar</span><span class="chip">POWER_ACTIONS</span><span class="chip">app-menu-power-bar</span></div></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="css-title">
+    <h2 id="css-title">UI Ownership Table</h2>
+    <table>
+      <thead><tr><th>CSS class</th><th>Owned surface</th><th>Edit risk</th></tr></thead>
+      <tbody>
+        <tr><td><code>app-menu</code></td><td>Top-level <code>Gtk.Window</code> class and mode/twilight class anchor.</td><td>Changing it can break every descendant selector, including twilight and ultra-mode overrides.</td></tr>
+        <tr><td><code>app-menu-surface</code></td><td>Visible rounded launcher surface inside the fullscreen overlay.</td><td>Background, border, and shadow are tested as Adwaita/Waybar-aligned tokens.</td></tr>
+        <tr><td><code>app-menu-surface-compact</code></td><td>Compact surface class added when small logical viewports cannot fit the ideal menu.</td><td>Keep lower-radius/lighter shadow behavior paired with compact metrics.</td></tr>
+        <tr><td><code>app-menu-surface-ultra</code></td><td>Ultra-small surface class for very short or narrow displays.</td><td>Ultra also hides filter, section labels, frequent apps, and power; CSS should not imply unavailable controls.</td></tr>
+        <tr><td><code>app-menu-search</code></td><td><code>Gtk.SearchEntry</code> in the top row.</td><td>Preserve focus, focus-visible, focus-within, and selection accent contrast.</td></tr>
+        <tr><td><code>app-menu-filter</code></td><td><code>Gtk.DropDown</code> category picker and inner button styling.</td><td>The selector targets <code>&gt; button</code>; edits must account for GTK dropdown node structure.</td></tr>
+        <tr><td><code>app-menu-section-label</code></td><td>Frequent and All Apps labels.</td><td>Hidden in ultra mode through metrics; do not depend on labels for model behavior.</td></tr>
+        <tr><td><code>app-menu-grid</code></td><td>Frequent <code>Gtk.FlowBox</code>, all-apps <code>Gtk.GridView</code>, and child-node reset rules.</td><td>Wrapper child selectors suppress default GTK hover/focus/selected tints so tiles own interaction visuals.</td></tr>
+        <tr><td><code>app-menu-tile</code></td><td>Frequent buttons and grid tile boxes.</td><td>Resting tiles are intentionally flat; hover/focus/active accent states are covered by CSS tests.</td></tr>
+        <tr><td><code>app-menu-tile-name</code></td><td>Primary tile label, usually <code>GenericName</code> when present.</td><td>Color inherits from tile to make active and twilight states consistent.</td></tr>
+        <tr><td><code>app-menu-tile-generic</code></td><td>Secondary tile label, usually product display name.</td><td>Low alpha is tuned for contrast headroom; active state switches to accent foreground alpha.</td></tr>
+        <tr><td><code>app-menu-power-bar</code></td><td><code>Gtk.Stack</code> containing normal actions and confirmation row.</td><td>Border-top separates power controls from scrolling app content.</td></tr>
+        <tr><td><code>app-menu-power-btn</code></td><td>Round icon buttons for lock, logout, restart, shutdown.</td><td>Restart and shutdown add <code>destructive</code>; hover must stay visually distinct without confirming accidentally.</td></tr>
+        <tr><td><code>app-menu-confirm-label</code></td><td>Inline confirmation prompt label in the power stack.</td><td>Prompt is ellipsized; keep it compact enough for low-resolution modes where power remains visible.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section aria-labelledby="behavior-title">
+    <h2 id="behavior-title">Behavior and State Map</h2>
+    <div class="state-map">
+      <article class="state-card"><h3>PID Toggle</h3><p><code>_toggle_or_lock</code> writes <code>adwaita-lite-app-menu.pid</code>. A second verified instance sends <code>SIGTERM</code> and exits; stale or foreign locks are replaced.</p></article>
+      <article class="state-card"><h3>VM Renderer Guard</h3><p><code>_detect_virtualized_session</code> runs before the GTK import and sets <code>GSK_RENDERER=gl</code> by default for virtualized sessions.</p></article>
+      <article class="state-card"><h3>App Metadata Loading</h3><p><code>_populate</code> collects visible <code>Gio.AppInfo</code> entries, wraps them as <code>AppItem</code>, sorts by <code>sort_key</code>, and splices the list store.</p></article>
+      <article class="state-card"><h3>Frequent Apps</h3><p><code>_load_launches</code> reads launch history; <code>_populate_frequent</code> shows up to one row of installed desktop ids ranked by count and recency.</p></article>
+      <article class="state-card wide"><h3>Search/Filter/Category State</h3><p><code>_category_filter</code> starts as <code>All Apps</code>. <code>_on_filter_changed</code> selects from <code>CATEGORY_FILTER_LABELS</code>; <code>_on_search_changed</code> refilters on every query. <code>_app_item_matches</code> requires category match plus every lowercase search token appearing in <code>AppItem.search_text</code>.</p></article>
+      <article class="state-card"><h3>Frequent Visibility</h3><p><code>_update_frequent_visibility</code> hides the frequent row while searching or category filtering, and also when metrics disabled frequent apps.</p></article>
+      <article class="state-card"><h3>Grid Activation</h3><p>Single-click <code>Gtk.GridView</code> activation and search-entry activation both call <code>_launch_item</code>, which launches the app, records desktop-id history, and closes the menu.</p></article>
+      <article class="state-card"><h3>Power Confirmation</h3><p>Lock runs immediately through <code>_run_command</code>. Logout, restart, and shutdown switch the stack to confirm; Escape cancels confirm before closing the menu.</p></article>
+      <article class="state-card"><h3>Sizing Modes</h3><p><code>popover</code> keeps the ideal ChromeOS-like menu; <code>compact</code> removes frequent apps and shrinks margins; <code>ultra</code> also hides filter, section labels, and power.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="safe-title">
+    <h2 id="safe-title">Safe Edit Rules</h2>
+    <div class="safe-edit">
+      <article class="safe-card"><h3>Layer-Shell Preload</h3><p>Do not move GTK imports above the <code>LD_PRELOAD</code> re-exec block. <code>Gtk4LayerShell</code> must load before <code>libwayland-client</code> or init can silently become a toplevel.</p></article>
+      <article class="safe-card"><h3>Low-Resolution Metrics</h3><p>Keep <code>_menu_metrics</code> feature flags, logical display scaling, and grid height calculations together; low-resolution tests cover compact and ultra behavior.</p></article>
+      <article class="safe-card"><h3>Model/Filter Separation</h3><p>Preserve the <code>Gio.ListStore</code> plus <code>Gtk.FilterListModel</code> separation. Search and category state should invalidate <code>_grid_filter</code>, not mutate the source app list.</p></article>
+      <article class="safe-card"><h3>Accessibility Names</h3><p>Tiles and controls use <code>_set_accessible_label</code> with visible labels/tooltips as fallback. New controls should keep action-specific names such as <code>Launch {app}</code>.</p></article>
+      <article class="safe-card"><h3>Twilight Palette</h3><p><code>_shell_theme_class</code> intentionally selects the opposite menu palette when <code>panel_twilight</code> is enabled; <code>_build_twilight_css</code> must remain generated from <code>palette.json</code> values.</p></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="tests-title">
+    <h2 id="tests-title">Test Anchors</h2>
+    <div class="test-grid">
+      <article class="test-card"><h3>CSS Tokens</h3><p><a href="../../tests/test_app_menu_css.py"><code>tests/test_app_menu_css.py</code></a> checks accent tokens, high contrast tokens, Adwaita border usage, surface radius, transparent grids, flat tiles, focus rings, and selection colors.</p></article>
+      <article class="test-card"><h3>Model Filtering</h3><p><a href="../../tests/test_app_menu_css.py"><code>tests/test_app_menu_css.py</code></a> verifies <code>AppItem</code> metadata, <code>_app_item_matches</code>, and that <code>Gtk.FilterListModel</code> can be backed by app items.</p></article>
+      <article class="test-card"><h3>Renderer and Twilight</h3><p><a href="../../tests/test_app_menu_css.py"><code>tests/test_app_menu_css.py</code></a> ensures the VM renderer guard precedes GTK import, twilight classes pick the opposite shell palette, and twilight CSS is generated from palette data.</p></article>
+      <article class="test-card"><h3>Metrics and Toggle</h3><p><a href="../../tests/test_app_menu_css.py"><code>tests/test_app_menu_css.py</code></a> covers 1024x600 fit, large text, 200% scale compact mode, short-viewport ultra mode, single-column narrow panels, display scale normalization, and PID lock safety.</p></article>
+    </div>
+  </section>
+</main>
+</body>
+</html>

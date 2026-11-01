@@ -1,4 +1,4 @@
-"""Tests for waybar-related functions in universal-lite-apply-settings."""
+"""Tests for waybar-related functions in adwaita-lite-apply-settings."""
 
 import importlib.machinery
 import importlib.util
@@ -15,7 +15,7 @@ from unittest.mock import patch
 import pytest
 
 # Import the apply-settings script as a module (no .py extension).
-_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/libexec/universal-lite-apply-settings"
+_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/libexec/adwaita-lite-apply-settings"
 _loader = importlib.machinery.SourceFileLoader("apply_settings", str(_SCRIPT))
 _spec = importlib.util.spec_from_loader("apply_settings", _loader, origin=str(_SCRIPT))
 apply_settings = importlib.util.module_from_spec(_spec)
@@ -124,7 +124,7 @@ def _make_settings(**overrides):
         "theme": "light",
         "accent": "blue",
         "scale": 1.0,
-        "wallpaper": "/usr/share/backgrounds/universal-lite/chrome-dawn.svg",
+        "wallpaper": "/usr/share/backgrounds/adwaita-lite/chrome-dawn.svg",
         "layout": {
             "start": ["custom/launcher"],
             "center": ["wlr/taskbar"],
@@ -223,7 +223,7 @@ def test_live_mode_writes_config_then_syncs_live(monkeypatch):
     assert calls == [("config", settings, tokens), ("live", settings, tokens, changes)]
 
 
-def test_waybar_mode_only_writes_and_reloads_waybar(monkeypatch):
+def test_waybar_mode_uses_transactional_apply(monkeypatch):
     settings = _make_settings()
     tokens = _make_tokens()
     calls = []
@@ -232,22 +232,218 @@ def test_waybar_mode_only_writes_and_reloads_waybar(monkeypatch):
     monkeypatch.setattr(apply_settings, "_build_tokens", lambda s: tokens)
     monkeypatch.setattr(
         apply_settings,
+        "apply_waybar_transaction",
+        lambda t: calls.append(("transaction", t)) or True,
+    )
+    monkeypatch.setattr(
+        apply_settings,
         "write_waybar_config",
-        lambda t: calls.append(("waybar", t)) or True,
+        lambda t: calls.append(("legacy", t)) or True,
+    )
+
+    assert apply_settings._main_locked("waybar") == 0
+    assert calls == [("transaction", tokens)]
+
+
+def test_waybar_mode_logs_transaction_failure(monkeypatch, tmp_path):
+    settings = _make_settings()
+    tokens = _make_tokens()
+    log_path = tmp_path / "apply-settings.log"
+
+    monkeypatch.setattr(apply_settings, "APPLY_LOG_PATH", log_path)
+    monkeypatch.setattr(apply_settings, "ensure_settings", lambda: settings)
+    monkeypatch.setattr(apply_settings, "_build_tokens", lambda s: tokens)
+
+    def fail_transaction(_tokens):
+        raise ValueError("broken generated config")
+
+    monkeypatch.setattr(apply_settings, "apply_waybar_transaction", fail_transaction)
+
+    assert apply_settings._main_locked("waybar") == 1
+    content = log_path.read_text(encoding="utf-8")
+    assert "mode=waybar" in content
+    assert "phase=transaction" in content
+    assert "broken generated config" in content
+
+
+def test_apply_logger_writes_timestamped_user_cache_entry(monkeypatch, tmp_path):
+    log_path = tmp_path / "apply-settings.log"
+    monkeypatch.setattr(apply_settings, "APPLY_LOG_PATH", log_path)
+
+    apply_settings._log_apply_event("waybar", "reload", "pkill returned 1")
+
+    content = log_path.read_text(encoding="utf-8")
+    assert "mode=waybar" in content
+    assert "phase=reload" in content
+    assert "pkill returned 1" in content
+    assert content.endswith("\n")
+
+
+def test_apply_logger_does_not_raise_when_cache_unwritable(monkeypatch, tmp_path):
+    blocked_parent = tmp_path / "not-a-directory"
+    blocked_parent.write_text("blocks mkdir", encoding="utf-8")
+    monkeypatch.setattr(apply_settings, "APPLY_LOG_PATH", blocked_parent / "apply-settings.log")
+
+    apply_settings._log_apply_event("waybar", "render", "failed safely")
+
+
+def test_render_waybar_files_returns_valid_config_and_css():
+    config_text, css_text = apply_settings._render_waybar_files(_make_tokens())
+
+    config = json.loads(config_text)
+    assert config["position"] == "bottom"
+    assert "modules-left" in config
+    assert "window#waybar" in css_text
+
+
+def test_write_waybar_config_uses_rendered_files(monkeypatch, tmp_path):
+    reload_calls = []
+    monkeypatch.setattr(apply_settings, "WAYBAR_DIR", tmp_path)
+    monkeypatch.setattr(
+        apply_settings,
+        "_render_waybar_files",
+        lambda tokens: ('{"layer": "top"}\n', "window#waybar {}\n"),
+    )
+
+    assert apply_settings.write_waybar_config(_make_tokens()) is True
+    assert json.loads((tmp_path / "config.jsonc").read_text(encoding="utf-8")) == {"layer": "top"}
+    assert (tmp_path / "style.css").read_text(encoding="utf-8") == "window#waybar {}\n"
+    assert reload_calls == []
+
+
+def test_write_waybar_config_uses_transactional_writer(monkeypatch):
+    calls = []
+    monkeypatch.setattr(
+        apply_settings,
+        "_render_waybar_files",
+        lambda tokens: ('{"layer": "top"}\n', "window#waybar {}\n"),
+    )
+    monkeypatch.setattr(
+        apply_settings,
+        "_write_waybar_files_transactionally",
+        lambda config_text, css_text: calls.append((config_text, css_text)) or True,
+    )
+
+    assert apply_settings.write_waybar_config(_make_tokens()) is True
+    assert calls == [('{"layer": "top"}\n', "window#waybar {}\n")]
+
+
+def test_validate_waybar_files_rejects_invalid_json():
+    with pytest.raises(ValueError, match="generated waybar config is invalid JSON"):
+        apply_settings._validate_waybar_files("{invalid", "window#waybar {}\n")
+
+
+def test_waybar_transaction_validates_before_replacing_live_files(monkeypatch, tmp_path):
+    monkeypatch.setattr(apply_settings, "WAYBAR_DIR", tmp_path)
+    monkeypatch.setattr(
+        apply_settings,
+        "_render_waybar_files",
+        lambda tokens: ("{invalid", "window#waybar {}\n"),
+    )
+    reload_calls = []
+    monkeypatch.setattr(apply_settings, "reload_waybar", lambda: reload_calls.append(True))
+
+    (tmp_path / "config.jsonc").write_text('{"old": true}\n', encoding="utf-8")
+    (tmp_path / "style.css").write_text("old-css\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="generated waybar config is invalid JSON"):
+        apply_settings.apply_waybar_transaction(_make_tokens())
+
+    assert (tmp_path / "config.jsonc").read_text(encoding="utf-8") == '{"old": true}\n'
+    assert (tmp_path / "style.css").read_text(encoding="utf-8") == "old-css\n"
+    assert reload_calls == []
+
+
+def test_waybar_transaction_commits_without_reloading(monkeypatch, tmp_path):
+    monkeypatch.setattr(apply_settings, "WAYBAR_DIR", tmp_path)
+    monkeypatch.setattr(
+        apply_settings,
+        "_render_waybar_files",
+        lambda tokens: ('{"layer": "top"}\n', "window#waybar {}\n"),
     )
     monkeypatch.setattr(
         apply_settings,
         "reload_waybar",
-        lambda: calls.append(("reload", None)),
+        lambda: (_ for _ in ()).throw(
+            AssertionError("Settings must not reload Waybar")
+        ),
+    )
+
+    assert apply_settings.apply_waybar_transaction(_make_tokens()) is True
+    assert json.loads((tmp_path / "config.jsonc").read_text(encoding="utf-8")) == {
+        "layer": "top"
+    }
+    assert (tmp_path / "style.css").read_text(encoding="utf-8") == "window#waybar {}\n"
+
+
+def test_live_sync_skips_waybar_reload_when_waybar_files_changed(monkeypatch):
+    calls = []
+    settings = _make_settings(suspend_timeout=0)
+    tokens = _make_tokens(wallpaper="/same-wallpaper.svg")
+
+    monkeypatch.setenv("WAYLAND_DISPLAY", "wayland-1")
+    monkeypatch.setattr(
+        apply_settings,
+        "write_gtk_settings",
+        lambda tokens_arg, sync_live=True: calls.append(("gtk", sync_live)),
     )
     monkeypatch.setattr(
         apply_settings,
-        "_write_config_files",
-        lambda s, t: calls.append(("config", s, t)) or {},
+        "_sync_power_profile",
+        lambda settings_arg: calls.append(("power", settings_arg)),
+    )
+    monkeypatch.setattr(
+        apply_settings,
+        "_sync_lid_action",
+        lambda settings_arg: calls.append(("lid", settings_arg)),
+    )
+    monkeypatch.setattr(
+        apply_settings,
+        "_current_swaybg_wallpaper",
+        lambda: "/same-wallpaper.svg",
+    )
+    monkeypatch.setattr(
+        apply_settings,
+        "_swap_swaybg_wallpaper",
+        lambda wallpaper, theme="light": calls.append(("wallpaper", wallpaper, theme)),
+    )
+    monkeypatch.setattr(
+        apply_settings,
+        "reload_waybar",
+        lambda: (_ for _ in ()).throw(
+            AssertionError("Settings must not reload Waybar")
+        ),
+    )
+    monkeypatch.setattr(
+        apply_settings,
+        "_run_best_effort",
+        lambda cmd, **kwargs: calls.append(("run", tuple(cmd), kwargs)) or True,
+    )
+    monkeypatch.setattr(
+        apply_settings,
+        "restart_program",
+        lambda name, cmd: calls.append(("restart", name, tuple(cmd))),
     )
 
-    assert apply_settings._main_locked("waybar") == 0
-    assert calls == [("waybar", tokens), ("reload", None)]
+    apply_settings._sync_live_session(
+        settings,
+        tokens,
+        {"waybar_changed": True, "mako_changed": False, "labwc_changed": False},
+    )
+
+    assert ("gtk", True) in calls
+    assert all(call[0] != "wallpaper" for call in calls)
+
+
+def test_apply_settings_has_no_waybar_reload_call_sites():
+    source = _SCRIPT.read_text(encoding="utf-8")
+    call_sites = [
+        line.strip()
+        for line in source.splitlines()
+        if line.strip() == "reload_waybar()"
+    ]
+
+    assert call_sites == []
 
 
 def test_write_gtk_settings_can_skip_gsettings_for_pre_compositor_mode(
@@ -269,22 +465,81 @@ def test_write_gtk_settings_can_skip_gsettings_for_pre_compositor_mode(
     assert calls == []
 
 
+def test_write_gtk_settings_resets_window_button_layout_for_chrome(
+    monkeypatch, tmp_path
+):
+    calls = []
+    monkeypatch.setattr(apply_settings, "GTK3_DIR", tmp_path / "gtk3")
+    monkeypatch.setattr(apply_settings, "GTK4_DIR", tmp_path / "gtk4")
+    monkeypatch.setattr(
+        apply_settings,
+        "_run_best_effort",
+        lambda cmd, **kwargs: calls.append(cmd) or True,
+    )
+
+    apply_settings.write_gtk_settings(_make_tokens(), sync_live=True)
+
+    assert [
+        "gsettings",
+        "set",
+        "org.gnome.desktop.wm.preferences",
+        "button-layout",
+        ":minimize,maximize,close",
+    ] in calls
+
+
 def test_session_startup_uses_config_then_autostart_uses_live_mode():
     root = Path(__file__).resolve().parents[1]
-    session = (root / "files/usr/libexec/universal-lite-session").read_text(
+    session = (root / "files/usr/libexec/adwaita-lite-session").read_text(
         encoding="utf-8"
     )
     autostart = (root / "files/etc/xdg/labwc/autostart").read_text(
         encoding="utf-8"
     )
 
-    assert "universal-lite-apply-settings --mode=config" in session
-    assert "universal-lite-apply-settings --mode=live" in autostart
+    assert "adwaita-lite-apply-settings --mode=config" in session
+    assert "adwaita-lite-apply-settings --mode=live" in autostart
+
+
+def test_session_exports_app_menu_settings_snapshot_after_config_apply():
+    root = Path(__file__).resolve().parents[1]
+    session = (root / "files/usr/libexec/adwaita-lite-session").read_text(
+        encoding="utf-8"
+    )
+
+    config_idx = session.index("adwaita-lite-apply-settings --mode=config")
+    snapshot_path_idx = session.index(
+        '_session_settings="${XDG_RUNTIME_DIR:-/run/user/$UID}/adwaita-lite/session-settings.json"'
+    )
+    copy_idx = session.index('cp "$_settings_file" "$_session_settings"')
+    export_idx = session.index("export ADWAITA_LITE_SESSION_SETTINGS")
+    exec_idx = session.index("exec labwc")
+
+    assert config_idx < snapshot_path_idx < copy_idx < export_idx < exec_idx
+    assert '_settings_file="$HOME/.config/adwaita-lite/settings.json"' in session
+    assert 'mkdir -p "$_session_settings_dir"' in session
+    assert 'ADWAITA_LITE_SESSION_SETTINGS="$_session_settings"' in session
+
+
+def test_session_invalidates_stale_app_menu_settings_snapshot_before_refresh():
+    root = Path(__file__).resolve().parents[1]
+    session = (root / "files/usr/libexec/adwaita-lite-session").read_text(
+        encoding="utf-8"
+    )
+
+    snapshot_path_idx = session.index(
+        '_session_settings="${XDG_RUNTIME_DIR:-/run/user/$UID}/adwaita-lite/session-settings.json"'
+    )
+    invalidate_idx = session.index('rm -f "$_session_settings"')
+    exists_idx = session.index('[ -f "$_settings_file" ]')
+    copy_idx = session.index('cp "$_settings_file" "$_session_settings"')
+
+    assert snapshot_path_idx < invalidate_idx < exists_idx < copy_idx
 
 
 def test_session_renderer_policy_is_conditional_not_global_gl():
     root = Path(__file__).resolve().parents[1]
-    session = (root / "files/usr/libexec/universal-lite-session").read_text(
+    session = (root / "files/usr/libexec/adwaita-lite-session").read_text(
         encoding="utf-8"
     )
 
@@ -292,6 +547,39 @@ def test_session_renderer_policy_is_conditional_not_global_gl():
     assert "timeout 3s vulkaninfo --summary" in session
     assert "export GSK_RENDERER=gl" in session
     assert "Keep Vulkan available on real hardware" in session
+
+
+def test_session_makes_libadwaita_use_gsettings_for_color_scheme():
+    root = Path(__file__).resolve().parents[1]
+    session = (root / "files/usr/libexec/adwaita-lite-session").read_text(
+        encoding="utf-8"
+    )
+    autostart = (root / "files/etc/xdg/labwc/autostart").read_text(
+        encoding="utf-8"
+    )
+
+    assert "export ADW_DISABLE_PORTAL=1" in session
+    assert "ADW_DISABLE_PORTAL" in autostart
+
+
+def test_system_labwc_rc_includes_generated_input_defaults():
+    root = Path(__file__).resolve().parents[1]
+    rc = (root / "files/etc/xdg/labwc/rc.xml").read_text(encoding="utf-8")
+
+    assert "<libinput>" in rc
+    assert "<tap>yes</tap>" in rc
+    assert "<scrollFactor>5</scrollFactor>" in rc
+    assert "<xkbLayout>us</xkbLayout>" in rc
+
+
+def test_wizard_session_forces_gl_renderer_even_when_vulkan_probe_succeeds():
+    root = Path(__file__).resolve().parents[1]
+    wizard_session = (
+        root / "files/usr/libexec/adwaita-lite-wizard-session"
+    ).read_text(encoding="utf-8")
+
+    assert "timeout 3s vulkaninfo --summary" not in wizard_session
+    assert "export GSK_RENDERER=gl" in wizard_session
 
 
 def test_image_installs_vulkaninfo_for_conditional_renderer_probe():
@@ -438,11 +726,16 @@ class TestVerticalCss:
             apply_settings._waybar_css_common(tokens)
             + apply_settings._waybar_css_vertical(tokens)
         )
-        active = re.search(r"#taskbar button\.active \{(?P<body>.*?)\n\}", css, re.S)
-        assert active is not None
-        assert "background: rgba(255, 255, 255, 0.10)" in active.group("body")
-        assert "border-left: 3px solid #3584e4" in css
-        assert "rgba(53, 132, 228, 0.26)" not in active.group("body")
+        active = re.findall(r"#taskbar button\.active \{(?P<body>.*?)\n\}", css, re.S)
+        active_image = re.search(
+            r"#taskbar button\.active image \{(?P<body>.*?)\n\}", css, re.S
+        )
+        assert active
+        assert active_image is not None
+        assert "background: transparent" in active[-1]
+        assert "background: rgba(255, 255, 255, 0.10)" in active_image.group("body")
+        assert "border-left-color: #3584e4" in active_image.group("body")
+        assert "rgba(53, 132, 228, 0.26)" not in active[-1]
 
     def test_vertical_window_has_min_width(self):
         tokens = _make_tokens(edge="left", is_vertical=True)
@@ -466,7 +759,7 @@ class TestVerticalCss:
         assert "#image.pin-0" in css
         assert "border-radius: 999px" in css
 
-    def test_vertical_controls_do_not_add_horizontal_padding(self):
+    def test_vertical_icon_controls_use_square_hit_targets(self):
         tokens = _make_tokens(
             edge="left",
             is_vertical=True,
@@ -477,7 +770,43 @@ class TestVerticalCss:
         for selector in ("#custom-launcher", "#taskbar button", "#image.pin-0"):
             match = re.search(rf"{re.escape(selector)} \{{(?P<body>.*?)\n\}}", css, re.S)
             assert match is not None
-            assert f"padding: {tokens['panel_pad_module']}px 0" in match.group("body")
+            assert "padding: 0" in match.group("body")
+
+    def test_vertical_taskbar_icon_is_centered_inside_active_pill(self):
+        tokens = _make_tokens(edge="right", is_vertical=True)
+        css = apply_settings._waybar_css_vertical(tokens)
+
+        button = re.search(r"#taskbar button \{(?P<body>.*?)\n\}", css, re.S)
+        image = re.search(r"#taskbar button image \{(?P<body>.*?)\n\}", css, re.S)
+        assert button is not None
+        assert image is not None
+        assert "padding: 0" in button.group("body")
+        assert "background: transparent" in button.group("body")
+        expected_pad = (tokens["panel_width"] - 2 * tokens["panel_bar_inset"] - tokens["panel_icon_size"] - 6) // 2
+        assert f"padding: {expected_pad}px" in image.group("body")
+        assert "border: 3px solid transparent" in image.group("body")
+
+    def test_vertical_css_avoids_gtk3_unsafe_auto_margins(self):
+        tokens = _make_tokens(
+            edge="right",
+            is_vertical=True,
+            pinned=[{"name": "Chrome", "command": "chrome", "icon": "chrome"}],
+        )
+        css = apply_settings._waybar_css_common(tokens)
+        css += apply_settings._waybar_css_vertical(tokens)
+
+        assert "margin: auto" not in css
+
+    def test_vertical_pinned_app_css_is_accepted_by_gtk3(self):
+        tokens = _make_tokens(
+            edge="right",
+            is_vertical=True,
+            pinned=[{"name": "Chrome", "command": "chrome", "icon": "chrome"}],
+        )
+        css = apply_settings._waybar_css_common(tokens)
+        css += apply_settings._waybar_css_vertical(tokens)
+
+        _assert_css_accepted_by_gtk3(css)
 
 
 # ---------------------------------------------------------------------------
@@ -591,7 +920,7 @@ class TestSettingsRecovery:
         assert result["night_light_end"] == "06:00"
 
     def test_invalid_wallpaper_falls_back_to_bundled_background(self, tmp_path):
-        bundled = tmp_path / "backgrounds/universal-lite"
+        bundled = tmp_path / "backgrounds/adwaita-lite"
         bundled.mkdir(parents=True)
         light = bundled / "chrome-dawn.svg"
         dark = bundled / "chrome-sky.svg"
@@ -610,7 +939,7 @@ class TestSettingsRecovery:
 
         assert result["wallpaper"] == str(dark)
         written = json.loads((tmp_path / "settings.json").read_text())
-        assert written["wallpaper"] == "universal-lite"
+        assert written["wallpaper"] == "adwaita-lite"
 
 
 class TestWallpaperSwap:
@@ -681,7 +1010,7 @@ class TestApplyLock:
             handle = apply_settings._open_apply_lock()
             try:
                 assert handle is not None
-                assert (tmp_path / "universal-lite-apply-settings.lock").exists()
+                assert (tmp_path / "adwaita-lite-apply-settings.lock").exists()
             finally:
                 apply_settings._close_apply_lock(handle)
 
@@ -932,7 +1261,7 @@ class TestHorizontalCss:
         )
         css = apply_settings._waybar_css_horizontal(tokens)
         assert "#image.pin-0" in css
-        assert "universal-lite-pin-launch" not in css
+        assert "adwaita-lite-pin-launch" not in css
 
     def test_pinned_app_css_validation_survives_gtk4_loaded_first(self):
         gi = pytest.importorskip("gi")
@@ -1128,6 +1457,16 @@ class TestAccentForegroundContrast:
         assert "selection-background=c88800" in ini
         assert "selection-foreground=1e1e1e" in ini
 
+    def test_foot_config_uses_current_color_theme_sections(self, tmp_path):
+        tokens = apply_settings._build_tokens(_make_settings(theme="light"))
+        with patch.object(apply_settings, "FOOT_DIR", tmp_path):
+            apply_settings.write_foot_config(tokens)
+        ini = (tmp_path / "foot.ini").read_text()
+        assert "initial-color-theme=light" in ini
+        assert "\n[colors]\n" not in ini
+        assert "\n[colors-dark]\n" in ini
+        assert "\n[colors-light]\n" in ini
+
     def test_labwc_menu_active_text_follows_accent_contrast(self, tmp_path):
         tokens = apply_settings._build_tokens(_make_settings(accent="yellow"))
         with patch.object(apply_settings, "LABWC_DIR", tmp_path):
@@ -1142,7 +1481,7 @@ class TestHighContrastShellConfigs:
         settings_file = tmp_path / "settings.json"
         settings_file.write_text(json.dumps(_make_settings(
             high_contrast=True,
-            wallpaper="universal-lite",
+            wallpaper="adwaita-lite",
         )))
         light = tmp_path / "light.svg"
         dark = tmp_path / "dark.svg"
@@ -1150,7 +1489,7 @@ class TestHighContrastShellConfigs:
         dark.write_text("<svg/>")
 
         def fake_resolve(value, theme):
-            assert value == "universal-lite"
+            assert value == "adwaita-lite"
             return str(dark if theme == "dark" else light)
 
         monkeypatch.setattr(apply_settings, "_resolve_wallpaper", fake_resolve)

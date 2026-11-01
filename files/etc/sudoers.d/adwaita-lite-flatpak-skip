@@ -1,0 +1,1 @@
+greetd ALL=(root) NOPASSWD: /usr/libexec/adwaita-lite-flatpak-skip

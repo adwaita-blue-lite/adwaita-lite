@@ -8,7 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 
-_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/bin/universal-lite-setup-wizard"
+_SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/bin/adwaita-lite-setup-wizard"
 _loader = importlib.machinery.SourceFileLoader("setup_wizard", str(_SCRIPT))
 _spec = importlib.util.spec_from_loader("setup_wizard", _loader, origin=str(_SCRIPT))
 setup_wizard = importlib.util.module_from_spec(_spec)
@@ -21,9 +21,9 @@ class _DummyWindow:
 
 
 _SWAP_UNITS = (
-    "universal-lite-swap-init.service",
-    "universal-lite-zswap.service",
-    "universal-lite-encrypted-swap.service",
+    "adwaita-lite-swap-init.service",
+    "adwaita-lite-zswap.service",
+    "adwaita-lite-encrypted-swap.service",
 )
 
 
@@ -36,6 +36,33 @@ def _memory_window(tmp_path, use_zswap=True, swap_gb=4):
     window._setup_use_zswap = use_zswap
     window._setup_swap_gb = swap_gb
     return window
+
+
+class _FakeButton:
+    def __init__(self, active=True, text=""):
+        self.active = active
+        self.text = text
+        self.sensitive = None
+
+    def get_active(self):
+        return self.active
+
+    def get_text(self):
+        return self.text
+
+    def set_text(self, text):
+        self.text = text
+
+    def set_sensitive(self, sensitive):
+        self.sensitive = sensitive
+
+
+class _FakeDropdown:
+    def __init__(self, selected=0):
+        self.selected = selected
+
+    def get_selected(self):
+        return self.selected
 
 
 def test_device_tree_sources_include_child_partitions():
@@ -145,9 +172,9 @@ def test_configure_memory_enables_zswap_units_in_sysroot(tmp_path):
     assert err is None
     deploy = Path(window._sysroot_deploy)
     var_dir = Path(window._sysroot_var)
-    assert (var_dir / "lib/universal-lite/swap-size").read_text() == "8"
+    assert (var_dir / "lib/adwaita-lite/swap-size").read_text() == "8"
     assert (
-        deploy / "etc/sysctl.d/91-universal-lite-zswap.conf"
+        deploy / "etc/sysctl.d/91-adwaita-lite-zswap.conf"
     ).read_text() == "vm.swappiness = 100\n"
     assert (
         deploy / "etc/systemd/zram-generator.conf"
@@ -168,18 +195,18 @@ def test_configure_memory_zram_removes_zswap_units_from_sysroot(tmp_path):
     wants_dir.mkdir(parents=True)
     for unit in _SWAP_UNITS:
         (wants_dir / unit).symlink_to(f"/usr/lib/systemd/system/{unit}")
-    (var_dir / "lib/universal-lite").mkdir(parents=True)
-    (var_dir / "lib/universal-lite/swap-size").write_text("8")
+    (var_dir / "lib/adwaita-lite").mkdir(parents=True)
+    (var_dir / "lib/adwaita-lite/swap-size").write_text("8")
     (deploy / "etc/sysctl.d").mkdir(parents=True)
-    (deploy / "etc/sysctl.d/91-universal-lite-zswap.conf").write_text(
+    (deploy / "etc/sysctl.d/91-adwaita-lite-zswap.conf").write_text(
         "vm.swappiness = 100\n"
     )
 
     err = setup_wizard.SetupWizardWindow._step_configure_memory(window)
 
     assert err is None
-    assert not (var_dir / "lib/universal-lite/swap-size").exists()
-    assert not (deploy / "etc/sysctl.d/91-universal-lite-zswap.conf").exists()
+    assert not (var_dir / "lib/adwaita-lite/swap-size").exists()
+    assert not (deploy / "etc/sysctl.d/91-adwaita-lite-zswap.conf").exists()
     assert (
         deploy / "etc/systemd/zram-generator.conf"
     ).read_text() == (
@@ -190,3 +217,47 @@ def test_configure_memory_zram_removes_zswap_units_from_sysroot(tmp_path):
     )
     for unit in _SWAP_UNITS:
         assert not (wants_dir / unit).exists()
+
+
+def test_enable_rescan_clears_completed_source_id():
+    window = setup_wizard.SetupWizardWindow.__new__(
+        setup_wizard.SetupWizardWindow
+    )
+    window._rescan_timer_id = 123
+    window._rescan_button = _FakeButton()
+
+    result = setup_wizard.SetupWizardWindow._enable_rescan(window)
+
+    assert result == setup_wizard.GLib.SOURCE_REMOVE
+    assert window._rescan_timer_id == 0
+    assert window._rescan_button.sensitive is True
+
+
+def test_setup_hash_failure_does_not_leave_installing_stuck(monkeypatch):
+    window = setup_wizard.SetupWizardWindow.__new__(
+        setup_wizard.SetupWizardWindow
+    )
+    window._installing = False
+    window._drive_dropdown = _FakeDropdown(0)
+    window._drives = [{"name": "/dev/vda"}]
+    window._fs_dropdown = _FakeDropdown(0)
+    window._swap_strategy_dropdown = _FakeDropdown(0)
+    window._password_entry = _FakeButton(text="secret")
+    window._root_password_entry = _FakeButton(text="")
+    window._fullname_entry = _FakeButton(text="Jane Doe")
+    window._username_entry = _FakeButton(text="jane")
+    window._hostname_entry = _FakeButton(text="adwaita-lite")
+    window._admin_check = _FakeButton(active=True)
+    statuses = []
+    window._set_status = lambda message, error=True: statuses.append((message, error))
+
+    def fail_hash(_password):
+        raise OSError("openssl missing")
+
+    monkeypatch.setattr(setup_wizard, "_hash_password", fail_hash)
+
+    setup_wizard.SetupWizardWindow._on_setup_clicked(window)
+
+    assert getattr(window, "_installing", False) is False
+    assert statuses
+    assert "Failed to hash password" in statuses[-1][0]

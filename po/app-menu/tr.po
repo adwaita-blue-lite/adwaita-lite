@@ -1,0 +1,121 @@
+# Turkish translations for adwaita-lite-app-menu package.
+# Copyright (C) 2026 THE adwaita-lite-app-menu'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the adwaita-lite-app-menu package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: adwaita-lite-app-menu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-29 08:23-0400\n"
+"PO-Revision-Date: 2026-04-29 08:16-0400\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:119
+msgid "Accessories"
+msgstr "Araçlar"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:120
+msgid "Development"
+msgstr "Geliştirme"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:121
+msgid "Games"
+msgstr "Oyunlar"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:122
+msgid "Graphics"
+msgstr "Grafik"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:124
+msgid "Internet"
+msgstr "İnternet"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:126
+msgid "Multimedia"
+msgstr "Çoklu ortam"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:128
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:130
+msgid "System"
+msgstr "Sistem"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:134
+msgid "All Apps"
+msgstr "Tüm uygulamalar"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:135
+msgid "Other"
+msgstr "Diğer"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:166
+msgid "Lock"
+msgstr "Kilitle"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:167
+#: ../files/usr/bin/adwaita-lite-app-menu:1671
+msgid "Log Out"
+msgstr "Oturumu kapat"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:168
+#: ../files/usr/bin/adwaita-lite-app-menu:1672
+msgid "Restart"
+msgstr "Yeniden başlat"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:169
+#: ../files/usr/bin/adwaita-lite-app-menu:1673
+msgid "Shut Down"
+msgstr "Kapat"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1237
+msgid "Search apps…"
+msgstr "Uygulama ara…"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1240
+msgid "Search apps"
+msgstr "Uygulama ara"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1249
+#: ../files/usr/bin/adwaita-lite-app-menu:1250
+msgid "Filter by category"
+msgstr "Kategoriye göre filtrele"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1259
+msgid "Frequent"
+msgstr "Sık kullanılan"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1566
+#: ../files/usr/bin/adwaita-lite-app-menu:1596
+#: ../files/usr/bin/adwaita-lite-app-menu:1598
+#, python-brace-format
+msgid "Launch {app}"
+msgstr "{app} uygulamasını başlat"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1653
+msgid "Cancel"
+msgstr "İptal"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1658
+msgid "Confirm"
+msgstr "Onayla"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1671
+msgid "Log out now?"
+msgstr "Oturum şimdi kapatılsın mı?"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1672
+msgid "Restart the computer?"
+msgstr "Bilgisayar yeniden başlatılsın mı?"
+
+#: ../files/usr/bin/adwaita-lite-app-menu:1673
+msgid "Shut down the computer?"
+msgstr "Bilgisayar kapatılsın mı?"
