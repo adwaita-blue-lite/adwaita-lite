@@ -89,7 +89,7 @@ Keep C/C++ as the escape hatch, not the primary plan. It has the cleanest all-Fe
 Use a model-view split so protocol and D-Bus state can be tested independently from GTK widgets.
 
 ```text
-UniversalLitePanelApp
+AdwaitaLitePanelApp
   SettingsStore
   ThemeTokens
   PanelManager
