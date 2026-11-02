@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 REPO = Path(__file__).resolve().parents[1]
 MIMEAPPS = REPO / "files/etc/xdg/mimeapps.list"
 APPLICATIONS = REPO / "files/usr/share/applications"

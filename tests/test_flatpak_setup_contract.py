@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 FLATPAK_SETUP = ROOT / "files/usr/libexec/adwaita-lite-flatpak-setup"
 FLATPAK_SKIP_HELPER = ROOT / "files/usr/libexec/adwaita-lite-flatpak-skip"

@@ -1,7 +1,6 @@
 import sys
 from pathlib import Path
 
-
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "files/usr/lib/adwaita-lite"))
 
 from settings import app as settings_app  # noqa: E402

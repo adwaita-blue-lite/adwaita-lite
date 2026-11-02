@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 REPO = Path(__file__).resolve().parents[1]
 UPDATE_JUST = REPO / "files/usr/share/ublue-os/just/10-update.just"
 

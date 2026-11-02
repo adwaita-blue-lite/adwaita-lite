@@ -14,9 +14,15 @@ from gi.repository import Adw, Gdk, GdkPixbuf, Gio, GLib, Gtk
 
 from ..base import BasePage
 from ..wallpapers import (
-    ADD_CUSTOM_IO_ERROR, ADD_CUSTOM_MISSING, ADD_CUSTOM_OK,
-    ADD_CUSTOM_TOO_LARGE, ADD_CUSTOM_UNSUPPORTED,
-    Wallpaper, add_custom_detailed, list_wallpapers, remove_custom,
+    ADD_CUSTOM_IO_ERROR,
+    ADD_CUSTOM_MISSING,
+    ADD_CUSTOM_OK,
+    ADD_CUSTOM_TOO_LARGE,
+    ADD_CUSTOM_UNSUPPORTED,
+    Wallpaper,
+    add_custom_detailed,
+    list_wallpapers,
+    remove_custom,
 )
 
 # Accent order displayed in the picker. Names must match palette.json

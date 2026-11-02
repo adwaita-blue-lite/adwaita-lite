@@ -1,5 +1,3 @@
-from gettext import gettext as _
-
 from .about import AboutPage
 from .accessibility import AccessibilityPage
 from .appearance import AppearancePage

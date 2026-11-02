@@ -1,8 +1,7 @@
-from pathlib import Path
 import os
 import stat
 import subprocess
-
+from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 OOMD_CONF = REPO / "files/usr/lib/systemd/oomd.conf.d/10-adwaita-lite.conf"
