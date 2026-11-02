@@ -7,7 +7,6 @@ import subprocess
 from pathlib import Path
 from unittest.mock import patch
 
-
 _SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/bin/adwaita-lite-setup-wizard"
 _loader = importlib.machinery.SourceFileLoader("setup_wizard", str(_SCRIPT))
 _spec = importlib.util.spec_from_loader("setup_wizard", _loader, origin=str(_SCRIPT))

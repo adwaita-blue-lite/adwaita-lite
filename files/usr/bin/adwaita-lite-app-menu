@@ -105,7 +105,7 @@ _LIB_ROOT = (
     else Path("/usr/lib")
 )
 sys.path.insert(0, str(_LIB_ROOT / "adwaita-lite"))
-from theme import gtk_color_defines  # noqa: E402
+from theme import gtk_color_defines, load_palette  # noqa: E402
 
 
 def _runtime_dir() -> Path:
@@ -179,6 +179,11 @@ POWER_ACTIONS = [
 
 def _shell_theme_class(settings: dict) -> str | None:
     """Return the menu palette override needed to match panel twilight."""
+    # High contrast is an accessibility override and must win over
+    # twilight; otherwise a light twilight palette can replace the
+    # forced black/white high-contrast surfaces.
+    if settings.get("high_contrast", False):
+        return None
     if not settings.get("panel_twilight", False):
         return None
     return "app-menu-shell-dark" if settings.get("theme") == "light" else "app-menu-shell-light"
@@ -202,15 +207,12 @@ def _is_light_color(hex_color: str) -> bool:
 
 
 def _load_palettes() -> dict:
-    """Load shared Adwaita palette data used by Waybar and twilight CSS."""
-    for path in (PALETTE_PATH, _REPO_PALETTE_PATH):
-        try:
-            return json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            continue
-    print("adwaita-lite-app-menu: palette.json unreadable; "
-          "twilight palette CSS disabled", file=sys.stderr)
-    return {}
+    """Load shared Adwaita palette data used by Waybar and twilight CSS.
+
+    theme.load_palette validates the shape, hex values, and required keys,
+    and returns FALLBACK_PALETTE when the file is missing or malformed.
+    """
+    return load_palette((PALETTE_PATH, _REPO_PALETTE_PATH))
 
 
 def _twilight_palette_tokens(palette: dict) -> dict[str, str]:
@@ -240,7 +242,7 @@ def _build_twilight_css(palettes: dict | None = None) -> str:
             "dark": _twilight_palette_tokens(palettes["dark"]),
             "light": _twilight_palette_tokens(palettes["light"]),
         }
-    except KeyError as exc:
+    except (KeyError, TypeError, ValueError, IndexError) as exc:
         print(f"adwaita-lite-app-menu: palette missing key {exc}; "
               "twilight palette CSS disabled", file=sys.stderr)
         return ""
@@ -587,6 +589,43 @@ window.app-menu.app-menu-ultra .app-menu-tile {
 """
 
 
+def _settings_text_scale(settings: dict) -> float:
+    try:
+        font_size = int(settings.get("font_size", 11))
+    except (TypeError, ValueError):
+        font_size = 11
+    # apply-settings treats UI font size as user value + 2, with 13px
+    # as the normal baseline. Cap the launcher growth so large text
+    # improves fit without turning the menu into a fullscreen grid.
+    return max(1.0, min((font_size + 2) / 13, 1.35))
+
+
+def _font_scale_css(settings: dict) -> str:
+    """Scale the menu's own label sizes with the user's font size.
+
+    Geometry already scales via ``_settings_text_scale``; without this,
+    large-text users get bigger tiles but fixed 9-13px text.
+    """
+    scale = _settings_text_scale(settings)
+
+    def px(value: int) -> int:
+        return max(8, round(value * scale))
+
+    return f"""
+.app-menu-search {{ font-size: {px(13)}px; }}
+.app-menu-section-label {{ font-size: {px(10)}px; }}
+.app-menu-tile-name {{ font-size: {px(12)}px; }}
+.app-menu-tile-generic {{ font-size: {px(9)}px; }}
+.app-menu-confirm-label {{ font-size: {px(12)}px; }}
+.app-menu-confirm-btn {{ font-size: {px(12)}px; }}
+"""
+
+
+def _power_transition_duration(settings: dict) -> int:
+    """Respect the reduce-motion preference for the power-bar crossfade."""
+    return 0 if settings.get("reduce_motion", False) else 120
+
+
 def _build_css(
     settings: dict | None = None,
     palettes: dict | None = None,
@@ -600,6 +639,7 @@ def _build_css(
     return (
         css_tokens.encode("utf-8")
         + BASE_CSS
+        + _font_scale_css(settings).encode("utf-8")
         + _build_twilight_css(palettes).encode("utf-8")
     )
 
@@ -633,17 +673,6 @@ def _panel_geometry(settings: dict) -> dict:
             break
 
     return {"edge": edge, "section": section}
-
-
-def _settings_text_scale(settings: dict) -> float:
-    try:
-        font_size = int(settings.get("font_size", 11))
-    except (TypeError, ValueError):
-        font_size = 11
-    # apply-settings treats UI font size as user value + 2, with 13px
-    # as the normal baseline. Cap the launcher growth so large text
-    # improves fit without turning the menu into a fullscreen grid.
-    return max(1.0, min((font_size + 2) / 13, 1.35))
 
 
 def _panel_extent(settings: dict, edge: str) -> int:
@@ -1082,38 +1111,62 @@ def _process_matches_lock_identity(pid: int) -> bool:
     return False
 
 
+def _try_create_pid_lock() -> bool:
+    """Atomically create the PID lock. True when this process owns it."""
+    try:
+        fd = os.open(
+            PID_LOCK_PATH,
+            os.O_WRONLY | os.O_CREAT | os.O_EXCL,
+            0o600,
+        )
+    except FileExistsError:
+        return False
+    except OSError as exc:
+        # Can't take the lock - launch anyway, we just lose toggle.
+        print(f"adwaita-lite-app-menu: could not write PID lock: {exc}",
+              file=sys.stderr)
+        return True
+
+    try:
+        os.write(fd, str(os.getpid()).encode("ascii"))
+    finally:
+        os.close(fd)
+    return True
+
+
 def _toggle_or_lock() -> bool:
     """Acquire the singleton PID lock, or toggle an existing instance off.
 
     Returns True if this process should continue (no other instance
     was alive), False if it has asked a live instance to close and
     should just exit. Stale or foreign lock files are replaced without
-    signalling unrelated processes.
+    signalling unrelated processes. The lock creation is atomic
+    (O_EXCL), so two rapid invocations cannot both win.
     """
-    if PID_LOCK_PATH.exists():
+    for _attempt in range(2):
+        if _try_create_pid_lock():
+            return True
+
         try:
             other = int(PID_LOCK_PATH.read_text().strip())
         except (ValueError, OSError):
             other = 0
-        if other > 0:
-            if _pid_exists(other) and _process_matches_lock_identity(other):
-                try:
-                    # SIGTERM lets the other instance run its atexit cleanup
-                    # (including removing the PID file).
-                    os.kill(other, signal.SIGTERM)
-                    return False
-                except ProcessLookupError:
-                    pass
-                except PermissionError:
-                    return True
-            _remove_pid_lock()
-    try:
-        PID_LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
-        PID_LOCK_PATH.write_text(str(os.getpid()))
-    except OSError as exc:
-        # Can't take the lock - launch anyway, we just lose toggle.
-        print(f"adwaita-lite-app-menu: could not write PID lock: {exc}",
-              file=sys.stderr)
+
+        if other > 0 and _pid_exists(other) and _process_matches_lock_identity(other):
+            try:
+                # SIGTERM lets the other instance run its atexit cleanup
+                # (including removing the PID file).
+                os.kill(other, signal.SIGTERM)
+                return False
+            except ProcessLookupError:
+                pass
+            except PermissionError:
+                return True
+
+        _remove_pid_lock()
+
+    # Could not acquire after one retry; launch without toggle rather
+    # than refusing to open the menu.
     return True
 
 
@@ -1151,6 +1204,16 @@ def _record_launch(desktop_id: str) -> None:
               file=sys.stderr)
 
 
+def _launch_app(item: AppItem) -> bool:
+    """Launch an app, returning False when the launch did not succeed."""
+    try:
+        return bool(item.app.launch([], None))
+    except GLib.Error as exc:
+        print(f"adwaita-lite-app-menu: launch failed: {exc.message}",
+              file=sys.stderr)
+        return False
+
+
 class AppMenu(Gtk.Window):
     """Plain Gtk.Window, not ApplicationWindow.
 
@@ -1167,6 +1230,7 @@ class AppMenu(Gtk.Window):
         self.set_decorated(False)
 
         settings = _load_settings()
+        self._settings = settings
         shell_class = _shell_theme_class(settings)
         if shell_class:
             self.add_css_class(shell_class)
@@ -1636,7 +1700,9 @@ class AppMenu(Gtk.Window):
         self._power_stack = Gtk.Stack()
         self._power_stack.add_css_class("app-menu-power-bar")
         self._power_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
-        self._power_stack.set_transition_duration(120)
+        self._power_stack.set_transition_duration(
+            _power_transition_duration(getattr(self, "_settings", {}))
+        )
 
         normal = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
         normal.set_halign(Gtk.Align.END)
@@ -1710,11 +1776,8 @@ class AppMenu(Gtk.Window):
     # -- actions --
 
     def _launch_item(self, item: AppItem) -> None:
-        try:
-            item.app.launch([], None)
-        except GLib.Error as exc:
-            print(f"adwaita-lite-app-menu: launch failed: {exc.message}",
-                  file=sys.stderr)
+        if not _launch_app(item):
+            return
         if item.desktop_id:
             _record_launch(item.desktop_id)
         self.close()

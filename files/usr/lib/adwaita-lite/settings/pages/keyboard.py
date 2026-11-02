@@ -964,7 +964,7 @@ class KeyboardPage(BasePage, Adw.PreferencesPage):
                 ["localectl", "list-x11-keymap-layouts"],
                 capture_output=True, text=True, timeout=10,
             )
-            result = [l.strip() for l in r.stdout.splitlines() if l.strip()]
+            result = [line.strip() for line in r.stdout.splitlines() if line.strip()]
             if r.returncode != 0 or not result:
                 result = ["us"]
         except (FileNotFoundError, subprocess.TimeoutExpired, OSError):

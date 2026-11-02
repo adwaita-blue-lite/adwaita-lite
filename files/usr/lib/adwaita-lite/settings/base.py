@@ -69,4 +69,4 @@ class BasePage:
         cached, so subscribe() only ever runs once per session; we
         only need cleanup when the whole widget tree is being disposed.
         """
-        widget.connect("unrealize", lambda _: self.unsubscribe_all())
+        widget.connect("unrealize", lambda _widget: self.unsubscribe_all())

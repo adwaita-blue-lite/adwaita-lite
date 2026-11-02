@@ -8,18 +8,23 @@ from pathlib import Path
 
 from gi.repository import GLib
 
-
 SESSION_SETTINGS_ENV = "ADWAITA_LITE_SESSION_SETTINGS"
 SESSION_SETTINGS_NAME = "session-settings.json"
 DEFERRED_SESSION_KEYS = frozenset({
-    # Keep this scoped to settings saved through mode="waybar". Other live-apply
-    # settings may influence generated files, but should not reveal the restart banner.
+    # These settings are carried into the live session via the snapshot
+    # and consumed by the panel and app menu. Changing any of them needs
+    # a session restart for the shell surfaces to match Settings, even
+    # when GTK apps update immediately.
     "edge",
     "layout",
     "density",
     "pinned",
     "panel_twilight",
     "accent",
+    "theme",
+    "high_contrast",
+    "font_size",
+    "scale",
 })
 
 
@@ -299,11 +304,9 @@ class SettingsStore:
         self._debounce_timers.clear()
         self._debounce_pending.clear()
 
-        flushed_debounces = False
         if pending_debounces:
             self._data.update(pending_debounces)
             if self._write():
-                flushed_debounces = True
                 self._notify_deferred_changes_changed()
                 if self._apply_running:
                     self._apply_pending = True
