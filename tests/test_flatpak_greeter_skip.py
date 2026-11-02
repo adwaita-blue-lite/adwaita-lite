@@ -2,7 +2,6 @@ import importlib.machinery
 import importlib.util
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 GREETER = ROOT / "files/usr/bin/adwaita-lite-greeter"
 

@@ -1,7 +1,6 @@
 import tomllib
 from pathlib import Path
 
-
 ISO_CONFIG = Path(__file__).resolve().parents[1] / "disk_config/iso.toml"
 
 

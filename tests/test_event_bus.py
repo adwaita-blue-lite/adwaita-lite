@@ -19,7 +19,8 @@ def test_subscribe_and_publish():
 def test_unsubscribe():
     bus = EventBus()
     received = []
-    cb = lambda data: received.append(data)
+    def cb(data):
+        return received.append(data)
     bus.subscribe("test-event", cb)
     bus.unsubscribe("test-event", cb)
     with patch("settings.events.GLib") as mock_glib:

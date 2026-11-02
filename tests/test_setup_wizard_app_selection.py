@@ -5,7 +5,6 @@ import sys
 import types
 from pathlib import Path
 
-
 WIZARD = Path(__file__).resolve().parents[1] / "files/usr/bin/adwaita-lite-setup-wizard"
 
 

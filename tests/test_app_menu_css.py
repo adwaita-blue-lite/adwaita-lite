@@ -7,7 +7,6 @@ import os
 import signal
 from pathlib import Path
 
-
 _SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/bin/adwaita-lite-app-menu"
 _PALETTE = (
     Path(__file__).resolve().parents[1]
@@ -209,7 +208,7 @@ def test_twilight_menu_palette_matches_waybar_surface_tokens():
     assert f"border: 1px solid {dark['border']}" in css
     assert f"window.app-menu.app-menu-shell-dark .app-menu-tile {{\n    background: transparent;\n    color: {dark['fg']};" in css
     assert f"window.app-menu.app-menu-shell-dark .app-menu-tile-name {{\n    color: {dark['fg']};" in css
-    assert f"window.app-menu.app-menu-shell-dark .app-menu-grid,\nwindow.app-menu.app-menu-shell-dark .app-menu-grid > child" in css
+    assert "window.app-menu.app-menu-shell-dark .app-menu-grid,\nwindow.app-menu.app-menu-shell-dark .app-menu-grid > child" in css
     assert f"color: {dark['fg']};" in css
     assert "window.app-menu.app-menu-shell-light .app-menu-surface" in css
     assert f"background-color: {light['surface']}" in css

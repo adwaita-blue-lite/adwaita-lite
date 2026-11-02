@@ -199,10 +199,13 @@ git clone --depth 1 --branch v0.11.1 \
 # so we compile the single source file directly against the system libs.
 _gdk_moddir=$(pkg-config --variable=gdk_pixbuf_moduledir gdk-pixbuf-2.0)
 install -d "$_gdk_moddir"
+# Split pkg-config's flags intentionally; an array keeps shellcheck happy
+# without changing the compiler argument list.
+read -r -a _jxl_pkg_flags <<< "$(pkg-config --cflags --libs gdk-pixbuf-2.0 libjxl libjxl_threads)"
 gcc -shared -fPIC -O2 -Wl,--as-needed \
     -o "$_gdk_moddir/libpixbufloader-jxl.so" \
     "$_jxl_src/plugins/gdk-pixbuf/pixbufloader-jxl.c" \
-    $(pkg-config --cflags --libs gdk-pixbuf-2.0 libjxl libjxl_threads)
+    "${_jxl_pkg_flags[@]}"
 install -Dm644 "$_jxl_src/plugins/gdk-pixbuf/jxl.thumbnailer" \
     /usr/share/thumbnailers/jxl.thumbnailer
 # Refresh the system loader cache so swaybg and gdk-pixbuf-based

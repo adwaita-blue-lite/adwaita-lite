@@ -109,7 +109,7 @@ class LanguagePage(BasePage, Adw.PreferencesPage):
         try:
             r = subprocess.run(["localectl", "list-locales"],
                                capture_output=True, text=True, timeout=10)
-            return [l.strip() for l in r.stdout.splitlines() if l.strip()]
+            return [line.strip() for line in r.stdout.splitlines() if line.strip()]
         except (FileNotFoundError, subprocess.TimeoutExpired, OSError):
             return ["en_US.UTF-8"]
 
