@@ -1,6 +1,6 @@
 # Status matrix
 
-**Snapshot:** 2026-11-01T13:39Z
+**Snapshot:** 2026-11-02T02:13Z
 **Regenerate:** `build_files/ci/status-matrix.sh > docs/operations/status-matrix.md`
 
 This matrix records what is actually evidenced. `unknown` and `no evidence` are
@@ -8,20 +8,20 @@ deliberate values, not placeholders to be filled with assumptions.
 
 | Branch | Tip | Latest build | Stream digest | Signature | Boot |
 |---|---|---|---|---|---|
-| `main` | `62ccf66` | [41311775605](https://github.com/adwaita-blue-lite/adwaita-lite/actions/runs/41311775605) (in progress) | `sha256:22de706f63ce` | verified | no evidence |
-| `dx` | `277b6b0` | [41311402655](https://github.com/adwaita-blue-lite/adwaita-lite/actions/runs/41311402655) (success) | `sha256:26dc928e1ec1` | verified | no evidence |
-| `testing` | `c66eb4e` | [41312243816](https://github.com/adwaita-blue-lite/adwaita-lite/actions/runs/41312243816) (in progress) | `sha256:c93a11c8a5c1` | verified | no evidence |
-| `beta` | `2ffc676` | [41311397867](https://github.com/adwaita-blue-lite/adwaita-lite/actions/runs/41311397867) (success) | `sha256:aa8539e84774` | verified | no evidence |
+| `main` | `0323eea` | [41376465574](https://github.com/adwaita-blue-lite/adwaita-lite/actions/runs/41376465574) (in progress) | `sha256:860c9da07dde` | verified | no evidence |
+| `dx` | `abc5ab3` | [41375724020](https://github.com/adwaita-blue-lite/adwaita-lite/actions/runs/41375724020) (in progress) | `sha256:93c9561760ba` | verified | no evidence |
+| `testing` | `598eb13` | [41371819302](https://github.com/adwaita-blue-lite/adwaita-lite/actions/runs/41371819302) (success) | `sha256:9156b23515ec` | verified | no evidence |
+| `beta` | `6492e85` | [41375722981](https://github.com/adwaita-blue-lite/adwaita-lite/actions/runs/41375722981) (success) | `sha256:d2b8711586fb` | verified | no evidence |
 
 ## Other state
 
 | Check | State | Evidence |
 |---|---|---|
-| GHCR package visibility | **private** | registry API; anonymous pull test |
+| GHCR package visibility | **public** | registry API; anonymous pull test |
 | Upstream sync | success [https://github.com/adwaita-blue-lite/adwaita-lite/actions/runs/41311782551] | latest `upstream-sync` run |
-| CI test/lint workflow | absent | `.github/workflows/ci.yml` |
-| Branch protection | absent | `repos/adwaita-blue-lite/adwaita-lite/branches/main/protection` |
-| `bootc container lint` | 3 warnings (last observed 2026-11-01) | nonempty-boot, sysusers, var-tmpfiles |
+| CI test/lint workflow | present | `.github/workflows/ci.yml` |
+| Branch protection | ruleset (1) | rulesets API |
+| `bootc container lint` | 0 warnings (verified 2026-11-02) | CI build log |
 | Installer filesystem intent | contradictory (last observed 2026-11-01) | ext4 toml vs btrfs Justfile vs wizard options |
 | 2 GB memory budget | unknown | no measurement |
 | Boot / update / rollback | no evidence | requires VM/hardware run |
