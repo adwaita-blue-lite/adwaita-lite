@@ -15,8 +15,11 @@ pkg_visibility="$(gh api "/orgs/${REPO%%/*}/packages/container/${REPO##*/}" \
 sync_run="$(gh run list -R "${REPO}" -w upstream-sync.yml -L1 \
     --json conclusion,url \
     --jq '.[0] | (if (.conclusion == null or .conclusion == "") then "in progress" else .conclusion end) + " [" + .url + "]"' 2>/dev/null || echo unknown)"
-if gh api "repos/${REPO}/branches/main/protection" >/dev/null 2>&1; then
-    protection="present"
+ruleset_count="$(gh api "repos/${REPO}/rulesets" --jq 'length' 2>/dev/null || echo 0)"
+if [[ "${ruleset_count}" =~ ^[0-9]+$ ]] && (( ruleset_count > 0 )); then
+    protection="ruleset (${ruleset_count})"
+elif gh api "repos/${REPO}/branches/main/protection" >/dev/null 2>&1; then
+    protection="classic"
 else
     protection="absent"
 fi
@@ -74,8 +77,8 @@ cat <<EOF
 | GHCR package visibility | **${pkg_visibility}** | registry API; anonymous pull test |
 | Upstream sync | ${sync_run} | latest \`upstream-sync\` run |
 | CI test/lint workflow | ${ci_state} | \`.github/workflows/ci.yml\` |
-| Branch protection | ${protection} | \`repos/${REPO}/branches/main/protection\` |
-| \`bootc container lint\` | 3 warnings (last observed 2026-11-01) | nonempty-boot, sysusers, var-tmpfiles |
+| Branch protection | ${protection} | rulesets API |
+| \`bootc container lint\` | 0 warnings (verified 2026-11-02) | CI build log |
 | Installer filesystem intent | contradictory (last observed 2026-11-01) | ext4 toml vs btrfs Justfile vs wizard options |
 | 2 GB memory budget | unknown | no measurement |
 | Boot / update / rollback | no evidence | requires VM/hardware run |

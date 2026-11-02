@@ -416,13 +416,16 @@ def test_devmode_installs_upstream_dialog_dependency():
 def test_dx_group_uses_image_managed_group_entries():
     build_script = _read("build_files/build.sh")
     justfile = _read("files/usr/share/ublue-os/just/90-adwaita-lite.just")
+    sysusers = _read("files/usr/lib/sysusers.d/adwaita-lite-dx.conf")
 
     assert "dx-group:" in justfile
     assert "groupadd --system" not in justfile
     assert "grep \"^${group_name}:\" /usr/lib/group >> /etc/group" in justfile
-    assert "dx_groups=(docker incus-admin libvirt dialout)" in build_script
-    assert "groupadd --system \"$group_name\"" in build_script
-    assert "grep \"^${group_name}:\" /etc/group >> /usr/lib/group" in build_script
+    assert "dx_groups=(docker incus-admin libvirt dialout)" not in build_script
+    assert "groupadd --system \"$group_name\"" not in build_script
+    assert "grep \"^${group_name}:\" /etc/group >> /usr/lib/group" not in build_script
+    for group in ("docker", "incus-admin", "libvirt", "dialout"):
+        assert f"g {group} -" in sysusers
 
 
 def test_readme_stream_switches_use_bootc_registry_refs():
