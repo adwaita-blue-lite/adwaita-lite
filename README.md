@@ -550,4 +550,15 @@ files/
 
 ## License
 
-Apache-2.0. See [LICENSE](LICENSE).
+Adwaita-Lite original code is licensed under **GPL-3.0-or-later**. See
+[LICENSE](LICENSE).
+
+The project is derived from
+[ublue-os/image-template](https://github.com/ublue-os/image-template), whose
+upstream-derived files remain **Apache-2.0**. See [NOTICE](NOTICE) and
+[LICENSES/Apache-2.0.txt](LICENSES/Apache-2.0.txt). The combined work is
+distributed under GPL-3.0-or-later.
+
+Third-party software in the image retains its own license. A GPL-2.0-only
+component must remain a separate program and cannot be linked into the GPLv3
+code.
