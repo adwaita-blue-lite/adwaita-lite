@@ -215,28 +215,8 @@ gdk-pixbuf-query-loaders-64 --update-cache
 rm -rf "$_jxl_src"
 dnf5 remove -y gcc libjxl-devel gdk-pixbuf2-devel git-core
 
-# Keep DX user-group setup aligned with upstream's image-managed group model.
-# Existing installs keep /etc/group as mutable state, so `ujust dx-group`
-# copies entries from /usr/lib/group into /etc/group before adding users.
-ensure_usr_lib_group() {
-    local group_name="$1"
-
-    if grep -q "^${group_name}:" /usr/lib/group; then
-        return
-    fi
-
-    if ! grep -q "^${group_name}:" /etc/group; then
-        groupadd --system "$group_name"
-    fi
-
-    grep "^${group_name}:" /etc/group >> /usr/lib/group
-}
-
-dx_groups=(docker incus-admin libvirt dialout)
-for group_name in "${dx_groups[@]}"; do
-    ensure_usr_lib_group "$group_name"
-done
-
+# DX user groups are image-managed through sysusers.d so systemd-sysusers
+# creates them on every boot, including for existing installations.
 cp -a /ctx/files/. /
 
 # Language name matrix and all MO files (wizard + settings) are
@@ -264,7 +244,8 @@ json.dump(p, open('/etc/containers/policy.json', 'w'), indent=2)
 "
 
 # Ensure video group exists for brightnessctl backlight access
-groupadd -f video
+# `files/usr/lib/sysusers.d/adwaita-lite.conf` declares it; no manual
+# groupadd is needed (and manual groups bypass sysusers/bootc lint).
 
 install -d /etc/xdg/labwc
 
@@ -570,13 +551,19 @@ gtk-update-icon-cache -f /usr/share/icons/hicolor 2>/dev/null || true
 # cache directory would be non-writable on a booted ostree system.
 python3 -m compileall -q -j 0 /usr/lib/adwaita-lite 2>/dev/null || true
 
-# Regenerate initramfs so /usr/lib/modprobe.d/adwaita-lite-i915.conf
-# reaches the early-KMS load of i915. Without this step the options only
-# take effect after the first kernel update triggers its own regen.
+# Regenerate the initramfs into the bootc module path so
+# /usr/lib/modprobe.d/adwaita-lite-i915.conf reaches the early-KMS load
+# of i915. The image itself keeps /boot empty; bootc/installers generate
+# the deployed initramfs from /usr/lib/modules.
 if command -v dracut >/dev/null 2>&1; then
     KVER=$(rpm -q --qf '%{version}-%{release}.%{arch}' kernel-core | head -1)
-    [ -n "$KVER" ] && dracut --force --kver "$KVER" || true
+    if [ -n "$KVER" ]; then
+        dracut --force --no-hostonly --kver "$KVER" \
+            "/usr/lib/modules/${KVER}/initramfs.img" || true
+    fi
 fi
+install -d /boot
+find /boot -mindepth 1 -delete 2>/dev/null || true
 
 dnf5 clean all
 rm -rf /var/lib/dnf /run/dnf /run/selinux-policy /var/lib/greetd/.config/systemd/user/xdg-desktop-portal.service
