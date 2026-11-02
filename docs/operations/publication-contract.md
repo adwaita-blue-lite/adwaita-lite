@@ -17,8 +17,9 @@ intentional; upstream changes arrive through the `upstream` git remote and the
 daily `upstream-sync` workflow, not through GitHub's **Sync fork** button.
 
 Adwaita-Lite is an **end-user image**, not a supported base image for downstream
-derivatives. The Apache-2.0 license permits reuse, but no ABI, package-set, or
-upgrade compatibility is guaranteed for images that build `FROM` this one.
+derivatives. The GPL-3.0-or-later license permits reuse under its terms;
+upstream-derived files remain Apache-2.0. No ABI, package-set, or upgrade
+compatibility is guaranteed for images that build `FROM` this one.
 
 ## Supported streams
 
