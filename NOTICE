@@ -1,0 +1,26 @@
+Adwaita-Lite
+Copyright (C) 2026 the Adwaita-Lite contributors
+
+Adwaita-Lite original code is licensed under the GNU General Public License,
+version 3 or later (GPL-3.0-or-later). See LICENSE.
+
+Upstream
+--------
+This project is derived from ublue-os/image-template
+(https://github.com/ublue-os/image-template), Copyright Universal Blue
+contributors, licensed under Apache-2.0.
+
+Files, workflows, and scaffolding that originate from that project retain the
+Apache-2.0 license. See LICENSES/Apache-2.0.txt. Apache-2.0 is compatible with
+GPLv3, and the combined work is distributed under GPL-3.0-or-later while the
+Apache-2.0 components remain available under Apache-2.0.
+
+Third-party components
+----------------------
+The image includes third-party software under its own licenses. See the
+package manifests and /usr/share/licenses inside the image.
+
+A GPL-2.0-only component (for example, if Lab_Panel is adopted) cannot be
+linked into this GPLv3 code. It must remain a separate program with its own
+source distribution and license notice, shipped alongside the image as an
+aggregate rather than merged into the GPLv3 codebase.
