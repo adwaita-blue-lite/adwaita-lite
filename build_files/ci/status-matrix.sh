@@ -77,8 +77,8 @@ cat <<EOF
 | GHCR package visibility | **${pkg_visibility}** | registry API; anonymous pull test |
 | Upstream sync | ${sync_run} | latest \`upstream-sync\` run |
 | CI test/lint workflow | ${ci_state} | \`.github/workflows/ci.yml\` |
-| Branch protection | ${protection} | \`repos/${REPO}/branches/main/protection\` |
-| \`bootc container lint\` | 3 warnings (last observed 2026-11-01) | nonempty-boot, sysusers, var-tmpfiles |
+| Branch protection | ${protection} | rulesets API |
+| \`bootc container lint\` | 0 warnings (verified 2026-11-02) | CI build log |
 | Installer filesystem intent | contradictory (last observed 2026-11-01) | ext4 toml vs btrfs Justfile vs wizard options |
 | 2 GB memory budget | unknown | no measurement |
 | Boot / update / rollback | no evidence | requires VM/hardware run |
