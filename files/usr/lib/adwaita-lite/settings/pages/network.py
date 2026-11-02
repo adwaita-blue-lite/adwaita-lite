@@ -9,7 +9,6 @@ from gi.repository import Adw, Gtk
 
 from ..base import BasePage
 
-
 # Icon-name thresholds for WiFi signal strength rendering. The numeric
 # cutoffs (75/50/25) match the pre-migration implementation.
 _SIGNAL_ICONS: list[tuple[int, str]] = [

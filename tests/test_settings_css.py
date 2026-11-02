@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 CSS_PATH = (
     Path(__file__).resolve().parents[1]
     / "files/usr/lib/adwaita-lite/settings/css/style.css"

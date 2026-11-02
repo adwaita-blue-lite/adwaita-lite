@@ -4,7 +4,6 @@ from pathlib import Path
 
 import pytest
 
-
 _REPO = Path(__file__).resolve().parents[1]
 _SWAP_INIT = _REPO / "files/usr/libexec/adwaita-lite-swap-init"
 

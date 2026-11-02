@@ -2,7 +2,6 @@ import ast
 import subprocess
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = "am ar de es fa fr ha hi it ja ko nl pl pt ru sv sw th tr vi yo zh".split()
 CATALOGS = [

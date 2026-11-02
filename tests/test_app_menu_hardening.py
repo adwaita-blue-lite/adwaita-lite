@@ -6,9 +6,6 @@ import re
 from pathlib import Path
 from types import SimpleNamespace
 
-import pytest
-
-
 _SCRIPT = Path(__file__).resolve().parents[1] / "files/usr/bin/adwaita-lite-app-menu"
 _loader = importlib.machinery.SourceFileLoader("app_menu_hardening", str(_SCRIPT))
 _spec = importlib.util.spec_from_loader(
