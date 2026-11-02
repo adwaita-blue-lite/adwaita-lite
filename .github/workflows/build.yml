@@ -322,6 +322,13 @@ jobs:
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
 
+      - name: Verify container image signature
+        if: steps.stream.outputs.publish == 'true'
+        run: |
+          cosign verify \
+            --key cosign.pub \
+            "${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}"
+
       - name: Continue sync promotion
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.sync_promotion == true && steps.stream.outputs.tag == 'dx' && steps.stream.outputs.publish == 'true' }}
         env:
