@@ -164,7 +164,7 @@ def test_deferred_session_changes_hide_when_values_match_snapshot(monkeypatch, t
     assert store.has_deferred_session_changes() is False
 
 
-def test_deferred_session_changes_ignore_live_apply_settings(monkeypatch, tmp_path):
+def test_deferred_session_changes_include_theme_font_high_contrast_scale(monkeypatch, tmp_path):
     _write_session_snapshot(
         monkeypatch,
         tmp_path,
@@ -197,7 +197,7 @@ def test_deferred_session_changes_ignore_live_apply_settings(monkeypatch, tmp_pa
         },
     )
 
-    assert store.has_deferred_session_changes() is False
+    assert store.has_deferred_session_changes() is True
 
 
 def test_deferred_session_changes_ignore_missing_or_invalid_snapshot(monkeypatch, tmp_path):
