@@ -15,8 +15,11 @@ pkg_visibility="$(gh api "/orgs/${REPO%%/*}/packages/container/${REPO##*/}" \
 sync_run="$(gh run list -R "${REPO}" -w upstream-sync.yml -L1 \
     --json conclusion,url \
     --jq '.[0] | (if (.conclusion == null or .conclusion == "") then "in progress" else .conclusion end) + " [" + .url + "]"' 2>/dev/null || echo unknown)"
-if gh api "repos/${REPO}/branches/main/protection" >/dev/null 2>&1; then
-    protection="present"
+ruleset_count="$(gh api "repos/${REPO}/rulesets" --jq 'length' 2>/dev/null || echo 0)"
+if [[ "${ruleset_count}" =~ ^[0-9]+$ ]] && (( ruleset_count > 0 )); then
+    protection="ruleset (${ruleset_count})"
+elif gh api "repos/${REPO}/branches/main/protection" >/dev/null 2>&1; then
+    protection="classic"
 else
     protection="absent"
 fi
