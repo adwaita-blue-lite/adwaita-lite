@@ -31,12 +31,11 @@ if [ "$size_gb" -lt "$MIN_SWAP_GB" ] || [ "$size_gb" -gt "$MAX_SWAP_GB" ]; then
     exit 1
 fi
 
-# On btrfs, swap files must have the nocow attribute or swapon fails with EINVAL.
-# Touch + chattr before writing content; chattr silently fails on non-btrfs.
+# The swap file is attached through a loop device and dm-crypt, then swapon
+# is called on the mapper. No filesystem-specific nocow flag is required.
 touch "$SWAPFILE"
-chattr +C "$SWAPFILE" 2>/dev/null || true
 
-# fallocate is instant; fall back to dd on filesystems that don't support it (e.g. btrfs)
+# fallocate is instant; fall back to dd on filesystems that don't support it.
 if ! fallocate -l "${size_gb}G" "$SWAPFILE" 2>/dev/null; then
     dd if=/dev/zero of="$SWAPFILE" bs=1M count=$(( size_gb * 1024 )) status=none
 fi
