@@ -103,7 +103,10 @@ jobs:
         run: |
           set -euo pipefail
           image="${IMAGE_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
-          digest="$(skopeo inspect --format '{{.Digest}}' "docker://${image}" 2>/dev/null || true)"
+          digest="$(skopeo inspect \
+            --creds "${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}" \
+            --format '{{.Digest}}' \
+            "docker://${image}" 2>/dev/null || true)"
           if [[ -n "${digest}" ]]; then
             echo "ref=${image%@*}@${digest}" >> "${GITHUB_OUTPUT}"
           else
