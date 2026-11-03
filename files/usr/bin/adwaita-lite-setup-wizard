@@ -734,7 +734,7 @@ SWAP_STRATEGIES = [
 
 SWAP_SIZES = ["2 GB", "4 GB", "8 GB", N_("Custom")]
 
-FILESYSTEMS = ["ext4", "xfs", "btrfs"]
+FILESYSTEMS = ["ext4"]
 
 # Mapping from locale prefix → (console keymap, XKB layout).
 # Console keymap is for /etc/vconsole.conf (TTY recovery).
@@ -1894,7 +1894,8 @@ class SetupWizardWindow(Gtk.ApplicationWindow):
         fs_model = Gtk.StringList.new(FILESYSTEMS)
         self._fs_dropdown = Gtk.DropDown(model=fs_model)
         self._fs_dropdown.set_hexpand(True)
-        self._fs_dropdown.set_selected(0)  # ext4 default
+        self._fs_dropdown.set_selected(0)  # ext4 is the only supported filesystem
+        self._fs_dropdown.set_sensitive(False)
         card.append(self._fs_dropdown)
 
         # --- Memory management (moved from System page) ---
@@ -3257,12 +3258,11 @@ class SetupWizardWindow(Gtk.ApplicationWindow):
             1: BIOS boot   —   2 MiB  — no filesystem
             2: EFI System  — 512 MiB  — FAT32
             3: XBOOTLDR    —   1 GiB  — ext4
-            4: Linux root  — remaining — user's choice
+            4: Linux root  — remaining — ext4
 
         Sets self._mount_point for _step_install_system.
         """
         target = self._setup_target_drive
-        fs = self._setup_filesystem
         dev = f"/dev/{target}"
         mount_point = "/run/adwaita-lite-target"
 
@@ -3381,13 +3381,8 @@ class SetupWizardWindow(Gtk.ApplicationWindow):
         mkfs_cmds = [
             (["mkfs.vfat", "-F", "32", "-n", "EFI", part_efi], "EFI"),
             (["mkfs.ext4", "-F", "-L", "boot", part_boot], "boot"),
+            (["mkfs.ext4", "-F", "-L", "root", part_root], "root"),
         ]
-        if fs == "btrfs":
-            mkfs_cmds.append((["mkfs.btrfs", "-f", "-L", "root", part_root], "root"))
-        elif fs == "xfs":
-            mkfs_cmds.append((["mkfs.xfs", "-f", "-L", "root", part_root], "root"))
-        else:
-            mkfs_cmds.append((["mkfs.ext4", "-F", "-L", "root", part_root], "root"))
 
         for cmd, label in mkfs_cmds:
             try:
@@ -4475,7 +4470,6 @@ class SetupWizardWindow(Gtk.ApplicationWindow):
         # Disk page
         drive_idx = self._drive_dropdown.get_selected()
         self._setup_target_drive = self._drives[drive_idx]["name"]
-        self._setup_filesystem = FILESYSTEMS[self._fs_dropdown.get_selected()]
         self._setup_use_zswap, self._setup_swap_gb = self._get_swap_config()
 
         # Account page
