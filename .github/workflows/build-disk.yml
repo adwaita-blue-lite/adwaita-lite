@@ -39,16 +39,17 @@ env:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     name: Build disk images
-    # Auto-build disks after successful main container builds from pushes
-    # and the daily schedule. Manual dispatch and disk-config PRs still
-    # run via their own triggers.
-    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && (github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'schedule')) }}
+    # Disk builds are preview artifacts. Until boot evidence exists, only
+    # the daily schedule, manual dispatch, and disk-config PRs run; do not
+    # rebuild on every main push.
+    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'schedule') }}
     runs-on: ubuntu-24.04
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -91,16 +92,76 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | sudo podman login ghcr.io \
             --username "${{ github.actor }}" --password-stdin
 
+      - name: Resolve image digest
+        id: image
+        shell: bash
+        run: |
+          set -euo pipefail
+          image="${IMAGE_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+          digest="$(skopeo inspect --format '{{.Digest}}' "docker://${image}" 2>/dev/null || true)"
+          if [[ -n "${digest}" ]]; then
+            echo "ref=${image%@*}@${digest}" >> "${GITHUB_OUTPUT}"
+          else
+            echo "ref=${image}" >> "${GITHUB_OUTPUT}"
+          fi
+
       - name: Build disk images
         id: build
         uses: osbuild/bootc-image-builder-action@8661cd3832544ad68c12dcde8681b13ab0f56a8d # main
         with:
           builder-image: ${{ env.BIB_IMAGE }}
           config-file: ${{ matrix.disk-type == 'anaconda-iso' && './disk_config/iso.toml' || './disk_config/disk.toml' }}
-          image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          image: ${{ steps.image.outputs.ref }}
           chown: ${{ env.USER_UID }}:${{ env.USER_GID }}
           types: ${{ matrix.disk-type }}
           additional-args: --use-librepo=True
+
+      - name: Write checksums and manifest
+        shell: bash
+        env:
+          OUT_DIR: ${{ steps.build.outputs.output-directory }}
+          IMAGE_REF: ${{ steps.image.outputs.ref }}
+          GIT_SHA: ${{ github.sha }}
+          RUN_ID: ${{ github.run_id }}
+          STREAM: ${{ env.IMAGE_TAG }}
+          DISK_TYPE: ${{ matrix.disk-type }}
+        run: |
+          set -euo pipefail
+          cd "${OUT_DIR}"
+          find . -type f ! -name SHA256SUMS ! -name manifest.json -print0 \
+            | sort -z | xargs -0 sha256sum > SHA256SUMS
+          python3 - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+
+          out = os.environ["OUT_DIR"]
+          files = []
+          with open(os.path.join(out, "SHA256SUMS"), encoding="utf-8") as fh:
+              for line in fh:
+                  digest, path = line.rstrip("\n").split("  ", 1)
+                  files.append({
+                      "path": path,
+                      "sha256": digest,
+                      "size": os.path.getsize(os.path.join(out, path)),
+                  })
+
+          manifest = {
+              "schema": 1,
+              "status": "preview",
+              "stream": os.environ["STREAM"],
+              "disk_type": os.environ["DISK_TYPE"],
+              "git_sha": os.environ["GIT_SHA"],
+              "run_id": os.environ["RUN_ID"],
+              "image_ref": os.environ["IMAGE_REF"],
+              "created_at": datetime.now(timezone.utc).isoformat(),
+              "files": files,
+              "boot_evidence": None,
+          }
+          with open(os.path.join(out, "manifest.json"), "w", encoding="utf-8") as fh:
+              json.dump(manifest, fh, indent=2)
+          PY
+          sha256sum -c SHA256SUMS
 
       - name: Upload disk images and Checksum to Job Artifacts
         if: github.event_name != 'pull_request' && (github.event_name != 'workflow_dispatch' || inputs.upload-to-s3 != true)
@@ -109,7 +170,7 @@ jobs:
           name: adwaita-lite-${{ matrix.disk-type }}
           path: ${{ steps.build.outputs.output-directory }}
           if-no-files-found: error
-          retention-days: 0
+          retention-days: 14
           compression-level: 6
           overwrite: true
       

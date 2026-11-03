@@ -2,8 +2,8 @@
 
 A lightweight, auto-updating Linux desktop for old x86_64 Chromebooks and
 old or low-end computers. Built on [Universal Blue](https://universal-blue.org/) —
-the image updates itself daily and rolls back automatically if anything
-goes wrong. No package manager, no manual maintenance, no surprises.
+the image updates itself daily and keeps the previous deployment available
+for rollback. No package manager, no manual maintenance, no surprises.
 
 > Adwaita-Lite is an independent derivative of
 > [Universal Blue's image-template](https://github.com/ublue-os/image-template).
@@ -67,14 +67,15 @@ You need:
 [GitHub Actions → Build disk images](../../actions/workflows/build-disk.yml),
 click the most recent successful run, and download the
 **adwaita-lite-raw** artifact from the Artifacts section at the
-bottom of the page. Unzip it — you'll get a `disk.raw` file a few GB
-in size.
+bottom of the page. Unzip it — you'll get `image/disk.raw`, a few GB
+in size. Preview artifacts expire; see the
+[publication contract](docs/operations/publication-contract.md).
 
 **Step 2 — Flash the image to a USB drive:**
 
 ```bash
 lsblk   # identify the USB drive — double-check before writing
-sudo dd if=disk.raw of=/dev/sdX bs=4M status=progress conv=fsync
+sudo dd if=image/disk.raw of=/dev/sdX bs=4M status=progress conv=fsync
 ```
 
 Or use [Impression](https://flathub.org/apps/io.gitlab.adhami3310.Impression)
@@ -143,9 +144,9 @@ The system manages itself. Daily image builds publish to
 Flatpak apps. If an update ever causes a problem, the previous image is
 always available in the boot menu — select it to roll back.
 
-Adwaita-Lite's published update image is hosted on Quay. Older test
-installs that still track GHCR can move to the current update stream with
-one manual rebase:
+Adwaita-Lite's published update image is hosted on GHCR. Installs tracking
+an older registry can move to the current update stream with one manual
+rebase:
 
 ```bash
 sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/adwaita-blue-lite/adwaita-lite:latest
@@ -158,10 +159,10 @@ Adwaita-Lite publishes one container image with multiple stream tags:
 
 | Stream | Branch | Base | Purpose |
 |--------|--------|------|---------|
-| `latest` | `main` | Daily refresh from `ghcr.io/ublue-os/base-main:latest`; routine main builds from Quay `latest` | Stable, low-resource consumer image |
-| `dx` | `dx` | Quay `latest` | Stable developer-mode image with Homebrew, Distrobox, Docker, Podman, libvirt/QEMU, Incus, Cockpit, VS Code, and DX group/workaround services |
-| `testing` | `testing` | Quay `dx` | WIP stream; currently inherits `dx` and is where DX-adjacent experiments can bake |
-| `beta` | `beta` | Daily refresh from `ghcr.io/ublue-os/base-main:beta`; routine beta builds from Quay `beta` | Fedora-next compatibility canary based on `main`; intentionally does not inherit DX payload |
+| `latest` | `main` | Daily refresh from `ghcr.io/ublue-os/base-main:latest`; routine main builds from GHCR `latest` | Stable, low-resource consumer image |
+| `dx` | `dx` | GHCR `latest` | Stable developer-mode image with Homebrew, Distrobox, Docker, Podman, libvirt/QEMU, Incus, Cockpit, VS Code, and DX group/workaround services |
+| `testing` | `testing` | GHCR `dx` | WIP stream; currently inherits `dx` and is where DX-adjacent experiments can bake |
+| `beta` | `beta` | Daily refresh from `ghcr.io/ublue-os/base-main:beta`; routine beta builds from GHCR `beta` | Fedora-next compatibility canary based on `main`; intentionally does not inherit DX payload |
 
 Published tags use `ghcr.io/adwaita-blue-lite/adwaita-lite:<stream>`. Stream
 builds also publish date tags like `dx.YYYYMMDD`, `testing.YYYYMMDD`, and
@@ -441,7 +442,7 @@ plus the daily schedule build the OCI image. Stream branches publish
 `dx` publishes `dx`, `testing` publishes `testing`, and `beta` publishes
 `beta`. Pull requests validate builds but do not publish or sign images.
 
-The Quay repository is the primary public update source for Adwaita-Lite.
+The GHCR repository is the primary public update source for Adwaita-Lite.
 
 To set up signing on a fresh fork:
 
@@ -547,6 +548,13 @@ files/
   sync-streams.yml                         # main -> dx/beta and dx -> testing trigger workflow
   sync-one-stream.yml                      # Reusable stream merge-or-conflict-PR workflow
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the branch/PR workflow and local
+checks, and [SUPPORT.md](SUPPORT.md) for supported streams and bug-report
+requirements. Security issues go through private vulnerability reporting, not
+public issues.
 
 ## License
 

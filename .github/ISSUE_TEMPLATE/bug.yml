@@ -1,0 +1,78 @@
+name: Bug report
+description: Report a bug, regression, or installation problem
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not report security vulnerabilities here. Use
+        [private vulnerability reporting](https://github.com/adwaita-blue-lite/adwaita-lite/security/advisories/new)
+        instead.
+  - type: dropdown
+    id: stream
+    attributes:
+      label: Image stream
+      options:
+        - latest
+        - dx
+        - testing
+        - beta
+        - unknown
+    validations:
+      required: true
+  - type: input
+    id: image
+    attributes:
+      label: Image tag or digest
+      description: Prefer the digest (ghcr.io/...@sha256:...).
+      placeholder: ghcr.io/adwaita-blue-lite/adwaita-lite@sha256:...
+    validations:
+      required: true
+  - type: textarea
+    id: bootc
+    attributes:
+      label: bootc status
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: hardware
+    attributes:
+      label: Hardware and RAM
+      placeholder: e.g. Lenovo 100e Chromebook, 4 GB RAM, 32 GB eMMC
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Remove secrets, Wi-Fi passwords, and personal data.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues.
+          required: true
+        - label: I removed secrets and personal data from logs.
+          required: true

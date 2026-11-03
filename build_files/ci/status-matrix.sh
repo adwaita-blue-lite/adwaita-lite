@@ -79,7 +79,7 @@ cat <<EOF
 | CI test/lint workflow | ${ci_state} | \`.github/workflows/ci.yml\` |
 | Branch protection | ${protection} | rulesets API |
 | \`bootc container lint\` | 0 warnings (verified 2026-11-02) | CI build log |
-| Installer filesystem intent | contradictory (last observed 2026-11-01) | ext4 toml vs btrfs Justfile vs wizard options |
+| Installer filesystem intent | ext4-only (ISO storage directive pending) | docs/operations/filesystem-contract.md |
 | 2 GB memory budget | unknown | no measurement |
 | Boot / update / rollback | no evidence | requires VM/hardware run |
 
