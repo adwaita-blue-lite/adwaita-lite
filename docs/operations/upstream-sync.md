@@ -30,7 +30,7 @@ need to be the contribution vehicle.
 ## Automatic sync
 
 [`.github/workflows/upstream-sync.yml`](../../.github/workflows/upstream-sync.yml)
-runs every Monday at 06:00 UTC and on demand.
+runs daily at 06:00 UTC and on demand.
 
 1. Fetches `upstream/main`.
 2. Merges it into `upstream-sync/YYYYMMDD`.
