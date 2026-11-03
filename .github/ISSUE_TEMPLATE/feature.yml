@@ -1,0 +1,49 @@
+name: Feature request
+description: Propose a feature or UX change
+title: "[feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - desktop / panel / launcher
+        - settings app
+        - setup wizard / installer
+        - updates / bootc / uupd
+        - performance / memory
+        - accessibility / i18n
+        - build / CI / release
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Target constraints
+      description: Does this fit 2 GB RAM / 32 GB storage / x86_64? Any hardware assumptions?
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues and design docs.
+          required: true
