@@ -1,0 +1,13 @@
+# Default owner for the repository.
+* @untangled-ditto
+
+# High-risk or security-sensitive areas.
+/.github/workflows/ @untangled-ditto
+/build_files/ @untangled-ditto
+/files/etc/ @untangled-ditto
+/files/usr/lib/ @untangled-ditto
+/files/usr/bin/ @untangled-ditto
+/files/usr/libexec/ @untangled-ditto
+/LICENSE @untangled-ditto
+/NOTICE @untangled-ditto
+/SECURITY.md @untangled-ditto
