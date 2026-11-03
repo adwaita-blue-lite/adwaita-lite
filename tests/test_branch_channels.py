@@ -218,15 +218,26 @@ def test_disk_workflow_manual_runs_can_choose_stream_tag():
     for tag in ("latest", "dx", "testing", "beta"):
         assert f"          - {tag}" in workflow
     assert 'echo "IMAGE_TAG=${IMAGE_TAG}" >> ${GITHUB_ENV}' in workflow
-    assert "${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}" in workflow
+    assert 'image="${IMAGE_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"' in workflow
 
 
-def test_disk_workflow_runs_after_successful_main_push_or_schedule_container_build():
+def test_disk_workflow_runs_on_schedule_not_every_push():
     workflow = _read(".github/workflows/build-disk.yml")
 
     assert "github.event.workflow_run.conclusion == 'success'" in workflow
-    assert "github.event.workflow_run.event == 'push'" in workflow
     assert "github.event.workflow_run.event == 'schedule'" in workflow
+    assert "github.event.workflow_run.event == 'push'" not in workflow
+
+
+def test_disk_workflow_writes_checksums_and_manifest():
+    workflow = _read(".github/workflows/build-disk.yml")
+
+    assert "SHA256SUMS" in workflow
+    assert "manifest.json" in workflow
+    assert "retention-days: 14" in workflow
+    assert "skopeo inspect" in workflow
+    assert "steps.image.outputs.ref" in workflow
+    assert "boot_evidence" in workflow
 
 
 def test_build_workflow_accepts_sync_promotion_dispatch_input():
