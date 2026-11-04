@@ -236,6 +236,8 @@ def test_disk_workflow_writes_checksums_and_manifest():
     assert "manifest.json" in workflow
     assert "retention-days: 14" in workflow
     assert "skopeo inspect" in workflow
+    assert "apt-get install -y skopeo" in workflow
+    assert 'export OUT_DIR="$(cd "${OUT_DIR}" && pwd)"' in workflow
     assert "steps.image.outputs.ref" in workflow
     assert "boot_evidence" in workflow
 
