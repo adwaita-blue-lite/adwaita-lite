@@ -272,6 +272,7 @@ def test_image_installs_sfwbar_and_panel_wrapper():
     build_script = (_ROOT / "build_files/build.sh").read_text(encoding="utf-8")
 
     assert "    sfwbar \\" in build_script
+    assert "    adwaita-icon-theme \\" in build_script
     assert "/usr/bin/adwaita-lite-panel" in build_script
 
 
