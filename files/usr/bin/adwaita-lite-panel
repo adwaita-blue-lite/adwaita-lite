@@ -145,7 +145,7 @@ def build_tokens(settings: dict) -> dict:
         "edge": edge,
         "vertical": vertical,
         "size": size,
-        "content": max(size - 2, 16),
+        "content": max(size - 4, 16),
         "icon": 16 if compact else 24,
         "spacing": round((6 if compact else 8) * scale),
         "margin": round(8 * scale),
