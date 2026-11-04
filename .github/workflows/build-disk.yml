@@ -92,16 +92,25 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | sudo podman login ghcr.io \
             --username "${{ github.actor }}" --password-stdin
 
+      - name: Install skopeo
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y skopeo
+
       - name: Resolve image digest
         id: image
         shell: bash
         run: |
           set -euo pipefail
           image="${IMAGE_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
-          digest="$(skopeo inspect --format '{{.Digest}}' "docker://${image}" 2>/dev/null || true)"
+          digest="$(skopeo inspect \
+            --creds "${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}" \
+            --format '{{.Digest}}' \
+            "docker://${image}" 2>/dev/null || true)"
           if [[ -n "${digest}" ]]; then
             echo "ref=${image%@*}@${digest}" >> "${GITHUB_OUTPUT}"
           else
+            echo "::warning::Could not resolve a registry digest for ${image}; using the tag"
             echo "ref=${image}" >> "${GITHUB_OUTPUT}"
           fi
 
@@ -127,6 +136,7 @@ jobs:
           DISK_TYPE: ${{ matrix.disk-type }}
         run: |
           set -euo pipefail
+          export OUT_DIR="$(cd "${OUT_DIR}" && pwd)"
           cd "${OUT_DIR}"
           find . -type f ! -name SHA256SUMS ! -name manifest.json -print0 \
             | sort -z | xargs -0 sha256sum > SHA256SUMS
