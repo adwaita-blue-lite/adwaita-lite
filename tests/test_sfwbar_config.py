@@ -68,6 +68,7 @@ def test_config_has_named_bar_and_layout_sections():
     assert "margin = 8" in config
     assert 'layer = "top"' in config
     assert 'exclusive_zone = "auto"' in config
+    assert 'mirror = "*"' in config
 
 
 def test_config_taskbar_launcher_tray_and_status():

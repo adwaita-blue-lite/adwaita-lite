@@ -401,6 +401,7 @@ def render_config(settings: dict, tokens: dict) -> str:
             f"  margin = {tokens['margin']}",
             '  layer = "top"',
             '  exclusive_zone = "auto"',
+            '  mirror = "*"',
             '  style = "layout-start"',
         ]
     )
