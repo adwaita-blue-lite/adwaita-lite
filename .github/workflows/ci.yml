@@ -81,3 +81,31 @@ jobs:
           # our scripts, and existing workflows carry info-level shell
           # style findings.
           actionlint -shellcheck ""
+
+  panel:
+    name: Panel build
+    runs-on: ubuntu-24.04
+    container: fedora:44
+    steps:
+      - name: Install git
+        run: dnf install -y git
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+
+      - name: Install build dependencies
+        run: |
+          dnf install -y \
+            gcc \
+            pkgconf-pkg-config \
+            gtk4-devel \
+            gtk4-layer-shell-devel \
+            json-glib-devel \
+            meson \
+            ninja-build
+
+      - name: Configure
+        run: meson setup build panel
+
+      - name: Compile
+        run: meson compile -C build
