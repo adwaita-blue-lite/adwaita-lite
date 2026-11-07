@@ -30,6 +30,7 @@ dnf5 install -y --setopt=install_weak_deps=False \
     accountsservice \
     adw-gtk3-theme \
     adwaita-cursor-theme \
+    adwaita-icon-theme \
     alsa-utils \
     at-spi2-atk \
     at-spi2-core \
@@ -117,6 +118,7 @@ dnf5 install -y --setopt=install_weak_deps=False \
     rsync \
     ristretto \
     slurp \
+    sfwbar \
     speech-dispatcher \
     speech-dispatcher-espeak-ng \
     swaybg \
@@ -288,6 +290,7 @@ chmod 0755 \
     /usr/libexec/adwaita-lite-wizard-session \
     /usr/libexec/adwaita-lite-menu \
     /usr/bin/adwaita-lite-app-menu \
+    /usr/bin/adwaita-lite-panel \
     /usr/libexec/adwaita-lite-session \
     /usr/libexec/adwaita-lite-volume \
     /usr/libexec/adwaita-lite-brightness
