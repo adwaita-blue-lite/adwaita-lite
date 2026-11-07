@@ -5,9 +5,9 @@ The preview path never changes the Waybar default. It writes sfwbar assets to
 a runtime or user config directory and launches/reloads sfwbar explicitly.
 
 Usage:
-  adwaita-lite-panel generate --output-dir DIR
-  adwaita-lite-panel preview [--replace-waybar]
-  adwaita-lite-panel apply
+  adwaita-lite-panel generate --output-dir DIR [--float]
+  adwaita-lite-panel preview [--replace-waybar] [--float]
+  adwaita-lite-panel apply [--float]
   adwaita-lite-panel restore
 """
 
@@ -36,13 +36,19 @@ PALETTE_PATHS = (
     _SCRIPT_PATH.parents[1] / "share/adwaita-lite/palette.json",
 )
 
-STATUS_MODULES = ("pulseaudio", "backlight", "battery", "clock")
+STATUS_MODULES = ("network", "pulseaudio", "backlight", "battery", "clock")
 SUPPORTED_MODULES = ("custom/launcher", "wlr/taskbar", "tray", *STATUS_MODULES)
-DEFAULT_LAYOUT = {
+LEGACY_DEFAULT_LAYOUT = {
     "start": ["custom/launcher"],
     "center": ["wlr/taskbar"],
     "end": ["pulseaudio", "backlight", "battery", "clock", "tray"],
 }
+SHELF_LAYOUT = {
+    "start": ["custom/launcher", "wlr/taskbar"],
+    "center": [],
+    "end": ["tray", "network", "pulseaudio", "battery", "clock"],
+}
+DEFAULT_LAYOUT = SHELF_LAYOUT
 LAUNCHER_COMMAND = "/usr/bin/adwaita-lite-app-menu"
 BATTERY_LEVELS = tuple(range(90, -1, -10))
 
@@ -74,7 +80,7 @@ def _is_light(hex_color: str) -> bool:
     return (0.299 * r + 0.587 * g + 0.114 * b) > 186
 
 
-def build_tokens(settings: dict) -> dict:
+def build_tokens(settings: dict, *, floating: bool = False) -> dict:
     palette = load_palette(PALETTE_PATHS)
     high_contrast = bool(settings.get("high_contrast", False))
     theme = normalize_theme(settings.get("theme"), high_contrast=high_contrast)
@@ -89,29 +95,30 @@ def build_tokens(settings: dict) -> dict:
     secondary_fg = base["secondary_fg"]
     is_light = _is_light(surface)
     border = _rgba(fg, 0.10 if is_light else 0.14)
-    control = _rgba(fg, 0.10)
-    control_hover = _rgba(fg, 0.15 if is_light else 0.16)
-    control_border = _rgba(fg, 0.08 if is_light else 0.12)
-    status_bg = _rgba(fg, 0.13 if is_light else 0.14)
-    status_border = _rgba(fg, 0.14 if is_light else 0.18)
+    hover = _rgba(fg, 0.08)
+    pressed = _rgba(fg, 0.16)
+    focused = _rgba(accent_hex, 0.12)
+    separator = _rgba(fg, 0.12 if is_light else 0.16)
+    warning = palette["accents"]["yellow"]
     tooltip_bg = base["card_bg"]
     tooltip_border = base["border"]
     tooltip_fg = base["fg"]
 
-    alpha = 0.98 if high_contrast else 0.90
+    alpha = 0.90 if floating else 1.00
     if high_contrast:
         surface = "#000000"
         fg = "#ffffff"
         secondary_fg = "#ffffff"
         border = _rgba("#ffffff", 0.55)
-        control = _rgba("#ffffff", 0.16)
-        control_hover = _rgba("#ffffff", 0.26)
-        control_border = _rgba("#ffffff", 0.45)
-        status_bg = _rgba("#ffffff", 0.18)
-        status_border = _rgba("#ffffff", 0.55)
+        hover = _rgba("#ffffff", 0.20)
+        pressed = _rgba("#ffffff", 0.32)
+        focused = _rgba(accent_hex, 0.30)
+        separator = _rgba("#ffffff", 0.55)
+        warning = palette["accents"]["yellow"]
         tooltip_bg = "#1d1d20"
         tooltip_border = "#ffffff"
         tooltip_fg = "#ffffff"
+        alpha = 1.00
 
     try:
         font_size = int(settings.get("font_size", 11))
@@ -125,34 +132,44 @@ def build_tokens(settings: dict) -> dict:
     vertical = edge in ("left", "right")
 
     size = round(((48 if compact else 64) if vertical else (40 if compact else 48)) * scale)
+    body_size = font_size + 2
     return {
         "surface": _rgba(surface, alpha),
         "fg": fg,
         "secondary_fg": secondary_fg,
         "border": border,
-        "control": control,
-        "control_hover": control_hover,
-        "control_border": control_border,
-        "status_bg": status_bg,
-        "status_border": status_border,
+        "hover": hover,
+        "pressed": pressed,
+        "focused": focused,
+        "separator": separator,
+        "warning": warning,
         "tooltip_bg": tooltip_bg,
         "tooltip_border": tooltip_border,
         "tooltip_fg": tooltip_fg,
         "accent": accent_hex,
-        "font_size": font_size + 2,
+        "body_size": body_size,
+        "clock_size": body_size - (1 if compact else 0),
+        "clock_min": 52 if compact else 58,
+        "clock_pad": 8 if compact else 10,
         "scale": scale,
         "compact": compact,
+        "floating": floating,
         "edge": edge,
         "vertical": vertical,
         "size": size,
-        "content": max(size - 4, 16),
-        "icon": 16 if compact else 24,
-        "spacing": round((6 if compact else 8) * scale),
-        "margin": round(8 * scale),
-        "inset": round(4 * scale),
-        "pad_module": round(8 * scale),
-        "pad_launcher": round(12 * scale),
-        "pad_pin": round(8 * scale),
+        "tile": 40 if compact else 48,
+        "tile_radius": 10 if compact else 12,
+        "bar_radius": 16 if floating else 0,
+        "margin": round(8 * scale) if floating else 0,
+        "inset": round(16 * scale),
+        "icon_app": 24 if compact else 32,
+        "icon_launcher": 20 if compact else 24,
+        "icon_status": 16 if compact else 20,
+        "status_width": round(40 * scale),
+        "side_pad": max((size - (40 if compact else 48)) // 2, 0),
+        "gap_app": 3 if compact else 4,
+        "gap_status": 2,
+        "gap_zone": 6 if compact else 8,
         "clock_24h": bool(settings.get("clock_24h", False)),
         "reduce_motion": bool(settings.get("reduce_motion", False)),
         "high_contrast": high_contrast,
@@ -193,8 +210,10 @@ def _pinned_buttons(settings: dict) -> list[str]:
 
 def _layout_items(settings: dict) -> dict[str, list[str]]:
     layout = settings.get("layout")
-    if not isinstance(layout, dict):
-        layout = DEFAULT_LAYOUT
+    if not isinstance(layout, dict) or layout == LEGACY_DEFAULT_LAYOUT:
+        # The stored default still describes the Waybar panel. The sfwbar
+        # preview uses the shelf layout until a panel_backend setting lands.
+        layout = SHELF_LAYOUT
     sections: dict[str, list[str]] = {}
     for section in ("start", "center", "end"):
         raw = layout.get(section) or []
@@ -255,43 +274,52 @@ def _status_widget(item: str, tokens: dict) -> list[str]:
         for fmt in formats:
             lines.extend(
                 [
-                    "    label {",
-                    '      style = "clock"',
-                    f'      value = Time("{fmt}")',
-                    "      interval = 60000",
-                    "    }",
+                    "  label {",
+                    '    style = "clock"',
+                    f'    value = Time("{fmt}")',
+                    "    interval = 60000",
+                    "  }",
                 ]
             )
         return lines
+    if item == "network":
+        return [
+            "  button {",
+            '    style = If(Ident(NetInfo), "network", "hidden")',
+            '    trigger = "network"',
+            '    value = If(!Ident(NetInfo), "network-offline-symbolic", If(NetInfo("ip") = "", "network-offline-symbolic", If(NetInfo("essid") = "", "network-wired-symbolic", Lookup(NetStat("signal"), 75, "network-wireless-signal-excellent-symbolic", 50, "network-wireless-signal-good-symbolic", 25, "network-wireless-signal-ok-symbolic", "network-wireless-signal-weak-symbolic"))))',
+            '    tooltip = If(!Ident(NetInfo), "", If(NetInfo("ip") = "", "Offline", If(NetInfo("essid") = "", "Wired: " + NetInfo("interface"), "Wi-Fi: " + NetInfo("essid")) + " — " + NetInfo("ip") + "/" + NetInfo("cidr")))',
+            "  }",
+        ]
     if item == "pulseaudio":
         return [
-            "    button {",
-            '      style = "volume"',
-            '      trigger = "volume"',
-            '      value = If(Volume("sink-mute"), "audio-volume-muted-symbolic", Lookup(Volume("sink-volume"), 66, "audio-volume-high-symbolic", 33, "audio-volume-medium-symbolic", "audio-volume-low-symbolic"))',
-            '      tooltip = Str(Volume("sink-volume")) + "%"',
-            '      action[4] = VolumeCtl "sink-volume +5"',
-            '      action[5] = VolumeCtl "sink-volume -5"',
-            '      action[LeftClick] = Exec("pavucontrol")',
-            "    }",
+            "  button {",
+            '    style = "volume"',
+            '    trigger = "volume"',
+            '    value = If(Volume("sink-mute"), "audio-volume-muted-symbolic", Lookup(Volume("sink-volume"), 66, "audio-volume-high-symbolic", 33, "audio-volume-medium-symbolic", "audio-volume-low-symbolic"))',
+            '    tooltip = Str(Volume("sink-volume")) + "%"',
+            '    action[4] = VolumeCtl "sink-volume +5"',
+            '    action[5] = VolumeCtl "sink-volume -5"',
+            '    action[LeftClick] = Exec("pavucontrol")',
+            "  }",
         ]
     if item == "backlight":
         return [
-            "    button {",
-            '      style = If(BacklightMax.count, "backlight", "hidden")',
-            "      interval = 5000",
-            '      value = "display-brightness-symbolic"',
-            '      tooltip = If(BacklightMax.count, Str(BacklightActual / BacklightMax * 100) + "%", "Backlight")',
-            "    }",
+            "  button {",
+            '    style = If(BacklightMax.count, "backlight", "hidden")',
+            "    interval = 5000",
+            '    value = "display-brightness-symbolic"',
+            '    tooltip = If(BacklightMax.count, Str(BacklightActual / BacklightMax * 100) + "%", "Backlight")',
+            "  }",
         ]
     if item == "battery":
         return [
-            "    button {",
-            '      style = If(!BatteryLevel.count, "hidden", If(BatteryLevel < 12, "battery-critical", If(BatteryLevel < 25, "battery-warning", "battery")))',
-            "      interval = 60000",
-            f"      value = {_battery_value()}",
-            '      tooltip = If(BatteryLevel.count, Str(BatteryLevel) + "%", "")',
-            "    }",
+            "  button {",
+            '    style = If(!BatteryLevel.count, "hidden", If(BatteryLevel < 12, "battery-critical", If(BatteryLevel < 25, "battery-warning", "battery")))',
+            "    interval = 60000",
+            f"    value = {_battery_value()}",
+            '    tooltip = If(BatteryLevel.count, Str(BatteryLevel) + "%", "")',
+            "  }",
         ]
     raise ValueError(item)
 
@@ -302,14 +330,8 @@ def _render_items(items: list[str], settings: dict, tokens: dict) -> list[str]:
     while index < len(items):
         item = items[index]
         if item in STATUS_MODULES:
-            run: list[str] = []
-            while index < len(items) and items[index] in STATUS_MODULES:
-                run.append(items[index])
-                index += 1
-            lines.extend(['  grid {', '    style = "status"'])
-            for status_item in run:
-                lines.extend(_status_widget(status_item, tokens))
-            lines.append("  }")
+            lines.extend(_status_widget(item, tokens))
+            index += 1
             continue
 
         if item.startswith("pin:"):
@@ -325,7 +347,7 @@ def _render_items(items: list[str], settings: dict, tokens: dict) -> list[str]:
                     "  button {",
                     '    style = "launcher"',
                     '    value = "view-app-grid-symbolic"',
-                    '    tooltip = "Applications"',
+                    '    tooltip = "Show applications"',
                     f"    action[LeftClick] = {_exec(LAUNCHER_COMMAND)}",
                     "  }",
                 ]
@@ -369,6 +391,8 @@ def render_config(settings: dict, tokens: dict) -> str:
 
     lines = ["#Api2", ""]
 
+    if "network" in all_items:
+        lines.extend(['module("network")', ""])
     if "pulseaudio" in all_items:
         lines.extend(['module("pulsectl")', ""])
     if "backlight" in all_items:
@@ -420,12 +444,21 @@ def render_config(settings: dict, tokens: dict) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def _indicator(tokens: dict) -> str:
+def _indicator_shadow(tokens: dict) -> str:
     return {
-        "bottom": "border-bottom",
-        "top": "border-top",
-        "left": "border-left",
-        "right": "border-right",
+        "bottom": "inset 0 -3px 0 0",
+        "top": "inset 0 3px 0 0",
+        "left": "inset 3px 0 0 0",
+        "right": "inset -3px 0 0 0",
+    }[tokens["edge"]]
+
+
+def _separator_shadow(tokens: dict) -> str:
+    return {
+        "bottom": "inset 0 1px 0 0",
+        "top": "inset 0 -1px 0 0",
+        "left": "inset -1px 0 0 0",
+        "right": "inset 1px 0 0 0",
     }[tokens["edge"]]
 
 
@@ -433,32 +466,41 @@ def render_css(settings: dict, tokens: dict) -> str:
     motion = (
         "none"
         if tokens["reduce_motion"] or tokens["high_contrast"]
-        else "background-color 120ms ease, border-color 120ms ease, color 120ms ease"
+        else "background-color 120ms ease-out, box-shadow 120ms ease-out"
     )
     vertical = tokens["vertical"]
-    content = tokens["content"]
-    icon = tokens["icon"]
-    pad_module = tokens["pad_module"]
-    pad_launcher = tokens["pad_launcher"]
-    pad_pin = tokens["pad_pin"]
+    floating = tokens["floating"]
+    tile = tokens["tile"]
+    radius = tokens["tile_radius"]
+    icon_app = tokens["icon_app"]
+    icon_launcher = tokens["icon_launcher"]
+    icon_status = tokens["icon_status"]
+    status_width = tokens["status_width"]
     inset = tokens["inset"]
-    inset_side = max(inset // 2, 1)
+    gap_half = tokens["gap_app"] // 2
+    status_half = tokens["gap_status"] // 2
+    zone_pad = tokens["gap_zone"]
     direction = "bottom" if vertical else "right"
-    indicator = _indicator(tokens)
-    font = tokens["font_size"]
+    section_halign = "center" if vertical else None
+    indicator = _indicator_shadow(tokens)
+    urgent_bg = _rgba(tokens["warning"], 0.16)
+    status_buttons = (
+        "button#volume, button#network, button#battery, "
+        "button#battery-warning, button#battery-critical, button#backlight"
+    )
+    body = tokens["body_size"]
+    clock_size = tokens["clock_size"]
+    clock_min = tokens["clock_min"]
+    clock_pad = tokens["clock_pad"]
 
     if vertical:
-        layout_padding = f"{inset}px {inset_side}px"
-        label_padding = f"{pad_module}px 0"
-        tray_padding = f"{pad_module}px 0"
-        tray_box = f"min-width: {content}px;"
-        launcher_box = f"min-width: {content}px;\n  min-height: {content}px;\n  padding: 0;"
-        module_box = (
-            f"min-width: {content}px;\n  min-height: {content}px;\n  padding: {pad_module}px 0;"
-        )
-        pin_box = f"min-width: {content}px;\n  min-height: {content}px;\n  padding: 0;"
+        layout_padding = f"{inset}px {tokens['side_pad']}px"
+        tile_margin = f"{gap_half}px 0"
+        status_margin = f"{status_half}px 0"
+        launcher_margin = f"0 0 {max(zone_pad - gap_half, 0)}px 0"
         clock_extra = (
-            f"\n  -GtkWidget-wrap: true;\n  -GtkWidget-max-width: {content}px;"
+            f"\n  min-width: 0;\n  padding: {clock_pad}px 0;"
+            f"\n  -GtkWidget-wrap: true;\n  -GtkWidget-max-width: {tile}px;"
             "\n  -GtkWidget-align: 0.5;"
         )
         taskbar_extra = (
@@ -466,23 +508,46 @@ def render_css(settings: dict, tokens: dict) -> str:
             "\n  -GtkWidget-column-homogeneous: false;"
             "\n  -GtkWidget-valign: center;"
         )
-        taskbar_button_extra = f"\n  -GtkWidget-max-height: {content}px;"
+        taskbar_button_extra = f"\n  -GtkWidget-max-height: {tile}px;"
+        start_valign = "  -GtkWidget-valign: start;\n"
+        end_valign = "  -GtkWidget-valign: end;\n"
     else:
         layout_padding = f"0 {inset}px"
-        label_padding = f"0 {pad_module}px"
-        tray_padding = f"0 {pad_module}px"
-        tray_box = f"min-height: {content}px;"
-        launcher_box = f"min-height: {content}px;\n  padding: 0 {pad_launcher}px;"
-        module_box = f"min-height: {content}px;\n  padding: 0 {pad_module}px;"
-        pin_box = f"min-height: {content}px;\n  padding: 0 {pad_pin}px;"
+        tile_margin = f"0 {gap_half}px"
+        status_margin = f"0 {status_half}px"
+        launcher_margin = f"0 {max(zone_pad - gap_half, 0)}px 0 0"
         clock_extra = ""
         taskbar_extra = ""
         taskbar_button_extra = ""
+        start_valign = ""
+        end_valign = ""
+
+    taskbar_button_rule = (
+        f"grid#taskbar button {{\n{taskbar_button_extra}\n}}\n"
+        if taskbar_button_extra
+        else ""
+    )
+
+    if floating:
+        bar_surface = (
+            f"  background: {tokens['surface']};\n"
+            f"  color: {tokens['fg']};\n"
+            f"  border: 1px solid {tokens['border']};\n"
+            f"  border-radius: {tokens['bar_radius']}px;"
+        )
+    else:
+        bar_surface = (
+            f"  background: {tokens['surface']};\n"
+            f"  color: {tokens['fg']};\n"
+            "  border: none;\n"
+            "  border-radius: 0;\n"
+            f"  box-shadow: {_separator_shadow(tokens)} {tokens['separator']};"
+        )
 
     return f"""/* generated by adwaita-lite-panel; do not edit */
 * {{
-  font-family: "Roboto", "Adwaita Sans", sans-serif;
-  font-size: {font}px;
+  font-family: "Adwaita Sans", "Inter", "Roboto", sans-serif;
+  font-size: {body}px;
   border: none;
   background-image: none;
   box-shadow: none;
@@ -490,10 +555,7 @@ def render_css(settings: dict, tokens: dict) -> str:
 }}
 window#sfwbar {{
   -GtkWidget-direction: {tokens['edge']};
-  background: {tokens['surface']};
-  color: {tokens['fg']};
-  border: 1px solid {tokens['border']};
-  border-radius: 999px;
+{bar_surface}
 }}
 #ebox, #revealer {{
   background: transparent;
@@ -502,85 +564,116 @@ grid#layout-start, grid#layout-center, grid#layout-end {{
   padding: {layout_padding};
   -GtkWidget-direction: {direction};
 }}
-grid#layout-start {{ -GtkWidget-halign: start; }}
+grid#layout-start {{
+  -GtkWidget-halign: {section_halign or "start"};
+{start_valign}}}
 grid#layout-center {{ -GtkWidget-halign: center; }}
-grid#layout-end {{ -GtkWidget-halign: end; }}
-button#launcher {{
-  {launcher_box}
-  background: {tokens['control']};
-  border: 1px solid {tokens['control_border']};
-  border-radius: 999px;
+grid#layout-end {{
+  -GtkWidget-halign: {section_halign or "end"};
+{end_valign}}}
+
+button#launcher, button#pinned, grid#taskbar button {{
+  min-width: {tile}px;
+  min-height: {tile}px;
+  -GtkWidget-max-width: {tile}px;
+  -GtkWidget-max-height: {tile}px;
+  padding: 0;
+  margin: {tile_margin};
+  border-radius: {radius}px;
+  background: transparent;
+  color: {tokens['fg']};
   transition: {motion};
 }}
-button#launcher:hover {{
-  background: {tokens['control_hover']};
+button#launcher {{
+  border-radius: 999px;
+  margin: {launcher_margin};
 }}
-button#launcher image, button#pinned image, grid#status button image,
-grid#taskbar button image {{
-  min-width: {icon}px;
-  min-height: {icon}px;
+button#launcher image {{
+  min-width: {icon_launcher}px;
+  min-height: {icon_launcher}px;
   -GtkWidget-halign: center;
   -GtkWidget-valign: center;
 }}
-button#pinned {{
-  {pin_box}
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  transition: {motion};
+button#launcher:hover, button#pinned:hover, grid#taskbar button:hover,
+{status_buttons}:hover, button#tray_item:hover {{
+  background: {tokens['hover']};
 }}
-button#pinned:hover {{
-  background: {tokens['control_hover']};
-  border-color: {tokens['control_border']};
+button#launcher:active, button#pinned:active, grid#taskbar button:active,
+{status_buttons}:active, button#tray_item:active {{
+  background: {tokens['pressed']};
+}}
+button#launcher:focus, button#pinned:focus {{
+  box-shadow: inset 0 0 0 2px {tokens['accent']};
+}}
+button#launcher {{
+  background: {tokens['hover']};
+}}
+button#launcher:hover {{
+  background: {tokens['pressed']};
 }}
 grid#taskbar {{
   -GtkWidget-direction: {direction};{taskbar_extra}
 }}
-grid#taskbar button {{
-  {module_box}{taskbar_button_extra}
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  transition: {motion};
+{taskbar_button_rule}grid#taskbar button image, button#pinned image {{
+  min-width: {icon_app}px;
+  min-height: {icon_app}px;
+  -GtkWidget-halign: center;
+  -GtkWidget-valign: center;
 }}
 grid#taskbar button grid {{
   -GtkWidget-halign: center;
   -GtkWidget-valign: center;
 }}
-grid#taskbar button:hover {{
-  background: {tokens['control_hover']};
-  border-color: {tokens['control_border']};
-}}
 grid#taskbar button.focused {{
-  {indicator}: 3px solid {tokens['accent']};
+  background: {tokens['focused']};
+  box-shadow: {indicator} {tokens['accent']};
 }}
-grid#status {{
-  background: {tokens['status_bg']};
-  border: 1px solid {tokens['status_border']};
-  border-radius: 999px;
-  -GtkWidget-direction: {direction};
+grid#taskbar button.urgent {{
+  background: {urgent_bg};
+  box-shadow: inset 0 0 0 1px {tokens['warning']};
 }}
-grid#status button, grid#status label {{
+{status_buttons} {{
+  min-width: {status_width}px;
+  min-height: {tile}px;
+  padding: 0;
+  margin: {status_margin};
+  border-radius: {radius}px;
   background: transparent;
-  border: none;
-  border-radius: 999px;
+  color: {tokens['fg']};
   transition: {motion};
 }}
-grid#status button {{
-  {module_box}
-}}
-grid#status label {{
-  padding: {label_padding};
+{status_buttons} image {{
+  min-width: {icon_status}px;
+  min-height: {icon_status}px;
+  -GtkWidget-halign: center;
+  -GtkWidget-valign: center;
 }}
 label#clock {{
-  font-weight: 700;{clock_extra}
+  min-width: {clock_min}px;
+  padding: 0 {clock_pad}px;
+  font-size: {clock_size}px;
+  font-weight: 500;
+  font-feature-settings: "tnum";{clock_extra}
 }}
 grid#tray {{
-  {tray_box}
-  background: {tokens['control']};
-  border: 1px solid {tokens['control_border']};
-  border-radius: 999px;
-  padding: {tray_padding};
+  background: transparent;
+  border: none;
+  padding: 0;
+}}
+button#tray_item {{
+  min-width: {status_width}px;
+  min-height: {tile}px;
+  padding: 0;
+  margin: {status_margin};
+  border-radius: {radius}px;
+  background: transparent;
+  transition: {motion};
+}}
+button#tray_item image {{
+  min-width: {icon_status}px;
+  min-height: {icon_status}px;
+  -GtkWidget-halign: center;
+  -GtkWidget-valign: center;
 }}
 button#hidden, label#hidden {{
   -GtkWidget-visible: false;
@@ -590,13 +683,19 @@ tooltip, tooltip label {{
   color: {tokens['tooltip_fg']};
   border: 1px solid {tokens['tooltip_border']};
   border-radius: 8px;
+  padding: 6px 8px;
 }}
 """
 
 
-def write_assets(output_dir: Path, settings: dict | None = None) -> tuple[Path, Path]:
+def write_assets(
+    output_dir: Path,
+    settings: dict | None = None,
+    *,
+    floating: bool = False,
+) -> tuple[Path, Path]:
     settings = settings if settings is not None else load_settings()
-    tokens = build_tokens(settings)
+    tokens = build_tokens(settings, floating=floating)
     output_dir.mkdir(parents=True, exist_ok=True)
     config = output_dir / "sfwbar.config"
     css = output_dir / "sfwbar.css"
@@ -664,6 +763,11 @@ def main() -> int:
 
     generate = sub.add_parser("generate", help="write config/CSS without launching")
     generate.add_argument("--output-dir", required=True, type=Path)
+    generate.add_argument(
+        "--float",
+        action="store_true",
+        help="render the opt-in floating shelf instead of the edge-to-edge bar",
+    )
 
     preview = sub.add_parser("preview", help="launch sfwbar with generated assets")
     preview.add_argument(
@@ -671,21 +775,31 @@ def main() -> int:
         action="store_true",
         help="stop the running Waybar before launching sfwbar",
     )
+    preview.add_argument(
+        "--float",
+        action="store_true",
+        help="render the opt-in floating shelf instead of the edge-to-edge bar",
+    )
 
-    sub.add_parser("apply", help="re-render preview assets and SIGHUP sfwbar")
+    apply = sub.add_parser("apply", help="re-render preview assets and SIGHUP sfwbar")
+    apply.add_argument(
+        "--float",
+        action="store_true",
+        help="render the opt-in floating shelf instead of the edge-to-edge bar",
+    )
     sub.add_parser("restore", help="stop sfwbar and start Waybar")
 
     args = parser.parse_args()
 
     if args.command == "generate":
-        config, css = write_assets(args.output_dir)
+        config, css = write_assets(args.output_dir, floating=args.float)
         print(config)
         print(css)
         return 0
 
     if args.command == "preview":
         home = _preview_config_home()
-        config, css = write_assets(home / "sfwbar")
+        config, css = write_assets(home / "sfwbar", floating=args.float)
         _stop("sfwbar")
         if args.replace_waybar:
             _stop("waybar")
@@ -698,7 +812,7 @@ def main() -> int:
 
     if args.command == "apply":
         home = _preview_config_home()
-        config, css = write_assets(home / "sfwbar")
+        config, css = write_assets(home / "sfwbar", floating=args.float)
         subprocess.run(["pkill", "-HUP", "-x", "sfwbar"], check=False)
         print(f"sfwbar assets: {config}")
         return 0

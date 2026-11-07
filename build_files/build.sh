@@ -31,6 +31,7 @@ dnf5 install -y --setopt=install_weak_deps=False \
     adw-gtk3-theme \
     adwaita-cursor-theme \
     adwaita-icon-theme \
+    adwaita-sans-fonts \
     alsa-utils \
     at-spi2-atk \
     at-spi2-core \
