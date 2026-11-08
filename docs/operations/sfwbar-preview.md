@@ -81,7 +81,7 @@ targets are rounded rectangles, and the status area has no monolithic capsule.
 
 ## Architecture
 
-`adwaita-lite-panel` (installed at `/usr/bin/adwaita-lite-panel`) reads
+`adwaita-lite-panel-preview` (installed at `/usr/bin/adwaita-lite-panel-preview`) reads
 `~/.config/adwaita-lite/settings.json` with the image defaults as fallback and
 writes:
 
@@ -113,19 +113,19 @@ against the packaged binary, not the upstream main docs.
 
 ```bash
 # Generate without launching
-adwaita-lite-panel generate --output-dir /tmp/sfwbar-preview
+adwaita-lite-panel-preview generate --output-dir /tmp/sfwbar-preview
 
 # Launch the edge-to-edge shelf (stops Waybar if requested)
-adwaita-lite-panel preview --replace-waybar
+adwaita-lite-panel-preview preview --replace-waybar
 
 # Launch the opt-in floating shelf
-adwaita-lite-panel preview --replace-waybar --float
+adwaita-lite-panel-preview preview --replace-waybar --float
 
 # Re-render the preview assets and SIGHUP the running sfwbar
-adwaita-lite-panel apply [--float]
+adwaita-lite-panel-preview apply [--float]
 
 # Return to Waybar
-adwaita-lite-panel restore
+adwaita-lite-panel-preview restore
 ```
 
 ## Lab evidence
