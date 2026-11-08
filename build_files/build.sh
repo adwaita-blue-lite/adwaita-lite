@@ -547,6 +547,7 @@ install -Dm644 /usr/share/fedora-logos/fedora_logo.svg \
 # Build the native GTK4 panel. Build-only toolchain and -devel packages
 # are removed again so they do not bloat the 2 GB image.
 dnf5 install -y --setopt=install_weak_deps=False \
+    gcc \
     meson \
     ninja-build \
     gtk4-devel \
@@ -558,6 +559,7 @@ meson setup /tmp/panel-build /ctx/panel --prefix=/usr
 meson compile -C /tmp/panel-build
 meson install -C /tmp/panel-build
 dnf5 remove -y \
+    gcc \
     meson \
     ninja-build \
     gtk4-devel \
