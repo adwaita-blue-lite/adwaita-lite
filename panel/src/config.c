@@ -55,6 +55,63 @@ static void pinned_free(PinnedApp *app) {
   g_free(app);
 }
 
+static GPtrArray *string_list_new(void) {
+  return g_ptr_array_new_with_free_func(g_free);
+}
+
+static GPtrArray *string_list(const char *const *values) {
+  GPtrArray *list = string_list_new();
+  for (int i = 0; values[i]; i++) g_ptr_array_add(list, g_strdup(values[i]));
+  return list;
+}
+
+static void read_layout_section(JsonObject *layout, const char *key,
+    GPtrArray **target) {
+  if (!json_object_has_member(layout, key)) return;
+  JsonNode *node = json_object_get_member(layout, key);
+  if (json_node_get_node_type(node) != JSON_NODE_ARRAY) return;
+  JsonArray *array = json_node_get_array(node);
+  GPtrArray *list = string_list_new();
+  for (guint i = 0; i < json_array_get_length(array); i++) {
+    JsonNode *item = json_array_get_element(array, i);
+    if (json_node_get_value_type(item) != G_TYPE_STRING) continue;
+    const char *value = json_node_get_string(item);
+    if (value && value[0]) g_ptr_array_add(list, g_strdup(value));
+  }
+  g_ptr_array_unref(*target);
+  *target = list;
+}
+
+static void read_layout(JsonObject *object, PanelConfig *config) {
+  if (!json_object_has_member(object, "layout")) return;
+  JsonNode *node = json_object_get_member(object, "layout");
+  if (json_node_get_node_type(node) != JSON_NODE_OBJECT) return;
+  JsonObject *layout = json_node_get_object(node);
+  read_layout_section(layout, "start", &config->layout_start);
+  read_layout_section(layout, "center", &config->layout_center);
+  read_layout_section(layout, "end", &config->layout_end);
+}
+
+static gboolean layout_is_empty(const PanelConfig *config) {
+  return config->layout_start->len == 0 &&
+         config->layout_center->len == 0 &&
+         config->layout_end->len == 0;
+}
+
+static void restore_default_layout(PanelConfig *config) {
+  static const char *const start[] = {"custom/launcher", NULL};
+  static const char *const center[] = {"wlr/taskbar", NULL};
+  static const char *const end[] = {
+    "pulseaudio", "backlight", "battery", "clock", "tray", NULL
+  };
+  if (config->layout_start) g_ptr_array_unref(config->layout_start);
+  if (config->layout_center) g_ptr_array_unref(config->layout_center);
+  if (config->layout_end) g_ptr_array_unref(config->layout_end);
+  config->layout_start = string_list(start);
+  config->layout_center = string_list(center);
+  config->layout_end = string_list(end);
+}
+
 static GPtrArray *read_pinned(JsonObject *object) {
   GPtrArray *pins = g_ptr_array_new_with_free_func((GDestroyNotify)pinned_free);
   if (!json_object_has_member(object, "pinned")) return pins;
@@ -102,6 +159,7 @@ PanelConfig *panel_config_load_defaults(void) {
   config->panel_twilight = FALSE;
   config->panel_network = FALSE;
   config->pinned = g_ptr_array_new_with_free_func((GDestroyNotify)pinned_free);
+  restore_default_layout(config);
   return config;
 }
 
@@ -124,6 +182,7 @@ PanelConfig *panel_config_load(void) {
     config->clock_24h = read_bool(object, "clock_24h", FALSE);
     config->panel_twilight = read_bool(object, "panel_twilight", FALSE);
     config->panel_network = read_bool(object, "panel_network", FALSE);
+    read_layout(object, config);
     if (config->pinned) g_ptr_array_unref(config->pinned);
     config->pinned = read_pinned(object);
   }
@@ -148,12 +207,14 @@ PanelConfig *panel_config_load(void) {
     config->clock_24h = read_bool(object, "clock_24h", FALSE);
     config->panel_twilight = read_bool(object, "panel_twilight", FALSE);
     config->panel_network = read_bool(object, "panel_network", FALSE);
+    read_layout(object, config);
     if (config->pinned) g_ptr_array_unref(config->pinned);
     config->pinned = read_pinned(object);
   }
   g_object_unref(parser);
   g_free(user_path);
 
+  if (layout_is_empty(config)) restore_default_layout(config);
   if (!string_in_list(config->edge, valid_edges)) {
     g_free(config->edge);
     config->edge = g_strdup("bottom");
@@ -177,6 +238,9 @@ void panel_config_free(PanelConfig *config) {
   g_free(config->theme);
   g_free(config->accent);
   if (config->pinned) g_ptr_array_unref(config->pinned);
+  if (config->layout_start) g_ptr_array_unref(config->layout_start);
+  if (config->layout_center) g_ptr_array_unref(config->layout_center);
+  if (config->layout_end) g_ptr_array_unref(config->layout_end);
   g_free(config);
 }
 
@@ -197,4 +261,16 @@ gboolean panel_config_dark(const PanelConfig *config) {
   gboolean dark = g_strcmp0(config->theme, "dark") == 0;
   if (config->panel_twilight && !config->high_contrast) dark = !dark;
   return dark;
+}
+
+const GPtrArray *panel_config_layout_start(const PanelConfig *config) {
+  return config->layout_start;
+}
+
+const GPtrArray *panel_config_layout_center(const PanelConfig *config) {
+  return config->layout_center;
+}
+
+const GPtrArray *panel_config_layout_end(const PanelConfig *config) {
+  return config->layout_end;
 }

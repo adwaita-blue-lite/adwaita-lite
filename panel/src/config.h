@@ -24,6 +24,11 @@ typedef struct {
   gboolean panel_twilight;
   gboolean panel_network;
   GPtrArray *pinned;
+  /* Module ids per shelf section, in settings order. Defaults mirror the
+   * shipped settings.json: launcher/start, taskbar/center, status/end. */
+  GPtrArray *layout_start;
+  GPtrArray *layout_center;
+  GPtrArray *layout_end;
 } PanelConfig;
 
 PanelConfig *panel_config_load(void);
@@ -33,3 +38,6 @@ const char *panel_config_edge(const PanelConfig *config);
 gboolean panel_config_vertical(const PanelConfig *config);
 gboolean panel_config_compact(const PanelConfig *config);
 gboolean panel_config_dark(const PanelConfig *config);
+const GPtrArray *panel_config_layout_start(const PanelConfig *config);
+const GPtrArray *panel_config_layout_center(const PanelConfig *config);
+const GPtrArray *panel_config_layout_end(const PanelConfig *config);

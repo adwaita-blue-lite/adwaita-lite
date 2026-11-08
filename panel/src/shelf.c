@@ -3,12 +3,12 @@
 #include "audio.h"
 #include "status.h"
 
+#include <gdk/wayland/gdkwayland.h>
 #include <gtk4-layer-shell.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define APP_MENU_COMMAND "/usr/bin/adwaita-lite-app-menu"
-
-typedef struct _PanelWindow PanelWindow;
 
 struct _PanelWindow {
   GtkWidget *window;
@@ -23,6 +23,11 @@ struct _PanelWindow {
   GtkWidget *battery_box;
   GtkWidget *battery_image;
   guint clock_source;
+  /* Timeout that switches the surface to ON_DEMAND after first present.
+   * Owned by this struct and always cancelled in panel_window_free(). */
+  guint keyboard_source;
+  gboolean keyboard_mode_set;
+  struct wl_output *output;
   PanelShelf *shelf;
 };
 
@@ -36,6 +41,10 @@ struct _PanelShelf {
   GtkWidget *popover;
   gboolean rebuilding;
 };
+
+#ifdef PANEL_TEST
+static gint panel_test_keyboard_fires;
+#endif
 
 static gboolean clock_tick(gpointer data);
 
@@ -154,6 +163,7 @@ static GtkWidget *icon_button(const char *icon, const char *name,
 }
 
 static void format_clock(PanelShelf *shelf, PanelWindow *window) {
+  if (!window->clock_label) return;
   GDateTime *now = g_date_time_new_now_local();
   const char *pattern = shelf->config->clock_24h ? "%H:%M" : "%I:%M %p";
   char *text = g_date_time_format(now, pattern);
@@ -201,13 +211,18 @@ static void on_group_secondary(GtkGestureClick *gesture, int n_press, double x, 
   toplevel_group_show_windows(data, anchor);
 }
 
-static GtkWidget *group_button(PanelShelf *shelf, AppGroup *group) {
-  GtkWidget *button = gtk_button_new();
-  GtkWidget *image = gtk_image_new_from_icon_name(
-      group->icon && group->icon[0] ? group->icon : "application-x-executable");
-  gtk_image_set_pixel_size(GTK_IMAGE(image), shelf_icon(shelf, "app"));
-  gtk_button_set_child(GTK_BUTTON(button), image);
-  gtk_widget_add_css_class(button, "tile");
+static void group_button_update(PanelShelf *shelf, GtkWidget *button,
+    AppGroup *group) {
+  GtkWidget *image = gtk_button_get_child(GTK_BUTTON(button));
+  if (GTK_IS_IMAGE(image)) {
+    gtk_image_set_from_icon_name(GTK_IMAGE(image),
+        group->icon && group->icon[0] ? group->icon : "application-x-executable");
+    gtk_image_set_pixel_size(GTK_IMAGE(image), shelf_icon(shelf, "app"));
+  }
+
+  gtk_widget_remove_css_class(button, "focused");
+  gtk_widget_remove_css_class(button, "running");
+  gtk_widget_remove_css_class(button, "pinned-idle");
   if (group->focused) gtk_widget_add_css_class(button, "focused");
   if (group->windows->len > 0 && !group->focused)
     gtk_widget_add_css_class(button, "running");
@@ -226,6 +241,16 @@ static GtkWidget *group_button(PanelShelf *shelf, AppGroup *group) {
   gtk_accessible_update_property(GTK_ACCESSIBLE(button),
       GTK_ACCESSIBLE_PROPERTY_LABEL, tooltip, -1);
   g_free(tooltip);
+}
+
+static GtkWidget *group_button(PanelShelf *shelf, AppGroup *group) {
+  GtkWidget *button = gtk_button_new();
+  GtkWidget *image = gtk_image_new_from_icon_name(
+      group->icon && group->icon[0] ? group->icon : "application-x-executable");
+  gtk_image_set_pixel_size(GTK_IMAGE(image), shelf_icon(shelf, "app"));
+  gtk_button_set_child(GTK_BUTTON(button), image);
+  gtk_widget_add_css_class(button, "tile");
+  group_button_update(shelf, button, group);
 
   g_object_set_data(G_OBJECT(button), "group", group);
   g_signal_connect(button, "clicked", G_CALLBACK(on_group_clicked), group);
@@ -244,23 +269,57 @@ static GtkWidget *group_button(PanelShelf *shelf, AppGroup *group) {
   return button;
 }
 
-static void rebuild_taskbars(PanelShelf *shelf) {
-  if (!shelf->toplevels) return;
-  GPtrArray *groups = toplevel_service_groups(shelf->toplevels);
-  for (guint i = 0; i < shelf->windows->len; i++) {
-    PanelWindow *window = g_ptr_array_index(shelf->windows, i);
-    GtkWidget *child;
-    while ((child = gtk_widget_get_first_child(window->taskbar)))
-      gtk_box_remove(GTK_BOX(window->taskbar), child);
-    for (guint j = 0; j < groups->len; j++)
-      gtk_box_append(GTK_BOX(window->taskbar),
-          group_button(shelf, g_ptr_array_index(groups, j)));
+static GtkWidget *find_taskbar_tile(GtkWidget *taskbar, AppGroup *group) {
+  for (GtkWidget *child = gtk_widget_get_first_child(taskbar); child;
+       child = gtk_widget_get_next_sibling(child)) {
+    if (g_object_get_data(G_OBJECT(child), "group") == group) return child;
   }
+  return NULL;
+}
+
+/* Reconcile one taskbar with the current group model: create missing tiles,
+ * update existing ones in place, drop stale ones, then restore order. */
+static void sync_taskbar(PanelShelf *shelf, PanelWindow *window) {
+  if (!shelf->toplevels || !window->taskbar) return;
+  GPtrArray *groups = toplevel_service_groups(shelf->toplevels);
+  if (!groups) return;
+
+  GtkWidget *child = gtk_widget_get_first_child(window->taskbar);
+  while (child) {
+    GtkWidget *next = gtk_widget_get_next_sibling(child);
+    AppGroup *group = g_object_get_data(G_OBJECT(child), "group");
+    if (!group || !g_ptr_array_find(groups, group, NULL) ||
+        !toplevel_group_on_output(group, window->output))
+      gtk_box_remove(GTK_BOX(window->taskbar), child);
+    child = next;
+  }
+
+  GtkWidget *previous = NULL;
+  for (guint i = 0; i < groups->len; i++) {
+    AppGroup *group = g_ptr_array_index(groups, i);
+    if (!toplevel_group_on_output(group, window->output)) continue;
+    GtkWidget *tile = find_taskbar_tile(window->taskbar, group);
+    if (!tile) {
+      tile = group_button(shelf, group);
+      gtk_box_append(GTK_BOX(window->taskbar), tile);
+    } else {
+      group_button_update(shelf, tile, group);
+    }
+    gtk_box_reorder_child_after(GTK_BOX(window->taskbar), tile, previous);
+    previous = tile;
+  }
+}
+
+static void sync_taskbars(PanelShelf *shelf) {
+  if (!shelf->toplevels) return;
+  for (guint i = 0; i < shelf->windows->len; i++)
+    sync_taskbar(shelf, g_ptr_array_index(shelf->windows, i));
 }
 
 static void on_toplevels_changed(gpointer data) {
   PanelShelf *shelf = data;
-  if (!shelf->rebuilding) rebuild_taskbars(shelf);
+  if (!shelf->toplevels || shelf->rebuilding) return;
+  sync_taskbars(shelf);
 }
 
 static void on_window_row_clicked(GtkButton *button, gpointer data) {
@@ -465,9 +524,154 @@ static void panel_shelf_refresh_status(PanelShelf *shelf) {
 }
 
 static gboolean enable_on_demand(gpointer data) {
-  gtk_layer_set_keyboard_mode(GTK_WINDOW(data),
-      GTK_LAYER_SHELL_KEYBOARD_MODE_ON_DEMAND);
+  PanelWindow *window = data;
+  window->keyboard_source = 0;
+  window->keyboard_mode_set = TRUE;
+#ifdef PANEL_TEST
+  g_atomic_int_inc(&panel_test_keyboard_fires);
+#endif
+  if (window->window && GTK_IS_WINDOW(window->window))
+    gtk_layer_set_keyboard_mode(GTK_WINDOW(window->window),
+        GTK_LAYER_SHELL_KEYBOARD_MODE_ON_DEMAND);
   return G_SOURCE_REMOVE;
+}
+
+static void panel_window_arm_keyboard_mode(PanelWindow *window, guint delay_ms) {
+  if (window->keyboard_source) g_source_remove(window->keyboard_source);
+  window->keyboard_source = g_timeout_add(delay_ms, enable_on_demand, window);
+}
+
+typedef struct {
+  gboolean any;
+  gboolean launcher;
+  gboolean taskbar;
+  gboolean network;
+  gboolean volume;
+  gboolean backlight;
+  gboolean battery;
+  gboolean clock;
+} ModuleSet;
+
+static GtkWidget *module_launcher(PanelShelf *shelf) {
+  GtkWidget *launcher = icon_button("view-app-grid-symbolic", "Applications",
+      "launcher", shelf_icon(shelf, "launcher"));
+  g_signal_connect(launcher, "clicked", G_CALLBACK(launch_app_menu), NULL);
+  if (panel_config_vertical(shelf->config)) gtk_widget_set_margin_bottom(launcher, 6);
+  else gtk_widget_set_margin_end(launcher, 6);
+  return launcher;
+}
+
+static GtkWidget *module_taskbar(PanelShelf *shelf, PanelWindow *window) {
+  GtkWidget *taskbar = gtk_box_new(
+      panel_config_vertical(shelf->config) ? GTK_ORIENTATION_VERTICAL :
+      GTK_ORIENTATION_HORIZONTAL, 4);
+  window->taskbar = taskbar;
+  return taskbar;
+}
+
+static GtkWidget *module_network(PanelShelf *shelf, PanelWindow *window) {
+  window->network_box = status_icon_box("network-wired-symbolic", "Network",
+      shelf_icon(shelf, "status"));
+  window->network_image = gtk_widget_get_first_child(window->network_box);
+  return window->network_box;
+}
+
+static GtkWidget *module_volume(PanelShelf *shelf, PanelWindow *window) {
+  GtkWidget *volume = gtk_button_new();
+  gtk_widget_add_css_class(volume, "status");
+  GtkWidget *volume_image = gtk_image_new_from_icon_name("audio-volume-medium-symbolic");
+  gtk_image_set_pixel_size(GTK_IMAGE(volume_image), shelf_icon(shelf, "status"));
+  gtk_button_set_child(GTK_BUTTON(volume), volume_image);
+  gtk_widget_set_tooltip_text(volume, "Volume");
+  gtk_accessible_update_property(GTK_ACCESSIBLE(volume),
+      GTK_ACCESSIBLE_PROPERTY_LABEL, "Volume", -1);
+  g_signal_connect(volume, "clicked", G_CALLBACK(show_volume_popup), shelf);
+  GtkEventController *scroll = gtk_event_controller_scroll_new(
+      GTK_EVENT_CONTROLLER_SCROLL_VERTICAL | GTK_EVENT_CONTROLLER_SCROLL_DISCRETE);
+  g_signal_connect(scroll, "scroll", G_CALLBACK(volume_scroll), shelf);
+  gtk_widget_add_controller(volume, scroll);
+  GtkEventController *vkey = gtk_event_controller_key_new();
+  g_signal_connect(vkey, "key-pressed", G_CALLBACK(volume_key), shelf);
+  gtk_widget_add_controller(volume, vkey);
+  window->volume_button = volume;
+  window->volume_image = volume_image;
+  return volume;
+}
+
+static GtkWidget *module_backlight(PanelShelf *shelf, PanelWindow *window) {
+  window->backlight_box = status_icon_box("display-brightness-symbolic", "Brightness",
+      shelf_icon(shelf, "status"));
+  window->backlight_image = gtk_widget_get_first_child(window->backlight_box);
+  return window->backlight_box;
+}
+
+static GtkWidget *module_battery(PanelShelf *shelf, PanelWindow *window) {
+  window->battery_box = status_icon_box("battery-level-80-symbolic", "Battery",
+      shelf_icon(shelf, "status"));
+  window->battery_image = gtk_widget_get_first_child(window->battery_box);
+  return window->battery_box;
+}
+
+static GtkWidget *module_clock(PanelShelf *shelf, PanelWindow *window) {
+  GtkWidget *clock_button = gtk_button_new();
+  gtk_widget_add_css_class(clock_button, "clock-button");
+  gtk_widget_set_tooltip_text(clock_button, "Clock");
+  GtkWidget *clock = gtk_label_new("");
+  gtk_widget_add_css_class(clock, "clock");
+  gtk_button_set_child(GTK_BUTTON(clock_button), clock);
+  g_signal_connect(clock_button, "clicked", G_CALLBACK(show_clock_popup), shelf);
+  gtk_accessible_update_property(GTK_ACCESSIBLE(clock_button),
+      GTK_ACCESSIBLE_PROPERTY_DESCRIPTION, "Shows the current time", -1);
+  window->clock_label = clock;
+  return clock_button;
+}
+
+static gboolean module_id_is(const char *id, const char *name, const char *alias) {
+  return g_strcmp0(id, name) == 0 || (alias && g_strcmp0(id, alias) == 0);
+}
+
+/* Build one shelf section from the configured module ids, in settings
+ * order. Unknown ids and the not-yet-implemented tray are ignored. */
+static void build_section(PanelShelf *shelf, PanelWindow *window,
+    GtkWidget *section, const GPtrArray *modules, ModuleSet *set) {
+  gboolean vertical = panel_config_vertical(shelf->config);
+  for (guint i = 0; i < modules->len; i++) {
+    const char *id = g_ptr_array_index(modules, i);
+    GtkWidget *widget = NULL;
+    if (module_id_is(id, "custom/launcher", "launcher")) {
+      if (set->launcher) continue;
+      set->launcher = TRUE;
+      widget = module_launcher(shelf);
+    } else if (module_id_is(id, "wlr/taskbar", "taskbar")) {
+      if (set->taskbar) continue;
+      set->taskbar = TRUE;
+      widget = module_taskbar(shelf, window);
+    } else if (module_id_is(id, "pulseaudio", "volume")) {
+      if (set->volume) continue;
+      set->volume = TRUE;
+      widget = module_volume(shelf, window);
+    } else if (module_id_is(id, "backlight", "brightness")) {
+      if (set->backlight) continue;
+      set->backlight = TRUE;
+      widget = module_backlight(shelf, window);
+    } else if (module_id_is(id, "battery", NULL)) {
+      if (set->battery) continue;
+      set->battery = TRUE;
+      widget = module_battery(shelf, window);
+    } else if (module_id_is(id, "clock", NULL)) {
+      if (set->clock) continue;
+      set->clock = TRUE;
+      widget = module_clock(shelf, window);
+    } else if (module_id_is(id, "network", NULL)) {
+      if (set->network) continue;
+      set->network = TRUE;
+      widget = module_network(shelf, window);
+    }
+    if (!widget) continue;
+    set->any = TRUE;
+    if (vertical) gtk_widget_set_halign(widget, GTK_ALIGN_CENTER);
+    gtk_box_append(GTK_BOX(section), widget);
+  }
 }
 
 static PanelWindow *panel_window_new(PanelShelf *shelf, GdkMonitor *monitor) {
@@ -482,7 +686,11 @@ static PanelWindow *panel_window_new(PanelShelf *shelf, GdkMonitor *monitor) {
   gtk_widget_set_name(win, "panel");
   gtk_window_set_decorated(GTK_WINDOW(win), FALSE);
   gtk_layer_init_for_window(GTK_WINDOW(win));
-  if (monitor) gtk_layer_set_monitor(GTK_WINDOW(win), monitor);
+  if (monitor) {
+    gtk_layer_set_monitor(GTK_WINDOW(win), monitor);
+    if (GDK_IS_WAYLAND_MONITOR(monitor))
+      window->output = gdk_wayland_monitor_get_wl_output(monitor);
+  }
   gtk_layer_set_layer(GTK_WINDOW(win), GTK_LAYER_SHELL_LAYER_TOP);
   gtk_layer_set_namespace(GTK_WINDOW(win), "adwaita-lite-panel");
 
@@ -503,99 +711,69 @@ static PanelWindow *panel_window_new(PanelShelf *shelf, GdkMonitor *monitor) {
 
   GtkWidget *start = gtk_box_new(
       vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL, 4);
-  GtkWidget *launcher = icon_button("view-app-grid-symbolic", "Applications",
-      "launcher", shelf_icon(shelf, "launcher"));
-  g_signal_connect(launcher, "clicked", G_CALLBACK(launch_app_menu), NULL);
-  if (vertical) gtk_widget_set_margin_bottom(launcher, 6);
-  else gtk_widget_set_margin_end(launcher, 6);
-  gtk_box_append(GTK_BOX(start), launcher);
-
-  GtkWidget *taskbar = gtk_box_new(
+  GtkWidget *center = gtk_box_new(
       vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL, 4);
-  gtk_box_append(GTK_BOX(start), taskbar);
-  window->taskbar = taskbar;
-
-  GtkWidget *spacer = gtk_box_new(
-      vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL, 0);
-  if (vertical) gtk_widget_set_vexpand(spacer, TRUE);
-  else gtk_widget_set_hexpand(spacer, TRUE);
-
   GtkWidget *end = gtk_box_new(
       vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL, 4);
 
-  window->network_box = status_icon_box("network-wired-symbolic", "Network",
-      shelf_icon(shelf, "status"));
-  window->network_image = gtk_widget_get_first_child(window->network_box);
-  gtk_box_append(GTK_BOX(end), window->network_box);
+  ModuleSet set = {0};
+  build_section(shelf, window, start, panel_config_layout_start(shelf->config), &set);
+  build_section(shelf, window, center, panel_config_layout_center(shelf->config), &set);
+  build_section(shelf, window, end, panel_config_layout_end(shelf->config), &set);
 
-  GtkWidget *volume = gtk_button_new();
-  gtk_widget_add_css_class(volume, "status");
-  GtkWidget *volume_image = gtk_image_new_from_icon_name("audio-volume-medium-symbolic");
-  gtk_image_set_pixel_size(GTK_IMAGE(volume_image), shelf_icon(shelf, "status"));
-  gtk_button_set_child(GTK_BUTTON(volume), volume_image);
-  gtk_widget_set_tooltip_text(volume, "Volume");
-  gtk_accessible_update_property(GTK_ACCESSIBLE(volume),
-      GTK_ACCESSIBLE_PROPERTY_LABEL, "Volume", -1);
-  g_signal_connect(volume, "clicked", G_CALLBACK(show_volume_popup), shelf);
-  GtkEventController *scroll = gtk_event_controller_scroll_new(
-      GTK_EVENT_CONTROLLER_SCROLL_VERTICAL | GTK_EVENT_CONTROLLER_SCROLL_DISCRETE);
-  g_signal_connect(scroll, "scroll", G_CALLBACK(volume_scroll), shelf);
-  gtk_widget_add_controller(volume, scroll);
-  GtkEventController *vkey = gtk_event_controller_key_new();
-  g_signal_connect(vkey, "key-pressed", G_CALLBACK(volume_key), shelf);
-  gtk_widget_add_controller(volume, vkey);
-  window->volume_button = volume;
-  window->volume_image = volume_image;
-  gtk_box_append(GTK_BOX(end), volume);
+  /* Defensive fallback for an all-unknown layout: keep the shelf usable. */
+  if (!set.any) {
+    static const char *const fallback_start[] = {"custom/launcher", NULL};
+    static const char *const fallback_end[] = {
+      "pulseaudio", "backlight", "battery", "clock", NULL
+    };
+    GPtrArray *start_list = g_ptr_array_new();
+    GPtrArray *end_list = g_ptr_array_new();
+    for (int i = 0; fallback_start[i]; i++)
+      g_ptr_array_add(start_list, (gpointer)fallback_start[i]);
+    for (int i = 0; fallback_end[i]; i++)
+      g_ptr_array_add(end_list, (gpointer)fallback_end[i]);
+    build_section(shelf, window, start, start_list, &set);
+    build_section(shelf, window, end, end_list, &set);
+    g_ptr_array_unref(start_list);
+    g_ptr_array_unref(end_list);
+  }
 
-  window->backlight_box = status_icon_box("display-brightness-symbolic", "Brightness",
-      shelf_icon(shelf, "status"));
-  window->backlight_image = gtk_widget_get_first_child(window->backlight_box);
-  gtk_box_append(GTK_BOX(end), window->backlight_box);
-
-  window->battery_box = status_icon_box("battery-level-80-symbolic", "Battery",
-      shelf_icon(shelf, "status"));
-  window->battery_image = gtk_widget_get_first_child(window->battery_box);
-  gtk_box_append(GTK_BOX(end), window->battery_box);
-
-  GtkWidget *clock_button = gtk_button_new();
-  gtk_widget_add_css_class(clock_button, "clock-button");
-  gtk_widget_set_tooltip_text(clock_button, "Clock");
-  GtkWidget *clock = gtk_label_new("");
-  gtk_widget_add_css_class(clock, "clock");
-  gtk_button_set_child(GTK_BUTTON(clock_button), clock);
-  g_signal_connect(clock_button, "clicked", G_CALLBACK(show_clock_popup), shelf);
-  gtk_accessible_update_property(GTK_ACCESSIBLE(clock_button),
-      GTK_ACCESSIBLE_PROPERTY_DESCRIPTION, "Shows the current time", -1);
-  gtk_box_append(GTK_BOX(end), clock_button);
-  window->clock_label = clock;
-
+  GtkWidget *spacer_a = gtk_box_new(
+      vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL, 0);
+  GtkWidget *spacer_b = gtk_box_new(
+      vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL, 0);
   if (vertical) {
-    for (GtkWidget *child = gtk_widget_get_first_child(GTK_WIDGET(start)); child;
-         child = gtk_widget_get_next_sibling(child))
-      gtk_widget_set_halign(child, GTK_ALIGN_CENTER);
-    for (GtkWidget *child = gtk_widget_get_first_child(GTK_WIDGET(end)); child;
-         child = gtk_widget_get_next_sibling(child))
-      gtk_widget_set_halign(child, GTK_ALIGN_CENTER);
+    gtk_widget_set_vexpand(spacer_a, TRUE);
+    gtk_widget_set_vexpand(spacer_b, TRUE);
+  } else {
+    gtk_widget_set_hexpand(spacer_a, TRUE);
+    gtk_widget_set_hexpand(spacer_b, TRUE);
   }
 
   gtk_box_append(GTK_BOX(shelf_box), start);
-  gtk_box_append(GTK_BOX(shelf_box), spacer);
+  gtk_box_append(GTK_BOX(shelf_box), spacer_a);
+  gtk_box_append(GTK_BOX(shelf_box), center);
+  gtk_box_append(GTK_BOX(shelf_box), spacer_b);
   gtk_box_append(GTK_BOX(shelf_box), end);
   gtk_window_set_child(GTK_WINDOW(win), shelf_box);
   gtk_window_present(GTK_WINDOW(win));
   clear_focus(GTK_WINDOW(win));
-  g_timeout_add(500, enable_on_demand, win);
+  panel_window_arm_keyboard_mode(window, 500);
 
-  format_clock(shelf, window);
-  schedule_clock(window);
+  if (window->clock_label) {
+    format_clock(shelf, window);
+    schedule_clock(window);
+  }
   if (shelf->status) panel_shelf_refresh_status(shelf);
   return window;
 }
 
 static void panel_window_free(PanelWindow *window) {
+  if (!window) return;
   if (window->clock_source) g_source_remove(window->clock_source);
-  gtk_window_destroy(GTK_WINDOW(window->window));
+  if (window->keyboard_source) g_source_remove(window->keyboard_source);
+  if (window->window) gtk_window_destroy(GTK_WINDOW(window->window));
   g_free(window);
 }
 
@@ -632,7 +810,7 @@ void panel_shelf_reload(PanelShelf *shelf, PanelConfig *config) {
   shelf->rebuilding = FALSE;
   if (shelf->status) panel_status_set_config(shelf->status, config);
   if (shelf->toplevels) toplevel_service_reload_pins(shelf->toplevels, config);
-  else rebuild_taskbars(shelf);
+  else sync_taskbars(shelf);
   panel_shelf_refresh_status(shelf);
 }
 
@@ -648,3 +826,26 @@ void panel_shelf_free(PanelShelf *shelf) {
   toplevel_service_free(shelf->toplevels);
   g_free(shelf);
 }
+
+#ifdef PANEL_TEST
+PanelWindow *panel_window_new_for_test(void) {
+  return g_new0(PanelWindow, 1);
+}
+
+void panel_window_free_for_test(PanelWindow *window) {
+  panel_window_free(window);
+}
+
+guint panel_window_arm_keyboard_for_test(PanelWindow *window, guint delay_ms) {
+  panel_window_arm_keyboard_mode(window, delay_ms);
+  return window->keyboard_source;
+}
+
+gboolean panel_window_keyboard_mode_for_test(PanelWindow *window) {
+  return window->keyboard_mode_set;
+}
+
+guint panel_window_keyboard_fires_for_test(void) {
+  return (guint)g_atomic_int_get(&panel_test_keyboard_fires);
+}
+#endif

@@ -45,3 +45,28 @@ audio_test = executable('test-audio',
   dependencies: [pulse_glib],
 )
 test('audio-helpers', audio_test)
+
+toplevel_test = executable('test-toplevel',
+  files('tests/test_toplevel.c', 'src/toplevel.c', 'src/config.c'),
+  protocol_code, protocol_header,
+  include_directories: [include_directories('.'), include_directories('src')],
+  dependencies: [gtk4, json_glib, wayland_client],
+  c_args: ['-DPANEL_TEST'],
+)
+test('toplevel-pins', toplevel_test)
+
+lifetime_test = executable('test-window-lifetime',
+  files(
+    'tests/test_window_lifetime.c',
+    'src/audio.c',
+    'src/config.c',
+    'src/shelf.c',
+    'src/status.c',
+    'src/toplevel.c',
+  ),
+  protocol_code, protocol_header,
+  include_directories: [include_directories('.'), include_directories('src')],
+  dependencies: [gtk4, layer_shell, json_glib, wayland_client, pulse_glib],
+  c_args: ['-DPANEL_TEST'],
+)
+test('window-lifetime', lifetime_test)

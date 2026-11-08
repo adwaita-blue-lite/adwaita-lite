@@ -1,0 +1,24 @@
+[Unit]
+Description=Adwaita-Lite GTK4 panel
+PartOf=graphical-session.target
+After=graphical-session.target
+# The panel is only useful inside a Wayland session.
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+Environment=GSK_RENDERER=cairo
+ExecStart=/usr/bin/adwaita-lite-panel
+Restart=on-failure
+RestartSec=1
+# Measured ~39 MB RSS / ~31 MB Pss on the Cairo renderer. Keep a hard
+# ceiling well below the 2 GB device budget without masking leaks.
+MemoryHigh=64M
+MemoryMax=128M
+NoNewPrivileges=yes
+
+# Not enabled by default: Waybar remains the default backend until the
+# Wave 6 gate. The session dispatcher will start this unit when
+# panel_backend=gtk4 (dispatcher change tracked as a follow-up).
+[Install]
+WantedBy=graphical-session.target
