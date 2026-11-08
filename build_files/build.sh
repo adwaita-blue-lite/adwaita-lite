@@ -115,6 +115,7 @@ dnf5 install -y --setopt=install_weak_deps=False \
     pipewire-alsa \
     pipewire-pulseaudio \
     pulseaudio-libs-glib2 \
+    json-glib \
     playerctl \
     python3-gobject \
     rsync \
@@ -293,7 +294,8 @@ chmod 0755 \
     /usr/libexec/adwaita-lite-wizard-session \
     /usr/libexec/adwaita-lite-menu \
     /usr/bin/adwaita-lite-app-menu \
-    /usr/bin/adwaita-lite-panel \
+    /usr/bin/adwaita-lite-session-panel \
+    /usr/bin/adwaita-lite-panel-preview \
     /usr/libexec/adwaita-lite-session \
     /usr/libexec/adwaita-lite-volume \
     /usr/libexec/adwaita-lite-brightness
@@ -537,6 +539,30 @@ rm -f "$_ujust_tmp"
 # all standard sizes.  Add the SVG as a scalable icon for HiDPI.
 install -Dm644 /usr/share/fedora-logos/fedora_logo.svg \
     /usr/share/icons/hicolor/scalable/apps/fedora-logo-icon.svg
+
+# Build the native GTK4 panel. Build-only toolchain and -devel packages
+# are removed again so they do not bloat the 2 GB image.
+dnf5 install -y --setopt=install_weak_deps=False \
+    gcc \
+    meson \
+    ninja-build \
+    gtk4-devel \
+    gtk4-layer-shell-devel \
+    json-glib-devel \
+    pulseaudio-libs-devel \
+    wayland-devel
+meson setup /tmp/panel-build /ctx/panel --prefix=/usr
+meson compile -C /tmp/panel-build
+meson install -C /tmp/panel-build
+dnf5 remove -y \
+    gcc \
+    meson \
+    ninja-build \
+    gtk4-devel \
+    gtk4-layer-shell-devel \
+    json-glib-devel \
+    pulseaudio-libs-devel \
+    wayland-devel || true
 
 # Rebuild icon caches so waybar/GTK can find symbolic icons
 gtk-update-icon-cache -f /usr/share/icons/Adwaita 2>/dev/null || true

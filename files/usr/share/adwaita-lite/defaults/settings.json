@@ -66,5 +66,6 @@
   "clock_24h": false,
   "capslock_behavior": "default",
   "panel_twilight": false,
-  "panel_network": false
+  "panel_network": false,
+  "panel_backend": "waybar"
 }

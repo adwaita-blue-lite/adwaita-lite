@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+"""Start the panel backend selected in Adwaita-Lite settings.
+
+Waybar remains the default. `panel_backend` is one of:
+  waybar  - current default
+  gtk4    - native GTK4 panel
+  sfwbar  - sfwbar preview backend
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import shutil
+import sys
+from pathlib import Path
+
+SETTINGS_PATH = Path.home() / ".config/adwaita-lite/settings.json"
+DEFAULT_BACKEND = "waybar"
+BACKENDS = {
+    "waybar": "waybar",
+    "gtk4": "adwaita-lite-panel",
+    "sfwbar": "sfwbar",
+}
+
+
+def load_settings() -> dict:
+    try:
+        data = json.loads(SETTINGS_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def resolve_backend(settings: dict | None = None) -> tuple[str, str]:
+    """Return (backend_name, executable_path)."""
+    settings = settings if settings is not None else load_settings()
+    name = settings.get("panel_backend", DEFAULT_BACKEND)
+    if name not in BACKENDS:
+        name = DEFAULT_BACKEND
+    if name == "gtk4":
+        override = os.environ.get("ADWAITA_LITE_PANEL_BIN")
+        path = override or shutil.which(BACKENDS[name])
+    else:
+        path = shutil.which(BACKENDS[name])
+    if not path:
+        # Keep the session usable if the selected backend is missing.
+        fallback = shutil.which(BACKENDS[DEFAULT_BACKEND])
+        if fallback:
+            return DEFAULT_BACKEND, fallback
+        return name, BACKENDS[name]
+    return name, path
+
+
+def main() -> int:
+    name, path = resolve_backend()
+    try:
+        os.execv(path, [path])
+    except OSError as exc:
+        print(f"adwaita-lite-session-panel: cannot start {name} ({path}): {exc}",
+              file=sys.stderr)
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
