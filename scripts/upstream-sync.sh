@@ -214,7 +214,7 @@ write_conflict_report() {
     printf -- '- Merge base: `%s`\n' "${MERGE_BASE}"
     printf -- '- Owned files: %s\n\n' "$(printf '`%s` ' "${OWNED_FILES[@]}")"
     printf '## Conflicted paths\n\n'
-    printf -- '- `%s`%s\n' "${conflicted[@]}"
+    printf -- '- `%s`\n' "${conflicted[@]}"
     printf '\n## Next steps\n\n'
     printf '1. Classify each non-owned conflict as upstream-managed or owned.\n'
     printf '2. If upstream-managed, resolve it in a manual sync branch.\n'
