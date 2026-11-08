@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 _ROOT = Path(__file__).resolve().parents[1]
-_SCRIPT = _ROOT / "files/usr/bin/adwaita-lite-panel"
+_SCRIPT = _ROOT / "files/usr/bin/adwaita-lite-panel-preview"
 _APPLY = _ROOT / "files/usr/libexec/adwaita-lite-apply-settings"
 _DEFAULTS = _ROOT / "files/usr/share/adwaita-lite/defaults/settings.json"
 
@@ -363,7 +363,9 @@ def test_image_installs_sfwbar_fonts_and_panel_wrapper():
     assert "    sfwbar \\" in build_script
     assert "    adwaita-icon-theme \\" in build_script
     assert "    adwaita-sans-fonts \\" in build_script
-    assert "/usr/bin/adwaita-lite-panel" in build_script
+    assert "meson setup /tmp/panel-build /ctx/panel" in build_script
+    assert "/usr/bin/adwaita-lite-session-panel" in build_script
+    assert "/usr/bin/adwaita-lite-panel-preview" in build_script
 
 
 def test_legacy_default_layout_migrates_to_the_shelf():

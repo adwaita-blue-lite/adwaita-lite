@@ -5,6 +5,7 @@ ARG BASE_IMAGE="ghcr.io/ublue-os/base-main:latest"
 FROM scratch AS ctx
 COPY build_files /build_files
 COPY files /files
+COPY panel /panel
 
 FROM ${BASE_IMAGE}
 

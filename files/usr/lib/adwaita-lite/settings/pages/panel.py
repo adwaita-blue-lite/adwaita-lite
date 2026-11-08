@@ -100,6 +100,7 @@ class PanelPage(BasePage, Adw.PreferencesPage):
 
     def build(self):
         self.add(self._build_position_group())
+        self.add(self._build_backend_group())
         self.add(self._build_density_group())
         self.add(self._build_twilight_group())
         self.add(self._build_network_group())
@@ -149,6 +150,31 @@ class PanelPage(BasePage, Adw.PreferencesPage):
             idx = r.get_selected()
             if 0 <= idx < len(values):
                 self._on_edge_changed(values[idx])
+
+        row.connect("notify::selected", _on_selected)
+        group.add(row)
+        return group
+
+    def _build_backend_group(self) -> Adw.PreferencesGroup:
+        group = Adw.PreferencesGroup()
+        group.set_title(_("Panel backend"))
+        group.set_description(PANEL_RESTART_NOTICE)
+
+        row = Adw.ComboRow()
+        row.set_title(_("Panel implementation"))
+        labels = [_("Waybar"), _("GTK4 panel (experimental)"), _("sfwbar (preview)")]
+        values = ["waybar", "gtk4", "sfwbar"]
+        row.set_model(Gtk.StringList.new(labels))
+
+        current = self.store.get("panel_backend", "waybar")
+        row.set_selected(values.index(current) if current in values else 0)
+
+        def _on_selected(r: Adw.ComboRow, _pspec) -> None:
+            if self._updating or not self._built:
+                return
+            idx = r.get_selected()
+            if 0 <= idx < len(values):
+                self.store.save_and_apply("panel_backend", values[idx])
 
         row.connect("notify::selected", _on_selected)
         group.add(row)

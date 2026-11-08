@@ -5,10 +5,10 @@ The preview path never changes the Waybar default. It writes sfwbar assets to
 a runtime or user config directory and launches/reloads sfwbar explicitly.
 
 Usage:
-  adwaita-lite-panel generate --output-dir DIR [--float]
-  adwaita-lite-panel preview [--replace-waybar] [--float]
-  adwaita-lite-panel apply [--float]
-  adwaita-lite-panel restore
+  adwaita-lite-panel-preview generate --output-dir DIR [--float]
+  adwaita-lite-panel-preview preview [--replace-waybar] [--float]
+  adwaita-lite-panel-preview apply [--float]
+  adwaita-lite-panel-preview restore
 """
 
 from __future__ import annotations
