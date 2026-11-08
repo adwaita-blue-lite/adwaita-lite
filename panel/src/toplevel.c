@@ -311,7 +311,7 @@ void toplevel_window_close(PanelToplevel *window) {
   }
 }
 
-void toplevel_group_activate(AppGroup *group) {
+void toplevel_group_activate(AppGroup *group, GtkWidget *anchor) {
   if (!group) return;
   if (group->pinned && group->windows->len == 0) {
     if (group->command && group->command[0]) {
@@ -331,20 +331,20 @@ void toplevel_group_activate(AppGroup *group) {
     return;
   }
   if (group->windows->len > 1 && group->service->window_list)
-    group->service->window_list(group->service->window_list_data, group);
+    group->service->window_list(group->service->window_list_data, group, anchor);
 }
 
-void toplevel_group_show_windows(AppGroup *group) {
+void toplevel_group_show_windows(AppGroup *group, GtkWidget *anchor) {
   if (group && group->windows->len > 1 && group->service->window_list)
-    group->service->window_list(group->service->window_list_data, group);
+    group->service->window_list(group->service->window_list_data, group, anchor);
 }
 
-void toplevel_group_middle(AppGroup *group) {
+void toplevel_group_middle(AppGroup *group, GtkWidget *anchor) {
   if (!group) return;
   if (group->windows->len == 1) {
     toplevel_window_close(g_ptr_array_index(group->windows, 0));
   } else if (group->windows->len > 1 && group->service->window_list) {
-    group->service->window_list(group->service->window_list_data, group);
+    group->service->window_list(group->service->window_list_data, group, anchor);
   }
 }
 

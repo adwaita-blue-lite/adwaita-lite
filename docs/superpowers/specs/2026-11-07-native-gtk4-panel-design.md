@@ -279,13 +279,13 @@ Measurement uses the existing container lab: `ps`/`smaps_rollup`, self-timed fir
 ### Wave 0 — spike (gating, no user-facing change)
 
 1. C + Cairo layer-shell shelf on labwc, bottom edge, 48/40 geometry, PR #13 tokens.
-2. Popup strategy: `GtkPopover` vs reusable layer-shell surface; positioning, grab, keyboard, Orca. Decision memo required.
+2. Popup strategy: **resolved** — `GtkPopover` with `autohide=TRUE` for anchored menus; a full-screen `OVERLAY`/`EXCLUSIVE` layer surface only for the app grid. The panel starts `KEYBOARD_MODE_NONE` and switches to `ON_DEMAND` after first present to avoid map-time focus theft.
 3. Foreign-toplevel identity fidelity on labwc: map pinned entries + 5 running apps via `desktop_id → app_id → startup_wm_class`.
 4. Event fidelity: add/remove/property/output events; prove no polling.
 5. Populated memory/startup re-measure with 20 windows and mock tray; go/no-go against the budget.
 6. Orca traversal and keyboard focus onto the layer surface.
 
-**Exit criteria:** ≤48 MB RSS/≤40 MB Pss in the populated spike (or a written scope reduction), ≤150 ms first paint, a working popup/keyboard path, and a verified identity map. If popovers fail, adopt the reusable layer-shell popup; if Orca fails, design the normal-toplevel fallback.
+**Exit criteria:** ≤48 MB RSS/≤40 MB Pss in the populated spike (or a written scope reduction), ≤150 ms first paint, a working popup/keyboard path, and a verified identity map. Popup strategy is resolved; Orca remains the fallback risk.
 
 ### Wave 1 — first shippable `panel.backend=gtk4`
 
@@ -332,7 +332,7 @@ Default `panel.backend=gtk4` after the 2 GB VM gate, 8 h soak, and rollback rehe
 
 ## Open questions
 
-- GtkPopover vs reusable layer-shell popup (Wave 0 decision).
+- GtkPopover vs reusable layer-shell popup (resolved in Wave 0: GtkPopover with autohide; panel starts NONE then ON_DEMAND).
 - Timing of the in-panel app grid fold and whether to port the Python menu or build a leaner grid.
 - Exact session-level “Focus Shelf” accelerator with labwc.
 - Whether `panel.network` defaults on after the network module passes hardware tests.
