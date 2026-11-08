@@ -1,0 +1,84 @@
+# Upstream drift for downstream-owned files
+# stream: baseline
+# upstream: e9c642029d600611009b114aad17c0a1467c52ba
+# merge-base: 72e9b7c2fc9bf5a1ba642f99b6d12d7e70de96d9
+# date: 2026-11-08
+#
+# Downstream-owned content is retained in the branch; this patch is
+# the upstream delta that was NOT applied and needs review.
+diff --git a/.github/workflows/build.yml b/.github/workflows/build.yml
+index d5e7108..c3cac68 100644
+--- a/.github/workflows/build.yml
++++ b/.github/workflows/build.yml
+@@ -116,7 +116,7 @@ jobs:
+       # These `if` statements are so that pull requests for your custom images do not make it publish any packages under your name without you knowing
+       # They also check if the runner is on the default branch so that things like the merge queue (if you enable it), are going to work
+       - name: Login to GitHub Container Registry
+-        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
++        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+         if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+         with:
+           registry: ghcr.io
+@@ -143,11 +143,11 @@ jobs:
+       # using Cosign and save the private key as a repository secret in Github for this workflow
+       # to consume. For more details, review the image signing section of the README.
+       - name: Install Cosign
+-        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
++        uses: sigstore/cosign-installer@756fe2d284c7292c4e9b62c8a28f1e5629c59532 # v4.1.3
+         if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+         with:
+           # be careful when upgrading major versions
+-          cosign-release: 'v3.1.2'
++          cosign-release: 'v3.1.4'
+ 
+       - name: Sign container image
+         id: sign-image
+diff --git a/README.md b/README.md
+index 2203fa8..caddf91 100644
+--- a/README.md
++++ b/README.md
+@@ -100,6 +100,44 @@ sudo bootc status
+ ```
+ This will show you all the info you need to know about your current image. The image you are currently on is displayed after `Booted image:`. Paste that information after the `FROM` statement in the Containerfile to set it as your base image.
+ 
++### Adding NVIDIA drivers
++
++The standalone `base-nvidia`, `silverblue-nvidia`, and `kinoite-nvidia` images have been retired following [ublue-os/main#927](https://github.com/ublue-os/main/issues/927). To add NVIDIA drivers to your own image, use the installer included in [akmods](https://github.com/ublue-os/akmods).
++
++For Silverblue on Fedora 44, keep the `ctx` stage in your `Containerfile` and replace the default Bazzite `FROM` line with:
++
++```dockerfile
++FROM ghcr.io/ublue-os/akmods-nvidia-open:main-44 AS nvidia-akmods
++FROM ghcr.io/ublue-os/silverblue-main:44
++```
++
++Add the NVIDIA RPM mount to the existing `RUN` instruction:
++
++```dockerfile
++RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
++    --mount=type=cache,dst=/var/cache \
++    --mount=type=cache,dst=/var/log \
++    --mount=type=tmpfs,dst=/tmp \
++    --mount=type=bind,from=nvidia-akmods,source=/rpms,target=/tmp/akmods-rpms \
++    /ctx/build.sh
++```
++
++Then add this to the end of `build_files/build.sh` to install the drivers and rebuild the initramfs:
++
++```bash
++IMAGE_NAME=silverblue /tmp/akmods-rpms/ublue-os/nvidia-install.sh
++
++KERNEL_VERSION="$(rpm -q --queryformat='%{VERSION}-%{RELEASE}.%{ARCH}' kernel-core)"
++export DRACUT_NO_XATTR=1
++dracut --no-hostonly --kver "$KERNEL_VERSION" --reproducible --add ostree \
++    -f "/usr/lib/modules/$KERNEL_VERSION/initramfs.img"
++chmod 0600 "/usr/lib/modules/$KERNEL_VERSION/initramfs.img"
++```
++
++The base and akmods images must use the same Fedora release and exact kernel version. This example is for Universal Blue `*-main` images, not bases that already include NVIDIA drivers or use a custom kernel.
++
++Check [akmods hardware support](https://github.com/ublue-os/akmods#nvidia-hardware-support) before choosing a driver variant. With Secure Boot enabled, run `ujust enroll-secure-boot-key` on the installed system and complete enrollment at reboot.
++
+ ### Step 2c: Changing Names
+ 
+ Change the `IMAGE_NAME` and `REPO_ORGANIZATION` variable inside the `image-template.env`
