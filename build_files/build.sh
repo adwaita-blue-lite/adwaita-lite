@@ -587,11 +587,70 @@ python3 -m compileall -q -j 0 /usr/lib/adwaita-lite 2>/dev/null || true
 # /usr/lib/modprobe.d/adwaita-lite-i915.conf reaches the early-KMS load
 # of i915. The image itself keeps /boot empty; bootc/installers generate
 # the deployed initramfs from /usr/lib/modules.
+#
+# A bootc image MUST include the ostree and bootc dracut modules. Without
+# them the initramfs cannot assemble the deployment and boot fails at
+# initrd-switch-root. The bootc package ships the required drop-in under
+# /usr/share/doc; base images are expected to install it. Do not mask a
+# dracut failure here: an initramfs without those modules is unbootable.
 if command -v dracut >/dev/null 2>&1; then
     KVER=$(rpm -q --qf '%{version}-%{release}.%{arch}' kernel-core | head -1)
     if [ -n "$KVER" ]; then
-        dracut --force --no-hostonly --kver "$KVER" \
-            "/usr/lib/modules/${KVER}/initramfs.img" || true
+        bootc_dracut_conf=/usr/share/doc/bootc/baseimage/dracut/usr/lib/dracut.conf.d/10-bootc-base.conf
+        if [ -f "$bootc_dracut_conf" ]; then
+            install -Dm644 "$bootc_dracut_conf" \
+                /usr/lib/dracut/dracut.conf.d/10-bootc-base.conf
+        else
+            printf 'hostonly=no\nadd_dracutmodules+=" ostree bootc "\n' \
+                > /usr/lib/dracut/dracut.conf.d/10-bootc-base.conf
+        fi
+
+        # /root is a symlink to var/roothome, but /var is empty inside the
+        # container build. dracut-install follows the symlink and logs a
+        # failure while installing it. Give dracut a real directory for the
+        # run, then restore the image's symlink.
+        root_link=
+        if [ -L /root ]; then
+            root_link=$(readlink /root)
+            rm -f /root
+            install -d -m 0700 /root
+        fi
+
+        initramfs="/usr/lib/modules/${KVER}/initramfs.img"
+        # Pass the modules explicitly as well as via the drop-in. Some
+        # container dracut invocations ignore the early config drop-in.
+        if ! dracut --force --no-hostonly --add "ostree bootc" \
+            --kver "$KVER" "$initramfs"; then
+            echo "ERROR: dracut failed; refusing to publish an unbootable image" >&2
+            exit 1
+        fi
+
+        if [ -n "$root_link" ]; then
+            rmdir /root 2>/dev/null || true
+            ln -s "$root_link" /root
+        fi
+
+        # lsinitrd writes the listing to stderr on some builds and may
+        # return non-zero because of unrelated warnings. Capture it once
+        # and grep the file so pipefail cannot turn a good match into a
+        # failure.
+        initramfs_listing=$(mktemp)
+        lsinitrd "$initramfs" >"$initramfs_listing" 2>&1 || true
+        for helper in ostree-prepare-root bootc-root-setup; do
+            if ! grep -q "$helper" "$initramfs_listing"; then
+                echo "ERROR: $initramfs is missing $helper" >&2
+                echo "initramfs modules:" >&2
+                lsinitrd -m "$initramfs" >&2 || true
+                echo "initramfs ostree/bootc entries:" >&2
+                grep -iE 'ostree|bootc' "$initramfs_listing" | head -20 >&2 || true
+                echo "host helpers:" >&2
+                ls -l /usr/lib/ostree/ostree-prepare-root \
+                    /usr/lib/bootc/initramfs-setup >&2 || true
+                echo "ERROR: refusing to publish an unbootable image" >&2
+                exit 1
+            fi
+        done
+        rm -f "$initramfs_listing"
     fi
 fi
 install -d /boot
