@@ -145,9 +145,8 @@ For a blocked sync:
    paths.
 2. Classify each path. If it should be upstream-managed, resolve it manually in
    a sync branch and run the tests.
-3. If it should be owned, add it to all three places first:
-   - `OWNED_FILES` in `scripts/upstream-sync.sh`,
-   - the policy list in `.github/workflows/upstream-sync.yml`,
+3. If it should be owned, update:
+   - `OWNED_FILES` in `scripts/upstream-sync.sh` (the single list CI uses),
    - this document.
 4. Re-run the workflow. Never use `ours` outside the owned list.
 
