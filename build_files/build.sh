@@ -631,7 +631,8 @@ if command -v dracut >/dev/null 2>&1; then
         fi
 
         for helper in ostree-prepare-root bootc-root-setup; do
-            if ! lsinitrd "$initramfs" 2>/dev/null | grep -q "$helper"; then
+            # lsinitrd writes the archive listing to stderr on some builds.
+            if ! lsinitrd "$initramfs" 2>&1 | grep -q "$helper"; then
                 echo "ERROR: $initramfs is missing $helper" >&2
                 echo "initramfs modules:" >&2
                 lsinitrd -m "$initramfs" >&2 || true
