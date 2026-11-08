@@ -44,6 +44,40 @@ static int read_int(JsonObject *object, const char *key, int fallback) {
   return fallback;
 }
 
+static void pinned_free(PinnedApp *app) {
+  if (!app) return;
+  g_free(app->name);
+  g_free(app->command);
+  g_free(app->icon);
+  g_free(app->app_id);
+  g_free(app->desktop_id);
+  g_free(app->startup_wm_class);
+  g_free(app);
+}
+
+static GPtrArray *read_pinned(JsonObject *object) {
+  GPtrArray *pins = g_ptr_array_new_with_free_func((GDestroyNotify)pinned_free);
+  if (!json_object_has_member(object, "pinned")) return pins;
+  JsonNode *node = json_object_get_member(object, "pinned");
+  if (json_node_get_node_type(node) != JSON_NODE_ARRAY) return pins;
+  JsonArray *array = json_node_get_array(node);
+  for (guint i = 0; i < json_array_get_length(array); i++) {
+    JsonNode *item = json_array_get_element(array, i);
+    if (json_node_get_node_type(item) != JSON_NODE_OBJECT) continue;
+    JsonObject *pin = json_node_get_object(item);
+    PinnedApp *app = g_new0(PinnedApp, 1);
+    app->name = read_string(pin, "name", "App");
+    app->command = read_string(pin, "command", "");
+    app->icon = read_string(pin, "icon", "application-x-executable");
+    app->app_id = read_string(pin, "app_id", "");
+    app->desktop_id = read_string(pin, "desktop_id", "");
+    app->startup_wm_class = read_string(pin, "startup_wm_class", "");
+    if (app->command[0]) g_ptr_array_add(pins, app);
+    else pinned_free(app);
+  }
+  return pins;
+}
+
 static JsonObject *load_object(JsonParser *parser, const char *path) {
   GError *error = NULL;
   if (!json_parser_load_from_file(parser, path, &error)) {
@@ -66,6 +100,7 @@ PanelConfig *panel_config_load_defaults(void) {
   config->reduce_motion = FALSE;
   config->clock_24h = FALSE;
   config->panel_twilight = FALSE;
+  config->pinned = g_ptr_array_new_with_free_func((GDestroyNotify)pinned_free);
   return config;
 }
 
@@ -87,6 +122,8 @@ PanelConfig *panel_config_load(void) {
     config->reduce_motion = read_bool(object, "reduce_motion", FALSE);
     config->clock_24h = read_bool(object, "clock_24h", FALSE);
     config->panel_twilight = read_bool(object, "panel_twilight", FALSE);
+    if (config->pinned) g_ptr_array_unref(config->pinned);
+    config->pinned = read_pinned(object);
   }
   g_object_unref(parser);
 
@@ -108,6 +145,8 @@ PanelConfig *panel_config_load(void) {
     config->reduce_motion = read_bool(object, "reduce_motion", FALSE);
     config->clock_24h = read_bool(object, "clock_24h", FALSE);
     config->panel_twilight = read_bool(object, "panel_twilight", FALSE);
+    if (config->pinned) g_ptr_array_unref(config->pinned);
+    config->pinned = read_pinned(object);
   }
   g_object_unref(parser);
   g_free(user_path);
@@ -134,6 +173,7 @@ void panel_config_free(PanelConfig *config) {
   g_free(config->density);
   g_free(config->theme);
   g_free(config->accent);
+  if (config->pinned) g_ptr_array_unref(config->pinned);
   g_free(config);
 }
 

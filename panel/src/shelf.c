@@ -11,6 +11,7 @@ typedef struct _PanelWindow PanelWindow;
 struct _PanelWindow {
   GtkWidget *window;
   GtkWidget *clock_label;
+  GtkWidget *taskbar;
   guint clock_source;
   PanelShelf *shelf;
 };
@@ -19,8 +20,10 @@ struct _PanelShelf {
   GtkApplication *app;
   PanelConfig *config;
   GPtrArray *windows;
+  ToplevelService *toplevels;
   GtkWidget *popup;
   GtkWidget *popup_parent;
+  gboolean rebuilding;
 };
 
 static gboolean clock_tick(gpointer data);
@@ -213,6 +216,137 @@ static gboolean clock_tick(gpointer data) {
   return G_SOURCE_REMOVE;
 }
 
+static void on_group_clicked(GtkButton *button, gpointer data) {
+  (void)button;
+  toplevel_group_activate(data);
+}
+
+static void on_group_middle(GtkGestureClick *gesture, int n_press, double x, double y, gpointer data) {
+  (void)gesture; (void)n_press; (void)x; (void)y;
+  toplevel_group_middle(data);
+}
+
+static void on_group_secondary(GtkGestureClick *gesture, int n_press, double x, double y, gpointer data) {
+  (void)gesture; (void)n_press; (void)x; (void)y;
+  AppGroup *group = data;
+  toplevel_group_show_windows(group);
+}
+
+static GtkWidget *group_button(PanelShelf *shelf, AppGroup *group) {
+  GtkWidget *button = gtk_button_new();
+  GtkWidget *image = gtk_image_new_from_icon_name(
+      group->icon && group->icon[0] ? group->icon : "application-x-executable");
+  gtk_image_set_pixel_size(GTK_IMAGE(image), shelf_icon(shelf, "app"));
+  gtk_button_set_child(GTK_BUTTON(button), image);
+  gtk_widget_add_css_class(button, "tile");
+  if (group->focused) gtk_widget_add_css_class(button, "focused");
+  if (group->windows->len > 0 && !group->focused)
+    gtk_widget_add_css_class(button, "running");
+  if (group->windows->len == 0 && group->pinned)
+    gtk_widget_add_css_class(button, "pinned-idle");
+
+  char *tooltip;
+  if (group->windows->len > 1)
+    tooltip = g_strdup_printf("%s — %u windows", group->name, group->windows->len);
+  else if (group->windows->len == 1)
+    tooltip = g_strdup_printf("%s — %s", group->name,
+        ((PanelToplevel *)g_ptr_array_index(group->windows, 0))->title);
+  else
+    tooltip = g_strdup_printf("%s — not running", group->name);
+  gtk_widget_set_tooltip_text(button, tooltip);
+  gtk_accessible_update_property(GTK_ACCESSIBLE(button),
+      GTK_ACCESSIBLE_PROPERTY_LABEL, tooltip, -1);
+  g_free(tooltip);
+
+  g_object_set_data(G_OBJECT(button), "group", group);
+  g_signal_connect(button, "clicked", G_CALLBACK(on_group_clicked), group);
+
+  GtkGesture *middle = gtk_gesture_click_new();
+  gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(middle), GDK_BUTTON_MIDDLE);
+  g_signal_connect(middle, "pressed", G_CALLBACK(on_group_middle), group);
+  gtk_widget_add_controller(button, GTK_EVENT_CONTROLLER(middle));
+
+  GtkGesture *secondary = gtk_gesture_click_new();
+  gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(secondary), GDK_BUTTON_SECONDARY);
+  g_signal_connect(secondary, "pressed", G_CALLBACK(on_group_secondary), group);
+  gtk_widget_add_controller(button, GTK_EVENT_CONTROLLER(secondary));
+
+  if (panel_config_vertical(shelf->config)) gtk_widget_set_halign(button, GTK_ALIGN_CENTER);
+  return button;
+}
+
+static void rebuild_taskbars(PanelShelf *shelf) {
+  if (!shelf->toplevels) return;
+  GPtrArray *groups = toplevel_service_groups(shelf->toplevels);
+  for (guint i = 0; i < shelf->windows->len; i++) {
+    PanelWindow *window = g_ptr_array_index(shelf->windows, i);
+    GtkWidget *child;
+    while ((child = gtk_widget_get_first_child(window->taskbar)))
+      gtk_box_remove(GTK_BOX(window->taskbar), child);
+    for (guint j = 0; j < groups->len; j++)
+      gtk_box_append(GTK_BOX(window->taskbar),
+          group_button(shelf, g_ptr_array_index(groups, j)));
+  }
+}
+
+static void on_toplevels_changed(gpointer data) {
+  PanelShelf *shelf = data;
+  if (!shelf->rebuilding) rebuild_taskbars(shelf);
+}
+
+static void show_window_list(gpointer data, AppGroup *group) {
+  PanelShelf *shelf = data;
+  close_popup(shelf);
+  if (panel_config_vertical(shelf->config)) return;
+
+  GtkWidget *popup = gtk_application_window_new(shelf->app);
+  gtk_widget_set_name(popup, "popup");
+  gtk_layer_init_for_window(GTK_WINDOW(popup));
+  gtk_layer_set_layer(GTK_WINDOW(popup), GTK_LAYER_SHELL_LAYER_OVERLAY);
+  gtk_layer_set_anchor(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
+  gtk_layer_set_anchor(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_BOTTOM, TRUE);
+  gtk_layer_set_margin(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_LEFT, 16);
+  gtk_layer_set_margin(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_BOTTOM,
+      shelf_thickness(shelf) + 8);
+  gtk_layer_set_keyboard_mode(GTK_WINDOW(popup),
+      GTK_LAYER_SHELL_KEYBOARD_MODE_EXCLUSIVE);
+
+  GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+  gtk_widget_set_margin_top(box, 12);
+  gtk_widget_set_margin_bottom(box, 12);
+  gtk_widget_set_margin_start(box, 16);
+  gtk_widget_set_margin_end(box, 16);
+  GtkWidget *title = gtk_label_new(group->name);
+  gtk_widget_add_css_class(title, "popover-title");
+  gtk_box_append(GTK_BOX(box), title);
+
+  for (guint i = 0; i < group->windows->len; i++) {
+    PanelToplevel *window = g_ptr_array_index(group->windows, i);
+    GtkWidget *row = gtk_button_new_with_label(window->title && window->title[0] ?
+        window->title : "Untitled window");
+    gtk_widget_add_css_class(row, "popover-row");
+    g_object_set_data(G_OBJECT(row), "window", window);
+    g_signal_connect_swapped(row, "clicked", G_CALLBACK(toplevel_window_activate), window);
+    g_signal_connect_swapped(row, "clicked", G_CALLBACK(close_popup), shelf);
+    gtk_box_append(GTK_BOX(box), row);
+  }
+
+  GtkWidget *close = gtk_button_new_with_label("Close");
+  gtk_widget_add_css_class(close, "popover-row");
+  g_signal_connect_swapped(close, "clicked", G_CALLBACK(gtk_window_destroy), popup);
+  gtk_box_append(GTK_BOX(box), close);
+
+  gtk_window_set_child(GTK_WINDOW(popup), box);
+  gtk_window_present(GTK_WINDOW(popup));
+  gtk_window_set_focus(GTK_WINDOW(popup), close);
+
+  GtkEventController *key = gtk_event_controller_key_new();
+  g_signal_connect(key, "key-pressed", G_CALLBACK(popup_key), shelf);
+  gtk_widget_add_controller(popup, key);
+  g_signal_connect(popup, "destroy", G_CALLBACK(popup_closed), shelf);
+  shelf->popup = popup;
+}
+
 static PanelWindow *panel_window_new(PanelShelf *shelf, GdkMonitor *monitor) {
   PanelWindow *window = g_new0(PanelWindow, 1);
   window->shelf = shelf;
@@ -252,6 +386,11 @@ static PanelWindow *panel_window_new(PanelShelf *shelf, GdkMonitor *monitor) {
   if (vertical) gtk_widget_set_margin_bottom(launcher, 6);
   else gtk_widget_set_margin_end(launcher, 6);
   gtk_box_append(GTK_BOX(start), launcher);
+
+  GtkWidget *taskbar = gtk_box_new(
+      vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL, 4);
+  gtk_box_append(GTK_BOX(start), taskbar);
+  window->taskbar = taskbar;
 
   GtkWidget *spacer = gtk_box_new(
       vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL, 0);
@@ -315,12 +454,15 @@ PanelShelf *panel_shelf_new(GtkApplication *app, PanelConfig *config) {
   shelf->app = app;
   shelf->config = config;
   shelf->windows = g_ptr_array_new_with_free_func((GDestroyNotify)panel_window_free);
+  shelf->toplevels = toplevel_service_new(config, show_window_list,
+      on_toplevels_changed, shelf);
   panel_shelf_reload(shelf, config);
   return shelf;
 }
 
 void panel_shelf_reload(PanelShelf *shelf, PanelConfig *config) {
   shelf->config = config;
+  shelf->rebuilding = TRUE;
   close_popup(shelf);
   g_ptr_array_set_size(shelf->windows, 0);
 
@@ -334,11 +476,15 @@ void panel_shelf_reload(PanelShelf *shelf, PanelConfig *config) {
     g_object_unref(monitor);
   }
   if (count == 0) g_ptr_array_add(shelf->windows, panel_window_new(shelf, NULL));
+  shelf->rebuilding = FALSE;
+  if (shelf->toplevels) toplevel_service_reload_pins(shelf->toplevels, config);
+  else rebuild_taskbars(shelf);
 }
 
 void panel_shelf_free(PanelShelf *shelf) {
   if (!shelf) return;
   close_popup(shelf);
   g_ptr_array_unref(shelf->windows);
+  toplevel_service_free(shelf->toplevels);
   g_free(shelf);
 }

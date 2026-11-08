@@ -4,6 +4,15 @@
 #include <glib.h>
 
 typedef struct {
+  char *name;
+  char *command;
+  char *icon;
+  char *app_id;
+  char *desktop_id;
+  char *startup_wm_class;
+} PinnedApp;
+
+typedef struct {
   char *edge;
   char *density;
   char *theme;
@@ -13,6 +22,7 @@ typedef struct {
   gboolean reduce_motion;
   gboolean clock_24h;
   gboolean panel_twilight;
+  GPtrArray *pinned;
 } PanelConfig;
 
 PanelConfig *panel_config_load(void);
