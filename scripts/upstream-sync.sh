@@ -145,6 +145,7 @@ configure_identity() {
 
 update_ledger() {
   local row="$1"
+  local marker="<!-- upstream-sync:rows:${STREAM:-${BASE_BRANCH}} -->"
   local tmp
 
   if [[ "${UPDATE_LEDGER}" != true ]]; then
@@ -156,8 +157,8 @@ update_ledger() {
   fi
 
   tmp="$(mktemp)"
-  awk -v row="${row}" '
-    /<!-- upstream-sync:rows -->/ {
+  awk -v row="${row}" -v marker="${marker}" '
+    index($0, marker) == 1 {
       print
       print row
       found = 1
@@ -171,7 +172,7 @@ update_ledger() {
     }
   ' "${LEDGER}" >"${tmp}" || {
     rm -f "${tmp}"
-    fail "ledger marker <!-- upstream-sync:rows --> is missing from ${LEDGER}"
+    fail "ledger marker ${marker} is missing from ${LEDGER}"
   }
   cat "${tmp}" >"${LEDGER}"
   rm -f "${tmp}"
@@ -423,7 +424,7 @@ if [[ "${DRY_RUN}" == false ]]; then
     drift_cell="-"
     drift_note="No owned-file conflicts."
   fi
-  ledger_row="| ${RUN_DATE} | ${STREAM:-${BASE_BRANCH}} | \`${UPSTREAM_SHA:0:12}\` | ${RESULT} | ${drift_cell} |"
+  ledger_row="| ${RUN_DATE} | \`${UPSTREAM_SHA:0:12}\` | ${RESULT} | ${drift_cell} |"
   update_ledger "${ledger_row}"
   if [[ -f "${LEDGER}" ]]; then
     git add -- "${LEDGER}"

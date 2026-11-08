@@ -78,13 +78,41 @@ drift is still recoverable from the run.
 
 ## Ledger
 
-Newest entries are inserted first. A `-` drift cell means the merge was
-clean. Patch links are relative to this directory.
+Each stream owns a section so daily syncs on `main`, `dx`, `testing`, and
+`beta` do not conflict when streams merge. Newest entries are inserted first.
+A `-` drift cell means the merge was clean. Patch links are relative to this
+directory. The workflow fails if its stream marker is missing.
 
-| Date (UTC) | Stream | Upstream SHA | Result | Drift patch |
-|---|---|---|---|---|
-<!-- upstream-sync:rows -->
-| 2026-11-08 | baseline | `e9c6420` | resolved-owned | [`2026-11-08.patch`](upstream-drift/2026-11-08.patch) |
+### main
+
+| Date (UTC) | Upstream SHA | Result | Drift patch |
+|---|---|---|---|
+<!-- upstream-sync:rows:main -->
+
+### dx
+
+| Date (UTC) | Upstream SHA | Result | Drift patch |
+|---|---|---|---|
+<!-- upstream-sync:rows:dx -->
+
+### testing
+
+| Date (UTC) | Upstream SHA | Result | Drift patch |
+|---|---|---|---|
+<!-- upstream-sync:rows:testing -->
+
+### beta
+
+| Date (UTC) | Upstream SHA | Result | Drift patch |
+|---|---|---|---|
+<!-- upstream-sync:rows:beta -->
+
+### baseline
+
+| Date (UTC) | Upstream SHA | Result | Drift patch |
+|---|---|---|---|
+<!-- upstream-sync:rows:baseline -->
+| 2026-11-08 | `e9c6420` | resolved-owned | [`2026-11-08.patch`](upstream-drift/2026-11-08.patch) |
 
 ## One-time baseline (2026-11-08)
 
