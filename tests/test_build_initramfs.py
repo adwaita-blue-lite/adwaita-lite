@@ -35,4 +35,6 @@ def test_initramfs_is_checked_for_bootc_and_ostree_helpers():
     script = _script()
 
     assert "for helper in ostree-prepare-root bootc-root-setup" in script
-    assert 'lsinitrd "$initramfs"' in script
+    assert 'initramfs_listing=$(mktemp)' in script
+    assert 'lsinitrd "$initramfs" >"$initramfs_listing" 2>&1 || true' in script
+    assert 'grep -q "$helper" "$initramfs_listing"' in script

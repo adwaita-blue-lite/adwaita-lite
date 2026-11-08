@@ -630,14 +630,19 @@ if command -v dracut >/dev/null 2>&1; then
             ln -s "$root_link" /root
         fi
 
+        # lsinitrd writes the listing to stderr on some builds and may
+        # return non-zero because of unrelated warnings. Capture it once
+        # and grep the file so pipefail cannot turn a good match into a
+        # failure.
+        initramfs_listing=$(mktemp)
+        lsinitrd "$initramfs" >"$initramfs_listing" 2>&1 || true
         for helper in ostree-prepare-root bootc-root-setup; do
-            # lsinitrd writes the archive listing to stderr on some builds.
-            if ! lsinitrd "$initramfs" 2>&1 | grep -q "$helper"; then
+            if ! grep -q "$helper" "$initramfs_listing"; then
                 echo "ERROR: $initramfs is missing $helper" >&2
                 echo "initramfs modules:" >&2
                 lsinitrd -m "$initramfs" >&2 || true
                 echo "initramfs ostree/bootc entries:" >&2
-                lsinitrd "$initramfs" 2>&1 | grep -iE 'ostree|bootc' | head -20 >&2 || true
+                grep -iE 'ostree|bootc' "$initramfs_listing" | head -20 >&2 || true
                 echo "host helpers:" >&2
                 ls -l /usr/lib/ostree/ostree-prepare-root \
                     /usr/lib/bootc/initramfs-setup >&2 || true
@@ -645,6 +650,7 @@ if command -v dracut >/dev/null 2>&1; then
                 exit 1
             fi
         done
+        rm -f "$initramfs_listing"
     fi
 fi
 install -d /boot
