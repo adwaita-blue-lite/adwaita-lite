@@ -20,6 +20,10 @@ Implemented in this scaffold:
   plus `~/.config/adwaita-lite/settings.json`, with live reload
   (debounced file monitor, CSS provider swap, shelf rebuild).
 - Launcher button that spawns the existing `adwaita-lite-app-menu`.
+- App-centric taskbar from `zwlr_foreign_toplevel_manager_v1`: one tile per
+  app group, pinned/running merge, focused state, exact-command launch for
+  idle pins, single-window minimize/raise, middle-click close, and a
+  multi-window list popup.
 - Clock with 12/24h formats, minute-aligned timer, full-date tooltip and a
   layer-shell popup (pointer Close works; keyboard focus is an open item,
   see below).
@@ -27,11 +31,10 @@ Implemented in this scaffold:
 
 Not implemented yet (see the design spec's waves):
 
-- wlr-foreign-toplevel taskbar, app grouping and pinned/running merge.
 - Status services (PulseAudio, UPower, NetworkManager, backlight).
+- Per-output task filtering (the model already keeps toplevel output events).
 - SNI tray.
 - Layout start/center/end module ordering.
-- Multi-output task filtering (windows are per-output in the model already).
 
 ## Build
 
