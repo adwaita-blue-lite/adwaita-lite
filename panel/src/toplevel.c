@@ -289,7 +289,9 @@ static void handle_closed(void *data, struct zwlr_foreign_toplevel_handle_v1 *ha
   ToplevelService *service = window->service;
   for (guint i = 0; i < service->windows->len; i++) {
     if (g_ptr_array_index(service->windows, i) == window) {
-      g_ptr_array_remove_index(service->windows, i);
+      /* Steal instead of remove: the array owns a free func, and the
+       * handle is cleared and the window freed explicitly below. */
+      g_ptr_array_steal_index(service->windows, i);
       break;
     }
   }
@@ -519,6 +521,10 @@ void toplevel_service_test_add_window_output(PanelToplevel *window,
     struct wl_output *output) {
   if (!window->outputs) window->outputs = g_ptr_array_new();
   g_ptr_array_add(window->outputs, output);
+}
+
+void toplevel_service_test_close_window(PanelToplevel *window) {
+  handle_closed(window, NULL);
 }
 
 guint toplevel_service_test_group_count(ToplevelService *service) {

@@ -181,9 +181,31 @@ static void test_default_layout(void) {
   panel_config_free(config);
 }
 
+static void test_close_window_frees_once(void) {
+  PanelConfig *config = panel_config_load_defaults();
+  ToplevelService *service = toplevel_service_new_for_test();
+  toplevel_service_test_set_config(service, config);
+  PanelToplevel *first = toplevel_service_test_add_window(service,
+      "org.example.First", "First", TRUE);
+  PanelToplevel *second = toplevel_service_test_add_window(service,
+      "org.example.Second", "Second", FALSE);
+  toplevel_service_test_rebuild(service);
+  g_assert_cmpuint(toplevel_service_test_group_count(service), ==, 2);
+
+  toplevel_service_test_close_window(first);
+  g_assert_cmpuint(toplevel_service_test_group_count(service), ==, 1);
+  toplevel_service_test_close_window(second);
+  g_assert_cmpuint(toplevel_service_test_group_count(service), ==, 0);
+
+  toplevel_service_free(service);
+  panel_config_free(config);
+}
+
 int main(int argc, char **argv) {
   g_test_init(&argc, &argv, NULL);
   g_test_add_func("/toplevel/default-layout", test_default_layout);
+  g_test_add_func("/toplevel/close-window-frees-once",
+      test_close_window_frees_once);
   g_test_add_func("/toplevel/pin-order-survives-events",
       test_pin_order_survives_events);
   g_test_add_func("/toplevel/conflicting-pins-stay-unpinned",

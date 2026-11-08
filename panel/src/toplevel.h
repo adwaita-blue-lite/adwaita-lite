@@ -74,6 +74,7 @@ void toplevel_service_test_set_window_activated(PanelToplevel *window,
     gboolean activated);
 void toplevel_service_test_add_window_output(PanelToplevel *window,
     struct wl_output *output);
+void toplevel_service_test_close_window(PanelToplevel *window);
 guint toplevel_service_test_group_count(ToplevelService *service);
 AppGroup *toplevel_service_test_group_at(ToplevelService *service, guint index);
 #endif
