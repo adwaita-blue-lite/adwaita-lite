@@ -22,6 +22,7 @@ typedef struct {
   gboolean reduce_motion;
   gboolean clock_24h;
   gboolean panel_twilight;
+  gboolean panel_network;
   GPtrArray *pinned;
 } PanelConfig;
 
