@@ -83,6 +83,10 @@ Open a pull request from the sync branch into the stream. For a hand-resolved
 sync, run the same commands after `git merge upstream/main` and make sure the
 owned-file drift is captured in the patch.
 
+> `just upstream-sync` is a legacy raw-merge recipe and still hits the daily
+> owned-file conflict. Use `scripts/upstream-sync.sh`; replacing the recipe is
+> tracked separately so it stays outside this policy change.
+
 ## Conflict principles
 
 - Only `.github/workflows/build.yml` and `README.md` are downstream-owned.

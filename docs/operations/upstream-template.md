@@ -167,6 +167,10 @@ scripts/upstream-sync.sh --base main
 Exit codes: `0` merged/aligned/resolved, `2` blocked by a non-owned conflict,
 `1` configuration or git error.
 
+The legacy `just upstream-sync` recipe performs a raw merge and does not apply
+this policy; use the helper. Replacing that recipe is out of scope for this
+change.
+
 For a blocked sync:
 
 1. Read `docs/operations/upstream-drift/<date>-conflicts.md` for the exact
