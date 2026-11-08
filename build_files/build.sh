@@ -635,6 +635,11 @@ if command -v dracut >/dev/null 2>&1; then
                 echo "ERROR: $initramfs is missing $helper" >&2
                 echo "initramfs modules:" >&2
                 lsinitrd -m "$initramfs" >&2 || true
+                echo "initramfs ostree/bootc entries:" >&2
+                lsinitrd "$initramfs" 2>&1 | grep -iE 'ostree|bootc' | head -20 >&2 || true
+                echo "host helpers:" >&2
+                ls -l /usr/lib/ostree/ostree-prepare-root \
+                    /usr/lib/bootc/initramfs-setup >&2 || true
                 echo "ERROR: refusing to publish an unbootable image" >&2
                 exit 1
             fi
