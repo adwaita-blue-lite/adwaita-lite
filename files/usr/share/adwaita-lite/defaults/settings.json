@@ -5,9 +5,19 @@
   "accent": "blue",
   "scale": 1.0,
   "layout": {
-    "start": ["custom/launcher"],
-    "center": ["wlr/taskbar"],
-    "end": ["pulseaudio", "backlight", "battery", "clock", "tray"]
+    "start": [
+      "custom/launcher"
+    ],
+    "center": [
+      "wlr/taskbar"
+    ],
+    "end": [
+      "pulseaudio",
+      "backlight",
+      "battery",
+      "clock",
+      "tray"
+    ]
   },
   "wallpaper": "fedora-default",
   "pinned": [
@@ -55,5 +65,6 @@
   "lid_close_action": "suspend",
   "clock_24h": false,
   "capslock_behavior": "default",
-  "panel_twilight": false
+  "panel_twilight": false,
+  "panel_network": false
 }

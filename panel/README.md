@@ -27,11 +27,18 @@ Implemented in this scaffold:
 - Clock with 12/24h formats, minute-aligned timer, full-date tooltip and a
   layer-shell popup (pointer Close works; keyboard focus is an open item,
   see below).
-- Static status placeholders (network/volume/battery) with accessible names.
+- Live status services:
+  - UPower battery over GDBus: percentage, charging/discharging, 25/12
+    warning classes, hide when no battery.
+  - libpulse in-process (`pa_glib_mainloop`): default-sink volume/mute,
+    scroll ±5, keyboard ±5, tooltip, click `pavucontrol`.
+  - Passive NetworkManager status behind `panel_network` (default off):
+    wired/wireless/offline icon and tooltip; no scanning or clicks.
+  - Backlight percentage via sysfs read, lazy `query-tooltip`; hidden when
+    no `/sys/class/backlight` device.
 
 Not implemented yet (see the design spec's waves):
 
-- Status services (PulseAudio, UPower, NetworkManager, backlight).
 - Per-output task filtering (the model already keeps toplevel output events).
 - SNI tray.
 - Layout start/center/end module ordering.
@@ -44,7 +51,10 @@ meson compile -C build
 ```
 
 Dependencies: `gtk4-devel`, `gtk4-layer-shell-devel`, `json-glib-devel`,
-`meson`, `ninja-build`.
+`pulseaudio-libs-devel`, `meson`, `ninja-build`. Runtime needs
+`pulseaudio-libs-glib2`, `upower`, and (for network status)
+NetworkManager. The panel degrades to hidden tiles when a service is
+absent.
 
 ## Run
 
