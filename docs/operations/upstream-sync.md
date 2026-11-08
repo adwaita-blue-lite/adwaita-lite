@@ -64,7 +64,7 @@ repository with `Resource not accessible by integration`.
 Use the helper to apply the same classification as CI:
 
 ```bash
-# Classify without changing the worktree.
+# Classify without committing or switching branches.
 scripts/upstream-sync.sh --base main --dry-run
 
 # Create and commit a local sync branch (the helper never pushes).
