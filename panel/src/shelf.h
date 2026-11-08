@@ -4,6 +4,7 @@
 #include <gtk/gtk.h>
 
 #include "config.h"
+#include "toplevel.h"
 
 typedef struct _PanelShelf PanelShelf;
 
