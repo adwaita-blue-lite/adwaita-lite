@@ -1,6 +1,31 @@
 # Native GTK4 Panel Design
 
-**Status:** design spec, approved direction. No implementation yet.
+**Status:** implemented through Wave 3 (PRs #13–#20). Wave 6 cutover is on
+hold: the 2 GB VM gate found that the published image is unbootable because
+the image-build `dracut` step failed and was masked by `|| true`. See
+[`docs/operations/gtk4-panel-vm-gate.md`](../../operations/gtk4-panel-vm-gate.md)
+for the checkpoint and fix plan.
+
+## Current status (2026-11-08)
+
+| Area | State |
+|---|---|
+| Shelf, four edges, density, themes, HC/twilight | implemented |
+| App-centric taskbar, pins, window list | implemented |
+| Clock/popups, keyboard focus, outside dismiss | implemented |
+| Battery, volume, backlight, passive network | implemented |
+| Image integration + `panel_backend` dispatcher | merged; Waybar default |
+| SNI tray | not implemented |
+| Per-output task filtering, layout ordering | not implemented |
+| Orca/AT-SPI verification | not done |
+| 2 GB VM gate | **blocked — image initramfs is broken** |
+
+The blocker is not the panel. `build_files/build.sh` runs `dracut` to
+regenerate `/usr/lib/modules/$kver/initramfs.img`; that command fails
+(`dracut-install: ERROR: installing '/root'`) and `|| true` lets the image
+publish. The deployed initramfs is missing the `ostree` and `bootc` dracut
+modules, so `initrd-switch-root` fails before the panel can run. Fix the
+initramfs build, add a presence check, republish, then resume the gate.
 
 ## Context
 
