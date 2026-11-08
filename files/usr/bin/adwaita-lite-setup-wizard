@@ -964,6 +964,21 @@ def _detect_boot_disk() -> str:
     return ""
 
 
+def _bootloader_missing(target_boot: Path, target_esp: Path) -> list[str]:
+    """Return target bootloader paths that are required but absent."""
+    required = [
+        target_esp / "EFI" / "fedora" / "grubx64.efi",
+        target_esp / "EFI" / "BOOT" / "BOOTX64.EFI",
+        target_boot / "grub2" / "grub.cfg",
+    ]
+    return [str(path) for path in required if not path.is_file()]
+
+
+def _bootuuid_config(boot_uuid: str) -> str:
+    """GRUB/bootupd drop-in that points the bootloader at /boot."""
+    return f'set BOOT_UUID="{boot_uuid}"\n'
+
+
 def _device_tree_sources(dev: str) -> list[str]:
     """Return *dev* plus child partition device paths from lsblk.
 
@@ -2178,6 +2193,16 @@ class SetupWizardWindow(Gtk.ApplicationWindow):
         self._progress_title.set_halign(Gtk.Align.CENTER)
         self._retranslatable.append((self._progress_title.set_label, "Installing..."))
         card.append(self._progress_title)
+
+        self._progress_note = Gtk.Label(
+            label=_("Do not power off until the wizard finishes."))
+        self._progress_note.set_wrap(True)
+        self._progress_note.set_halign(Gtk.Align.CENTER)
+        self._progress_note.add_css_class("welcome-subtitle")
+        self._retranslatable.append(
+            (self._progress_note.set_label,
+             "Do not power off until the wizard finishes."))
+        card.append(self._progress_note)
 
         # Step labels container
         self._progress_steps_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
@@ -3631,47 +3656,9 @@ class SetupWizardWindow(Gtk.ApplicationWindow):
             return _("Failed to remount target read-write: {err}").format(
                 err=exc.stderr.strip() or exc)
 
-        # UEFI fallback: bootc/grub-install only drop EFI/fedora/grubx64.efi
-        # on the ESP and leave NVRAM registration to efibootmgr, which is
-        # a no-op from inside the ostree installer (it can't write to the
-        # host firmware, and on VMs the virtual NVRAM is empty). Without
-        # either an NVRAM entry OR the spec-mandated removable-media
-        # fallback at EFI/BOOT/BOOTX64.EFI, OVMF-style firmware has
-        # nothing to boot and lands on the setup screen. Copy the grub
-        # binary into the fallback path so the installed system boots
-        # regardless of firmware NVRAM state. Also register an NVRAM
-        # entry best-effort for real hardware — failure is tolerated
-        # since the fallback already covers the case.
-        if self._uefi_boot:
-            esp = Path(mount_point) / "boot" / "efi"
-            grub_efi = esp / "EFI" / "fedora" / "grubx64.efi"
-            fallback_dir = esp / "EFI" / "BOOT"
-            fallback_efi = fallback_dir / "BOOTX64.EFI"
-            if grub_efi.is_file():
-                try:
-                    fallback_dir.mkdir(parents=True, exist_ok=True)
-                    shutil.copy2(grub_efi, fallback_efi)
-                    self._log(f"Wrote UEFI fallback binary to {fallback_efi}\n")
-                except OSError as exc:
-                    self._log(f"WARNING: failed to write UEFI fallback: {exc}\n")
-                try:
-                    self._run_logged(
-                        ["efibootmgr", "-c",
-                         "-d", f"/dev/{self._setup_target_drive}",
-                         "-p", "1",
-                         "-L", "Adwaita-Lite",
-                         "-l", "\\EFI\\fedora\\grubx64.efi"],
-                        timeout=15,
-                    )
-                except (subprocess.CalledProcessError,
-                        subprocess.TimeoutExpired, FileNotFoundError):
-                    # efibootmgr fails in environments without writable
-                    # host-firmware NVRAM (most VMs, live ISOs). The
-                    # fallback binary above is enough to boot.
-                    pass
-            else:
-                self._log(f"WARNING: expected {grub_efi} after bootc install, "
-                          f"not found — UEFI fallback not installed\n")
+        bootloader_error = self._ensure_target_bootloader()
+        if bootloader_error:
+            return bootloader_error
 
         # Locate the ostree deployment directory for post-install steps.
         deploy_dirs = sorted(Path(mount_point).glob("ostree/deploy/*/deploy/*/"))
@@ -3690,6 +3677,107 @@ class SetupWizardWindow(Gtk.ApplicationWindow):
                         "mnt", "media", "spool/mail", "lib/greetd"]:
             Path(self._sysroot_var, subdir).mkdir(parents=True, exist_ok=True)
 
+        return None
+
+    def _ensure_target_bootloader(self) -> str | None:
+        """Install a known-good bootloader tree and verify the target ESP.
+
+        bootc's to-filesystem deployment can finish without populating the
+        target ESP (observed when an install is interrupted during finalize,
+        and possible on bootc versions that defer bootloader setup). The live
+        environment is the same image, so its /boot/grub2 and ESP are a
+        known-good source. Copy them, point BOOT_UUID at the target boot
+        partition, and fail the install if the result is incomplete.
+        """
+        if not self._uefi_boot:
+            return None
+
+        mount_point = Path(self._mount_point)
+        target_boot = mount_point / "boot"
+        target_esp = target_boot / "efi"
+        target_efi = target_esp / "EFI"
+        target_grub = target_boot / "grub2"
+        target_grub_efi = target_efi / "fedora" / "grubx64.efi"
+        target_fallback = target_efi / "BOOT" / "BOOTX64.EFI"
+
+        if not target_esp.is_dir():
+            return _("Target ESP is not mounted at {path}").format(path=target_esp)
+
+        live_boot = Path("/boot")
+        live_esp = live_boot / "efi"
+        live_efi = live_esp / "EFI"
+        live_grub = live_boot / "grub2"
+
+        # Seed the ESP from the live image if bootc did not write it.
+        if not target_grub_efi.is_file():
+            if not live_efi.is_dir():
+                return _("Live EFI tree missing at {path}").format(path=live_efi)
+            try:
+                shutil.copytree(live_efi, target_efi, dirs_exist_ok=True,
+                                symlinks=True)
+            except OSError as exc:
+                return _("Could not seed target ESP: {err}").format(err=exc)
+
+        # /boot/grub2 contains the GRUB modules, fonts and bootupd config.
+        if not (target_grub / "grub.cfg").is_file():
+            if not live_grub.is_dir():
+                return _("Live GRUB tree missing at {path}").format(path=live_grub)
+            try:
+                shutil.copytree(live_grub, target_grub, dirs_exist_ok=True,
+                                symlinks=True)
+            except OSError as exc:
+                return _("Could not copy GRUB tree: {err}").format(err=exc)
+
+        try:
+            boot_uuid = subprocess.run(
+                ["blkid", "-s", "UUID", "-o", "value", self._part_boot],
+                capture_output=True, text=True, check=True, timeout=10,
+            ).stdout.strip()
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired, OSError):
+            return _("Could not read the target boot partition UUID")
+        if not boot_uuid:
+            return _("Target boot partition has no UUID")
+
+        bootuuid = _bootuuid_config(boot_uuid)
+        for path in (target_grub / "bootuuid.cfg",
+                     target_efi / "fedora" / "bootuuid.cfg"):
+            try:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(bootuuid, encoding="utf-8")
+            except OSError as exc:
+                return _("Could not write {path}: {err}").format(path=path, err=exc)
+
+        # Spec-mandated removable-media fallback; no NVRAM entry needed.
+        if not target_fallback.is_file():
+            source = target_grub_efi
+            if not source.is_file():
+                source = live_esp / "BOOT" / "BOOTX64.EFI"
+            if source.is_file():
+                try:
+                    target_fallback.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(source, target_fallback)
+                except OSError as exc:
+                    return _("Could not write UEFI fallback: {err}").format(err=exc)
+
+        missing = _bootloader_missing(target_boot, target_esp)
+        if missing:
+            return _("Target bootloader is incomplete: missing {paths}").format(
+                paths=", ".join(missing))
+
+        # Best-effort NVRAM entry for real hardware. The fallback path above
+        # is what makes OVMF and most firmware boot without NVRAM.
+        try:
+            self._run_logged(
+                ["efibootmgr", "-c", "-d", f"/dev/{self._setup_target_drive}",
+                 "-p", "1", "-L", "Adwaita-Lite",
+                 "-l", "\\EFI\\fedora\\grubx64.efi"],
+                timeout=15,
+            )
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired,
+                FileNotFoundError):
+            pass
+
+        self._log("Installed target bootloader and UEFI fallback\n")
         return None
 
     @staticmethod
