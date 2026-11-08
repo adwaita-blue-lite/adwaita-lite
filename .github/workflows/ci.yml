@@ -47,25 +47,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
 
-      - name: Install just
-        run: |
-          curl -fsSL \
-            https://github.com/casey/just/releases/download/1.59.0/just-1.59.0-x86_64-unknown-linux-musl.tar.gz \
-            | tar -xz -C /tmp just
-          sudo install -m 0755 /tmp/just /usr/local/bin/just
-
       - name: Install linters
         run: |
           sudo apt-get update
           sudo apt-get install -y shellcheck python3-pip
           python3 -m pip install --user --break-system-packages ruff
-          curl -fsSL \
-            https://github.com/rhysd/actionlint/releases/download/v1.7.7/actionlint_1.7.7_linux_amd64.tar.gz \
-            | tar -xz -C /tmp actionlint
-          sudo install -m 0755 /tmp/actionlint /usr/local/bin/actionlint
 
       - name: Justfile syntax
-        run: just --unstable --fmt --check -f Justfile
+        run: |
+          # Use the container image instead of GitHub release assets: the
+          # release CDN has intermittently returned 504 for the pinned
+          # just/actionlint tarballs before any repository lint runs.
+          docker run --rm -v "$PWD:/repo:ro" -w /repo \
+            --entrypoint /just ghcr.io/casey/just:1.58.0 \
+            --unstable --fmt --check -f Justfile
 
       - name: Shellcheck
         run: shellcheck -S warning build_files/build.sh build_files/ci/status-matrix.sh
@@ -79,8 +74,10 @@ jobs:
           # Workflow expression/syntax lint. Shellcheck integration is
           # disabled here because the dedicated Shellcheck step covers
           # our scripts, and existing workflows carry info-level shell
-          # style findings.
-          actionlint -shellcheck ""
+          # style findings. Use the published container image so the job
+          # does not depend on GitHub release assets.
+          docker run --rm -v "$PWD:/repo:ro" -w /repo \
+            docker.io/rhysd/actionlint:1.7.7 -shellcheck ""
 
   panel:
     name: Panel build
