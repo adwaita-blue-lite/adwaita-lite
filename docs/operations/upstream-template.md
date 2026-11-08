@@ -100,8 +100,8 @@ not pushed or merged without review.
   `.github/workflows/build.yml` and `README.md`.
 - Resolution: `git checkout --ours --` both files; all other upstream changes
   merged normally.
-- Local baseline commit: `4b16895`; its tree is identical to the policy branch
-  and the merge only records upstream ancestry.
+- Local baseline commit: `4b16895`; its tree is identical to its parent policy
+  commit (`b5674a3`) and the merge only records upstream ancestry.
 - Upstream delta not applied (see the patch):
   - `docker/login-action` `v4.7.0` → `v4.8.0`
   - `sigstore/cosign-installer` `v4.1.2` → `v4.1.3`, cosign `v3.1.2` → `v3.1.4`
