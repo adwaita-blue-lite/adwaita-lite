@@ -40,6 +40,7 @@ UPSTREAM_SHA=""
 MERGE_BASE=""
 SYNC_BRANCH_CREATED=false
 PATCH_FILE=""
+PATCH_TMP_DIR=""
 CONFLICT_REPORT=""
 CONFLICTS=()
 NON_OWNED=()
@@ -390,11 +391,18 @@ else
 fi
 
 if [[ "${RESULT}" == "resolved-owned" ]]; then
-  PATCH_FILE="$(write_patch "${REPORT_DIR}" "${CONFLICTS[@]}")"
+  if [[ "${DRY_RUN}" == true ]]; then
+    PATCH_TMP_DIR="$(mktemp -d)"
+    patch_dir="${PATCH_TMP_DIR}"
+  else
+    patch_dir="${REPORT_DIR}"
+  fi
+  PATCH_FILE="$(write_patch "${patch_dir}" "${CONFLICTS[@]}")"
   log "drift patch: ${PATCH_FILE}"
   if [[ "${DRY_RUN}" == true ]]; then
     log "dry run: discarding merge and drift patch"
-    rm -f "${PATCH_FILE}"
+    rm -rf "${PATCH_TMP_DIR}"
+    PATCH_TMP_DIR=""
     PATCH_FILE=""
     abort_merge
   else
