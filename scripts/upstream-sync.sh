@@ -416,6 +416,15 @@ else
   fi
 fi
 
+emit "result" "${RESULT}"
+emit "upstream_sha" "${UPSTREAM_SHA}"
+emit "merge_base" "${MERGE_BASE}"
+emit "sync_branch" "${SYNC_BRANCH}"
+emit "dry_run" "${DRY_RUN}"
+emit "patch" "${PATCH_FILE}"
+emit "conflict_report" ""
+write_summary
+
 if [[ "${DRY_RUN}" == false ]]; then
   if [[ "${RESULT}" == "resolved-owned" ]]; then
     drift_cell="[\`${PATCH_FILE}\`](upstream-drift/$(basename "${PATCH_FILE}"))"
@@ -435,15 +444,6 @@ if [[ "${DRY_RUN}" == false ]]; then
     -m "Merge base: ${MERGE_BASE}" \
     -m "${drift_note}"
 fi
-
-emit "result" "${RESULT}"
-emit "upstream_sha" "${UPSTREAM_SHA}"
-emit "merge_base" "${MERGE_BASE}"
-emit "sync_branch" "${SYNC_BRANCH}"
-emit "dry_run" "${DRY_RUN}"
-emit "patch" "${PATCH_FILE}"
-emit "conflict_report" ""
-write_summary
 
 if [[ "${SYNC_BRANCH_CREATED}" == true && "${DRY_RUN}" == false ]]; then
   log "sync branch ready: ${SYNC_BRANCH}"
