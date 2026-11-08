@@ -100,6 +100,7 @@ PanelConfig *panel_config_load_defaults(void) {
   config->reduce_motion = FALSE;
   config->clock_24h = FALSE;
   config->panel_twilight = FALSE;
+  config->panel_network = FALSE;
   config->pinned = g_ptr_array_new_with_free_func((GDestroyNotify)pinned_free);
   return config;
 }
@@ -122,6 +123,7 @@ PanelConfig *panel_config_load(void) {
     config->reduce_motion = read_bool(object, "reduce_motion", FALSE);
     config->clock_24h = read_bool(object, "clock_24h", FALSE);
     config->panel_twilight = read_bool(object, "panel_twilight", FALSE);
+    config->panel_network = read_bool(object, "panel_network", FALSE);
     if (config->pinned) g_ptr_array_unref(config->pinned);
     config->pinned = read_pinned(object);
   }
@@ -145,6 +147,7 @@ PanelConfig *panel_config_load(void) {
     config->reduce_motion = read_bool(object, "reduce_motion", FALSE);
     config->clock_24h = read_bool(object, "clock_24h", FALSE);
     config->panel_twilight = read_bool(object, "panel_twilight", FALSE);
+    config->panel_network = read_bool(object, "panel_network", FALSE);
     if (config->pinned) g_ptr_array_unref(config->pinned);
     config->pinned = read_pinned(object);
   }
