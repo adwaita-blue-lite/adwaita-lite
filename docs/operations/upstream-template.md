@@ -89,25 +89,30 @@ clean. Patch links are relative to this directory.
 ## One-time baseline (2026-11-08)
 
 The baseline merge was prepared on `upstream-sync/baseline-2026-11-08` and is
-not merged without review.
+not pushed or merged without review.
 
-- Base: `main` @ `f7857a8` (`72e9b7c` is the upstream merge base).
+- Repo base: `main` @ `f7857a8`; the prepared branch also contains the policy
+  commits (`b5674a3` is the baseline's first parent).
 - Upstream: `ublue-os/image-template` `main` @
   `e9c6420` (4 commits ahead of the merge base).
+- Merge base: `72e9b7c`.
 - Conflicts: exactly the two owned files,
   `.github/workflows/build.yml` and `README.md`.
 - Resolution: `git checkout --ours --` both files; all other upstream changes
   merged normally.
+- Local baseline commit: `4b16895`; its tree is identical to the policy branch
+  and the merge only records upstream ancestry.
 - Upstream delta not applied (see the patch):
   - `docker/login-action` `v4.7.0` → `v4.8.0`
   - `sigstore/cosign-installer` `v4.1.2` → `v4.1.3`, cosign `v3.1.2` → `v3.1.4`
   - README: NVIDIA driver section for custom images
 - Drift patch: [`upstream-drift/2026-11-08.patch`](upstream-drift/2026-11-08.patch).
 
-Reproduce the baseline locally:
+Reproduce the baseline locally from a checkout that contains this policy:
 
 ```bash
-git switch -C upstream-sync/baseline-2026-11-08 main
+# On the policy branch before merge, or on main after it merges.
+git switch -C upstream-sync/baseline-2026-11-08 <policy-branch>
 scripts/upstream-sync.sh \
   --base upstream-sync/baseline-2026-11-08 \
   --stream baseline \
