@@ -27,38 +27,69 @@ If a change should go upstream, fork `ublue-os/image-template` separately and
 open the pull request from that small fork. The distribution repository does not
 need to be the contribution vehicle.
 
+## Sync policy and ledger
+
+The authoritative policy, owned-file list, baseline record, and per-run ledger
+are in [upstream-template.md](upstream-template.md). In short:
+
+- upstream-managed files merge automatically;
+- conflicting owned files (`.github/workflows/build.yml`, `README.md`) resolve
+  with `ours`, but the upstream delta is committed as a drift patch;
+- any non-owned conflict aborts the sync and is reported;
+- the workflow opens or updates a PR and uploads the drift patch as an
+  artifact; it never creates an issue and never pushes to a stream branch.
+
 ## Automatic sync
 
 [`.github/workflows/upstream-sync.yml`](../../.github/workflows/upstream-sync.yml)
-runs daily at 06:00 UTC and on demand.
+runs daily at 06:00 UTC for `main`, `dx`, `testing`, and `beta`, and on demand.
 
 1. Fetches `upstream/main`.
-2. Merges it into `upstream-sync/YYYYMMDD`.
-3. Opens a pull request when the merge is clean and has changes.
-4. Opens an issue with the upstream commit list when the merge conflicts.
+2. Merges it into `upstream-sync/<stream>/<YYYYMMDD>` via
+   [`scripts/upstream-sync.sh`](../../scripts/upstream-sync.sh).
+3. If only owned files conflict, keeps `ours` for those files and records the
+   dropped upstream delta under `docs/operations/upstream-drift/`.
+4. If any non-owned file conflicts, aborts, writes a conflict report, uploads
+   it, and fails the job with a step summary.
+5. Updates the ledger and opens/updates one pull request per stream. The drift
+   patch is attached as an artifact and linked from the PR body.
 
-The workflow never pushes directly to `main`. This is intentional: the image has
-diverged substantially from the template, so conflicts need a human decision.
+The workflow never pushes directly to a stream branch. This is intentional: the
+image has diverged substantially from the template, so conflicts need a human
+decision. Reporting no longer relies on issue creation, which fails in this
+repository with `Resource not accessible by integration`.
 
 ## Manual sync
 
+Use the helper to apply the same classification as CI:
+
 ```bash
-git remote add upstream https://github.com/ublue-os/image-template.git
-git fetch upstream main
+# Classify without changing the worktree.
+scripts/upstream-sync.sh --base main --dry-run
 
-git switch -C upstream-sync/manual
-git merge upstream/main
-
-# resolve conflicts, then verify
-python3 -m pytest -q
-just --unstable --fmt --check -f Justfile
-git push -u origin upstream-sync/manual
+# Create and commit a local sync branch (the helper never pushes).
+scripts/upstream-sync.sh --base main
 ```
 
-Open a pull request from `upstream-sync/manual` into `main`.
+Then verify and push the branch the helper reports:
+
+```bash
+python3 -m pytest -q
+just --unstable --fmt --check -f Justfile
+git push -u origin upstream-sync/main/<YYYYMMDD>
+```
+
+Open a pull request from the sync branch into the stream. For a hand-resolved
+sync, run the same commands after `git merge upstream/main` and make sure the
+owned-file drift is captured in the patch.
 
 ## Conflict principles
 
+- Only `.github/workflows/build.yml` and `README.md` are downstream-owned.
+  Resolve those with `ours` **only** through the workflow/helper, so the
+  upstream delta is recorded.
+- Any other conflict is a classification event: stop, inspect it, and decide
+  whether it is upstream-managed or newly owned. Do not guess.
 - Keep Adwaita-Lite's `Containerfile`, `build_files/build.sh`, and product
   payload; upstream template files are starting points, not replacements.
 - Take upstream action pins, workflow fixes, and documentation corrections when
