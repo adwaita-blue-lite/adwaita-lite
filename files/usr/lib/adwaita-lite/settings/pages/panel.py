@@ -102,6 +102,7 @@ class PanelPage(BasePage, Adw.PreferencesPage):
         self.add(self._build_position_group())
         self.add(self._build_density_group())
         self.add(self._build_twilight_group())
+        self.add(self._build_network_group())
         for group in self._build_module_layout_groups():
             self.add(group)
         self.add(self._build_layout_reset_group())
@@ -191,6 +192,24 @@ class PanelPage(BasePage, Adw.PreferencesPage):
             if self._updating or not self._built:
                 return
             self._on_twilight_changed(r.get_active())
+
+        row.connect("notify::active", _on_active)
+        group.add(row)
+        return group
+
+    def _build_network_group(self) -> Adw.PreferencesGroup:
+        group = Adw.PreferencesGroup()
+        group.set_title(_("Network"))
+
+        row = Adw.SwitchRow()
+        row.set_title(_("Network status"))
+        row.set_subtitle(_("Show wired or Wi-Fi state in the panel"))
+        row.set_active(self.store.get("panel_network", False))
+
+        def _on_active(r: Adw.SwitchRow, _pspec) -> None:
+            if self._updating or not self._built:
+                return
+            self.store.save_and_apply("panel_network", r.get_active())
 
         row.connect("notify::active", _on_active)
         group.add(row)
