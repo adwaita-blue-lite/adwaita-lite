@@ -46,6 +46,10 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
         run: |
           set -euo pipefail
+          if [[ ! -x ./scripts/upstream-sync.sh ]]; then
+            printf '::error title=Upstream sync helper missing::%s does not contain scripts/upstream-sync.sh; wait for the stream sync from main or cherry-pick this policy first.\n' "${BRANCH}" >&2
+            exit 1
+          fi
           args=(--base "${BRANCH}" --stream "${BRANCH}")
           if [[ "${DRY_RUN}" == "true" ]]; then
             args+=(--dry-run)
