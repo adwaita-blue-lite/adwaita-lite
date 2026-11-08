@@ -33,7 +33,7 @@ struct _AppGroup {
   ToplevelService *service;
 };
 
-typedef void (*ToplevelWindowListFunc)(gpointer data, AppGroup *group);
+typedef void (*ToplevelWindowListFunc)(gpointer data, AppGroup *group, GtkWidget *anchor);
 
 ToplevelService *toplevel_service_new(PanelConfig *config,
     ToplevelWindowListFunc window_list, void (*changed_cb)(gpointer),
@@ -42,9 +42,9 @@ void toplevel_service_free(ToplevelService *service);
 void toplevel_service_reload_pins(ToplevelService *service, PanelConfig *config);
 GPtrArray *toplevel_service_groups(ToplevelService *service);
 
-void toplevel_group_activate(AppGroup *group);
-void toplevel_group_middle(AppGroup *group);
-void toplevel_group_show_windows(AppGroup *group);
+void toplevel_group_activate(AppGroup *group, GtkWidget *anchor);
+void toplevel_group_middle(AppGroup *group, GtkWidget *anchor);
+void toplevel_group_show_windows(AppGroup *group, GtkWidget *anchor);
 void toplevel_window_activate(PanelToplevel *window);
 void toplevel_window_minimize(PanelToplevel *window);
 void toplevel_window_close(PanelToplevel *window);
