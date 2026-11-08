@@ -57,10 +57,18 @@ char *panel_theme_css(const PanelConfig *config) {
       "background-color 120ms ease-out, box-shadow 120ms ease-out";
   const char *edge = panel_config_edge(config);
   const char *shadow = "inset 0 1px 0 0";
+  const char *indicator = "inset 0 -3px 0 0";
   const char *orientation = vertical ? "vertical" : "horizontal";
-  if (g_strcmp0(edge, "top") == 0) shadow = "inset 0 -1px 0 0";
-  else if (g_strcmp0(edge, "left") == 0) shadow = "inset -1px 0 0 0";
-  else if (g_strcmp0(edge, "right") == 0) shadow = "inset 1px 0 0 0";
+  if (g_strcmp0(edge, "top") == 0) {
+    shadow = "inset 0 -1px 0 0";
+    indicator = "inset 0 3px 0 0";
+  } else if (g_strcmp0(edge, "left") == 0) {
+    shadow = "inset -1px 0 0 0";
+    indicator = "inset 3px 0 0 0";
+  } else if (g_strcmp0(edge, "right") == 0) {
+    shadow = "inset 1px 0 0 0";
+    indicator = "inset -3px 0 0 0";
+  }
 
   char *padding = vertical ? g_strdup_printf("%dpx 0", inset)
                           : g_strdup_printf("0 %dpx", inset);
@@ -97,7 +105,13 @@ char *panel_theme_css(const PanelConfig *config) {
     "}\n"
     "button.tile.focused {\n"
     "  background: %s;\n"
-    "  box-shadow: inset 0 -3px 0 0 %s;\n"
+    "  box-shadow: %s %s;\n"
+    "}\n"
+    "button.tile.running {\n"
+    "  box-shadow: %s %s;\n"
+    "}\n"
+    "button.tile.focused:focus {\n"
+    "  box-shadow: %s %s, inset 0 0 0 2px %s;\n"
     "}\n"
     "button.launcher {\n"
     "  min-width: %dpx;\n"
@@ -163,7 +177,8 @@ char *panel_theme_css(const PanelConfig *config) {
     "  padding: 6px 8px;\n"
     "}\n",
     surface, fg, shadow, separator, padding,
-    tile, tile, radius, motion, hover, pressed, accent, focused, accent,
+    tile, tile, radius, motion, hover, pressed, accent, focused, indicator, accent,
+    indicator, accent, indicator, accent, accent,
     tile, tile, hover, 40, 40, radius, hover, clock_min, clock_pad, clock_size,
     card, fg, border, fg, hover, card, fg, border);
 
