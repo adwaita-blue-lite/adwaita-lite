@@ -27,7 +27,7 @@ def test_dracut_failure_is_not_masked():
     script = _script()
 
     assert 'initramfs.img" || true' not in script
-    assert "if ! dracut --force --no-hostonly" in script
+    assert 'if ! dracut --force --no-hostonly --add "ostree bootc"' in script
     assert "refusing to publish an unbootable image" in script
 
 

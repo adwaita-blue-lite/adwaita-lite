@@ -617,7 +617,10 @@ if command -v dracut >/dev/null 2>&1; then
         fi
 
         initramfs="/usr/lib/modules/${KVER}/initramfs.img"
-        if ! dracut --force --no-hostonly --kver "$KVER" "$initramfs"; then
+        # Pass the modules explicitly as well as via the drop-in. Some
+        # container dracut invocations ignore the early config drop-in.
+        if ! dracut --force --no-hostonly --add "ostree bootc" \
+            --kver "$KVER" "$initramfs"; then
             echo "ERROR: dracut failed; refusing to publish an unbootable image" >&2
             exit 1
         fi
@@ -630,6 +633,8 @@ if command -v dracut >/dev/null 2>&1; then
         for helper in ostree-prepare-root bootc-root-setup; do
             if ! lsinitrd "$initramfs" 2>/dev/null | grep -q "$helper"; then
                 echo "ERROR: $initramfs is missing $helper" >&2
+                echo "initramfs modules:" >&2
+                lsinitrd -m "$initramfs" >&2 || true
                 echo "ERROR: refusing to publish an unbootable image" >&2
                 exit 1
             fi
