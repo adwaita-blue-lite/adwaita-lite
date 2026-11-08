@@ -1,5 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 #include "shelf.h"
+#include "audio.h"
+#include "status.h"
 
 #include <gtk4-layer-shell.h>
 #include <stdlib.h>
@@ -12,6 +14,14 @@ struct _PanelWindow {
   GtkWidget *window;
   GtkWidget *clock_label;
   GtkWidget *taskbar;
+  GtkWidget *network_box;
+  GtkWidget *network_image;
+  GtkWidget *volume_button;
+  GtkWidget *volume_image;
+  GtkWidget *backlight_box;
+  GtkWidget *backlight_image;
+  GtkWidget *battery_box;
+  GtkWidget *battery_image;
   guint clock_source;
   PanelShelf *shelf;
 };
@@ -21,6 +31,8 @@ struct _PanelShelf {
   PanelConfig *config;
   GPtrArray *windows;
   ToplevelService *toplevels;
+  PanelStatus *status;
+  PanelAudio *audio;
   GtkWidget *popover;
   gboolean rebuilding;
 };
@@ -293,6 +305,165 @@ static void show_window_list(gpointer data, AppGroup *group, GtkWidget *anchor) 
   gtk_widget_grab_focus(first_row ? first_row : close);
 }
 
+static GtkWidget *status_icon_box(const char *icon, const char *name, int size) {
+  GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_widget_add_css_class(box, "status");
+  GtkWidget *image = gtk_image_new_from_icon_name(icon);
+  gtk_image_set_pixel_size(GTK_IMAGE(image), size);
+  gtk_box_append(GTK_BOX(box), image);
+  gtk_widget_set_tooltip_text(box, name);
+  gtk_accessible_update_property(GTK_ACCESSIBLE(box),
+      GTK_ACCESSIBLE_PROPERTY_LABEL, name, -1);
+  gtk_accessible_update_property(GTK_ACCESSIBLE(box),
+      GTK_ACCESSIBLE_PROPERTY_DESCRIPTION, name, -1);
+  return box;
+}
+
+static void show_volume_popup(GtkButton *button, gpointer data) {
+  (void)button; (void)data;
+  char *path = g_find_program_in_path("pavucontrol");
+  if (!path) return;
+  GError *error = NULL;
+  if (!g_spawn_command_line_async(path, &error)) {
+    g_warning("panel: pavucontrol: %s", error ? error->message : "unknown");
+    g_clear_error(&error);
+  }
+  g_free(path);
+}
+
+static gboolean volume_scroll(GtkEventControllerScroll *controller, double dx,
+    double dy, gpointer data) {
+  (void)controller; (void)dx;
+  PanelShelf *shelf = data;
+  if (dy == 0) return GDK_EVENT_PROPAGATE;
+  int steps = (int)(dy < 0 ? -dy : dy);
+  if (steps < 1) steps = 1;
+  if (steps > 4) steps = 4;
+  panel_audio_step(shelf->audio, (dy < 0 ? 1 : -1) * steps * 5);
+  return GDK_EVENT_STOP;
+}
+
+static gboolean volume_key(GtkEventControllerKey *controller, guint keyval,
+    guint keycode, GdkModifierType state, gpointer data) {
+  (void)controller; (void)keycode; (void)state;
+  PanelShelf *shelf = data;
+  if (keyval == GDK_KEY_Up || keyval == GDK_KEY_KP_Up) {
+    panel_audio_step(shelf->audio, 5);
+    return GDK_EVENT_STOP;
+  }
+  if (keyval == GDK_KEY_Down || keyval == GDK_KEY_KP_Down) {
+    panel_audio_step(shelf->audio, -5);
+    return GDK_EVENT_STOP;
+  }
+  return GDK_EVENT_PROPAGATE;
+}
+
+static void panel_shelf_refresh_status(PanelShelf *shelf);
+
+static void on_audio_changed(gpointer data) {
+  PanelShelf *shelf = data;
+  if (!shelf->rebuilding) panel_shelf_refresh_status(shelf);
+}
+
+static void on_status_changed(gpointer data) {
+  PanelShelf *shelf = data;
+  if (!shelf->rebuilding) panel_shelf_refresh_status(shelf);
+}
+
+static void volume_update(PanelWindow *window) {
+  PanelShelf *shelf = window->shelf;
+  if (!shelf->audio) return;
+  PanelAudioState state;
+  panel_audio_get_state(shelf->audio, &state);
+  const char *icon = "audio-volume-muted-symbolic";
+  char *tooltip = NULL;
+  char *label = NULL;
+
+  switch (state.status) {
+    case AUDIO_READY:
+      if (state.muted) {
+        icon = "audio-volume-muted-symbolic";
+        tooltip = g_strdup_printf("Muted, %d%%", state.percent);
+        label = g_strdup_printf("Volume, muted, %d percent", state.percent);
+      } else if (state.percent >= 66) {
+        icon = "audio-volume-high-symbolic";
+        tooltip = g_strdup_printf("%d%%", state.percent);
+        label = g_strdup_printf("Volume, %d percent", state.percent);
+      } else if (state.percent >= 33) {
+        icon = "audio-volume-medium-symbolic";
+        tooltip = g_strdup_printf("%d%%", state.percent);
+        label = g_strdup_printf("Volume, %d percent", state.percent);
+      } else {
+        icon = "audio-volume-low-symbolic";
+        tooltip = g_strdup_printf("%d%%", state.percent);
+        label = g_strdup_printf("Volume, %d percent", state.percent);
+      }
+      break;
+    case AUDIO_CONNECTING:
+      icon = "audio-volume-medium-symbolic";
+      tooltip = g_strdup("Volume");
+      label = g_strdup("Volume");
+      break;
+    case AUDIO_NO_SINK:
+      tooltip = g_strdup("No audio output");
+      label = g_strdup("Volume, no audio output");
+      break;
+    case AUDIO_UNAVAILABLE:
+      tooltip = g_strdup("Audio unavailable");
+      label = g_strdup("Volume, audio unavailable");
+      break;
+  }
+
+  gtk_image_set_from_icon_name(GTK_IMAGE(window->volume_image), icon);
+  gtk_widget_set_tooltip_text(window->volume_button, tooltip);
+  gtk_accessible_update_property(GTK_ACCESSIBLE(window->volume_button),
+      GTK_ACCESSIBLE_PROPERTY_LABEL, label, -1);
+  g_free(tooltip);
+  g_free(label);
+}
+
+static void panel_shelf_refresh_status(PanelShelf *shelf) {
+  if (!shelf || !shelf->windows || !shelf->status) return;
+  PanelBatteryView battery;
+  PanelNetworkView network;
+  PanelBacklightView backlight;
+  panel_status_get(shelf->status, &battery, &network, &backlight);
+
+  for (guint i = 0; i < shelf->windows->len; i++) {
+    PanelWindow *window = g_ptr_array_index(shelf->windows, i);
+    if (window->network_box) {
+      gtk_image_set_from_icon_name(GTK_IMAGE(window->network_image),
+          network.visible ? network.icon : "network-offline-symbolic");
+      gtk_widget_set_tooltip_text(window->network_box,
+          network.visible ? network.tooltip : "Network");
+      gtk_accessible_update_property(GTK_ACCESSIBLE(window->network_box),
+          GTK_ACCESSIBLE_PROPERTY_LABEL,
+          network.visible ? network.label : "Network", -1);
+      gtk_widget_set_visible(window->network_box, network.visible);
+    }
+    if (window->backlight_box) {
+      gtk_widget_set_tooltip_text(window->backlight_box,
+          backlight.visible ? backlight.tooltip : "Brightness");
+      gtk_widget_set_visible(window->backlight_box, backlight.visible);
+    }
+    if (window->battery_box) {
+      gtk_image_set_from_icon_name(GTK_IMAGE(window->battery_image),
+          battery.visible ? battery.icon : "battery-missing-symbolic");
+      gtk_widget_set_tooltip_text(window->battery_box,
+          battery.visible ? battery.tooltip : "Battery");
+      gtk_accessible_update_property(GTK_ACCESSIBLE(window->battery_box),
+          GTK_ACCESSIBLE_PROPERTY_LABEL,
+          battery.visible ? battery.label : "Battery", -1);
+      gtk_widget_remove_css_class(window->battery_image, "warning");
+      gtk_widget_remove_css_class(window->battery_image, "critical");
+      if (battery.severity == 1) gtk_widget_add_css_class(window->battery_image, "warning");
+      if (battery.severity == 2) gtk_widget_add_css_class(window->battery_image, "critical");
+      gtk_widget_set_visible(window->battery_box, battery.visible);
+    }
+    if (window->volume_button) volume_update(window);
+  }
+}
+
 static gboolean enable_on_demand(gpointer data) {
   gtk_layer_set_keyboard_mode(GTK_WINDOW(data),
       GTK_LAYER_SHELL_KEYBOARD_MODE_ON_DEMAND);
@@ -351,12 +522,41 @@ static PanelWindow *panel_window_new(PanelShelf *shelf, GdkMonitor *monitor) {
 
   GtkWidget *end = gtk_box_new(
       vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL, 4);
-  gtk_box_append(GTK_BOX(end), icon_button("network-wired-symbolic", "Network, connected",
-      "status", shelf_icon(shelf, "status")));
-  gtk_box_append(GTK_BOX(end), icon_button("audio-volume-medium-symbolic", "Volume, 42 percent",
-      "status", shelf_icon(shelf, "status")));
-  gtk_box_append(GTK_BOX(end), icon_button("battery-level-80-symbolic", "Battery, 80 percent",
-      "status", shelf_icon(shelf, "status")));
+
+  window->network_box = status_icon_box("network-wired-symbolic", "Network",
+      shelf_icon(shelf, "status"));
+  window->network_image = gtk_widget_get_first_child(window->network_box);
+  gtk_box_append(GTK_BOX(end), window->network_box);
+
+  GtkWidget *volume = gtk_button_new();
+  gtk_widget_add_css_class(volume, "status");
+  GtkWidget *volume_image = gtk_image_new_from_icon_name("audio-volume-medium-symbolic");
+  gtk_image_set_pixel_size(GTK_IMAGE(volume_image), shelf_icon(shelf, "status"));
+  gtk_button_set_child(GTK_BUTTON(volume), volume_image);
+  gtk_widget_set_tooltip_text(volume, "Volume");
+  gtk_accessible_update_property(GTK_ACCESSIBLE(volume),
+      GTK_ACCESSIBLE_PROPERTY_LABEL, "Volume", -1);
+  g_signal_connect(volume, "clicked", G_CALLBACK(show_volume_popup), shelf);
+  GtkEventController *scroll = gtk_event_controller_scroll_new(
+      GTK_EVENT_CONTROLLER_SCROLL_VERTICAL | GTK_EVENT_CONTROLLER_SCROLL_DISCRETE);
+  g_signal_connect(scroll, "scroll", G_CALLBACK(volume_scroll), shelf);
+  gtk_widget_add_controller(volume, scroll);
+  GtkEventController *vkey = gtk_event_controller_key_new();
+  g_signal_connect(vkey, "key-pressed", G_CALLBACK(volume_key), shelf);
+  gtk_widget_add_controller(volume, vkey);
+  window->volume_button = volume;
+  window->volume_image = volume_image;
+  gtk_box_append(GTK_BOX(end), volume);
+
+  window->backlight_box = status_icon_box("display-brightness-symbolic", "Brightness",
+      shelf_icon(shelf, "status"));
+  window->backlight_image = gtk_widget_get_first_child(window->backlight_box);
+  gtk_box_append(GTK_BOX(end), window->backlight_box);
+
+  window->battery_box = status_icon_box("battery-level-80-symbolic", "Battery",
+      shelf_icon(shelf, "status"));
+  window->battery_image = gtk_widget_get_first_child(window->battery_box);
+  gtk_box_append(GTK_BOX(end), window->battery_box);
 
   GtkWidget *clock_button = gtk_button_new();
   gtk_widget_add_css_class(clock_button, "clock-button");
@@ -389,6 +589,7 @@ static PanelWindow *panel_window_new(PanelShelf *shelf, GdkMonitor *monitor) {
 
   format_clock(shelf, window);
   schedule_clock(window);
+  if (shelf->status) panel_shelf_refresh_status(shelf);
   return window;
 }
 
@@ -403,9 +604,13 @@ PanelShelf *panel_shelf_new(GtkApplication *app, PanelConfig *config) {
   shelf->app = app;
   shelf->config = config;
   shelf->windows = g_ptr_array_new_with_free_func((GDestroyNotify)panel_window_free);
+  shelf->status = panel_status_new(config, on_status_changed, shelf);
+  shelf->audio = panel_audio_new(on_audio_changed, shelf);
   shelf->toplevels = toplevel_service_new(config, show_window_list,
       on_toplevels_changed, shelf);
   panel_shelf_reload(shelf, config);
+  panel_audio_start(shelf->audio);
+  panel_shelf_refresh_status(shelf);
   return shelf;
 }
 
@@ -425,8 +630,10 @@ void panel_shelf_reload(PanelShelf *shelf, PanelConfig *config) {
   }
   if (count == 0) g_ptr_array_add(shelf->windows, panel_window_new(shelf, NULL));
   shelf->rebuilding = FALSE;
+  if (shelf->status) panel_status_set_config(shelf->status, config);
   if (shelf->toplevels) toplevel_service_reload_pins(shelf->toplevels, config);
   else rebuild_taskbars(shelf);
+  panel_shelf_refresh_status(shelf);
 }
 
 void panel_shelf_free(PanelShelf *shelf) {
@@ -435,6 +642,8 @@ void panel_shelf_free(PanelShelf *shelf) {
     gtk_widget_unparent(shelf->popover);
     shelf->popover = NULL;
   }
+  panel_audio_free(shelf->audio);
+  panel_status_free(shelf->status);
   g_ptr_array_unref(shelf->windows);
   toplevel_service_free(shelf->toplevels);
   g_free(shelf);

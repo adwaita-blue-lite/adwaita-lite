@@ -114,6 +114,7 @@ dnf5 install -y --setopt=install_weak_deps=False \
     power-profiles-daemon \
     pipewire-alsa \
     pipewire-pulseaudio \
+    pulseaudio-libs-glib2 \
     playerctl \
     python3-gobject \
     rsync \
@@ -131,6 +132,7 @@ dnf5 install -y --setopt=install_weak_deps=False \
     tumbler \
     udisks2 \
     unzip \
+    upower \
     vulkan-tools \
     waybar \
     wdisplays \
