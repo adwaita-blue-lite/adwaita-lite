@@ -32,6 +32,10 @@ env:
   IMAGE_NAME: "adwaita-lite"
   IMAGE_REGISTRY: "ghcr.io/adwaita-blue-lite"
   DEFAULT_TAG: "latest"
+  # Pinned multi-arch cosign image (OCI index) pulled from GHCR at signing
+  # time. Deliberately not a sigstore/cosign-installer release asset: the
+  # GitHub Releases CDN returned HTTP 504 and blocked publication.
+  COSIGN_IMAGE: "ghcr.io/sigstore/cosign/cosign@sha256:d91bc4e7e95e8d2f549c747a72dc174f90579e410a1695f57f686674f84ce849"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
@@ -278,23 +282,33 @@ jobs:
       #       podman tag $IMAGE ${{ env.IMAGE_NAME }}:$tag
       #     done
 
-      # These `if` statements are so that pull requests for your custom images do not make it publish any packages under your name without you knowing
-      # They also check if the runner is on the default branch so that things like the merge queue (if you enable it), are going to work
-      - name: Push To GHCR
-        uses: redhat-actions/push-to-registry@94ade333c38ecc0e60e94785125d9a52ca423b37 # v2
+      # Publication is fail-closed: the new image is pushed to an internal
+      # staging tag, signed, and verified before any public tag is moved.
+      # A failed sign/verify leaves `latest` (or the stream tag) untouched.
+      - name: Push staging image
+        id: push_staging
         if: steps.stream.outputs.publish == 'true'
-        id: push
-        with:
-          registry: ${{ env.IMAGE_REGISTRY }}
-          image: ${{ env.IMAGE_NAME }}
-          tags: ${{ steps.metadata.outputs.tags }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          staging_tag="${{ steps.stream.outputs.tag }}-staging-${GITHUB_SHA::12}"
+          podman push --quiet --retry 3 --retry-delay 5s \
+            --digestfile "${RUNNER_TEMP}/staging-digest" \
+            "localhost/${IMAGE_NAME}:${{ steps.stream.outputs.tag }}" \
+            "docker://${IMAGE_REGISTRY}/${IMAGE_NAME}:${staging_tag}"
+          digest="$(tr -d '[:space:]' < "${RUNNER_TEMP}/staging-digest")"
+          if [[ -z "${digest}" ]]; then
+            echo "::error::podman push did not report a digest for ${staging_tag}"
+            exit 1
+          fi
+          printf 'staging_tag=%s\ndigest=%s\n' "${staging_tag}" "${digest}" >> "${GITHUB_OUTPUT}"
+          {
+            echo "### Staged image (not yet public)"
+            echo ""
+            echo "- staging tag: \`${staging_tag}\`"
+            echo "- digest: \`${digest}\`"
+          } >> "${GITHUB_STEP_SUMMARY}"
 
-      # This section is optional and only needs to be enabled if you plan on distributing
-      # your project for others to consume. You will need to create a public and private key
-      # using Cosign and save the private key as a repository secret in Github for this workflow
-      # to consume. For more details, review the image signing section of the README.
       # cosign (go-containerregistry) reads Docker's auth file, not podman's.
       # The earlier podman login covers buildah/base pulls; this covers signing.
       - name: Login to GHCR for signing
@@ -305,29 +319,113 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Signing uses cosign from a pinned container image. The previous
+      # sigstore/cosign-installer action downloaded a release asset from the
+      # GitHub Releases CDN, which returned HTTP 504 and blocked publication.
       - name: Install Cosign
-        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
         if: steps.stream.outputs.publish == 'true'
-        with:
-          cosign-release: 'v3.1.2'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cosign_image="${COSIGN_IMAGE}"
+          for attempt in 1 2 3 4 5; do
+            if podman pull --quiet "${cosign_image}"; then
+              break
+            fi
+            echo "cosign image pull failed (attempt ${attempt}); retrying" >&2
+            sleep $((attempt * 5))
+          done
+          if ! podman image exists "${cosign_image}"; then
+            echo "::error::Could not pull ${cosign_image}"
+            exit 1
+          fi
+
+          # Wrapper so the sign/verify commands stay identical. The Docker
+          # config written by docker/login-action is mounted read-only. The
+          # cosign image runs as a non-root user, so run the container as root
+          # to read the 0600 credential file.
+          sudo tee /usr/local/bin/cosign >/dev/null <<EOF
+          #!/usr/bin/env bash
+          set -euo pipefail
+          exec podman run --rm --user 0 \\
+            --security-opt label=disable \\
+            -e COSIGN_PRIVATE_KEY \\
+            -e COSIGN_PASSWORD \\
+            -e DOCKER_CONFIG=/root/.docker \\
+            -v "\${HOME}/.docker/config.json:/root/.docker/config.json:ro" \\
+            -v "\${PWD}:/work:ro" \\
+            -w /work \\
+            ${cosign_image} "\$@"
+          EOF
+          sudo chmod 0755 /usr/local/bin/cosign
+          cosign version
 
       - name: Sign container image
         if: steps.stream.outputs.publish == 'true'
+        shell: bash
         run: |
           # Keep the legacy bundle format so bootc/rpm-ostree can verify the
           # signature (same compatibility flags upstream Universal Blue uses).
           cosign sign -y --new-bundle-format=false --use-signing-config=false \
             --key env://COSIGN_PRIVATE_KEY \
-            "${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}"
+            "${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push_staging.outputs.digest }}"
         env:
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
 
+      # Required gate: no public tag is promoted unless this passes.
       - name: Verify container image signature
         if: steps.stream.outputs.publish == 'true'
+        shell: bash
         run: |
           cosign verify \
             --key cosign.pub \
-            "${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push.outputs.digest }}"
+            "${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.push_staging.outputs.digest }}"
+
+      - name: Promote verified digest to public tags
+        if: steps.stream.outputs.publish == 'true'
+        shell: bash
+        env:
+          STREAM_TAG: ${{ steps.stream.outputs.tag }}
+          STAGED_DIGEST: ${{ steps.push_staging.outputs.digest }}
+          FINAL_TAGS: ${{ steps.metadata.outputs.tags }}
+        run: |
+          set -euo pipefail
+          read -r -a tags <<< "${FINAL_TAGS//$'\n'/ }"
+
+          # Promote date/alias tags first and the stream tag last, so a
+          # partial failure cannot move the stream tag to a different digest.
+          for tag in "${tags[@]}"; do
+            [[ -z "${tag}" || "${tag}" == "${STREAM_TAG}" ]] && continue
+            skopeo copy --retry-times 3 \
+              "docker://${IMAGE_REGISTRY}/${IMAGE_NAME}@${STAGED_DIGEST}" \
+              "docker://${IMAGE_REGISTRY}/${IMAGE_NAME}:${tag}"
+            resolved="$(skopeo inspect --format '{{.Digest}}' \
+              "docker://${IMAGE_REGISTRY}/${IMAGE_NAME}:${tag}")"
+            if [[ "${resolved}" != "${STAGED_DIGEST}" ]]; then
+              echo "::error::${tag} resolves to ${resolved}, expected ${STAGED_DIGEST}"
+              exit 1
+            fi
+          done
+
+          skopeo copy --retry-times 3 \
+            "docker://${IMAGE_REGISTRY}/${IMAGE_NAME}@${STAGED_DIGEST}" \
+            "docker://${IMAGE_REGISTRY}/${IMAGE_NAME}:${STREAM_TAG}"
+          resolved="$(skopeo inspect --format '{{.Digest}}' \
+            "docker://${IMAGE_REGISTRY}/${IMAGE_NAME}:${STREAM_TAG}")"
+          if [[ "${resolved}" != "${STAGED_DIGEST}" ]]; then
+            echo "::error::${STREAM_TAG} resolves to ${resolved}, expected ${STAGED_DIGEST}"
+            exit 1
+          fi
+
+      # Defense in depth: prove the promoted stream tag resolves to a signed
+      # image. The digest was already verified before promotion.
+      - name: Verify promoted tag signature
+        if: steps.stream.outputs.publish == 'true'
+        shell: bash
+        run: |
+          cosign verify \
+            --key cosign.pub \
+            "${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.stream.outputs.tag }}"
 
       - name: Continue sync promotion
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.sync_promotion == true && steps.stream.outputs.tag == 'dx' && steps.stream.outputs.publish == 'true' }}

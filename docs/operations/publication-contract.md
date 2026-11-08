@@ -1,6 +1,6 @@
 # Publication contract
 
-**Status:** pre-release (2026-11-01)
+**Status:** pre-release (2026-11-08)
 **Registry:** `ghcr.io/adwaita-blue-lite/adwaita-lite`
 **Source:** `github.com/adwaita-blue-lite/adwaita-lite` — a standalone derivative of
 [`ublue-os/image-template`](https://github.com/ublue-os/image-template)
@@ -56,6 +56,34 @@ cosign verify \
 The image policy writes a `sigstoreSigned` + `matchRepository` entry for
 `ghcr.io/adwaita-blue-lite` into `/etc/containers/policy.json` at build time.
 
+## Release process and promotion
+
+Publication is fail-closed. A stream build does not push directly to its public
+tag:
+
+1. The workflow pushes the new image under an internal staging tag,
+   `<stream>-staging-<short-commit-sha>` (for example
+   `latest-staging-a1b2c3d4e5f6`).
+2. It signs that digest with the project cosign key.
+3. It runs `cosign verify` against the same digest and the repository public
+   key. This verification is required.
+4. Only after verification does it promote the date and alias tags, and then
+   the stream tag (for example `latest`), by copying the verified digest. Each
+   promoted tag is checked to resolve to that digest, and the promoted stream
+   tag is verified again.
+
+If signing or verification fails, the public tags are not moved: the build
+fails and only the staging tag may remain. An unverified digest therefore
+cannot become `latest`.
+
+Cosign is installed from the pinned multi-arch image
+`ghcr.io/sigstore/cosign/cosign@sha256:d91bc4e7…`, not from a GitHub Releases
+asset, so signing does not depend on the release CDN that previously returned
+HTTP 504.
+
+Staging tags are internal build artifacts. They may be retained for provenance,
+but they are not supported install targets.
+
 ## Rollback and recovery
 
 - `sudo bootc rollback` returns to the previous deployment.
@@ -65,6 +93,9 @@ The image policy writes a `sigstoreSigned` + `matchRepository` entry for
   and signature state: [`status-matrix.md`](status-matrix.md).
 - If a bad build is published, rebuild and republish the stream tag. Do not delete
   date tags that users may have pinned.
+- To repair a legacy unsigned tag, sign the existing digest with the project key
+  and re-run `cosign verify` against the tag before relying on it. Never document
+  an unsigned digest as signed.
 
 ## Upstream
 
