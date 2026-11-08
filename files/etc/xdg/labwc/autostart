@@ -122,12 +122,11 @@ for line in r.stdout.splitlines():
             apply_wlr_randr(['wlr-randr', '--output', output, '--scale', str(scale)])
 " "$_settings" 2>/dev/null || true
 
-# Route waybar/mako stderr into XDG_RUNTIME_DIR so panel module errors
-# (chrono format_error from the clock, tray dbus hiccups, etc.) are
-# recoverable after the fact. stderr was previously discarded, which
-# masked a silent clock-module failure for months.
+# Route panel/mako stderr into XDG_RUNTIME_DIR so panel errors are
+# recoverable after the fact. The dispatcher reads panel_backend from
+# settings.json; Waybar remains the default.
 _logdir="${XDG_RUNTIME_DIR:-/tmp}"
-waybar >/dev/null 2>"$_logdir/waybar.log" &
+/usr/bin/adwaita-lite-session-panel >/dev/null 2>"$_logdir/panel.log" &
 mako >/dev/null 2>"$_logdir/mako.log" &
 
 # nm-applet is no longer autostarted — waybar's network module covers

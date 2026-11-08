@@ -9,6 +9,7 @@ FROM scratch AS ctx
 COPY --from=brew /system_files /files
 COPY build_files /build_files
 COPY files /files
+COPY panel /panel
 
 FROM ${BASE_IMAGE}
 
