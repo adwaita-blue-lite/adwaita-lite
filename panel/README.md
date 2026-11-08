@@ -53,19 +53,20 @@ GSK_RENDERER is forced to cairo inside the binary. Run it inside a
 labwc session; it places itself on every monitor.
 ```
 
-## Open item: popup keyboard focus
+## Popup and keyboard behaviour
 
-The Wave 0 spike showed that labwc delivers keys to a layer-shell popup only
-when the parent panel is `KEYBOARD_MODE_EXCLUSIVE` at startup. Changing the
-panel mode after mapping does not take effect, and a popup created from an
-`ON_DEMAND` panel does not receive Escape. The production panel must not grab
-the keyboard permanently, so Wave 1 needs one of:
+The panel starts its layer surface with `KEYBOARD_MODE_NONE` and switches to
+`ON_DEMAND` 500 ms after the first present. Starting in `ON_DEMAND` makes
+labwc focus the surface at map time, which steals keyboard focus from the
+active app; starting in `NONE` avoids that.
 
-- a dedicated keyboard layer surface created while the popup is open,
-- a borderless normal toplevel for keyboard-interactive menus, or
-- a labwc-specific focus workaround that can be proven in the VM gate.
-
-The clock popup remains pointer-accessible for now.
+Anchored menus (clock, window list, future tray/calendar) use `GtkPopover`
+with `autohide=TRUE`. GTK creates a layer-shell popup with an xdg_popup grab;
+labwc then delivers Escape, outside-click dismissal and keyboard row
+navigation, and returns focus to the previous app. The Wave 0 finding that
+"only a keyboard-exclusive panel can host a keyboard popup" was a test-harness
+key-injection race, not a compositor limitation. A full-screen app grid will
+use one `OVERLAY`/`EXCLUSIVE` layer surface when it lands.
 
 ## Performance notes
 

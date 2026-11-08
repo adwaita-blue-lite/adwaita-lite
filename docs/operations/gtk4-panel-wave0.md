@@ -67,17 +67,24 @@ showed `Volume, 42 percent` above the shelf. Tooltips are viable for the panel.
 
 ### Popovers vs layer-shell popups
 
-- `GtkPopover` **renders** on the layer-shell surface (correctly anchored above
-  the launcher), but keyboard input did not reach it: `wtype -k Escape` did
-  not close it, and the panel's key controller never saw the key.
-- A dedicated `GtkWindow` with `gtk4-layer-shell` (overlay layer, anchored above
-  the shelf, `KEYBOARD_MODE_EXCLUSIVE`) renders correctly **and** receives
-  keyboard input: `Escape` reached the popup's key controller and destroyed it.
+- `GtkPopover` **does work** on the layer-shell surface when the panel starts
+  in `KEYBOARD_MODE_NONE`/`ON_DEMAND`. GTK creates a layer-shell popup with an
+  xdg_popup grab; labwc delivers Escape, outside-click dismissal and keyboard
+  navigation, and returns focus to the previous app.
+- The original Wave 0 result ("Escape only works when the panel is exclusive
+  at startup") was a key-injection race in the harness: `wtype` sent the key
+  before `wl_keyboard.enter` reached the client. Re-running with a focus
+  barrier (`wtype -k F24; sleep 0.4; wtype -k Escape`) closed the popover.
+- A dedicated `EXCLUSIVE` layer popup also receives keys, but it does not
+  dismiss on outside click and blocks click-to-focus of other apps.
+- Starting a `TOP`/`OVERLAY` layer surface in `ON_DEMAND` makes labwc (and
+  Sway/Niri) focus it at map time, stealing focus from the active app.
+  Production should start with `NONE` and switch to `ON_DEMAND` after the
+  first present.
 
-**Decision:** use a reusable layer-shell popup surface for keyboard-interactive
-UI (window list, tray menus, future app grid). `GtkTooltip` remains fine for
-tooltips. Do not build the primary popup/menu model on `GtkPopover` unless a
-later spike proves focus handling on this compositor.
+**Decision:** use `GtkPopover` with `autohide=TRUE` for anchored menus
+(window list, tray, calendar); use a full-screen `OVERLAY`/`EXCLUSIVE` layer
+surface only for the app grid. Start the panel `NONE`, then `ON_DEMAND`.
 
 ### Focus
 
@@ -89,10 +96,8 @@ keyboard traversal; the spike still needs a clean verification of this.
 ## Remaining Wave 0 items
 
 - Orca/AT-SPI traversal and accessible names on the layer surface.
-- Foreign-toplevel identity map on labwc (`desktop_id` → `app_id` →
-  `startup_wm_class`) with real apps and multiple windows.
 - Populated memory/startup with 20 windows and mock tray items.
-- Multi-output surface creation and taskbar filtering (single-output lab only).
+- Multi-output taskbar filtering (surface creation is done; single-output lab).
 
 ## Next
 

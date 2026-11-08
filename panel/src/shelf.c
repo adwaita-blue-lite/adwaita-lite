@@ -21,8 +21,7 @@ struct _PanelShelf {
   PanelConfig *config;
   GPtrArray *windows;
   ToplevelService *toplevels;
-  GtkWidget *popup;
-  GtkWidget *popup_parent;
+  GtkWidget *popover;
   gboolean rebuilding;
 };
 
@@ -76,70 +75,33 @@ static void launch_app_menu(GtkButton *button, gpointer data) {
   }
 }
 
-static void close_popup(PanelShelf *shelf) {
-  if (shelf->popup) {
-    gtk_window_destroy(GTK_WINDOW(shelf->popup));
-    shelf->popup = NULL;
-  }
+static void popover_closed(GtkWidget *pop, gpointer data) {
+  PanelShelf *shelf = data;
+  if (shelf->popover == pop) shelf->popover = NULL;
+  gtk_widget_unparent(pop);
 }
 
-static gboolean panel_key(GtkEventControllerKey *controller, guint keyval,
-    guint keycode, GdkModifierType state, gpointer data) {
-  (void)controller; (void)keycode; (void)state;
-  PanelShelf *shelf = data;
-  if (keyval == GDK_KEY_Escape && shelf->popup) {
-    close_popup(shelf);
-    return GDK_EVENT_STOP;
+static GtkWidget *make_popover(PanelShelf *shelf, GtkWidget *anchor) {
+  if (shelf->popover) {
+    GtkWidget *old = shelf->popover;
+    shelf->popover = NULL;
+    gtk_widget_unparent(old);
   }
-  return GDK_EVENT_PROPAGATE;
-}
-
-static gboolean popup_key(GtkEventControllerKey *controller, guint keyval,
-    guint keycode, GdkModifierType state, gpointer data) {
-  (void)controller; (void)keycode; (void)state;
-  PanelShelf *shelf = data;
-  if (keyval == GDK_KEY_Escape) {
-    close_popup(shelf);
-    return GDK_EVENT_STOP;
-  }
-  return GDK_EVENT_PROPAGATE;
-}
-
-static void popup_closed(GtkWidget *window, gpointer data) {
-  (void)window;
-  PanelShelf *shelf = data;
-  if (shelf->popup == GTK_WIDGET(window)) shelf->popup = NULL;
-  if (shelf->popup_parent) {
-    gtk_layer_set_keyboard_mode(GTK_WINDOW(shelf->popup_parent),
-        GTK_LAYER_SHELL_KEYBOARD_MODE_ON_DEMAND);
-    shelf->popup_parent = NULL;
-  }
+  GtkWidget *pop = gtk_popover_new();
+  gtk_popover_set_autohide(GTK_POPOVER(pop), TRUE);
+  gtk_popover_set_has_arrow(GTK_POPOVER(pop), FALSE);
+  gtk_popover_set_position(GTK_POPOVER(pop), GTK_POS_TOP);
+  gtk_widget_set_parent(pop, anchor);
+  shelf->popover = pop;
+  g_signal_connect(pop, "closed", G_CALLBACK(popover_closed), shelf);
+  return pop;
 }
 
 static void show_clock_popup(GtkButton *button, gpointer data) {
-  (void)button;
   PanelShelf *shelf = data;
-  close_popup(shelf);
   if (panel_config_vertical(shelf->config)) return;
 
-  GtkNative *native = gtk_widget_get_native(GTK_WIDGET(button));
-  if (native) {
-    shelf->popup_parent = GTK_WIDGET(native);
-    gtk_layer_set_keyboard_mode(GTK_WINDOW(shelf->popup_parent),
-        GTK_LAYER_SHELL_KEYBOARD_MODE_EXCLUSIVE);
-  }
-  GtkWidget *popup = gtk_application_window_new(shelf->app);
-  gtk_widget_set_name(popup, "popup");
-  gtk_layer_init_for_window(GTK_WINDOW(popup));
-  gtk_layer_set_layer(GTK_WINDOW(popup), GTK_LAYER_SHELL_LAYER_OVERLAY);
-  gtk_layer_set_anchor(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_RIGHT, TRUE);
-  gtk_layer_set_anchor(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_BOTTOM, TRUE);
-  gtk_layer_set_margin(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_RIGHT, 16);
-  gtk_layer_set_margin(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_BOTTOM,
-      shelf_thickness(shelf) + 8);
-  gtk_layer_set_keyboard_mode(GTK_WINDOW(popup),
-      GTK_LAYER_SHELL_KEYBOARD_MODE_EXCLUSIVE);
-
+  GtkWidget *pop = make_popover(shelf, GTK_WIDGET(button));
   GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
   gtk_widget_set_margin_top(box, 12);
   gtk_widget_set_margin_bottom(box, 12);
@@ -155,20 +117,15 @@ static void show_clock_popup(GtkButton *button, gpointer data) {
   gtk_box_append(GTK_BOX(box), gtk_label_new(text));
   g_free(text);
   g_date_time_unref(now);
+
   GtkWidget *close = gtk_button_new_with_label("Close");
   gtk_widget_add_css_class(close, "popover-row");
-  g_signal_connect_swapped(close, "clicked", G_CALLBACK(gtk_window_destroy), popup);
+  g_signal_connect_swapped(close, "clicked", G_CALLBACK(gtk_popover_popdown), pop);
   gtk_box_append(GTK_BOX(box), close);
 
-  gtk_window_set_child(GTK_WINDOW(popup), box);
-  gtk_window_present(GTK_WINDOW(popup));
-  gtk_window_set_focus(GTK_WINDOW(popup), close);
-
-  GtkEventController *key = gtk_event_controller_key_new();
-  g_signal_connect(key, "key-pressed", G_CALLBACK(popup_key), shelf);
-  gtk_widget_add_controller(popup, key);
-  g_signal_connect(popup, "destroy", G_CALLBACK(popup_closed), shelf);
-  shelf->popup = popup;
+  gtk_popover_set_child(GTK_POPOVER(pop), box);
+  gtk_popover_popup(GTK_POPOVER(pop));
+  gtk_widget_grab_focus(close);
 }
 
 static GtkWidget *icon_button(const char *icon, const char *name,
@@ -217,19 +174,19 @@ static gboolean clock_tick(gpointer data) {
 }
 
 static void on_group_clicked(GtkButton *button, gpointer data) {
-  (void)button;
-  toplevel_group_activate(data);
+  toplevel_group_activate(data, GTK_WIDGET(button));
 }
 
 static void on_group_middle(GtkGestureClick *gesture, int n_press, double x, double y, gpointer data) {
-  (void)gesture; (void)n_press; (void)x; (void)y;
-  toplevel_group_middle(data);
+  (void)n_press; (void)x; (void)y;
+  GtkWidget *anchor = gtk_event_controller_get_widget(GTK_EVENT_CONTROLLER(gesture));
+  toplevel_group_middle(data, anchor);
 }
 
 static void on_group_secondary(GtkGestureClick *gesture, int n_press, double x, double y, gpointer data) {
-  (void)gesture; (void)n_press; (void)x; (void)y;
-  AppGroup *group = data;
-  toplevel_group_show_windows(group);
+  (void)n_press; (void)x; (void)y;
+  GtkWidget *anchor = gtk_event_controller_get_widget(GTK_EVENT_CONTROLLER(gesture));
+  toplevel_group_show_windows(data, anchor);
 }
 
 static GtkWidget *group_button(PanelShelf *shelf, AppGroup *group) {
@@ -294,23 +251,18 @@ static void on_toplevels_changed(gpointer data) {
   if (!shelf->rebuilding) rebuild_taskbars(shelf);
 }
 
-static void show_window_list(gpointer data, AppGroup *group) {
+static void on_window_row_clicked(GtkButton *button, gpointer data) {
+  PanelToplevel *window = data;
+  GtkWidget *pop = gtk_widget_get_ancestor(GTK_WIDGET(button), GTK_TYPE_POPOVER);
+  toplevel_window_activate(window);
+  if (pop) gtk_popover_popdown(GTK_POPOVER(pop));
+}
+
+static void show_window_list(gpointer data, AppGroup *group, GtkWidget *anchor) {
   PanelShelf *shelf = data;
-  close_popup(shelf);
   if (panel_config_vertical(shelf->config)) return;
 
-  GtkWidget *popup = gtk_application_window_new(shelf->app);
-  gtk_widget_set_name(popup, "popup");
-  gtk_layer_init_for_window(GTK_WINDOW(popup));
-  gtk_layer_set_layer(GTK_WINDOW(popup), GTK_LAYER_SHELL_LAYER_OVERLAY);
-  gtk_layer_set_anchor(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
-  gtk_layer_set_anchor(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_BOTTOM, TRUE);
-  gtk_layer_set_margin(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_LEFT, 16);
-  gtk_layer_set_margin(GTK_WINDOW(popup), GTK_LAYER_SHELL_EDGE_BOTTOM,
-      shelf_thickness(shelf) + 8);
-  gtk_layer_set_keyboard_mode(GTK_WINDOW(popup),
-      GTK_LAYER_SHELL_KEYBOARD_MODE_EXCLUSIVE);
-
+  GtkWidget *pop = make_popover(shelf, anchor);
   GtkWidget *box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
   gtk_widget_set_margin_top(box, 12);
   gtk_widget_set_margin_bottom(box, 12);
@@ -320,31 +272,31 @@ static void show_window_list(gpointer data, AppGroup *group) {
   gtk_widget_add_css_class(title, "popover-title");
   gtk_box_append(GTK_BOX(box), title);
 
+  GtkWidget *first_row = NULL;
   for (guint i = 0; i < group->windows->len; i++) {
     PanelToplevel *window = g_ptr_array_index(group->windows, i);
     GtkWidget *row = gtk_button_new_with_label(window->title && window->title[0] ?
         window->title : "Untitled window");
     gtk_widget_add_css_class(row, "popover-row");
-    g_object_set_data(G_OBJECT(row), "window", window);
-    g_signal_connect_swapped(row, "clicked", G_CALLBACK(toplevel_window_activate), window);
-    g_signal_connect_swapped(row, "clicked", G_CALLBACK(close_popup), shelf);
+    g_signal_connect(row, "clicked", G_CALLBACK(on_window_row_clicked), window);
     gtk_box_append(GTK_BOX(box), row);
+    if (!first_row) first_row = row;
   }
 
   GtkWidget *close = gtk_button_new_with_label("Close");
   gtk_widget_add_css_class(close, "popover-row");
-  g_signal_connect_swapped(close, "clicked", G_CALLBACK(gtk_window_destroy), popup);
+  g_signal_connect_swapped(close, "clicked", G_CALLBACK(gtk_popover_popdown), pop);
   gtk_box_append(GTK_BOX(box), close);
 
-  gtk_window_set_child(GTK_WINDOW(popup), box);
-  gtk_window_present(GTK_WINDOW(popup));
-  gtk_window_set_focus(GTK_WINDOW(popup), close);
+  gtk_popover_set_child(GTK_POPOVER(pop), box);
+  gtk_popover_popup(GTK_POPOVER(pop));
+  gtk_widget_grab_focus(first_row ? first_row : close);
+}
 
-  GtkEventController *key = gtk_event_controller_key_new();
-  g_signal_connect(key, "key-pressed", G_CALLBACK(popup_key), shelf);
-  gtk_widget_add_controller(popup, key);
-  g_signal_connect(popup, "destroy", G_CALLBACK(popup_closed), shelf);
-  shelf->popup = popup;
+static gboolean enable_on_demand(gpointer data) {
+  gtk_layer_set_keyboard_mode(GTK_WINDOW(data),
+      GTK_LAYER_SHELL_KEYBOARD_MODE_ON_DEMAND);
+  return G_SOURCE_REMOVE;
 }
 
 static PanelWindow *panel_window_new(PanelShelf *shelf, GdkMonitor *monitor) {
@@ -370,7 +322,7 @@ static PanelWindow *panel_window_new(PanelShelf *shelf, GdkMonitor *monitor) {
   gtk_layer_set_anchor(GTK_WINDOW(win), panel_edge, TRUE);
   gtk_layer_set_exclusive_zone(GTK_WINDOW(win), thickness);
   gtk_layer_set_keyboard_mode(GTK_WINDOW(win),
-      GTK_LAYER_SHELL_KEYBOARD_MODE_ON_DEMAND);
+      GTK_LAYER_SHELL_KEYBOARD_MODE_NONE);
 
   GtkWidget *shelf_box = gtk_box_new(
       vertical ? GTK_ORIENTATION_VERTICAL : GTK_ORIENTATION_HORIZONTAL, 4);
@@ -431,12 +383,9 @@ static PanelWindow *panel_window_new(PanelShelf *shelf, GdkMonitor *monitor) {
   gtk_box_append(GTK_BOX(shelf_box), spacer);
   gtk_box_append(GTK_BOX(shelf_box), end);
   gtk_window_set_child(GTK_WINDOW(win), shelf_box);
-  GtkEventController *panel_key_controller = gtk_event_controller_key_new();
-  g_signal_connect(panel_key_controller, "key-pressed", G_CALLBACK(panel_key), shelf);
-  gtk_widget_add_controller(win, panel_key_controller);
-
   gtk_window_present(GTK_WINDOW(win));
   clear_focus(GTK_WINDOW(win));
+  g_timeout_add(500, enable_on_demand, win);
 
   format_clock(shelf, window);
   schedule_clock(window);
@@ -463,7 +412,6 @@ PanelShelf *panel_shelf_new(GtkApplication *app, PanelConfig *config) {
 void panel_shelf_reload(PanelShelf *shelf, PanelConfig *config) {
   shelf->config = config;
   shelf->rebuilding = TRUE;
-  close_popup(shelf);
   g_ptr_array_set_size(shelf->windows, 0);
 
   GdkDisplay *display = gdk_display_get_default();
@@ -483,7 +431,10 @@ void panel_shelf_reload(PanelShelf *shelf, PanelConfig *config) {
 
 void panel_shelf_free(PanelShelf *shelf) {
   if (!shelf) return;
-  close_popup(shelf);
+  if (shelf->popover) {
+    gtk_widget_unparent(shelf->popover);
+    shelf->popover = NULL;
+  }
   g_ptr_array_unref(shelf->windows);
   toplevel_service_free(shelf->toplevels);
   g_free(shelf);

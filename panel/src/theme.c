@@ -155,7 +155,7 @@ char *panel_theme_css(const PanelConfig *config) {
     ".shelf button, .shelf label {\n"
     "  font-family: \"Adwaita Sans\", \"Inter\", \"Roboto\", sans-serif;\n"
     "}\n"
-    "window#popup {\n"
+    "popover, popover.background {\n"
     "  background: %s;\n"
     "  color: %s;\n"
     "  border: 1px solid %s;\n"
