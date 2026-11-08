@@ -49,20 +49,35 @@ jobs:
 
       - name: Install just
         run: |
-          curl -fsSL \
-            https://github.com/casey/just/releases/download/1.59.0/just-1.59.0-x86_64-unknown-linux-musl.tar.gz \
-            | tar -xz -C /tmp just
-          sudo install -m 0755 /tmp/just /usr/local/bin/just
+          # GitHub's release CDN occasionally returns 504 for a single
+          # pinned asset. Try the newest pin first, then a known-good
+          # fallback instead of failing the whole lint job.
+          for version in 1.59.0 1.58.0; do
+            if curl -fsSL --retry 2 --max-time 60 \
+              "https://github.com/casey/just/releases/download/${version}/just-${version}-x86_64-unknown-linux-musl.tar.gz" \
+              | tar -xz -C /tmp just; then
+              sudo install -m 0755 /tmp/just /usr/local/bin/just
+              exit 0
+            fi
+          done
+          echo "::error::could not download just" >&2
+          exit 1
 
       - name: Install linters
         run: |
           sudo apt-get update
           sudo apt-get install -y shellcheck python3-pip
           python3 -m pip install --user --break-system-packages ruff
-          curl -fsSL \
-            https://github.com/rhysd/actionlint/releases/download/v1.7.7/actionlint_1.7.7_linux_amd64.tar.gz \
-            | tar -xz -C /tmp actionlint
-          sudo install -m 0755 /tmp/actionlint /usr/local/bin/actionlint
+          for version in 1.7.7 1.7.1; do
+            if curl -fsSL --retry 2 --max-time 60 \
+              "https://github.com/rhysd/actionlint/releases/download/v${version}/actionlint_${version}_linux_amd64.tar.gz" \
+              | tar -xz -C /tmp actionlint; then
+              sudo install -m 0755 /tmp/actionlint /usr/local/bin/actionlint
+              exit 0
+            fi
+          done
+          echo "::error::could not download actionlint" >&2
+          exit 1
 
       - name: Justfile syntax
         run: just --unstable --fmt --check -f Justfile
